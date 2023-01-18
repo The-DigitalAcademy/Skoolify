@@ -2,6 +2,7 @@
 
 node_modules
 DS_Store
+.prettierrc
 
 # Compiled output
 /dist
@@ -10,6 +11,7 @@ DS_Store
 /bazel-out
 
 # Node
+/.prettierrc
 /node_modules
 npm-debug.log
 yarn-error.log
