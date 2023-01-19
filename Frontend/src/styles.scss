@@ -3,12 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
 :root {
-  --main-darklg: #1d2635;
-  --main-dark: #ffffff;
-  --primary-color: #2f80ec;
+  --main-dark: #333333;
+  --grey-dark: rgba(51,51,51,0.83);
+  --primary-color: #F18420;
+  --secondary-color: #FFEDCF;
+  --tertiary-color: #FFDAAE;
+  --green-200: #A3B4A2;
   --main-light: #eeeeee;
+
   font-family: "Poppins", sans-serif;
 }
 
@@ -19,11 +23,12 @@
 
 
 body {
-  font-family: tahoma;
+  font-family: "Poppins", sans-serif;
   height: 100vh;
   background-size: cover;
   background-position: center;
   align-items: center;
+
 }
 
 
@@ -41,7 +46,7 @@ h6,
   font-weight: 600;
   line-height: 1.5;
   margin-bottom: .5rem;
-  color: #32325d;
+  color: #333333;
 }
 
 h1,
