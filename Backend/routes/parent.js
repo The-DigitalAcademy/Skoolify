@@ -3,9 +3,10 @@ const bodyparser = require('body-parser')
 const router = express.Router()
 
 //routes here.
+const {getSchool}= require('../controllers/parent');
 
 
-
+router.get('/getSchool',getSchool)
 
 
 

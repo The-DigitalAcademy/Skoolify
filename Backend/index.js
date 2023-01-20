@@ -7,7 +7,8 @@ const app = express();
 
 
 //impot classes
-const routes = require("./routes/routes");
+//const routes = require("./routes/routes");
+const parent=require("./routes/parent")
 
 var corsOptions = {
     origin: "*"
@@ -21,6 +22,7 @@ app.use(cors(corsOptions));
 
 app.listen(8080,() => {console.log('Server running on port 8080');});
 
-app.use('/', routes)
+//app.use('/', routes)
+app.use('/parent',parent)
 
 
