@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Owner } from '../interfaces/owner';
+import { School } from '../interfaces/school';
+import { Vehicle } from '../interfaces/vehicle';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +13,8 @@ export class AdminService {
 
   baseUrl = 'http://localhost:8080/admin';
 
-  viewSchools() {
-    return this.http.get(this.baseUrl + '/viewSchools');
+  viewSchools():Observable<School[]> {
+    return this.http.get<School[]>(this.baseUrl + '/viewSchools').pipe();
   }
 
   addSchool(data: any) {
@@ -31,13 +33,13 @@ export class AdminService {
     return this.http.get<Owner[]>(this.baseUrl + '/owners').pipe();
   }
 
-  viewOwner(owner_id: number) {
-    return this.http.get(this.baseUrl + '/owners/' + owner_id);
+  viewOwner(owner_id: number): Observable<Owner> {
+    return this.http.get<Owner>(this.baseUrl + '/owners/' + owner_id);
   }
-  viewOwnerVehicles(owner_id: number) {
-    return this.http.get(this.baseUrl + '/owners/vehicles/' + owner_id);
+  viewOwnerVehicles(owner_id: number): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.baseUrl + '/owners/vehicles/' + owner_id);
   }
-  viewVehicle(vehicle_id: number) {
-    return this.http.get(this.baseUrl + '/owners/vehicles/' + vehicle_id);
+  viewVehicle(vehicle_id: number):Observable<Vehicle>{
+    return this.http.get<Vehicle>(this.baseUrl + '/owners/vehicles/' + vehicle_id);
   }
 }

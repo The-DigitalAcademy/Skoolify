@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Owner } from 'src/app/interfaces/owner';
 import { AdminService } from 'src/app/services/admin.service';
 
@@ -9,7 +10,8 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class ViewOwnersComponent implements OnInit {
   owners : Owner[] =[]
-  constructor(private adminService : AdminService) { }
+  sorting:string = 'is_suspended'
+  constructor(private adminService : AdminService,private router :Router) { }
 
   ngOnInit(): void {
 
@@ -17,6 +19,18 @@ export class ViewOwnersComponent implements OnInit {
       this.owners = owners;
     })
 
+  }
+
+  sort(e:any)
+  {
+    this.sorting = e.target.value
+
+  }
+
+  selectOwner(user_id:any)
+  {
+    sessionStorage.setItem('selected_owner', user_id);
+    this.router.navigateByUrl('admin/view-owner');
   }
 
 }
