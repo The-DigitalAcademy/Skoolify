@@ -8,6 +8,7 @@ import { ParentService } from 'src/app/services/schools/parent.service';
 })
 export class SchoolsComponent implements OnInit {
  data:any
+ searchSchool :any
 
 constructor(private service:ParentService) { }
 
