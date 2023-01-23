@@ -1,159 +1,49 @@
 
-
- <!-- <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">  
-<div class="container "  *ngFor="let record of data"  >
-  
-   <div class="card w-96  shadow-xl " style="background-color:red">
-   
-    <div class="card-body">
-      <h2 class="card-title"></h2>
-      <h2 class="card-title">{{record.school_name}}</h2>
-      <p>{{record.school_location}}</p>
-      <div class="card-actions justify-end">
-     </div>
+  <div class="px-2">
+    <div class="search-bar">
+      <div class="flex mt-6 justify-center lg:mx-auto content-center">
+        <input
+          type="text"
+          [(ngModel)]="searchSchool"
+          placeholder="Search a school…"
+          class="input w-72 bg-accent text-center -ml-4 placeholder:text-centerS rounded-full" />
+        <label
+          class="-ml-9 my-auto content-center"
+          style="color: var(--grey-dark)">
+          <i class="fi fi-rr-search my-auto"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          </i>
+        </label>
       </div>
     </div>
-  </div> 
-  </div>  -->
-
-
-  <div class="min-h-full">
-    <nav class="bg-gray-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-          <div class="flex items-center">
-            <div class="flex-shrink-0">
-  
-              <!--menu for mobile app-->
-  
-              <div class="flex">
-  
-                <label tabindex="0" class="btn btn-ghost btn-circle">
-                  <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-cc-circle" viewBox="0 0 16 16">
-                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM5.408 5.89c-.83 0-1.318.64-1.318 1.753v.742c0 1.108.479 1.727 1.318 1.727.69 0 1.138-.435 1.187-1.05h1.147v.114c-.058 1.147-1.029 1.938-2.343 1.938-1.612 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.319 0 2.29.812 2.343 1.999v.11H6.595c-.049-.638-.506-1.108-1.187-1.108Zm5.404 0c-.831 0-1.319.64-1.319 1.753v.742c0 1.108.48 1.727 1.319 1.727.69 0 1.138-.435 1.186-1.05h1.147v.114c-.057 1.147-1.028 1.938-2.342 1.938-1.613 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.318 0 2.29.812 2.342 1.999v.11h-1.147c-.048-.638-.505-1.108-1.186-1.108Z"/>
-                  </svg> -->
-  
-                  <img id="img-content"
-                    src="https://previews.123rf.com/images/mityaypg/mityaypg1808/mityaypg180800223/107715497-soccer-logo-template-design-football-logo-black-and-white-vintage-style-isolated-on-white-background.jpg">
-                </label>
-  
-              </div>
-              <!--untill here-->
-  
+<br>
+<h4>Featured Schools</h4>
+    <div class="grid grid-cols-2 w-full place-items-center gap-x-2 gap-y-2">
+        <div
+          class="grid-item schools w-full h-40 max-w-xs rounded-3xl px-3 py-4"
+          *ngFor="let record of data | filter:searchSchool; let x = index">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16"  style="color: #F18420;">
+            <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5ZM8 8.46 1.758 5.965 8 3.052l6.242 2.913L8 8.46Z"/>
+            <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46l-3.892-1.556Z"/>
+          </svg>
+          <div class="flex flex-col justify-start gap-1">
+            <i class="fi fi-sr-graduation-cap text-white"></i>
+            <h2 class="font-bold text-base w-full text-black">
+              {{record.school_name }}
+            </h2>
+            <div class="text-primary" >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4" style="color:#A3B4A2 ;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                  </svg>                  
+              <i class="fi fi-sr-marker text-xs mr-1"></i>
+              <span class="text-xs " style="color:#A3B4A2;">{{record.school_location }}</span>
             </div>
-            <div class="hidden md:block">
-              <div class="ml-10 flex items-baseline space-x-4">
-  
-  
-                <a routerLink="/dash"
-                  class="bg-white-900 text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
-                <a href="/post" class="bg-pink-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                  aria-current="page">Summary Results</a>
-              </div>
-            </div>
-          </div>
-          <div class="hidden md:block">
-            <div class="ml-4 flex items-center md:ml-6">
-              <button type="button"
-                class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                <span class="sr-only">View notifications</span>
-  
-  
-                <div class="dropdown dropdown-end">
-                  <label tabindex="0" class="btn btn-ghost btn-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-person"
-                      viewBox="0 0 16 16">
-                      <path
-                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                    </svg>
-                  </label>
-                  <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-red-100 rounded-box w-52 text-red-500">
-                    <li><a routerLink="/login">LogOut</a></li>
-                  </ul>
-                </div>
-  
-              </button>
-  
-            </div>
-          </div>
-          <div class="-mr-2 flex md:hidden">
-            <!-- Mobile menu button -->
-  
-            <div class="dropdown dropdown-end">
-              <label tabindex="0" class="btn btn-ghost btn-circle">
-                <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="white" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </label>
-              <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a routerLink="/dash">Dashboard</a></li>
-                <li><a routerLink="/post">Summary Results</a></li>
-                <li><a routerLink="/login">LogOut</a></li>
-              </ul>
-            </div>
-  
           </div>
         </div>
       </div>
-  
-      <!-- Mobile menu, show/hide based on menu state. -->
-      <div class="md:hidden" id="mobile-menu">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-  
-        </div>
-  
-      </div>
-    </nav>
-  
-    <header class="bg-white shadow">
-    </header>
-    <!-- search -->
-    <div class="form-group mb-6 mt-6">
-      <input type="text" placeholder="Search School" class="input bg-gray-50 input-bordered w-full lg:w-1/2 email" [(ngModel)]="searchSchool"/>
     </div>
-    <main class="grid md:grid-cols-2 sm:grid-cols-1 xs:grid-cols-1 lg:grid-cols-4 gap-3 justify-center">
-      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8" *ngFor="let record of data | filter:searchSchool; let x = index">
-  
-        <!-- Replace with your content -->
-        <div class="card w-full bg-base-100 shadow-xl">
-          <div class="card-body">
-            <div class="flex  justify-between">
-              <h2 class="card-title">{{record.school_name}}</h2>
-          
-            </div><br>
-            <p>{{record.school_location}}</p>
-  
-            <br>
-  
-            <div class="flex justify-between">
-              <div class="card-actions">
-  
-              
-  
-                <!-- My content -->
-                <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-                <div class="modal modal-bottom sm:modal-middle">
-                  <div class="modal-box">
-                   
-                    <div class="modal-action">
-                      <label for="my-modal-6" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                      <label for="my-modal-6">
-                     
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="justify-end">
-            
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--End -->
-      </div>
-    </main>
-  </div>
 
   
+    
