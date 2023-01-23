@@ -8,12 +8,14 @@ import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
+import { OwnerPageComponent } from './components/owner-page/owner-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SchoolsComponent,
-    VehiclesComponent
+    VehiclesComponent,
+    OwnerPageComponent
 
   ],
   imports: [
