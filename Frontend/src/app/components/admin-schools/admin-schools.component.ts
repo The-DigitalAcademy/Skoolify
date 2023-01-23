@@ -41,6 +41,13 @@ export class AdminSchoolsComponent implements OnInit {
     );
   }
 
+  viewSchool(school_id:any)
+  {
+    sessionStorage.setItem('selected_school',school_id);
+    this.router.navigateByUrl('admin/view-school')
+
+  }
+
   onSubmit(data: FormGroup)
   {
     this.message = "Saving...";

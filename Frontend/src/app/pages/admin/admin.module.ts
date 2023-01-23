@@ -9,9 +9,11 @@ import { AdminViewOneOwnerComponent } from 'src/app/components/admin-view-one-ow
 import { saveAs } from 'file-saver';
 import { AdminSchoolsComponent } from 'src/app/components/admin-schools/admin-schools.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { AdminViewOneSchoolComponent } from 'src/app/components/admin-view-one-school/admin-view-one-school.component';
+
 
 @NgModule({
-  declarations: [AdminComponent, ViewOwnersComponent,AdminViewOneOwnerComponent, OrderByPipe, AdminSchoolsComponent],
+  declarations: [AdminComponent, ViewOwnersComponent,AdminViewOneOwnerComponent, OrderByPipe, AdminSchoolsComponent,AdminViewOneSchoolComponent],
   imports: [CommonModule, AdminRoutingModule,FormsModule,ReactiveFormsModule],
 })
 export class AdminModule {}

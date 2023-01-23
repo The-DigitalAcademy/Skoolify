@@ -1,0 +1,34 @@
+<div class="px-4 mt-8">
+
+  <div class="flex justify-between mb-2">
+    <span class="my-auto font-semibold">Applications</span>
+    <span></span>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <div
+      class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"
+      *ngFor="let application of applications;index as i"
+      (click)="selectApplication(application.application_id)">
+      <img
+        class="w-20 h-20 object-cover rounded-xl my-auto"
+        src="https://images.unsplash.com/photo-1531727991582-cfd25ce79613?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+        alt=""
+      />
+      <div class="flex flex-col pt-4 pl-4">
+        <div class="name font-medium">{{owners[i].name}} {{owners[i].surname}}</div>
+        <p>{{vehicles[i].brand}} {{vehicles[i].model}}</p>
+        <p>{{schools[i].school_name}}</p>
+
+
+      </div>
+
+      <div
+        class="flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral">
+        <span class="text-white font-bold my-auto">New</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
