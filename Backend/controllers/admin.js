@@ -165,10 +165,12 @@ exports.ViewVehicle = (req, res) => {
       console.log(err);
       res.status(400).json({ message: "Error fetching vehicle" });
     } else {
-      res.status(200).json(results.rows);
+      res.status(200).json(results.rows[0]);
     }
   });
 };
+
+
 
 exports.suspendOwner = (req, res) => {
   const user_id = req.params.user_id;

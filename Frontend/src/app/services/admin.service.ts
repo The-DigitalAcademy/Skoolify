@@ -20,8 +20,8 @@ export class AdminService {
   viewSchools(): Observable<School[]> {
     return this.http.get<School[]>(this.baseUrl + '/viewSchools').pipe();
   }
-  viewSchool(school_id:number): Observable<School> {
-    return this.http.get<School>(this.baseUrl + '/viewSchools/'+school_id);
+  viewSchool(school_id: number): Observable<School> {
+    return this.http.get<School>(this.baseUrl + '/viewSchools/' + school_id);
   }
 
   addSchool(data: any) {
@@ -32,11 +32,11 @@ export class AdminService {
     return this.http.patch(this.baseUrl + '/removeSchool/' + school_id, null);
   }
 
-  viewSchoolTransporters(school_id:number): Observable<Transporter[]> {
-    return this.http.get<Transporter[]>(this.baseUrl + '/schooltransporters/'+school_id);
+  viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
+    return this.http.get<Transporter[]>(
+      this.baseUrl + '/schooltransporters/' + school_id
+    );
   }
-
-
 
   //owners
   suspend(owner_id: number) {
@@ -60,7 +60,7 @@ export class AdminService {
 
   viewVehicle(vehicle_id: number): Observable<Vehicle> {
     return this.http.get<Vehicle>(
-      this.baseUrl + '/owners/vehicles/' + vehicle_id
+      this.baseUrl + '/owners/vehicle/' + vehicle_id
     );
   }
 
@@ -70,17 +70,25 @@ export class AdminService {
   }
 
   viewApplication(application_id: number): Observable<OwnerApplication> {
-    return this.http.get<OwnerApplication>(this.baseUrl + '/applications/' + application_id);
+    return this.http.get<OwnerApplication>(
+      this.baseUrl + '/applications/' + application_id
+    );
   }
 
-  approveApplication(data: OwnerApplication)
-  {
-    this.http.post(this.baseUrl + '/applications/'+data.owner_id+'/'+data.school_id+'/'+data.vehicle_id,null);
+  approveApplication(data: OwnerApplication) {
+    this.http.post(
+      this.baseUrl +
+        '/applications/' +
+        data.owner_id +
+        '/' +
+        data.school_id +
+        '/' +
+        data.vehicle_id,
+      null
+    );
   }
 
-  declineApplication(application_id: number)
-  {
+  declineApplication(application_id: number) {
     //decline
   }
-
 }

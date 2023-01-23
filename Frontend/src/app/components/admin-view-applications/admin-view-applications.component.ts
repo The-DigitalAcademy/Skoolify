@@ -21,26 +21,28 @@ export class AdminViewApplicationsComponent implements OnInit {
 
 
 
-  constructor(private adminService:AdminService,private router: Router) { }
+  constructor(private adminService:AdminService,private router: Router) {
+
+   }
 
   ngOnInit(): void {
-      this.getApplications();
+    this.getApplications();
   }
 
   getApplications()
   {
-    this.adminService.viewAllApplications().subscribe(async(applications:OwnerApplication[])=>{
-      this.applications = await applications;
+    this.adminService.viewAllApplications().subscribe((applications:OwnerApplication[])=>{
+      this.applications =  applications;
 
       this.applications.forEach(application => {
-        this.adminService.viewOwner(application.owner_id).subscribe(async(owner: Owner)=>{
-          this.owners.push(await owner);
+        this.adminService.viewOwner(application.owner_id).subscribe((owner: Owner)=>{
+          this.owners.push(owner);
 
-          this.adminService.viewSchool(application.school_id).subscribe(async(school:School)=>{
-            this.schools.push(await school)
+          this.adminService.viewSchool(application.school_id).subscribe((school:School)=>{
+            this.schools.push(school)
 
-            this.adminService.viewVehicle(application.vehicle_id).subscribe(async(vehicle:Vehicle)=>{
-              this.vehicles.push(await vehicle)
+            this.adminService.viewVehicle(application.vehicle_id).subscribe((vehicle:Vehicle)=>{
+              this.vehicles.push(vehicle)
 
             },(error: HttpErrorResponse)=>{
               // error fetching vehicle
