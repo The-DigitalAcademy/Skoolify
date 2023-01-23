@@ -7,7 +7,7 @@ const app = express();
 
 
 //impot classes
-const routes = require("./routes/routes");
+const vehicle = require("./routes/vehicle");
 
 var corsOptions = {
     origin: "*"
@@ -21,6 +21,6 @@ app.use(cors(corsOptions));
 
 app.listen(8080,() => {console.log('Server running on port 8080');});
 
-app.use('/', routes)
+app.use('/vehicle', vehicle)
 
 
