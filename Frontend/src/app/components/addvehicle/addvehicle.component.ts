@@ -25,14 +25,12 @@ export class AddvehicleComponent implements OnInit {
   vehicle_image: any;
   addvehicleservice: any;
   data: AddvehicleComponent[] | undefined;
+  toast: any;
 
 constructor(private router:Router, private addvehicle:AddvehicleService) { }
  
 
 
-//       data: AddvehicleComponent[] = [];
-//   addvehicleservice: any;
-//   constructor(private api:AddvehicleService) { }
 
   ngOnInit(): void {
     this.addvehicleservice.getAddehicle()
@@ -43,6 +41,17 @@ constructor(private router:Router, private addvehicle:AddvehicleService) { }
     });
 }
 
+deleteVehicle(id:any)
+  {
+    this.addvehicleservice.deleteVehicle(id,this.data).subscribe((data:any)=>{
+     this.toast.success(({detail:"Done",summary:"Vehicle deleted"}));
+    },(err: HttpErrorResponse)=>{
+      this.toast.error({detail:"Error", summary:err.error.message});
+
+    })
   }
+}
+
+
 
 

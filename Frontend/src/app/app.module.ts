@@ -33,6 +33,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     HttpClientModule  ],
 
 
