@@ -8,8 +8,14 @@ import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NavDriverComponent } from './nav-driver/nav-driver.component';
 import { NavAdminComponent } from './nav-admin/nav-admin.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+
+
+
+import { RegisterComponent } from './components/register/register.component';
+
+import { LandingComponent } from './components/landing/landing.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,16 +23,17 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     SchoolsComponent,
     VehiclesComponent,
-    NavigationComponent,
-    NavDriverComponent,
-    NavAdminComponent,
+  
     RegisterComponent,
-    LoginComponent,
+ 
+       LandingComponent,
+         LoginComponent,
+  
 
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,ReactiveFormsModule,FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
