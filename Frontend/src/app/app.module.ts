@@ -8,6 +8,8 @@ import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NavDriverComponent } from './nav-driver/nav-driver.component';
 import { NavAdminComponent } from './nav-admin/nav-admin.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { NavAdminComponent } from './nav-admin/nav-admin.component';
     NavigationComponent,
     NavDriverComponent,
     NavAdminComponent,
+    RegisterComponent,
+    LoginComponent,
 
   ],
   imports: [
