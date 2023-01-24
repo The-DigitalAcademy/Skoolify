@@ -76,7 +76,7 @@ export class AdminService {
   }
 
   approveApplication(data: OwnerApplication) {
-    this.http.post(
+   return this.http.post(
       this.baseUrl +
         '/applications/' +
         data.owner_id +
@@ -90,5 +90,6 @@ export class AdminService {
 
   declineApplication(application_id: number) {
     //decline
+    return null
   }
 }

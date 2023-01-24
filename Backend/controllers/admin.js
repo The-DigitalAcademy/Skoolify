@@ -104,17 +104,18 @@ exports.viewApplication = (req, res) => {
       console.log(err);
       res.status(400).json({ message: "Error fetching application" });
     } else {
-      res.status(200).json(results.rows);
+      res.status(200).json(results.rows[0]);
     }
   });
 };
 
-exports.declineApplication = (req, res) => {};
+exports.declineApplication = (req, res) => {
+  //Decline the application
+};
 
 exports.approve = (req, res) => {
   const { owner_id, school_id, vehicle_id } = req.params;
-  const sql =
-    "INSERT INTO vehicle_owner (owner_id, school_id, vehicle_id) VALUES ($1, $2, $3)";
+  const sql ="INSERT INTO vehicle_owner (owner_id, school_id, vehicle_id) VALUES ($1, $2, $3)";
 
   client.query(sql, [owner_id, school_id, vehicle_id], (err, results) => {
     if (err) {
@@ -126,6 +127,7 @@ exports.approve = (req, res) => {
       res.status(200).json({ message: "Application approved" });
     }
   });
+
 };
 
 exports.viewOwner = (req, res) => {

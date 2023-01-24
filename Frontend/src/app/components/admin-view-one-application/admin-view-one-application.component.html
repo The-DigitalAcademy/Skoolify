@@ -7,5 +7,176 @@
     <span></span>
   </div>
 
+  <div class="profile flex justify-items-start gap-3 w-full h-36 mb-4">
+    <img
+      class="w-36 h-36 object-cover rounded-xl my-auto"
+      src="https://images.unsplash.com/photo-1531727991582-cfd25ce79613?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      alt=""
+    />
 
+    <div class="details flex flex-col justify-between">
+      <div class="contacts flex flex-col">
+        <span class="text-lg font-semibold w-48"
+          >{{ owner.name }} {{ owner.surname }}
+        </span>
+        <div class="contact flex flex-col text-xs">
+          <span class="text-sm -my-1"
+            >{{ vehicle.brand }} {{ vehicle.model }}</span
+          >
+          <span class="text-sm"
+            >{{ vehicle.vehicle_reg }} ({{ vehicle.color }})</span
+          >
+        </div>
+        <button
+          class="btn px-2 py-0 btn-ghost w-28 text-white gap-1 rounded-md"
+          style="background-color: var(--main-dark)"
+        >
+          <i class="fi fi-rr-chart-line-up"></i>
+          {{ owner.ratings }}
+          <div
+            class="vl my-auto rounded-sm mx-1"
+            style="
+              border-left: 1px solid rgba(219, 219, 219, 0.545);
+              height: 20px;
+            "
+          ></div>
+          <div
+            class="flex flex-col justify-start text-xs text-start lowercase gap-0"
+          >
+            <span *ngIf="owner.votes > 50">50+</span>
+            <span [hidden]="owner.votes > 50">{{ owner.votes }}</span>
+            <span class="-mt-1">Voted</span>
+          </div>
+        </button>
+        <span class="text-lg font-semibold">{{ price }} pm</span>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="font-semibold">Vehicle Owner's Information</h2>
+  <form action="" class="mb-4">
+    <div class="form-control w-full max-w-xs">
+      <label class="label">
+        <span class="label-text">Owner's name</span>
+      </label>
+      <input
+        type="text"
+        [value]="owner.name"
+        disabled
+        class="input w-full disabled:bg-accent"
+      />
+    </div>
+
+    <div class="form-control w-full max-w-xs">
+      <label class="label">
+        <span class="label-text">Owner's surname</span>
+      </label>
+      <input
+        type="text"
+        [value]="owner.surname"
+        disabled
+        class="input w-full disabled:bg-accent"
+      />
+    </div>
+  </form>
+
+  <h2 class="font-semibold">School Information</h2>
+  <form action="" class="mb-4">
+    <div class="form-control w-full max-w-xs">
+      <label class="label">
+        <span class="label-text">School name</span>
+      </label>
+      <input
+        type="text"
+        [value]="school.school_name"
+        disabled
+        class="input w-full disabled:bg-accent"
+      />
+    </div>
+  </form>
+
+  <h2 class="font-semibold">Assigned Driver</h2>
+  <form action="" class="mb-4">
+    <div class="form-control w-full max-w-xs">
+      <label class="label">
+        <span class="label-text">Driver's name</span>
+      </label>
+      <input
+        type="text"
+        [value]="vehicle.driver_name"
+        disabled
+        class="input w-full disabled:bg-accent"
+      />
+    </div>
+  </form>
+
+  <div class="w-full mb-4 flex justify-center">
+    <button
+      style="background-color: var(--main-dark)"
+      [ngClass]="
+        load
+          ? 'btn capitalize gap-2 loading text-white font-normal'
+          : 'btn capitalize font-normal gap-2'
+      "
+      (click)="viewDocument()"
+    >
+      <span class="text-white">View Documentation</span>
+      <i class="fi fi-rr-document text-white"></i>
+    </button>
+  </div>
+
+  <div class="flex justify-around w-3/4 mx-auto pb-4">
+    <label for="my-modal-6" class="btn btn-error capitalize font-normal">
+      Decline</label
+    >
+
+    <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+    <div class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <h3 class="font-bold text-lg text-left">Provide Feedback</h3>
+        <form
+          [formGroup]="feedback"
+          (submit)="onDecline(feedback)"
+          class="w-full"
+        >
+          <textarea
+            class="textarea bg-accent w-full"
+            placeholder="Enter feedback here ..."
+            formControlName="feedbackText"
+          ></textarea>
+
+          <div class="modal-action">
+            <label
+              for="my-modal-6"
+              style="background-color: var(--main-dark)"
+              class="btn text-white capitalize font-normal"
+              >Cancel</label
+            >
+            <button
+              [ngClass]="
+                loadDecline
+                  ? 'btn capitalize btn-error loading font-normal'
+                  : 'btn capitalize btn-error font-normal'
+              "
+              (click)="declineApplication()"
+            >
+              <span class="text-white">{{ messageDecline }}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <button
+      style="background-color: var(--main-dark)"
+      [ngClass]="
+        loadApprove
+          ? 'btn capitalize text-white loading font-normal'
+          : 'btn capitalize font-normal'
+      "
+      (click)="approveApplication()"
+    >
+      <span class="text-white">{{ messageApprove }}</span>
+    </button>
+  </div>
 </div>

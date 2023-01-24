@@ -1,4 +1,4 @@
-<div class="px-4 mt-8">
+<div class="px-4 mt-8 md:px-16">
   <div class="flex justify-between mb-2">
     <span class="my-auto">Vehicle Owners</span>
     <select class="select select-ghost w-fit max-w-xs" (change)="sort($event)">
@@ -7,7 +7,59 @@
       <option value="name">Name</option>
     </select>
   </div>
-  <div class="flex flex-col gap-2">
+
+  <div class="w-full hidden lg:flex">
+    <table class="table table-fixed w-full">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>Details</th>
+          <th>Rating</th>
+          <th>Votes</th>
+          <th>Account Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+        <tr (click)="selectOwner(owner.user_id)" *ngFor="let owner of owners | orderBy : sorting" class="transition-all rounded-3xl hover:scale-95 cursor-pointer">
+          <td>
+            <div class="flex items-center space-x-3">
+              <div class="avatar">
+                <div class="mask mask-squircle w-12 h-12">
+                  <img src="https://images.unsplash.com/photo-1531727991582-cfd25ce79613?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="Owner profile image" />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">{{owner.name}}</div>
+                <div class="text-sm opacity-50">{{owner.surname}}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            {{owner.ratings}}
+            <br/>
+            <span *ngIf="owner.ratings < 7.0" class="badge badge-error badge-sm">Below Average</span>
+            <span *ngIf="owner.ratings>= 7.0 && owner.ratings < 8.5" class="badge badge-ghost badge-sm">Average</span>
+            <span *ngIf="owner.ratings>= 8.5" class="badge badge-neutral badge-sm">Above Average</span>
+
+          </td>
+          <td>{{owner.votes}}</td>
+          <th>
+            <button class="btn btn-ghost btn-xs">
+              <span *ngIf="owner.is_suspended">Suspended</span>
+              <span *ngIf="!owner.is_suspended">Active</span>
+            </button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+  <div class="flex lg:hidden flex-col gap-2">
     <div
       class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"
       *ngFor="let owner of owners | orderBy : sorting"

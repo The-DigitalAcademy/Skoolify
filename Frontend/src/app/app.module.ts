@@ -10,7 +10,7 @@ import { AdminViewApplicationsComponent } from './components/admin-view-applicat
 import { AdminViewOneApplicationComponent } from './components/admin-view-one-application/admin-view-one-application.component';
 
 @NgModule({
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, AdminViewApplicationsComponent, AdminViewOneApplicationComponent],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],

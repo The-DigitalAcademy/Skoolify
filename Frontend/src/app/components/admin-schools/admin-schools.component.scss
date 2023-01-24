@@ -12,3 +12,12 @@
 {
   background-color: var(--main-dark);
 }
+.school_name
+{
+  display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -60,6 +60,10 @@ export class AdminSchoolsComponent implements OnInit {
         this.message = "Saved";
         this.load = false;
       }, 2000);
+
+      setTimeout(() => {
+        this.message = "Save";
+      }, 4000);
     },(error:HttpErrorResponse)=>{
       //failed to save school
       console.log(error)
