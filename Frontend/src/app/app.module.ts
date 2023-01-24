@@ -6,6 +6,7 @@ import { SchoolsComponent } from './components/schools/schools.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AddvehicleComponent } from './components/addvehicle/addvehicle.component';
 import { AddvehicleService } from './services/addvehicle.service';
@@ -17,6 +18,9 @@ const routes: Routes = [
 
 
 @NgModule({
+  
+
+
   declarations: [
   
     AppComponent,
