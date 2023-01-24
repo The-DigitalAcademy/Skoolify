@@ -12,10 +12,17 @@ export class OwnerPageComponent implements OnInit {
 
  constructor(private service:ParentService) { }
 
-  ngOnInit(): void {
-    this.service.getSchool().subscribe((view)=>{
-    this.data=view
+  // ngOnInit(): void {
+  //   this.service.getDrivers().subscribe((view)=>{
+  //   this.data=view
 
+  // })
+  // }
+  ngOnInit(): void {
+    this.service.getDrivers().subscribe((view)=>{
+    this.data=view
+    console.log("selected id", view)
+    
   })
   }
-  }
+}
