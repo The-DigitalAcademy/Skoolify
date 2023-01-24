@@ -8,6 +8,7 @@ import { ParentService } from 'src/app/services/schools/parent.service';
 })
 export class OwnerPageComponent implements OnInit {
   data:any
+  driver:any
   searchSchool :any
 
  constructor(private service:ParentService) { }
@@ -20,9 +21,13 @@ export class OwnerPageComponent implements OnInit {
   // }
   ngOnInit(): void {
     this.service.getDrivers().subscribe((view)=>{
-    this.data=view
+    this.driver=view
     console.log("selected id", view)
-    
   })
+  this.service.getSchool().subscribe((view)=>{
+    this.data=view
+    //console.log("selected id", view)
+  })
+
   }
 }
