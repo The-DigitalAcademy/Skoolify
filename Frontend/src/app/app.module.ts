@@ -6,16 +6,29 @@ import { AppComponent } from './app.component';
 import { SchoolsComponent } from './components/schools/schools.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
 
+import { RegisterComponent } from './components/register/register.component';
+
+import { LandingComponent } from './components/landing/landing.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     SchoolsComponent,
-    VehiclesComponent
+    VehiclesComponent,
+  
+    RegisterComponent,
+ 
+       LandingComponent,
+         LoginComponent,
+  
 
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,ReactiveFormsModule,FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
