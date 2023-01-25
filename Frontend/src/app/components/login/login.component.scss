@@ -6,11 +6,16 @@
   }
   
   form {
-    width: 300px;
+    width: 350px;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px #ccc;
+    border: 1px solid #333333d4;
+    border-radius: 30px;
+    box-shadow: 2px 2px 10px#333333d4;
+  }
+  .logo{
+  
+    margin-left: 15%;
+
   }
   
   .form-group {
@@ -35,7 +40,7 @@
   
   button[type="submit"] {
     background-color: white;
-    color: black;
+    color: 333333;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
@@ -49,17 +54,10 @@
   }
   #frame1{
 
-    background-color: #D9D9D9;
-
-
-
-
+    background-color: var(--grey-dark);
 
   }
-  #emailtext{
 
-text: white;
-
-
-
+  .emailtext{
+    background-color: var(--input-grey);
   }
