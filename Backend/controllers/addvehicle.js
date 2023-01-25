@@ -32,5 +32,36 @@ exports.addvehicle = async (req, res)=>{
   }
 };
 
+//get all  vehicles quu
+
+exports.viewvehicle = async (req, res) => {
+  const owner_id = parseInt(req.params.id);
+  try {
+        //get all post form the database
+        const data = await client.query(
+          `SELECT * FROM vehicle where owner_id = $1`,
+          [owner_id],
+          (err,result) => {
+            if (err) {
+           //If post are not available is not inserted to database
+              console.error(err);
+              return res.status(500).json({
+                error: "Database error",
+              });
+            } else {
+              res
+                .status(200)
+                .send(result.rows);
+            }
+          }
+        );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error while creating post!", //Database connection error
+    });
+  }
+};
+
 
 

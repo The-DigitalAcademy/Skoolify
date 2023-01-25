@@ -4,11 +4,19 @@ import { Observable } from 'rxjs';
 
 
 
+
+const ownerID= localStorage.getItem('owner_id')
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class AddvehicleService  {
-  baseUrl : String = 'http://localhost:8080/api';
+
+  addvehicle(myFormData: FormData) {
+    throw new Error('Method not implemented.');
+  }
+  baseUrl : String = 'http://localhost:8080/vehicle';
 
   constructor(private http:HttpClient) { }
 
@@ -19,6 +27,22 @@ export class AddvehicleService  {
   getVehicles(): Observable<any> {
     return this.http.get(this.baseUrl+'/getVehicles');
   }
+
+  viewvehicle(owner_id:number){
+
+    return this.http.get("http://localhost:8080/vehicle/viewvehicle/"+owner_id)
+     //return this.http.get(`${this.baseUrl}/viewvehicle/${ownerID}`)
+  }
+
+
+
+
+
+
+
+
+
+
 
   deleteVehicle(id:any,data:any)
   {

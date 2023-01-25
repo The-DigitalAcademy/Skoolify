@@ -62,4 +62,10 @@
   .dropdown:hover .dropdown-content {display: block;}
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
-  .dropdown:hover .dropbtn {background-color: #F4F4F4;}
+  .dropdown:hover .dropbtn {background-color: #F4F4F4;
+
+
+  }
+  .dropdown{
+    height: 350px;
+  }
