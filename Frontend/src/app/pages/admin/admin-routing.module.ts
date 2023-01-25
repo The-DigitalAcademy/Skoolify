@@ -9,15 +9,13 @@ import { ViewOwnersComponent } from 'src/app/components/admin-view-owners/view-o
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
-  { path: '', component: AdminComponent },
+  { path: '', component: AdminSchoolsComponent },
   {path:'view-owners',component:ViewOwnersComponent},
   {path:'view-owner',component: AdminViewOneOwnerComponent},
   {path:'schools',component: AdminSchoolsComponent},
   {path:'view-school',component: AdminViewOneSchoolComponent},
   {path:'view-applications',component:AdminViewApplicationsComponent},
   {path:'view-application',component:AdminViewOneApplicationComponent}
-
-
 
 ]
 @NgModule({

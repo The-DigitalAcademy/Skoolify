@@ -23,6 +23,8 @@ router.patch("/owners/suspend/:user_id", admin.suspendOwner);
 router.get('/applications',admin.viewAllApplications)
 router.get('/applications/:application_id',admin.viewApplication)
 router.post('/applications/:owner_id/:school_id/:vehicle_id',admin.approve)
+router.patch('/applications/decline/:application_id',admin.declineApplication)
+
 
 
 

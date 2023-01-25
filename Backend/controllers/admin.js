@@ -1,4 +1,26 @@
 const client = require("../config/db_config");
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+
+const sender =  "skoolify@outlook.com";
+
+  var transporter = nodemailer.createTransport({
+       
+    service:'hotmail',
+    auth: {
+      user: 'skoolify@outlook.com', // 
+      pass: 'Letsdoit!', // 
+    },
+  });
+
+  emailDetails = {
+    from: '', //where the email is from 
+    to: '', //where the email is to
+    subject: '', //email subject
+    text: '', //email
+    
+     
+  }
 
 exports.viewSchools = (req, res) => {
   const sql = "SELECT * FROM school WHERE is_deleted = false";
@@ -111,6 +133,57 @@ exports.viewApplication = (req, res) => {
 
 exports.declineApplication = (req, res) => {
   //Decline the application
+  const application_id = req.params.application_id;
+  const feedback = req.body.feedback;
+ 
+
+  const sql_1 = "SELECT * FROM application WHERE application_id = $1";
+
+  client.query(sql_1, [application_id], (err, results) => {
+    if(err){
+      console.log(err);
+    }else{
+      console.log(results.rows[0])
+      let owner_id = results.rows[0].owner_id;
+      let sql_2 = "SELECT * FROM users WHERE user_id = $1";
+
+      client.query(sql_2, [owner_id], (err, ownerResults) => {
+        if(err){
+          console.log(err);
+        }else{
+          emailDetails.from = sender;
+          emailDetails.to = ownerResults.rows[0].email;
+          emailDetails.text = 'Good Day ' +ownerResults.rows[0].name +'\n\nThank you for taking your time and sending an application to get verified. However upon reviewing your application, we are sad to notify you that your application was unsuccessful. \n\nReason: '+ feedback +'\n\nThe SGB';
+          emailDetails.subject = "Application Response";
+          transporter.sendMail(emailDetails,(emailErr)=>{
+            if(emailErr)
+            {
+              console.log(emailErr);
+            }else{
+              let sql_3 = "UPDATE application SET status = 'DECLINED' WHERE application_id = $1";
+              client.query(sql_3, [application_id], (err, declinedResults) => {
+                if(err){
+                  console.log(err)
+                }else{
+                  res.status(200).json({message:'Application declined'});
+                }
+
+              })
+
+            }
+          })
+
+        }
+        
+      })
+    
+    }
+
+  })
+
+  
+
+
 };
 
 exports.approve = (req, res) => {
