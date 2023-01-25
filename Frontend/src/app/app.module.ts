@@ -10,7 +10,6 @@ import { NavDriverComponent } from './nav-driver/nav-driver.component';
 import { NavAdminComponent } from './nav-admin/nav-admin.component';
 
 
-
 import { RegisterComponent } from './components/register/register.component';
 
 import { LandingComponent } from './components/landing/landing.component';
@@ -33,7 +32,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,ReactiveFormsModule,FormsModule
+    
+    AppRoutingModule,ReactiveFormsModule,FormsModule,
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

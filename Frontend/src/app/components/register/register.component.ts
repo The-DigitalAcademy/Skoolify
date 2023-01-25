@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -8,7 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -28,5 +28,11 @@ export class RegisterComponent implements OnInit {
       this.step = 2;
   
     }
-    onRegister(form:FormGroup){}
+    onRegister(form:FormGroup){
+      
+    }
+
+
+
+    
 }
