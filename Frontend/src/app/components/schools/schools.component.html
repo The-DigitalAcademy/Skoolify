@@ -1,5 +1,5 @@
 
-  <div class="px-2">
+  <div class="px-2  md:px-10 lg:px-14">
     <div class="search-bar">
       <div class="flex mt-6 justify-center lg:mx-auto content-center">
         <input
@@ -19,7 +19,7 @@
     </div>
 <br>
 <h4>Featured Schools</h4>
-    <div class="grid grid-cols-2 w-full place-items-center gap-x-2 gap-y-2">
+    <div class="grid overflow-y-scroll grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full place-items-center gap-x-2 gap-y-2">
         <div
           class="grid-item schools w-full h-40 max-w-xs rounded-3xl px-3 py-4"
           *ngFor="let record of data | filter:searchSchool; let x = index">
