@@ -1,46 +1,140 @@
-<!-- <div ngIf="submitted && f['email'].errors" class="invalid-feedback">
-    <div ngIf="f['email'].errors['required']">Email is required</div>
+<div class="px-6">
+    <img
+      class="logo items-center"
+      id="logo"
+      src="../../../assets/Logo.png"
+      alt="Backimage"
+      style="width: 219px;height:auto"
+    />
+    <p class="mt-6 text-center tracking-tight text-gray-900">
+      sign up and ride a <br/>for your child
+    </p>
+</div>
+<br>
+    <form
+      [formGroup]="registerForm1"
+      (ngSubmit)="onRegister(registerForm1)"
+      id="control"
+      class="mx-auto mb-4"
+    >
+      <div
+        id="bg"
+        class=""
+        *ngIf="step == 1"
+        style="background-color: var(--grey-dark);border-radius:px"
+      >
+       
 
-    <div *ngIf="f['email'].errors['email']">Email is invalid</div>
-  </div> -->
-
-
-<img class="mech items-center" id="logo"src="../../../assets/Logo.png" alt="Backimage">
-<p class="mt-6 text-center  tracking-tight text-gray-900"> sign up and  ride a <br>for your child</p>
 
 
 
 
-<form [formGroup]="registerForm1" (ngSubmit)="onRegister(registerForm1)" class="form-control w-3/4 mx-auto gap-2 mb-4" method="POST">
+
+<div class="form-control my-2 w-full max-w-xs lg:mt-2">
+  <input
+    type="text"
+    placeholder="First Name"
+    formControlName="name"
+    id="input"
+    class="input bg-accent input-bordered w-full max-w-xs"
+    minlength="2"
+    required
+  />
+</div>
+
+<div id="form" class="form-control w-full max-w-xs my-2 lg:mt-5">
+  <input
+    type="text"
+    placeholder="Last name"
+    formControlName="surname"
+    class="input bg-accent input-bordered w-full max-w-xs"
+    minlength="2"
+    required
+  />
+</div>
+
+<div class="form-control w-full max-w-xs my-2 lg:mt-5">
+  <input
+    type="text"
+    placeholder="Email"
+    formControlName="email"
+    [email]="true"
+    class="input bg-accent input-bordered w-full max-w-xs"
+    required
+  />
+</div>
+
+<div class="flex justify-between my-3">
+  <span></span>
+  <button
+    (click)="nextStep(registerForm1)"
+    class="link decoration-transparent"
+  >
+    Next <i class="fi fi-rr-angle-right text-sm"></i>
+  </button>
+</div>
+</div>
 
 
-    <div id ="bg"class=" bg-black" *ngIf="step==1" style="border-radius: 25px;">
-        
-        <div class="form-control my-2 w-full max-w-xs lg:mt-2">
-            <input type="text" placeholder="First Name" formControlName="name" class="input bg-primary input-bordered w-full max-w-xs" minlength="2" required/>
+
+
+
+
+
+
+
+<div class="form-control my-2 w-full max-w-xs lg:mt-2">
+          <input
+            type="text"
+            placeholder="First Name"
+            formControlName="name"
+            id="input"
+            class="input bg-accent input-bordered w-full max-w-xs"
+            minlength="2"
+            required
+          />
         </div>
 
-        <div class="form-control  w-full max-w-xs my-2 lg:mt-5">
-            <input type="text" placeholder="Last name" formControlName="surname" class="input input-bordered w-full max-w-xs" minlength="2" required />
+        <div id="form" class="form-control w-full max-w-xs my-2 lg:mt-5">
+          <input
+            type="text"
+            placeholder="Last name"
+            formControlName="surname"
+            class="input bg-accent input-bordered w-full max-w-xs"
+            minlength="2"
+            required
+          />
         </div>
 
         <div class="form-control w-full max-w-xs my-2 lg:mt-5">
-            <input type="text" placeholder="Email" formControlName="email" [email]="true" class="input input-bordered w-full max-w-xs" required/>
-            
+          <input
+            type="text"
+            placeholder="Email"
+            formControlName="email"
+            [email]="true"
+            class="input bg-accent input-bordered w-full max-w-xs"
+            required
+          />
         </div>
         
 
         <div class="flex justify-between my-3">
-            <span></span>
-            <button (click)="nextStep(registerForm1)" class="link decoration-transparent">Next <i class="fi fi-rr-angle-right text-sm"></i></button>
+          <span></span>
+          <button
+            (click)="nextStep(registerForm1)"
+            class="link decoration-transparent"
+          >
+            Next <i class="fi fi-rr-angle-right text-sm"></i>
+          </button>
         </div>
 
-    </div>
 
-    <div class="step-1" *ngIf="step==2">
-        
+
+
+    
+      <div class="reg2 step-1" id = "back1"*ngIf="step == 2" > 
         <div class="form-control w-full max-w-xs lg:mt-2">
-
+<div id="  container" class="container">
          
         
                         
@@ -57,8 +151,36 @@
   
   
 </select>
+</div>
+        
 
-           
+         
+         
+
+            <div class="form-control w-full max-w-xs mb-2 lg:mt-5">
+              create password
+              <input
+                type="password"
+                placeholder="Password"
+                class="input input-bordered w-full max-w-xs"
+                formControlName="password"
+                required
+                style="width: 210px"
+              />
+            </div>
+
+            <div class="form-control w-full max-w-xs mb-2 lg:mt-5">
+              re type password
+              <input
+                type="password"
+                placeholder="Re-type password"
+                class="input input-bordered w-full max-w-xs"
+                formControlName="confirmPassword"
+                required
+                style="width: 210px"
+              />
+            </div>
+          </div>
         </div>
         
 
@@ -74,7 +196,7 @@
 
         <button type="submit"  class="btn btn-sm my-4 md:btn-sm w-52 mx-auto lg:btn-sm btn-primary">Sign up</button>
         
-    </div>
+   
     
 
 </form>
