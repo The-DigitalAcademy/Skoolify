@@ -1,6 +1,8 @@
-<form class="mt-8 space-y-6" action="#" id ="frame1"method="POST">
-    <input type="hidden" name="remember" value="true">
-    <div class="-space-y-px rounded-md shadow-sm">
+<!-- <div ngIf="submitted && f['email'].errors" class="invalid-feedback">
+    <div ngIf="f['email'].errors['required']">Email is required</div>
+
+    <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+  </div> -->
 
 
 <img class="mech items-center" id="logo"src="../../../assets/Logo.png" alt="Backimage">
@@ -8,7 +10,8 @@
 
 
 
-<form [formGroup]="registerForm1" (ngSubmit)="onRegister(registerForm1)" class="form-control w-3/4 mx-auto gap-2 mb-4" >
+
+<form [formGroup]="registerForm1" (ngSubmit)="onRegister(registerForm1)" class="form-control w-3/4 mx-auto gap-2 mb-4" method="POST">
 
 
     <div id ="bg"class=" bg-black" *ngIf="step==1" style="border-radius: 25px;">
@@ -23,7 +26,9 @@
 
         <div class="form-control w-full max-w-xs my-2 lg:mt-5">
             <input type="text" placeholder="Email" formControlName="email" [email]="true" class="input input-bordered w-full max-w-xs" required/>
+            
         </div>
+        
 
         <div class="flex justify-between my-3">
             <span></span>
@@ -37,22 +42,19 @@
         <div class="form-control w-full max-w-xs lg:mt-2">
 
          
-            
-                
-
-              
+        
                         
-            <label for="dog-names">gender</label>
-            <select name="dog-names" id="dog-names">
+            <label for="gender">gender</label>
+            <select name="gender" id="gender" formControlName="gender">
                 <option value="rigatoni">male</option>
               <option value="dave">female</option>
              
               
-            </select>        <label for="dog-names">account type:</label>
-<select name="dog-names" id="dog-names">
-    <option value="rigatoni">parent</option>
-  <option value="dave">car owner</option>
-  <option value="pumpernickel">admin</option>
+            </select>        <label for="account">account type:</label>
+<select name="account" id="account" formControlName="account">
+     <option value="PARENT">parent</option>
+    <option value="OWNER">car owner</option>
+  
   
 </select>
 
@@ -70,7 +72,7 @@
 
        
 
-        <button type="submit" [disabled]="registerForm1.invalid" class="btn btn-sm my-4 md:btn-sm w-52 mx-auto lg:btn-sm btn-primary">Sign up</button>
+        <button type="submit"  class="btn btn-sm my-4 md:btn-sm w-52 mx-auto lg:btn-sm btn-primary">Sign up</button>
         
     </div>
     

@@ -9,7 +9,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NavDriverComponent } from './nav-driver/nav-driver.component';
 import { NavAdminComponent } from './nav-admin/nav-admin.component';
 
-
+import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 
 import { LandingComponent } from './components/landing/landing.component';
@@ -22,7 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     SchoolsComponent,
     VehiclesComponent,
-  
+
     RegisterComponent,
  
        LandingComponent,
@@ -32,7 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    
+    HttpClientModule,
     AppRoutingModule,ReactiveFormsModule,FormsModule,
   
   ],
