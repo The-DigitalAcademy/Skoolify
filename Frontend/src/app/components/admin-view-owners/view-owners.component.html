@@ -26,7 +26,7 @@
             <div class="flex items-center space-x-3">
               <div class="avatar">
                 <div class="mask mask-squircle w-12 h-12">
-                  <img src="https://images.unsplash.com/photo-1531727991582-cfd25ce79613?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="Owner profile image" />
+                  <img [src]="owner.image" alt="Owner profile image" />
                 </div>
               </div>
               <div>
@@ -67,7 +67,7 @@
     >
       <img
         class="w-20 h-20 object-cover rounded-xl my-auto"
-        src="https://images.unsplash.com/photo-1531727991582-cfd25ce79613?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+        [src]="owner.image"
         alt=""
       />
       <div class="flex flex-col pt-4 pl-4">

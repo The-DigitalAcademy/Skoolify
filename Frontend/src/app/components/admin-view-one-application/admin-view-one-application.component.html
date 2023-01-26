@@ -10,7 +10,7 @@
   <div class="profile flex justify-items-start gap-3 w-full h-36 mb-4">
     <img
       class="w-36 h-36 object-cover rounded-xl my-auto"
-      src="https://images.unsplash.com/photo-1531727991582-cfd25ce79613?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      [src]="owner.image"
       alt=""
     />
 
@@ -142,7 +142,7 @@
           <textarea
             class="textarea bg-accent w-full"
             placeholder="Enter feedback here ..."
-            formControlName="feedbackText"
+            formControlName="feedback"
           ></textarea>
 
           <div class="modal-action">

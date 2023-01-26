@@ -20,7 +20,8 @@ export class AdminViewApplicationsComponent implements OnInit {
     schools : School[] = [];
     owners: Owner [] = [];
     vehicles: Vehicle[] = [];
-    prices :string [] =[]
+    prices :string [] =[];
+    selected_application = 0;
 
     load : boolean = false;
     messageApprove : string = 'Approve';
@@ -29,7 +30,7 @@ export class AdminViewApplicationsComponent implements OnInit {
     messageDecline: string = 'Decline';
 
     feedback = new FormGroup({
-      feedbackText:new FormControl()
+      feedback:new FormControl()
     })
 
 
@@ -131,23 +132,25 @@ export class AdminViewApplicationsComponent implements OnInit {
 
   }
 
-  declineApplication(){
-    //this.loadDecline = true;
-    //this.messageDecline = 'Declining'
-
-    // this.adminService.declineApplication(this.application.application_id).subscribe((result:any) => {
-
-    // },(error:HttpErrorResponse)=>{
-    //   //failed to approve application
-    //   console.log(error)
-    // })
-
-
+  declineApplication(id:number){
+    this.selected_application = id;
+    console.log(id);
   }
 
   onDecline(form:FormGroup)
   {
-    this.declineApplication()
+    
+    this.adminService.declineApplication(this.selected_application,form.value).subscribe((result:any) => {
+      //
+
+    },(error:HttpErrorResponse)=>{
+      //failed to approve application
+      console.log(error)
+    })
+
+    setTimeout(() => {
+
+    }, 2000);
 
   }
 

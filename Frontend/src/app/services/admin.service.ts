@@ -76,20 +76,22 @@ export class AdminService {
   }
 
   approveApplication(data: OwnerApplication) {
-   return this.http.post(
+   return this.http.patch(
       this.baseUrl +
         '/applications/' +
         data.owner_id +
         '/' +
         data.school_id +
         '/' +
-        data.vehicle_id,
+        data.vehicle_id+
+        '/'+data.application_id,
       null
     );
   }
 
-  declineApplication(application_id: number) {
+  declineApplication(application_id: number,feedback :any) {
     //decline
-    return null
+    return this.http.patch(
+      this.baseUrl +'/applications/decline/' +application_id, feedback);
   }
 }

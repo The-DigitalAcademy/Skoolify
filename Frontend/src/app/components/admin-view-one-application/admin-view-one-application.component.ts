@@ -32,7 +32,7 @@ export class AdminViewOneApplicationComponent implements OnInit {
   messageDecline: string  = 'Decline';
 
   feedback = new FormGroup({
-    feedbackText:new FormControl()
+    feedback:new FormControl()
   })
 
 
@@ -115,20 +115,22 @@ export class AdminViewOneApplicationComponent implements OnInit {
     this.loadDecline = true;
     this.messageDecline = 'Declining'
 
-    // this.adminService.declineApplication(this.application.application_id).subscribe((result:any) => {
 
-    // },(error:HttpErrorResponse)=>{
-    //   //failed to approve application
-    //   console.log(error)
-    // })
-
-    setTimeout(() => {
-      this.back()
-    }, 2000);
   }
 
   onDecline(form:FormGroup)
   {
+    this.adminService.declineApplication(this.application.application_id,form.value).subscribe((result:any) => {
+      //
+
+    },(error:HttpErrorResponse)=>{
+      //failed to approve application
+      console.log(error)
+    })
+
+    setTimeout(() => {
+      this.back()
+    }, 2000);
 
   }
 
