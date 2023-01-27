@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators,AbstractControl, FormBuilder } from '@angular/forms';
 import { AuthusersService } from 'src/app/services/authusers.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+submitted: any;
 
-  constructor(private auth1: AuthusersService) { }
+
+  constructor(private auth1: AuthusersService,private router:Router,private formbuilder:FormBuilder) { }
 
   ngOnInit(): void {
   }
@@ -16,6 +20,15 @@ export class LoginComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]) ,
     password: new FormControl('', [Validators.required, Validators.min(6)]),
   })
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.loginForm1.controls;
+  }
+  get formValidation(): { [key: string]: AbstractControl } {
+    return this.loginForm1.controls;
+  }
+  
+
   onlogin(form:FormGroup){
       
     console.log(form.value)
@@ -32,11 +45,11 @@ export class LoginComponent implements OnInit {
    }
    else{
    
-   
+    this.router.navigateByUrl('/navigation')
     console.warn('sucess');
     alert('successfully logged in');
    
-
+console.log(results)
     //routing to home page after successfully loging in
 
   
@@ -46,5 +59,6 @@ export class LoginComponent implements OnInit {
    }
  })
 }
+
 
 }

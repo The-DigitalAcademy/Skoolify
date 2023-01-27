@@ -24,7 +24,7 @@ body {
   
   .button {
     position: relative;
-    background-color: white;
+    background-color: rgb(240, 240, 240);
     height: 5rem;
     width: 5rem;
     border-radius: 50%;
@@ -32,7 +32,7 @@ body {
     top: 5vh; 
     right: 5vw; 
     z-index: 2000;
-    box-shadow: 0 1rem 3rem black;
+    box-shadow: 0 1rem 3rem rgb(255, 255, 255);
     text-align: center; 
     cursor: pointer;
   }
@@ -162,4 +162,10 @@ body {
   .checkbox:checked + .button .icon::after {
     top: 0;
     transform: rotate(-135deg);
+  }
+  #text1{
+
+
+font-size:large;
+
   }
