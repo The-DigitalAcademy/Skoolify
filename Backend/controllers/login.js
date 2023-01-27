@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 //Login Function
 exports.login = async (req, res) => {
 const { email, password } = req.body;
-try {
+try { console.log(email);
 const data = await client.query(`SELECT * FROM Users WHERE email= $1;`, [email]) //Verifying if the user exists in the database
 const user = data.rows;
 if (user.length === 0) {
@@ -25,6 +25,7 @@ error: "Server error",
 const token = jwt.sign(
 {
 email: email,
+password:password
 },
 process.env.SECRET_KEY
 );

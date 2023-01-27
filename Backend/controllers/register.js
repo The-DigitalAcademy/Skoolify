@@ -54,7 +54,7 @@ exports.register = async (req, res) => {
             name,
             surname,
             email,
-            password,
+            hash,
             gender,
             image,
             account,
