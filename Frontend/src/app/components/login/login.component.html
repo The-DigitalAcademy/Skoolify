@@ -1,0 +1,61 @@
+
+
+<form [formGroup]="loginForm1" (ngSubmit)="onlogin(loginForm1)" class="form-control w-3/4 mx-auto gap-2 mb-4" method="POST">
+
+
+<div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md space-y-8">
+      <div>
+        <img class="mech items-center mx-auto" id="logo"src="../../../assets/Logo.png" alt="Backimage"style="width: 219px;height:auto;"
+        />>
+        <p class="mt-6 text-center  tracking-tight text-gray-900"> sign in and get ride <br>for your child</p>
+        <p class="mt-2 text-center text-sm text-gray-600">
+    
+        </p>
+      </div>
+      
+        <input type="hidden" name="remember" value="true">
+        <div class="-space-y-px rounded-md shadow-sm">
+          <div >
+            Email
+            <label for="email-address" id ="emailtext"class="sr-only">Email address</label>
+            <input type="email" formControlName="email" id="email" required id="email-address" name="email"  type="email" autocomplete="email" required class="relative block w-full appearance-none rounded-none rounded-t-md border bg-white text-white placeholder-white focus:z-10 focus:border-x-white focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Email address" formControlName="email"   >
+        
+          
+          </div>
+          <div>
+            Password
+            <label for="password" class="sr-only">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-white placeholder-white focus:z-10 focus:border-white focus:outline-none focus:ring-white sm:text-sm" placeholder="Password" formControlName="password"    >
+          </div>
+        </div>
+  
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+          
+          </div>
+  
+          <div class="text-sm">
+            <a href="#" class="font-medium text-white hover:text-white">Forgot your password?</a>
+          </div>
+        </div>
+  
+        <div>
+          <button type="submit" class="group relative flex w-full justify-center rounded-md border border-transparenttext-  " >
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <!-- Heroicon name: mini/lock-closed -->
+              <svg class="h-5 w-5 text-white group-hover:text-white" >
+                
+              </svg>
+            </span>
+            Sign in
+          </button>
+          
+        </div>
+    
+      <button class="mt-6 text-center  tracking-tight text-gray-900 "[routerLink]="['/register']" routerLinkActive="router-link-active" > dont have account ?
+        sign up</button> 
+
+    </div>
+  </div>
+</form>
