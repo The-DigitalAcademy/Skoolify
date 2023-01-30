@@ -13,16 +13,19 @@ const ownerID= localStorage.getItem('owner_id')
 })
 export class AddvehicleService  {
 
-  addvehicle(myFormData: FormData) {
-    throw new Error('Method not implemented.');
-  }
   baseUrl : String = 'http://localhost:8080/vehicle';
 
   constructor(private http:HttpClient) { }
 
-  createVehicle(data: any) {
-    return this.http.post(this.baseUrl+'/addVehicle/'+sessionStorage.getItem('vehicle_id'),data);
-  }  
+  addvehicle(myFormData: any) {
+    return this.http.post(this.baseUrl+'/addVehicle',myFormData)
+  }
+  
+
+
+  // createVehicle(data: any) {
+  //   return this.http.post(this.baseUrl+'/addVehicle/'+sessionStorage.getItem('vehicle_id'),data);
+  // }  
    
   getVehicles(): Observable<any> {
     return this.http.get(this.baseUrl+'/getVehicles');
@@ -33,14 +36,6 @@ export class AddvehicleService  {
     return this.http.get("http://localhost:8080/vehicle/viewvehicle/"+owner_id)
      //return this.http.get(`${this.baseUrl}/viewvehicle/${ownerID}`)
   }
-
-
-
-
-
-
-
-
 
 
 

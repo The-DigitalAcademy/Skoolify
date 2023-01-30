@@ -4,7 +4,7 @@ const client=require('../config/db_config')
 
 exports.addvehicle = async (req, res)=>{
     const {owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image} = req.body;
-
+  console.log({owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image});
   try {
         //Inserting data into the database
         const data = await client.query(

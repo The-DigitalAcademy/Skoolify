@@ -1,6 +1,233 @@
 
+
+<h2>Vehicles</h2>
+
+<label for="my-modal-3" class="btn">Add Vehicle</label>
+<input type="checkbox" id="my-modal-3" class="modal-toggle" />
+<div class="modal">
+  <div class="modal-box relative">
+    <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+    <form [formGroup]="addVehicleForm" (ngSubmit)="onSubmit(addVehicleForm)" >
+    
+    <div class="mb-6">
+      <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Model</label>
+      <input type="text" id="base-input" formControlName="model"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+
+    <div class="mb-6">
+      <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"style="background-color:9E9E9E">Brand</label>
+      <input type="text" id="base-input"formControlName="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  </div>
+
+<div class="mb-6">
+  <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Registration Number</label>
+  <input type="text" id="base-input"formControlName="vehicle_reg" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+</div>
+
+
+<div class="mb-6">
+  <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Color</label>
+  <input type="text" id="base-input"formControlName="color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+</div>
+
+
+<div class="mb-6">
+  <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Driver's Name</label>
+  <input type="text" id="base-input" formControlName="driver_name"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+</div>
+
+<div class="mb-6">
+  <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Driver's Cellphone Number</label>
+  <input type="text" id="base-input"formControlName="driver_cellphone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+</div>
+
+
+         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Upload Image</label>
+             <input type = "file" accept = ".png, .jpg, .jpeg" (change)="onFileChange($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size">
+
+
+             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Supporting Documents</label>
+             <input type = "file" accept = ".pdf" (change)="onFileChangePdf($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file">
+             
+             <button type="submit" class="submit" class=btn-sm>Submit</button>
+
+
+             <div class="mb-3 col-auto">
+              <a routerLink="/addvehicle/vehiclelist" class="btn btn-sm">Back</a>
+            </div>
+
+          </form>
+</div>
+
+    </div>
+
+
+<div class="card w-96 bg-base-100 shadow-xl"*ngFor="let record of data, let x = index">
+
+  <div class="flex flex-col justify-start gap-1">
+    
+    <i class="fi fi-sr-graduation-cap text-secondary"></i>
+    <h2 class="font-bold text-base w-full text-black" style="color:#333333">
+      {{record.brand}} {{record.model}}
+</h2>
 <br>
-<label for="my-modal-6" class="btn">Add Vehicle</label>
+      <i class="fi fi-sr-marker text-xs mr-1"></i>
+      <span class="text-xs " style="color:#9E9E9E;">{{record.vehicle_reg}}</span>
+      <i class="fi fi-sr-marker text-xs mr-1"></i>
+        <span class="text-xs " style="color:#9E9E9E">{{record.driver_name }}</span>
+        
+        <div class="card-actions justify-end"> 
+
+          <div class="modal">
+            <div class="modal-box relative">
+          <div class="modal">
+            <div class="modal-box relative">
+              <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+              <h3 class="text-lg font-bold"></h3>
+
+
+              
+
+             
+
+
+
+
+
+
+              
+             
+
+  <!-- <label for="my-modal-6" class="btn" style="margin-bottom:15%">Add Vehicle</label>
+  <body>
+      <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+      <div class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+          <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+          <h3 class="text-lg font-bold">
+
+
+              
+                    <div class="mb-6">
+                      <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Model</label>
+                      <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                 
+                    </div>
+
+
+                    <div class="mb-6">
+                      <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"style="background-color:white">Brand</label>
+                      <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  </div>
+                  <div class="mb-6">
+                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Registration Number</label>
+                    <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+                <div class="mb-6">
+                  <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Color</label>
+                  <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              </div>
+              <div class="mb-6">
+                  <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Driver's Name</label>
+                  <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              </div>
+              <div class="mb-6">
+                  <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Driver's Cellphone Number</label>
+                  <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              </div>
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="user_avatar">Upload image</label>
+              <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg  cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" style=" height: 42px;">
+              <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A picture is useful for confirmation and security purposes</div>
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Documents</label>
+             <input class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file">
+
+ -->
+
+
+
+
+
+
+
+
+
+<!--     
+<div class="card w-96 bg-base-100 shadow-xl"      *ngFor="let record of data, let x = index">
+
+  <div class="flex flex-col justify-start gap-1">
+    
+    <i class="fi fi-sr-graduation-cap text-secondary"></i>
+    <h2 class="font-bold text-base w-full text-black" style="color:#9E9E9E">
+      {{record.brand}} {{record.model}}
+      <div class="dropdown">
+       
+        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52s">
+          <li><a href="#">Edit Driver</a></li>
+          <li><a href="#">Remove</a></li>
+        </ul>
+      </div>
+      
+
+    </h2>
+    <i class="fi fi-sr-marker text-xs mr-1"></i>
+    <span class="text-xs " style="color:#9E9E9E;">{{record.vehicle_reg}}</span>
+    <i class="fi fi-sr-marker text-xs mr-1"></i>
+      <span class="text-xs " style="color:#9E9E9E">{{record.driver_name }}</span>
+      
+   <div class="card-actions justify-end" > -->
+
+
+
+
+
+<!-- <div class="modal">
+  <div class="modal-box relative">
+    <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+    <h3 class="text-lg font-bold"> -->
+
+
+
+      
+                            
+      
+      
+      
+      
+      
+      
+                   
+
+   
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+<!-- <div class="form-group">
+<label for="my-modal-6" class="btn" style="margin-bottom:15%">Add Vehicle</label>
 <body>
     <input type="checkbox" id="my-modal-6" class="modal-toggle" />
     
@@ -9,125 +236,76 @@
  
     <div class="mb-6">
         <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Model</label>
-        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
    
       </div>
 
     <div class="mb-6">
-        <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Brand</label>
-        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"style="background-color:white">Brand</label>
+        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
     </div>
     <div class="mb-6">
         <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Registration Number</label>
-        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
     </div>
     <div class="mb-6">
-        <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Coloure Of The Vehicle</label>
-        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Color</label>
+        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
     </div>
     <div class="mb-6">
         <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Driver's Name</label>
-        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
     </div>
     <div class="mb-6">
         <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Driver's Cellphone Number</label>
-        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
     </div>
 
    
 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="user_avatar">Upload image</label>
-<input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg  cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" style=" height: 42px;">
+<input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg  cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" style=" height: 42px;">
 <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A picture is useful for confirmation and security purposes</div>
 
 
 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Documents</label>
-<input class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file">
+<input class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file">
 
     <div class="modal-action">
-      <button type="submit"  class="btn btn-sm"> SUBMIT</button>
+      <div *ngIf="submitted">
 
+      <button (click)="addvehicle()" class="btn">Add Vehicle</button>
+      <div *ngIf="submitted"
+         <h4>Vehicle was submitted successfully!</h4>
+        <button class="btn" (click)="newvehicle()">Add</button>
+      </div>
     </div>
   </div>
 </div>
 
-<br>
-       
+<b>
     
          <div class="card w-96 bg-base-100 shadow-xl"      *ngFor="let record of data, let x = index">
-          
-         <div class="card-body">
+
           <div class="flex flex-col justify-start gap-1">
+            
             <i class="fi fi-sr-graduation-cap text-secondary"></i>
             <h2 class="font-bold text-base w-full text-black" style="color:#9E9E9E">
               {{record.brand}} {{record.model}}
+              <div class="dropdown">
+               
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52s">
+                  <li><a href="#">Edit Driver</a></li>
+                  <li><a href="#">Remove</a></li>
+                </ul>
+              </div>
+              
+
             </h2>
             <i class="fi fi-sr-marker text-xs mr-1"></i>
             <span class="text-xs " style="color:#9E9E9E;">{{record.vehicle_reg}}</span>
             <i class="fi fi-sr-marker text-xs mr-1"></i>
               <span class="text-xs " style="color:#9E9E9E">{{record.driver_name }}</span>
+              
            <div class="card-actions justify-end" >
            
-           <!-- dropdown -->
-         <div class="dropdown"style="margin-top: 30;">
-            <button class="dropbtn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black" class="bi bi-three-dots-vertical" viewBox="0 0 16 16"> <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg>
-
-            </button>
-            <div class="dropdown-content">
-              <a href="#">Edit Vehicle
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16"> <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/> </svg>
-              </a>
-               
-              <a href="#">Remove
-                <svg fill="none" xmlns="http://www.w3.org/2000/svg"  width="22" height="22"viewBox="0 0 24 24"> <path d="M19 2H3v20h10v-2H5V4h14v10h2V2h-2zm-2 4H7v2h10V6zM7 10h10v2H7v-2zm6 4H7v2h6v-2zm6 4h-2v-2h-2v2h2v2h-2v2h2v-2h2v2h2v-2h-2v-2zm0 0h2v-2h-2v2z" fill="currentColor"/> </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-    </div>
-  </div>
-
-  <!-- <div class="card w-96 bg-base-100 shadow-xl">
-    <div class="card-body">
-      <div class="card-actions justify-end">
-
-    <div class="dropdown">
-       <button class="dropbtn">
-           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black" class="bi bi-three-dots-vertical" viewBox="0 0 16 16"> <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg>
-
-       </button>
-       <div class="dropdown-content">
-         <a href="#">Edit Vehicle
-           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16"> <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/> </svg>
-         </a>
-          
-         <a href="#">Remove
-           <svg fill="none" xmlns="http://www.w3.org/2000/svg"  width="22" height="22"viewBox="0 0 24 24"> <path d="M19 2H3v20h10v-2H5V4h14v10h2V2h-2zm-2 4H7v2h10V6zM7 10h10v2H7v-2zm6 4H7v2h6v-2zm6 4h-2v-2h-2v2h2v2h-2v2h2v-2h2v2h2v-2h-2v-2zm0 0h2v-2h-2v2z" fill="currentColor"/> </svg>
-         </a>
-       </div>
-     </div> -->
-
-
- <!-- <div class="px-2 md:px-10 lg:px-14">
-  <br>
-  <h4>My vehicles</h4>
-  <div class="grid overflow-y-scroll grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full place-items-center gap-x-2 gap-y-2">
-      <div
-        class="grid-item drivers w-full h-30 max-w-xs rounded-2xl px-3 py-4"
-        *ngFor="let record of data, let x = index">
-        <div class="flex flex-col justify-start gap-1">
-          <i class="fi fi-sr-graduation-cap text-secondary"></i>
-          <h2 class="font-bold text-base w-full text-black" style="color:#F18420">
-            {{record.brand}} {{record.model}}
-          </h2>
-          <div class="text-primary" >
-            <i class="fi fi-sr-marker text-xs mr-1"></i>
-            <span class="text-xs " style="color:#F18420;">{{record.vehicle_reg}}</span>
-          </div>
-          <div class="text-primary" >
-              <i class="fi fi-sr-marker text-xs mr-1"></i>
-              <span class="text-xs " style="color:#F18420">{{record.driver_name }}</span>
-            </div>
-        </div>
-      </div>
-    </div> -->
+           -->

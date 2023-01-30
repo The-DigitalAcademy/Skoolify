@@ -1,122 +1,124 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AddvehicleService } from 'src/app/services/addvehicle.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-//import { Vehicle } from 'src/app/interfaces/vehicle';
-import{Vehicle} from 'src/app/interfaces/vehicle';
-
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { Vehicle } from 'src/app/interfaces/vehicle';
+import { response } from 'express';
 
 @Component({
   selector: 'app-addvehicle',
   templateUrl: './addvehicle.component.html',
-  styleUrls: ['./addvehicle.component.scss']
+  styleUrls: ['./addvehicle.component.scss'],
 })
- export class AddvehicleComponent implements OnInit {
-  
- data:any;
-//   vehicles: Vehicle[] = [];
-//   term: string =''
-//   load : boolean = false;
-//   message: string = 'Save'
+export class AddvehicleComponent implements OnInit {
+  image_link: string = '';
 
-//   addVehicleForm = new FormGroup({
-//     vehicle_model: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-//     vehicle_brand: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-//     vehicle_registration: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-//     vehicle_color: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-//     vehicle_img: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-//     owner_id: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-//     driver_name: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-//     driver_img: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-//     documents: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-//   })
-// addvehicle: any;
-constructor(private service:AddvehicleService) { }
+  constructor(private service: AddvehicleService, private router : Router) {}
 
-ngOnInit(): void {
-  this.service.viewvehicle(2).subscribe((view)=>{
+  ngOnInit(): void {
+    this.service.viewvehicle(3).subscribe((view) => {
+      console.log(view);
 
-    console.log(view);
+      this.data = view;
+      console.log('selected vehicle', view);
+      this.image_link = JSON.stringify(sessionStorage.getItem('image_link'));
+
+      let vehicleDetails = {
+        model: this.addVehicleForm.value.vehicleModel,
+        brand: this.addVehicleForm.value.vehiclebrand,
+        vehicle_reg: this.addVehicleForm.value.Registrationumber,
+        color: this.addVehicleForm.value.vehiclecolor,
+        driver_name: this.addVehicleForm.value.driverName,
+        driver_cellphone: this.addVehicleForm.value.drivercellphone,
+
+      };
+    });
+  }
+
+  onFileChange($event: Event) {}
+
+
+  onSubmit(form: FormGroup) {
+    this.service.addvehicle(form.value).subscribe((next: any) => {
+      console.log('Vehicle has been added successfully!');
+      
+      //this.router.navigate(['/addvehicle/vehiclelist']);
+      //this.submitted = false;
+    });
+  }
+
+  addvehicle() {}
+  FormBuilder: any;
+  file: any;
+  company!: any;
+  public cars!: any[];
+  imgUrl!: any;
+  data: any;
+  submitted: any;
+  cloudinaryUrl: string =
+    'https://api.cloudinary.com/v1_1/dev-lab/image/upload';
+  isUpdating: boolean = false;
+
+  addVehicleForm = new FormGroup({
+    model: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z ]*$'),
+    ]),
+    brand: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z ]*$'),
+    ]),
+    vehicle_reg: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z ]*$'),
+    ]),
+    color: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z ]*$'),
+    ]),
+    vehicle_img: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z ]*$'),
+    ]),
+   
+    driver_name: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z ]*$'),
+    ]),
+    driver_img: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z ]*$'),
+    ]),
+    documents: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z ]*$'),
+    ]),
+driver_cellphone: new FormControl('',[
+  Validators.required,
+  Validators.pattern('^[a-zA-Z ]*$'),
+]),
     
+  });
 
-  this.data=view
-  console.log("selected vehicle", view)
-
-})
+  onFileChangePdf(e: any) {}
 }
 
-}
-
-    
-  
-
- 
-    
-
-
-
-
-
-
-    
-
-
-
-  // onSubmit(data: FormGroup)
-  // {
-  //   this.message = "Saving...";
-  //   this.load = true;
-  //   this.adminService.addSchool(data.value).subscribe((result:any) => {
-  //     this.getSchools()
-  //     console.log('added school')
-  //     data.reset()
-  //     setTimeout(() => {
-  //       this.message = "Saved";
-  //       this.load = false;
-  //     }, 2000);
-
-  //     setTimeout(() => {
-  //       this.message = "Save";
-  //     }, 4000);
-  //   },(error:HttpErrorResponse)=>{
-  //     //failed to save school
-  //     console.log(error)
-
-  //   })
-
-  
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//   onsubmit(data: FormGroup)
+//   {
+//     this.load = true;
+//     this.addvehicleService.addvehicle(data.value).subscribe((result:any) => {
+//       this.getVehicles()
+//       console.log('vehicle added')
+//       data.reset()
+//       setTimeout(() => {
+//         this.load = false;
+//       }, 2000);
 
 //   vehicleForm!: FormGroup;
 //   submitted = false;
@@ -132,7 +134,7 @@ ngOnInit(): void {
 //     }
 //     if(this.submitted)
 //     {
-      
+
 //        var myFormData = new FormData();
 //        myFormData.append('vehicle', this.vehicleForm.value.vehicle);
 //        this.addvehicleservice.addvehicle(myFormData);
@@ -140,17 +142,10 @@ ngOnInit(): void {
 //       }
 //   }
 //   ngOnInit() {
-    
+
 //   }
 // }
 
-
-
-
-
-
-
-  
 //   vehicles: any;
 //   owner_id: any;
 //   vehicle_reg: any;
@@ -166,9 +161,6 @@ ngOnInit(): void {
 //   data: AddvehicleComponent[] | undefined;
 
 // constructor(private router:Router, private addvehicle:AddvehicleService) { }
- 
-
-
 
 //   ngOnInit(): void {
 //     this.addvehicleservice.getAddehicle()
@@ -187,4 +179,3 @@ ngOnInit(): void {
 //       this.toast.error({detail:"Error", summary:err.error.message});
 
 //     })
-  
