@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ParentService } from 'src/app/services/schools/parent.service';
 
 @Component({
   selector: 'app-schools',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./schools.component.scss']
 })
 export class SchoolsComponent implements OnInit {
+ data:any
+ searchSchool :any
 
-  constructor() { }
+constructor(private service:ParentService) { }
 
   ngOnInit(): void {
+    this.service.getSchool().subscribe((view)=>{
+    this.data=view
+    
+  })
   }
 
 }
