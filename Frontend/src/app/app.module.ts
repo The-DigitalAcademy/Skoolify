@@ -1,52 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SchoolsComponent } from './components/schools/schools.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
-
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
-import { OwnerPageComponent } from './components/owner-page/owner-page.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { NavDriverComponent } from './nav-driver/nav-driver.component';
-import { NavAdminComponent } from './nav-admin/nav-admin.component';
-
-
-import { RegisterComponent } from './components/register/register.component';
-
-import { LandingComponent } from './components/landing/landing.component';
-import { LoginComponent } from './components/login/login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { AdminViewApplicationsComponent } from './components/admin-view-applications/admin-view-applications.component';
+import { AdminViewOneApplicationComponent } from './components/admin-view-one-application/admin-view-one-application.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SchoolsComponent,
-    VehiclesComponent,
-    OwnerPageComponent,
-
-     RegisterComponent,
- 
-       LandingComponent,
-         LoginComponent,
-  
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    Ng2SearchPipeModule,
-    FormsModule,
-    HttpClientModule,
-    AppRoutingModule,ReactiveFormsModule,FormsModule,
-  
-  ],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
