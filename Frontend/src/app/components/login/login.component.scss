@@ -1,0 +1,43 @@
+#logo{
+
+  //margin-left: 30%;
+  //padding: -7rem;
+}
+form {
+
+  border-radius: 50px;
+}
+button {
+  background-color: white;
+
+  padding: 14px 20px;
+  margin-left: 30%;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  border-radius: 10px;
+}
+input{
+  background-color: var(--input-grey);
+
+  &::placeholder{
+      color: white;
+      margin: 10 px ;
+      padding: 14px 20px;
+  }
+}
+.sign{
+  margin-left:  10%;
+}
+#button1{
+
+
+  margin-left:  5%;
+
+
+
+}
+.txt{
+padding-left: 5.5rem;
+  margin-right:  1rem;
+}

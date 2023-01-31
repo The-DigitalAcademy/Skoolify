@@ -16,12 +16,7 @@ background-color: var(--main-light);
 {
   background-color: var( --secondary-color);
 }
-.school_name
+.drivers
 {
-  display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    max-width: 2000px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    background-color:var( --secondary-color);
 }

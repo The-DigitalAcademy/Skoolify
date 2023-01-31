@@ -101,7 +101,7 @@ exports.viewAllOwners = (req, res) => {
   });
 };
 exports.viewAllApplications = (req, res) => {
-  const sql = "SELECT * FROM application";
+  const sql = "SELECT * FROM application WHERE status = 'PENDING'";
 
   client.query(sql, (err, results) => {
     if (err) {
