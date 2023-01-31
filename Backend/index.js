@@ -14,6 +14,7 @@ const {login} = require("./controllers/login");
 
 var corsOptions = {
   origin: "*",
+  
 };
 
 app.use(express.json());

@@ -139,8 +139,9 @@ export class AdminViewApplicationsComponent implements OnInit {
 
   onDecline(form:FormGroup)
   {
-    
+
     this.adminService.declineApplication(this.selected_application,form.value).subscribe((result:any) => {
+      this.getApplications();
       //
 
     },(error:HttpErrorResponse)=>{
