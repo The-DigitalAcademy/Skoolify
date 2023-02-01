@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { JwtService } from 'src/app/services/jwt.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/interfaces/user';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
     private auth1: AuthusersService,
     private router: Router,
     private formbuilder: FormBuilder,
-    private jwt: JwtService
+    private jwt: JwtService,
+    private toast : HotToastService
   ) {}
 
   ngOnInit(): void {}
@@ -48,6 +50,7 @@ export class LoginComponent implements OnInit {
 
   onlogin(form: FormGroup) {
     //Sign in the User to the to the app
+    this.toast.loading("Signing you in ...",{duration:1000})
     this.auth1.loginData(form.value).subscribe(
       (results: any) => {
         this.auth1.saveToken(results.token);
@@ -58,7 +61,6 @@ export class LoginComponent implements OnInit {
           this.role = this.user.account;
        }
 
-
         if (this.role == 'PARENT') {
           this.router.navigateByUrl('/parent-home');
         } else if (this.role == 'OWNER') {
@@ -68,7 +70,9 @@ export class LoginComponent implements OnInit {
         }
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+
+        this.toast.error(error.error.message,{duration:4000});
+
       }
     );
   }
