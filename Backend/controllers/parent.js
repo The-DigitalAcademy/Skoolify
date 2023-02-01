@@ -61,38 +61,6 @@ exports.getOneSchool = async (req, res) => {
     }
   };
 
-//create school
-
-// exports.createPost = async (req, res) => {
-//     const {user_id,title,post,post_date} = req.body;
-//     try {
-         
-//           const data = await client.query(
-//             `INSERT INTO posts (user_id,title,post,post_date) VALUES ($1,$2,$3,$4);`,
-//             [user_id,title,post,post_date],
-//             (err) => {
-//               if (err) {
-           
-//                 console.error(err);
-//                 return res.status(500).json({
-//                   error: "Database error",
-//                 });
-//               } else {
-//                 res
-//                   .status(200)
-//                   .send({ message: `Post for user ${user_id} have been added to the database`});
-//               }
-//             }
-//           );
-//     } catch (err) {
-//       console.log(err);
-//       res.status(500).json({
-//         error: "Database error while creating post!", //Database connection error
-//       });
-//     }
-//   };
-  
-  //vehicle query
   
 exports.getVehicle = async (req, res) => {
     const owner_id = parseInt(req.params.id);
@@ -122,3 +90,5 @@ exports.getVehicle = async (req, res) => {
       });
     }
   };
+
+  
