@@ -9,55 +9,67 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
 submitted: any;
+
+
+loginForm1: FormGroup = new FormGroup({
+  email: new FormControl(''),
+  password: new FormControl('')
+});
 
 
   constructor(private auth1: AuthusersService,private router:Router,private formbuilder:FormBuilder) { }
 
   ngOnInit(): void {
+    this.myForm();
   }
-  loginForm1 = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]) ,
-    password: new FormControl('', [Validators.required, Validators.min(6)]),
-  })
 
-  get f(): { [key: string]: AbstractControl } {
-    return this.loginForm1.controls;
+  myForm() {
+    this.loginForm1 = this.formbuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [ Validators.required ]]
+    });
   }
+
+
   get formValidation(): { [key: string]: AbstractControl } {
     return this.loginForm1.controls;
   }
 
 
-  onlogin(form:FormGroup){
 
-    console.log(form.value)
+login(){
+
+  this.submitted = true;
+  console.log("gdfdff")
+
+  console.log(this.loginForm1.value);
+    // console.log(form.value)
  //Add the User to the Database
- this.auth1.loginData(form.value).subscribe((results)=>{
+//  this.auth1.loginData(this.loginForm1.value).subscribe((results)=>{
 
-  if(results === 'Enter correct password!' || results === ''){
+//   if(results === 'Enter correct password!' || results === ''){
 
-    alert('invalid login details')
+//     alert('invalid login details')
 
-    console.log('invalid')
+//     console.log('invalid')
 
-    return
-   }
-   else{
+//     return
+//    }
+//    else{
 
-    this.router.navigateByUrl('/home')
-    console.warn('sucess');
-    alert('successfully logged in');
+//     this.router.navigateByUrl('/home')
+//     console.warn('sucess');
+//     alert('successfully logged in');
 
-console.log(results)
-    //routing to home page after successfully loging in
+//     console.log(results)
+//     //routing to home page after successfully loging in
+
+//    }
+//  })
 
 
-
-
-
-   }
- })
 }
 
 

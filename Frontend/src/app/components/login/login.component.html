@@ -1,6 +1,5 @@
 <form
   [formGroup]="loginForm1"
-  (ngSubmit)="onlogin(loginForm1)"
   class="w-full mx-auto gap-2 mb-5 px-3"
   method="POST"
 >
@@ -27,11 +26,9 @@
         class=""
 
       >
-        <div class="-space-y-px rounded-md shadow-sm">
+        <div class="form-control space-y-px rounded-md shadow-sm">
           <div>
             Email
-
-            >
             <input
               type="email"
               formControlName="email"
@@ -44,8 +41,13 @@
               required
               class="input w-full  border bg-white text-white sm:text-sm"
               placeholder="Email address"
-              formControlName="email"
+              [ngClass]="{ 'is-invalid': submitted && formValidation['email'].errors }"
             />
+            
+          </div>
+          <div *ngIf="submitted && formValidation['email'].errors" class="invalid-feedback">
+            <div *ngIf="formValidation['email'].errors['required']" class="error-text">Email is required</div>
+            <div *ngIf="formValidation['email'].errors['email']" class="error-text">Email is invalid</div>
           </div>
           <div>
             Password
@@ -58,7 +60,11 @@
               class="input  w-full   border border-gray-300 text-white   sm:text-sm"
               placeholder="Password"
               formControlName="password"
+              [ngClass]="{ 'is-invalid': submitted && formValidation['password'].errors }"
             />
+            <div *ngIf="submitted && formValidation['password'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['password'].errors['required']">Password is required</div>
+            </div>
           </div>
         </div>
 
@@ -71,7 +77,7 @@
       </div>
     </div>
     <br>
-    <button  id="button1"  class="btn btn-xs sm:btn-sm md:btn-md xlg:btn-lg">Sign in</button>
+    <button  id="button1"  class="btn btn-xs sm:btn-sm md:btn-md xlg:btn-lg" (click)="login()">Sign in</button>
     <br>
   </div>
 
