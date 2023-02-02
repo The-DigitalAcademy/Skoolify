@@ -1,93 +1,93 @@
-input{
-  background-color: var(--input-grey);
+// input{
+//   background-color: var(--input-grey);
 
-  &::placeholder{
-      color: white;
-  }
-}
-#bg{
-  padding: 20px 50px;
+//   &::placeholder{
+//       color: white;
+//   }
+// }
+// #bg{
+//   padding: 20px 50px;
 
-}
-.next{
-  margin-left:7rem;
-
-
-}
-#control{
-  color: white;
-}
-button[type="submit"] {
-  background-color: white;
-  color: black;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  border-radius: 10px;
-}
-form {
-
-  border-radius: 10px;
-
-}
-
-.reg2{
-  background-color: var(--main-dark);
-  width: 100%;
-  border-radius: 10px;
-  padding: 14px 20px;
-
-}
-
-.box {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px 2em;
-}
-
-.box :first-child {
-    align-self: center;
-}
-input{
-  background-color: var(--input-grey);
-
-  &::placeholder{
-      color: white;
-  }
-}
-
-#img1{
-
-margin-left: 15%;
-}
-
-#logo{
-width: 70%;
-margin-left: 15%;
-padding: -5px;
+// }
+// .next{
+//   margin-left:7rem;
 
 
-}
-select{
-  background-color: var(--input-grey);
+// }
+// #control{
+//   color: white;
+// }
+// button[type="submit"] {
+//   background-color: white;
+//   color: black;
+//   padding: 14px 20px;
+//   margin: 8px 0;
+//   border: none;
+//   cursor: pointer;
+//   width: 100%;
+//   border-radius: 10px;
+// }
+// form {
 
-}
+//   border-radius: 10px;
 
-form{
+// }
 
-}
-#back1{
+// .reg2{
+//   background-color: var(--main-dark);
+//   width: 100%;
+//   border-radius: 10px;
+//   padding: 14px 20px;
+
+// }
+
+// .box {
+//   display: grid;
+//   grid-template-columns: 1fr 1fr 1fr;
+//   gap: 10px 2em;
+// }
+
+// .box :first-child {
+//     align-self: center;
+// }
+// input{
+//   background-color: var(--input-grey);
+
+//   &::placeholder{
+//       color: white;
+//   }
+// }
+
+// #img1{
+
+// margin-left: 15%;
+// }
+
+// #logo{
+// width: 70%;
+// margin-left: 15%;
+// padding: -5px;
 
 
-background-color: #333333d4;
-margin-left: 10%;
-border-radius: 30px;
-padding: -5px;
-width: 80%;
-height: 300px;
+// }
+// select{
+//   background-color: var(--input-grey);
+
+// }
+
+// form{
+
+// }
+// #back1{
+
+
+// background-color: #333333d4;
+// margin-left: 10%;
+// border-radius: 30px;
+// padding: -5px;
+// width: 80%;
+// height: 300px;
 
 
 
-}
+// }

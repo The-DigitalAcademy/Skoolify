@@ -1,136 +1,4 @@
-<div class="px-6">
-  <img
-    class="logo items-center"
-    id="logo"
-    src="../../../assets/Logo.png"
-    alt="Backimage"
-    style="width: 219px; height: auto"
-  />
-  <p class="mt-6 text-center tracking-tight text-gray-900">
-    sign up and ride a <br />for your child
-  </p>
-</div>
-<br />
-<form
-  [formGroup]="registerForm1"
-  (ngSubmit)="onRegister(registerForm1)"
-  id="control"
-  class="mx-auto mb-4"
-  registerForm1="ngForm"
->
-  <div
-    id="bg"
-    class=""
-    *ngIf="step == 1"
-    style="background-color: var(--grey-dark); border-radius: px"
-  >
-    <div class="form-control my-2 w-full max-w-xs lg:mt-2">
-      <input
-        type="text"
-        placeholder="First Name"
-        formControlName="name"
-        id="input"
-        class="input bg-accent input-bordered w-full max-w-xs"
-        minlength="2"
-        required
-      />
-    </div>
-
-    <div id="form" class="form-control w-full max-w-xs my-2 lg:mt-5">
-      <input
-        type="text"
-        placeholder="Last name"
-        formControlName="surname"
-        class="input bg-accent input-bordered w-full max-w-xs"
-        minlength="2"
-        required
-      />
-    </div>
-
-    <div class="form-control w-full max-w-xs my-2 lg:mt-5">
-      <input
-        type="text"
-        placeholder="Email"
-        formControlName="email"
-        [email]="true"
-        class="input bg-accent input-bordered w-full max-w-xs"
-        required
-      />
-    </div>
-
-    <div class="flex justify-between my-3">
-      <span></span>
-      <button
-        (click)="nextStep(registerForm1)"
-        class="link decoration-transparent"
-      >
-        Next <i class="fi fi-rr-angle-right text-sm"></i>
-      </button>
-    </div>
-  </div>
-
-  <div class="reg2 step-1" id="back1" *ngIf="step == 2">
-    <div class="form-control w-full max-w-xs lg:mt-2">
-      <div class="form-control w-full max-w-xs lg:mt-2">
-        <div id="  container" class="container">
-          <div id="label" class="box">
-            <div>
-              <label for="account">acc type:</label>
-              <select name="account" formControlName="account" id="gender">
-                <option value="PARENT">parent</option>
-                <option value="OWNER">car owner</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="dog-names">gender</label>
-              <select name="dog-names" formControlName="gender" id="dog-names">
-                <option value="Male">male</option>
-                <option value="Female">female</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-control w-full max-w-xs mb-2 lg:mt-5">
-            create password
-            <input
-              type="password"
-              placeholder="Password"
-              formControlName="password"
-              class="input input-bordered w-full max-w-xs"
-              formControlName="password"
-              required
-              style="width: 210px"
-            />
-          </div>
-
-          <div class="form-control w-full max-w-xs mb-2 lg:mt-5">
-            re type password
-            <input
-              type="password"
-              placeholder="Re-type password"
-              class="input input-bordered w-full max-w-xs"
-              formControlName="confirmPassword"
-              required
-              style="width: 210px"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <button
-      type="submit"
-      class="btn btn-sm my-4 md:btn-sm w-52 mx-auto lg:btn-sm btn-primary"
-    >
-      Sign up
-    </button>
-  </div>
-</form>
-
-
-
-<div class="container w-full mx-auto px-6 py-12 md:px-12">
+<div class="container w-full mx-auto px-6 py-5 md:px-12">
   <img
     class="logo w-60 mx-auto my-1 md:my-4"
     id="logo"
@@ -150,107 +18,178 @@
     alt="Backimage"
   />
 
-
-
   <p class="my-3 w-36 mx-auto md:hidden text-center text-gray-900">
     Sign in and a get ride your child
   </p>
 
   <div class="flex justify-center mx-auto">
-    <div class="left-tab hidden md:block bg-accent w-80 px-8 py-16 -mr-4 rounded-l-3xl shadow-lg">
-      <h2 class="text-primary font-bold text-5xl">Sign <span style="color: var(--main-dark);">In</span></h2>
-      <p class="w-52 my-3">Welcome to <span class="font-bold">Skoolify</span><br> Sign in and get a ride for your child</p>
-
+    <div
+      class="left-tab hidden md:block bg-accent w-80 px-8 py-16 -mr-4 rounded-l-3xl shadow-lg"
+    >
+      <h2 class="text-primary font-bold text-5xl">
+        Sign <span style="color: var(--main-dark)">In</span>
+      </h2>
+      <p class="w-52 my-3">
+        Welcome to <span class="font-bold">Skoolify</span><br />
+        Sign in and get a ride for your child
+      </p>
     </div>
     <div
-      class="right-tab flex w-80 flex-col mx-auto shadow-lg md:mx-0 justify-center rounded-3xl h-80 px-7 md:px-12"
+      class="right-tab flex w-80 flex-col mx-auto shadow-lg md:mx-0 justify-center rounded-3xl h-80 px-7 md:px-9"
       style="background-color: var(--grey-dark)"
     >
       <form
         [formGroup]="registerForm1"
         (ngSubmit)="onRegister(registerForm1)"
-        class="w-full mx-auto"
-      >
-        <div class="w-full">
+        id="control"
+        class="w-full mx-auto">
+        <div class="w-full" *ngIf="step == 1">
 
-            <div class="">
+          <div class="form-control w-full">
+            <label for="email-address" class="label text-accent">Name</label>
+            <input
+              minlength="2"
+              formControlName="name"
+              id="name"
+              required="true"
+              class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
+              placeholder="Enter your name ..."
+            />
+          </div>
 
-              <div class="form-control">
-                <label for="email-address" class="label text-accent">Email</label>
-                <input
-                  [email]="true"
-                  formControlName="email"
-                  id="email-address"
-                  required
-                  class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
-                  placeholder="Email address"
-                />
-              </div>
+          <div class="form-control w-full">
+            <label for="email-address" class="label text-accent">Surname</label>
+            <input
+              minlength="2"
+              formControlName="surname"
+              id="surname"
+              required
+              class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
+              placeholder="Enter your surname ..."
+            />
+          </div>
 
+          <div class="w-full flex justify-start gap-3">
 
-              <div class="form-control w-full">
-                <label for="password" class="label text-accent">Password</label>
-                <input
-                  id="password"
-                  type="password"
-                  required
-                  class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
-                  placeholder="Password"
-                  formControlName="password"
-                />
-              </div>
-
-              <div class="flex justify-between my-1">
-                <span></span>
-                <span><label for="my-modal" class="link no-underline cursor-pointer text-accent">Forgot password?</label></span>
-              </div>
-
+            <div class="form-control">
+              <label for="account" class="label text-accent text-sm">Account Type</label>
+              <select name="account"  class="select-sm  rounded-lg w-full h-10 text-white bg-accent bg-opacity-50" formControlName="account">
+                <option disabled [defaultSelected]="true">Account</option>
+                <option value="PARENT">Parent</option>
+                <option value="OWNER">Car Owner</option>
+            </select>
             </div>
 
-            <div>
+            <div class="form-control">
+              <label for="gender" class="label text-accent text-sm">Gender</label>
+              <select name="gender" formControlName="gender" class="select-sm  rounded-lg w-full h-10 text-white bg-accent bg-opacity-50">
+                <option disabled [defaultSelected]="true">Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Not Specified">Not Specify</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="flex justify-center mt-3">
+            <button
+              (click)="nextStep(registerForm1)"
+              class="btn btn-sm btn-accent font-normal capitalize rounded-full w-28 mx-auto my-3 disabled:bg-accent disabled:bg-opacity-50"
+            >
+              Next <i class="fi fi-rr-arrow-small-right"></i>
+            </button>
+          </div>
+
+
+        </div>
+
+        <div class="reg2 step-1 w-full transition-all" id="back1" *ngIf="step == 2">
+
+          <div class="form-control w-full">
+            <label for="password" class="label text-accent">Email</label>
+            <input
+              formControlName="email"
+              [email]="true"
+              id="email"
+              required="true"
+              class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
+              placeholder="Enter your email"
+            />
+          </div>
+
+          <div class="form-control w-full">
+            <label for="password" class="label text-accent">Password</label>
+            <input formControlName="password" type="password" id="password" class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent" placeholder="Create a password"/>
+          </div>
+
+          <div class="form-control w-full">
+            <label for="confirmPassword" class="label text-accent">Re-type Password</label>
+            <input
+              formControlName="confirmPassword"
+              type="password"
+              id="confirmPassword"
+              required="true"
+              class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
+              placeholder="Re-type password"
+            />
+          </div>
+
+          <div class="flex justify-center mt-3">
+
+            <button
+              (click)="nextStep(registerForm1)"
+              class="btn btn-sm btn-accent font-normal capitalize rounded-full w-28 mx-auto my-3 disabled:bg-accent disabled:bg-opacity-50">
+              <i class="fi fi-rr-arrow-small-left"></i>Back
+            </button>
+
+          <button
+          type="submit"
+          class="btn btn-sm btn-accent font-normal capitalize rounded-full w-28 mx-auto my-3 disabled:bg-accent disabled:bg-opacity-50">
+          Sign Up
+          </button>
 
           </div>
 
         </div>
 
-        <div class="flex justify-center">
-          <button [disabled]="registerForm1.invalid" type="submit" class="btn btn-sm btn-accent font-normal capitalize rounded-full w-28 mx-auto my-3 disabled:bg-accent disabled:bg-opacity-50">
-            Next <i class="fi fi-rr-arrow-small-right"></i>
-          </button>
-        </div>
-
-
-
       </form>
+
     </div>
   </div>
 
-
-
-  <p class="text-center my-4">Don't have account? <a
-    class="link font-semibold no-underline w-28"
-    [routerLink]="['/register']">
-    Sign up</a></p>
-
+  <p class="text-center my-4">
+    Already have an account?
+    <a
+      class="link font-semibold no-underline w-28"
+      [routerLink]="['/login']"
+    >
+      Sign in</a
+    >
+  </p>
 </div>
-<div class="footer hidden md:block w-full bg-primary h-52 fixed bottom-0 rounded-t-3xl px-40 py-5">
-
+<div
+  class="footer hidden md:block w-full bg-primary h-44 fixed bottom-0 rounded-t-3xl px-40 py-5"
+>
   <div class="flex flex-col">
     <h3 class="text-white font-semibold">Contact Us</h3>
-    <p class="text-white">The Digital Academy <br> 7 Quince Street Milpark <br> Johannesburg 0258</p>
-    <p class="text-white items-center"><i class="fi fi-rr-envelope text-xs my-auto"></i>&nbsp; <a class="my-auto" href="mailto:skoolify@outlook.com" target="_blank">skoolify@outlook.com</a></p>
-
+    <p class="text-white">
+      The Digital Academy <br />
+      7 Quince Street Milpark <br />
+      Johannesburg 0258
+    </p>
+    <p class="text-white items-center">
+      <i class="fi fi-rr-envelope text-xs my-auto"></i>&nbsp;
+      <a class="my-auto" href="mailto:skoolify@outlook.com" target="_blank"
+        >skoolify@outlook.com</a
+      >
+    </p>
   </div>
-
 </div>
 
 <img
-class="logo-transparent hidden md:block fixed bottom-8 z-20 right-24 w-96"
-id="logo"
-src="../../../assets/Transparent Logo.png"
-alt="Backimage"
+  class="logo-transparent hidden md:block fixed bottom-8 z-20 right-24 w-96"
+  id="logo"
+  src="../../../assets/Transparent Logo.png"
+  alt="Backimage"
 />
-
-
-
-

@@ -59,6 +59,9 @@ export class LoginComponent implements OnInit {
         if(this.user!=null) {
           sessionStorage.setItem('role', this.user.account);
           this.role = this.user.account;
+          this.toast.success(results.message,{duration:3000});
+
+
        }
 
         if (this.role == 'PARENT') {
@@ -70,9 +73,7 @@ export class LoginComponent implements OnInit {
         }
       },
       (error: HttpErrorResponse) => {
-
         this.toast.error(error.error.message,{duration:4000});
-
       }
     );
   }
