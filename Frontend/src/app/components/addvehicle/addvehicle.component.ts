@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AddvehicleService } from 'src/app/services/addvehicle.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Vehicle } from 'src/app/interfaces/vehicle';
 import { response } from 'express';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-addvehicle',
@@ -41,11 +37,47 @@ export class AddvehicleComponent implements OnInit {
     });
   }
 
+  editDriver(rec:any)
+  {
+    console.log("helllo", rec)
+
+    this.addVehicleForm.setValue({
+      vehicle_reg: rec.vehicle_reg,
+      model: rec.model,
+      brand: rec.brand,
+      driver_name:rec.driver_name,
+      driver_cellphone: rec.driver_cellphone,
+      color: rec.color,
+      vehicle_img: 'n/a',
+      driver_img:'n/a',
+      documents:'n/a'
+    })
+
+  }
+
   onFileChange($event: Event) {}
-
-
   onSubmit(form: FormGroup) {
-    this.service.addvehicle(form.value).subscribe((next: any) => {
+
+    const formData = new FormData();    
+    formData.append("file",this.file)    
+    formData.append("upload_preset","i8maua2c");     
+    sessionStorage.setItem('image_link',this.image_link);
+
+    let vehiDetails =
+    {
+      owner_id: 3,
+      vehicle_reg: form.value.vehicle_reg,
+      model: form.value.model,
+      brand: form.value.brand,
+      driver_name:form.value.driver_name,
+      driver_cellphone: form.value.driver_cellphone,
+      driver_image: 'n/a',
+      document: 'n/a',
+      color: form.value.color,
+      vehicle_image: 'n/a'
+    }
+
+    this.service.addvehicle(vehiDetails).subscribe((next: any) => {
       console.log('Vehicle has been added successfully!');
       
       //this.router.navigate(['/addvehicle/vehiclelist']);
@@ -61,9 +93,12 @@ export class AddvehicleComponent implements OnInit {
   imgUrl!: any;
   data: any;
   submitted: any;
-  cloudinaryUrl: string =
-    'https://api.cloudinary.com/v1_1/dev-lab/image/upload';
+  cloudinaryUrl: string = 'https://api.cloudinary.com/v1_1/dev-lab/image/upload';
+  onFile: any;
   isUpdating: boolean = false;
+
+
+
 
   addVehicleForm = new FormGroup({
     model: new FormControl('', [
@@ -109,73 +144,17 @@ driver_cellphone: new FormControl('',[
   onFileChangePdf(e: any) {}
 }
 
-//   onsubmit(data: FormGroup)
-//   {
-//     this.load = true;
-//     this.addvehicleService.addvehicle(data.value).subscribe((result:any) => {
-//       this.getVehicles()
-//       console.log('vehicle added')
-//       data.reset()
-//       setTimeout(() => {
-//         this.load = false;
-//       }, 2000);
 
-//   vehicleForm!: FormGroup;
-//   submitted = false;
-//   addvehicle: any;
-//   constructor( private addvehicleservice: AddvehicleService, private formBuilder: FormBuilder, private router: Router){}
 
-//   get f() { return this.vehicleForm.controls; }
-//   onSubmit() {
 
-//     this.submitted = true;
-//     if (this.vehicleForm.invalid) {
-//         return;
-//     }
-//     if(this.submitted)
-//     {
 
-//        var myFormData = new FormData();
-//        myFormData.append('vehicle', this.vehicleForm.value.vehicle);
-//        this.addvehicleservice.addvehicle(myFormData);
-//        this.router.navigate([`/vehicles`]);
-//       }
-//   }
-//   ngOnInit() {
 
-//   }
-// }
 
-//   vehicles: any;
-//   owner_id: any;
-//   vehicle_reg: any;
-//   model: any;
-//   brand: any;
-//   driver_name: any;
-//   driver_cellphone: any;
-//   driver_image: any;
-//   document: any;
-//   color: any;
-//   vehicle_image: any;
-//   addvehicleservice: any;
-//   data: AddvehicleComponent[] | undefined;
 
-// constructor(private router:Router, private addvehicle:AddvehicleService) { }
 
-//   ngOnInit(): void {
-//     this.addvehicleservice.getAddehicle()
-//     .subscribe((res: AddvehicleComponent[]) => {
-//       this.data = res;
-//     }, (err: any) => {
-//       console.log(err);
-//     });
-// }
 
-// deleteVehicle(id:any)
-//   {
-//     this.addvehicleservice.deleteVehicle(id,this.data).subscribe((data:any)=>{
-//      this.toast.success(({detail:"Done",summary:"Vehicle deleted"}));
-//     },(err: HttpErrorResponse)=>{
-//       this.toast.error({detail:"Error", summary:err.error.message});
 
-//     })
+
+
+
+

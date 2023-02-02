@@ -10,9 +10,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AddvehicleComponent } from './components/addvehicle/addvehicle.component';
 import { AddvehicleService } from './services/addvehicle.service';
+import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
 
+import { RemoveVehicleComponent } from './components/remove-vehicle/remove-vehicle.component';
 const routes: Routes = [
-  // { path: ':status', component: AddvehicleComponent },
   { path: '**', redirectTo: '/all' }
 ];
 
@@ -27,6 +28,8 @@ const routes: Routes = [
     SchoolsComponent,
     VehiclesComponent,
     AddvehicleComponent,
+    EditVehicleComponent,
+    RemoveVehicleComponent,
     
 
   ],
@@ -34,7 +37,11 @@ const routes: Routes = [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule  ],
+    HttpClientModule,
+    
+  
+
+  ],
 
 
 

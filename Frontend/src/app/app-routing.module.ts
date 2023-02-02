@@ -7,7 +7,9 @@ import { LandingComponent } from './pages/landing/landing.component';
 // [{ path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) }];
 const routes: Routes = [
   { path: '', component:LandingComponent},
-  { path: 'addvehicle', component: AddvehicleComponent },
+  { path: 'addvehicle', component: AddvehicleComponent }, 
+  { path: 'editvehicle', component: AddvehicleComponent }, 
+  { path: 'removevehicle', component: AddvehicleComponent }, 
 
 ];
 

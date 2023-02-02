@@ -11,24 +11,16 @@
 h2 {
 	font-weight: bold;
   padding: 30px 30px 5px 0;
-
 }
 
-// }
-// h2{
-//   padding-top: 1%;
-//   font-weight: bold;
+.dropdown-content {
+  position: absolute;
+  background-color: #333333;
+  min-width: 160px;
+  color: white;
+  display:flex;
 
-// }
-
-// .dropdown-content {
-//   position: absolute;
-//   background-color: #333333;
-//   min-width: 160px;
-//   color: white;
-//   display:flex;
-
-
+}
 
 
 .btn{
@@ -38,35 +30,3 @@ h2 {
 
     
 }
-
-
-// .dropbtn {
-//     background-color: #F4F4F4;
-//     padding: 12px;
-//     font-size: 14px;
-//     border: none;
-//     cursor: pointer;
-//     border-radius: 3px;
-//   }
-  
-  // .dropdown {
-  //   display: inline-block;
-  // }
-  
-  
-  
- 
-  
-
-  
-//   .dropdown:hover .dropdown-content {display: block;}
-  
-//   .dropdown:hover .dropbtn 
-//   {background-color: #F4F4F4;
-
-//   }
-//   .dropdown{
-//     height: 350px;
-//   }
- 
-  
