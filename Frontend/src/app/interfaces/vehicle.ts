@@ -6,7 +6,7 @@ export interface Vehicle {
     model: string;
     vehicle_reg: string;   
     driver_name: string;
-    driver_cellphone: number;
+    driver_cellphone: string;
     driver_image:string;
     document: string;
     color: string;
