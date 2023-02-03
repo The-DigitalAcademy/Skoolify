@@ -16,9 +16,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserGuard } from './guards/user.guard';
+import { OwnerSchoolApplicationComponent } from './components/owner-school-application/owner-school-application.component';
 
 @NgModule({
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent, OwnerSchoolApplicationComponent],
   imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule],
   providers: [UserGuard],
   bootstrap: [AppComponent],
