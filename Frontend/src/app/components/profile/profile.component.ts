@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from 'src/app/interfaces/user';
@@ -23,8 +23,14 @@ export class ProfileComponent implements OnInit {
     upload_preset: new FormControl()}
   );
   user_id = 0;
-  user : User = {
-
+  user : any = {
+    user_id : 0,
+    name : '',
+    surname : '',
+    ratings : 0.0,
+    votes : 0,
+    image : '',
+    account : ''
   }
 
   updateDetails = new FormGroup({
@@ -39,18 +45,38 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.user_id = Number(sessionStorage.getItem('user_id'));
-    this.profile
-
   }
 
-  onSumbit(){
+  onSumbitImage(){
     const formData = new FormData();
     formData.append("file",this.file)
     formData.append("upload_preset","i8maua2c");
-
-
+    this.http.post(this.cloudinaryUrl,formData).subscribe((res:any)=>{
+      this.data.image = res.url;
+      this.getUser();
+    },(error:HttpErrorResponse)=>{
+      //upload error
+    })
+  }
+  onSubmitDetails(form:FormGroup)
+  {
+    this.profile.updateDetails(this.user_id,form.value).subscribe((res:any)=>{
+      //to be continued
+    },(error:HttpErrorResponse)=>{
+      //error
+    })
 
   }
+
+  getUser()
+  {
+    this.profile.getAccount(this.user_id).subscribe((user: any)=>{
+      this.user = user;
+    })
+
+  }
+
+
 
   async onFileChange(event :any)
   {
