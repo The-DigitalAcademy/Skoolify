@@ -19,7 +19,7 @@ import { UserGuard } from './guards/user.guard';
 
 @NgModule({
   declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent],
-  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule, Ng2SearchPipeModule],
   providers: [UserGuard],
   bootstrap: [AppComponent],
 })

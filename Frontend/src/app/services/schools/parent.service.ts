@@ -21,7 +21,7 @@ export class ParentService {
 
   getDrivers(){
 
-    return this.http.get("http://localhost:8080/parent/getVehicle/3")//hard coded
+    return this.http.get("http://localhost:8080/parent/getVehicle/2")//hard coded
     // return this.http.get(`${this.baseUrl}/getPost/${ownerID}`)
   }
   viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
