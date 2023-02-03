@@ -26,21 +26,22 @@ export class ParentService {
   }
   viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
     return this.http.get<Transporter[]>(
-      this.baseUrl + '/schooltransporters/' + school_id
+      this.baseUrl + '/getSchoolVehicle/' + school_id
     );
   }
   viewOwnerVehicles(owner_id: number): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(
-      this.baseUrl + '/owners/vehicles/' + owner_id
+      this.baseUrl + '/vehicles/' + owner_id
     );
   }
   viewSchool(school_id: number): Observable<School> {
-    return this.http.get<School>(this.baseUrl + '/viewSchools/' + school_id);
+    return this.http.get<School>(this.baseUrl + '/getOneSchool/' + school_id);
   }
   viewVehicle(vehicle_id: number): Observable<Vehicle> {
     return this.http.get<Vehicle>(
-      this.baseUrl + '/owners/vehicle/' + vehicle_id
+      this.baseUrl + '/getVehicle/' + vehicle_id
     );
   }
+
 
 }

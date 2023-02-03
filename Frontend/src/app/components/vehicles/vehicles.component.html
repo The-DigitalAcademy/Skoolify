@@ -20,3 +20,28 @@
         </div>
       </div>
     </div>
+<br>
+
+    <div class="flex lg:hidden flex-col gap-2">
+      <div
+        class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"
+        *ngFor="let vehicle of vehicles" >
+        <div class="flex flex-col pt-4 pl-4">
+          <div class="name font-medium">
+            {{vehicle.driver_name}}
+          </div>
+          <p style="color: var(--grey-light)" class="text-sm">
+            {{vehicle.brand}} {{vehicle.model}}
+          </p>
+          <p style="color: var(--grey-light)" class="text-sm">
+     
+          </p>
+        </div>
+  
+      </div>
+    </div>
+    
+
+    
+
+

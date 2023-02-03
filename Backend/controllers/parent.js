@@ -49,7 +49,7 @@ exports.getOneSchool = async (req, res) => {
               } else {
                 res
                   .status(200)
-                  .send(result.rows);
+                  .send(result.rows[0]);
               }
             }
           );
@@ -79,7 +79,7 @@ exports.getVehicle = async (req, res) => {
               } else {
                 res
                   .status(200)
-                  .send(result.rows);
+                  .send(result.rows[0]);
               }
             }
           );
@@ -121,6 +121,34 @@ exports.viewOwner = (req, res) => {
     }
   });
 };
+//view school by id
+exports.viewSchool = (req, res) => {
+  const school_id = req.params.school_id;
+  const sql = "SELECT * FROM school WHERE school_id = $1";
+
+  client.query(sql, [school_id], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ message: "Error fetching school" });
+    } else {
+      res.status(200).json(results.rows[0]);
+    }
+  });
+};
+//view transport
+// exports.schoolTransporters = (req, res) => {
+//   const school_id = req.params.school_id;
+//   const sql = "SELECT * FROM vehicle_owner WHERE school_id = $1";
+
+//   client.query(sql, [school_id], (err, results) => {
+//     if (err) {
+//       console.log(err);
+//       res.status(400).json({ message: "Error fetching school" });
+//     } else {
+//       res.status(200).json(results.rows);
+//     }
+//   });
+// };
 
 //get vehicle from school
 exports.getSchoolVehicle = async (req, res) => {

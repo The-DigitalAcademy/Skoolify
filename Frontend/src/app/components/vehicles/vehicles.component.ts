@@ -39,7 +39,6 @@ export class VehiclesComponent implements OnInit {
           })
           
         });
-        
 
 
       })
@@ -48,6 +47,7 @@ export class VehiclesComponent implements OnInit {
       //failed to view school
       console.log(error)
     });
+   
   }
 
   back()

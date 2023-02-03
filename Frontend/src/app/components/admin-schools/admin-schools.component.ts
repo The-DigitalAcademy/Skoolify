@@ -15,7 +15,8 @@ export class AdminSchoolsComponent implements OnInit {
   schools: School[] = [];
   term: string =''
   load : boolean = false;
-  message: string = 'Save'
+  message: string = 'Save';
+  
 
   addSchoolForm = new FormGroup({
     school_name: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
