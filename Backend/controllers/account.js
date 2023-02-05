@@ -9,6 +9,7 @@ exports.getUser = (req, res) => {
         if(err) {
             res.status(400).json({message: "Failed to get user"})
         }else{
+            
             res.status(200).json(result.rows[0]);
         }
     })
@@ -18,19 +19,22 @@ exports.getUser = (req, res) => {
     const user_id = req.params.user_id;
     const {oldPassword, newPassword} = req.body;
     const sql = "SELECT * FROM users WHERE user_id = $1";
+    console.log(oldPassword);
 
     client.query(sql,[user_id] ,(err, result) => {
         if(err) {
             res.status(400).json({message: "Failed to get user"})
         }else{
-            const confirm = bcrypt.compare(oldPassword, result.rows[0].password);
-            if(confirm) {
+           bcrypt.compare(oldPassword, result.rows[0].password,(error,same)=>{
+            //console.log(result.rows[0].password)
+            if(error) {
+
+            } else if(same === true) {
                 const sql1 = "UPDATE users SET password = $1";
                 bcrypt.hash(newPassword, 10, (err, hash) => {
                     if (err)
-                      res.status(err).json({
-                        message: "Encryption error",
-                      });
+                      res.status(err).json({message: "Encryption error"});
+
                       client.query(sql1,[hash] ,(err2, result) => {
                         if(err2) {
                             console.log(err2)
@@ -41,9 +45,11 @@ exports.getUser = (req, res) => {
                     })
                 })
              
-            }else{
+            }else if(same == false){
                 res.status(400).json({message: "Invalid old password"}) 
             }
+           });
+            
             
         }
     })

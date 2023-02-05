@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { OwnerPageComponent } from './components/owner-page/owner-page.component';
 import { UserGuard } from './guards/user.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path:'login', component: LoginComponent},
   { path:'home', component: OwnerPageComponent},
+  {path:'profile',component: ProfileComponent},
   { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
   { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)},
 ];
