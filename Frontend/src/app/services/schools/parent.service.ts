@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Vehicle } from 'src/app/interfaces/vehicle';
+import { School } from 'src/app/interfaces/school';
 
 const ownerID= localStorage.getItem('owner_id')
 @Injectable({
@@ -11,13 +14,11 @@ export class ParentService {
 
   constructor(private http:HttpClient) { }
 
-  getSchool(){
-    return this.http.get(`${this.baseUrl}/getSchool`)
+  getSchool():Observable<School[]>{
+    return this.http.get<School[]>(`${this.baseUrl}/getSchool`)
   }
 
-  getDrivers(){
-
-    return this.http.get("http://localhost:8080/parent/getVehicle/3")//hard coded
-    // return this.http.get(`${this.baseUrl}/getPost/${ownerID}`)
+  getDrivers(user_id :number):Observable<Vehicle[]>{
+    return this.http.get<Vehicle[]>(this.baseUrl+"getVehicle/"+user_id)
   }
 }
