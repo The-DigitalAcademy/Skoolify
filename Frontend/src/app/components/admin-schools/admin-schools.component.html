@@ -13,7 +13,7 @@
           class="-ml-9 my-auto content-center"
           style="color: var(--grey-dark)"
         >
-          <i class="fi fi-rr-search my-auto"></i>
+          <i class="fi fi-sr-search my-auto"></i>
         </label>
       </div>
     </div>
@@ -23,7 +23,7 @@
       <span class="my-auto font-semibold text-sm">Added Schools</span>
       <label for="my-modal-6" class="btn gap-2 btn-ghost btn-sm capitalize">
         Add school
-        <i class="fi fi-br-plus"></i>
+        <i class="fi fi-sr-add"></i>
       </label>
 
       <input type="checkbox" id="my-modal-6" class="modal-toggle" />
@@ -69,12 +69,12 @@
 
   <div class="grid overflow-y-scroll grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full place-items-center gap-x-2 gap-y-2">
     <div
-      class="grid-item schools w-full h-40 lg:h-32 max-w-xs rounded-3xl px-3 py-4"
+      class="grid-item bg-accent transition-all hover:scale-95 hover:shadow cursor-pointer schools w-full h-40 lg:h-32 max-w-xs rounded-3xl px-3 py-4"
       *ngFor="let school of schools" (click) = "viewSchool(school.school_id)"
     >
       <div class="flex flex-col justify-start gap-1">
-        <i class="fi fi-sr-graduation-cap text-white"></i>
-        <h2 class="school_name font-bold text-base w-full text-white">
+        <i class="fi fi-sr-graduation-cap"></i>
+        <h2 class="school_name font-bold text-base w-full">
           {{ school.school_name }}
         </h2>
         <div class="text-primary">
