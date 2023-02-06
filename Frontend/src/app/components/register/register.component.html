@@ -109,7 +109,15 @@
                       formControlName="password"
                       required
                       style="width: 210px"
+                      [ngClass]="{ 'is-invalid': submitted && formValidation['password'].errors }"
                     />
+                    <div *ngIf="submitted && formValidation['email'].errors" class="invalid-feedback">
+                      <div *ngIf="formValidation['email'].errors['required']" class="error-text">password is required</div>
+                      <div *ngIf="formValidation['email'].errors['email']" class="error-text">password is invalid</div>
+                    </div>
+
+
+
                   </div>
 
                   <div class="form-control w-full max-w-xs mb-2 lg:mt-5">
@@ -121,7 +129,14 @@
                       formControlName="confirmPassword"
                       required
                       style="width: 210px"
+                      [ngClass]="{ 'is-invalid': submitted && formValidation['password'].errors }"
                     />
+
+                    <div *ngIf="submitted && formValidation['password'].errors" class="invalid-feedback">
+                      <div *ngIf="formValidation['password'].errors['required']">conf is required</div>
+                    </div>
+
+
                   </div>
                 </div>
               </div>

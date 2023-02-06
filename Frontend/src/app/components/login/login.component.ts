@@ -45,30 +45,7 @@ login(){
   console.log("gdfdff")
 
   console.log(this.loginForm1.value);
-    // console.log(form.value)
- //Add the User to the Database
-//  this.auth1.loginData(this.loginForm1.value).subscribe((results)=>{
-
-//   if(results === 'Enter correct password!' || results === ''){
-
-//     alert('invalid login details')
-
-//     console.log('invalid')
-
-//     return
-//    }
-//    else{
-
-//     this.router.navigateByUrl('/home')
-//     console.warn('sucess');
-//     alert('successfully logged in');
-
-//     console.log(results)
-//     //routing to home page after successfully loging in
-
-//    }
-//  })
-
+  
 
 }
 
