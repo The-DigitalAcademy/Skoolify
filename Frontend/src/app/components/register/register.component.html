@@ -23,8 +23,7 @@
   </p>
 
   <div class="flex justify-center mx-auto">
-    <div
-      class="left-tab hidden md:block bg-accent w-80 px-8 py-16 -mr-4 rounded-l-3xl shadow-lg"
+    <div class="left-tab hidden md:block bg-accent w-80 my-auto px-8 py-16 -mr-4 rounded-l-3xl shadow-lg"
     >
       <h2 class="text-primary font-bold text-5xl">
         Sign <span style="color: var(--main-dark)">In</span>
@@ -35,7 +34,7 @@
       </p>
     </div>
     <div
-      class="right-tab flex w-80 flex-col mx-auto shadow-lg md:mx-0 justify-center rounded-3xl h-80 px-7 md:px-9"
+      class="right-tab flex w-80 flex-col mx-auto shadow-lg md:mx-0 justify-center rounded-3xl h-96 px-7 md:px-9"
       style="background-color: var(--grey-dark)"
     >
       <form
@@ -55,6 +54,10 @@
               class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
               placeholder="Enter your name ..."
             />
+            <div *ngIf="submitted && formValidation['name'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['name'].errors['required']" class="text-white text-xs">Name is required</div>
+            </div>
+
           </div>
 
           <div class="form-control w-full">
@@ -67,6 +70,9 @@
               class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
               placeholder="Enter your surname ..."
             />
+            <div *ngIf="submitted && formValidation['surname'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['surname'].errors['required']" class="text-white text-xs">Surname is required</div>
+            </div>
           </div>
 
           <div class="w-full flex justify-start gap-3">
@@ -78,6 +84,9 @@
                 <option value="PARENT">Parent</option>
                 <option value="OWNER">Car Owner</option>
             </select>
+            <div *ngIf="submitted && formValidation['account'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['account'].errors['required']" class="text-white text-xs">Acc type is required</div>
+            </div>
             </div>
 
             <div class="form-control">
@@ -88,6 +97,9 @@
                 <option value="Female">Female</option>
                 <option value="Not Specified">Not Specify</option>
               </select>
+              <div *ngIf="submitted && formValidation['gender'].errors" class="invalid-feedback">
+                <div *ngIf="formValidation['gender'].errors['required']" class="text-white text-xs">Gender is required</div>
+              </div>
             </div>
 
           </div>
@@ -116,11 +128,19 @@
               class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
               placeholder="Enter your email"
             />
+            <div *ngIf="submitted && formValidation['email'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['email'].errors['required']" class="text-white text-xs">Email is required</div>
+              <div *ngIf="formValidation['email'].errors['email']" class="text-white text-xs">Email is invalid</div>
+            </div>
           </div>
 
-          <div class="form-control w-full">
-            <label for="password" class="label text-accent">Password</label>
+          <div class="form-control w-full tooltip tooltip-secondary lg:tooltip-right" data-tip="At least a minimum of 8 letters, 1 uppercase, 1 lowercase and 1 special character">
+            <label [style]="" for="password" class="label text-accent">Password</label>
             <input formControlName="password" type="password" id="password" class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent" placeholder="Create a password"/>
+            <div *ngIf="submitted && formValidation['password'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['password'].errors['required']" class="text-white text-left text-xs">Password is required</div>
+              <div *ngIf="formValidation['password'].errors['pattern']" class="text-white text-left text-xs">Password is invalid</div>
+            </div>
           </div>
 
           <div class="form-control w-full">
@@ -133,6 +153,9 @@
               class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
               placeholder="Re-type password"
             />
+            <div *ngIf="submitted && formValidation['confirmPassword'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['confirmPassword'].errors['required']" class="text-white text-xs">Password is required</div>
+            </div>
           </div>
 
           <div class="flex justify-center mt-3">

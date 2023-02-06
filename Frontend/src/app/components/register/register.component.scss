@@ -1,3 +1,28 @@
+.left-tab{
+    animation: slide-in-fwd-right 2s ease 0s 1 normal none;
+    z-index: 0;
+}@keyframes slide-in-fwd-right{
+    0% {
+        transform:translateZ(-1400px) translateX(1000px);
+        opacity:0;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        transform:translateZ(0) translateX(0);
+        opacity:1;
+    }
+
+}
+
+.right-tab
+{
+    z-index: 1000;
+}
+
+
+
 // input{
 //   background-color: var(--input-grey);
 

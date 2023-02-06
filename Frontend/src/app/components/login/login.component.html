@@ -53,6 +53,10 @@
                   class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
                   placeholder="Email address"
                 />
+                <div *ngIf="submitted && formValidation['email'].errors" class="invalid-feedback">
+                  <div *ngIf="formValidation['email'].errors['required']" class="text-white">Email is required</div>
+                  <div *ngIf="formValidation['email'].errors['email']" class="text-white">Email is invalid</div>
+                </div>
               </div>
 
 
@@ -66,6 +70,9 @@
                   placeholder="Password"
                   formControlName="password"
                 />
+                <div *ngIf="submitted && formValidation['password'].errors" class="invalid-feedback">
+                  <div *ngIf="formValidation['password'].errors['required']" class="text-white">Password is required</div>
+                </div>
               </div>
 
 
@@ -84,7 +91,7 @@
         </div>
 
         <div class="flex justify-center">
-          <button [disabled]="loginForm1.invalid" type="submit" class="btn btn-sm btn-accent font-normal capitalize rounded-full w-28 mx-auto my-3 disabled:bg-accent disabled:bg-opacity-50">
+          <button type="submit" class="btn btn-sm btn-accent font-normal capitalize rounded-full w-28 mx-auto my-3 disabled:bg-accent disabled:bg-opacity-50">
             Sign in
           </button>
         </div>

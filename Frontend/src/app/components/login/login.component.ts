@@ -32,6 +32,10 @@ export class LoginComponent implements OnInit {
     ratings: 0.0,
 
   };
+  loginForm1 = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.min(6)]),
+  });
 
   constructor(
     private auth1: AuthusersService,
@@ -41,40 +45,51 @@ export class LoginComponent implements OnInit {
     private toast : HotToastService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginForm1 = this.formbuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [ Validators.required ]]
+    })
 
-  loginForm1 = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.min(6)]),
-  });
+  }
+
+  get formValidation(): { [key: string]: AbstractControl } {
+    return this.loginForm1.controls;
+  }
+
+ 
 
   onlogin(form: FormGroup) {
     //Sign in the User to the to the app
-    this.toast.loading("Signing you in ...",{duration:1000})
-    this.auth1.loginData(form.value).subscribe(
-      (results: any) => {
-        this.auth1.saveToken(results.token);
-        this.user = this.jwt.getData(results.token);
-
-        if(this.user!=null) {
-          sessionStorage.setItem('role', this.user.account);
-          this.role = this.user.account;
-          this.toast.success(results.message,{duration:3000});
-
-
-       }
-
-        if (this.role == 'PARENT') {
-          this.router.navigateByUrl('/parent-home');
-        } else if (this.role == 'OWNER') {
-          this.router.navigateByUrl('/owner-home');
-        } else if (this.role == 'ADMIN') {
-          this.router.navigateByUrl('/admin/schools');
+    this.submitted = true;
+    if(form.valid){
+      this.toast.loading("Signing you in ...",{duration:1000})
+      this.auth1.loginData(form.value).subscribe(
+        (results: any) => {
+          this.auth1.saveToken(results.token);
+          this.user = this.jwt.getData(results.token);
+  
+          if(this.user!=null) {
+            sessionStorage.setItem('role', this.user.account);
+            this.role = this.user.account;
+            this.toast.success(results.message,{duration:3000});
+  
+  
+         }
+  
+          if (this.role == 'PARENT') {
+            this.router.navigateByUrl('/parent-home');
+          } else if (this.role == 'OWNER') {
+            this.router.navigateByUrl('/owner-home');
+          } else if (this.role == 'ADMIN') {
+            this.router.navigateByUrl('/admin/schools');
+          }
+        },
+        (error: HttpErrorResponse) => {
+          this.toast.error(error.error.message,{duration:4000});
         }
-      },
-      (error: HttpErrorResponse) => {
-        this.toast.error(error.error.message,{duration:4000});
-      }
-    );
+      );
+
+    }
   }
 }
