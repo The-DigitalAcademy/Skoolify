@@ -180,4 +180,33 @@ exports.getSchoolVehicle = async (req, res) => {
   }
 };
 
-  
+ //add requests
+ exports.addRequests = async (req, res)=>{
+  const {parent_id,owner_id,school_id,message,pickUp_address,num_kids,name,age} = req.body;
+console.log({parent_id,owner_id,school_id,message,pickUp_address,num_kids,name,age});
+try {
+    
+      const data = await client.query(
+        `INSERT INTO requests (parent_id,owner_id,school_id,message,pickUp_address,num_kids,name,age) VALUES ($1,$2,$3,$4,$5,$6,$7,$8);`,
+        [parent_id,owner_id,school_id,message,pickUp_address,num_kids,name,age],
+        (err) => {
+          if (err) {
+       
+            console.error(err);
+            return res.status(500).json({
+              error: "Database error",
+            });
+          } else {
+            res
+              .status(200)
+              .send({ message: `Post for user ${parent_id} have been added to the database`});
+          }
+        }
+      );
+} catch (err) {
+  console.log(err);
+  res.status(500).json({
+    error: "Database error while creating post!",
+  });
+}
+}; 

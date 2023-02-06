@@ -6,5 +6,7 @@ export interface Vehicle {
   vehicle_image: string;
   driver_name: string;
   driver_cellphone: string;
+  driver_image: string;
   document: string;
+
 }

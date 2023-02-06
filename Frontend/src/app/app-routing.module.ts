@@ -7,7 +7,7 @@ import { OwnerPageComponent } from './components/owner-page/owner-page.component
 import { UserGuard } from './guards/user.guard';
 import { SchoolsComponent } from './components/schools/schools.component';
 import { VehiclesComponent } from './components/vehicles/vehicles.component';
-
+import {RequestsComponent} from './components/requests/requests.component'
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -16,6 +16,7 @@ const routes: Routes = [
   { path:'home', component: OwnerPageComponent},
   { path:'parent', component: SchoolsComponent},
   { path:'vehicle', component: VehiclesComponent},
+  { path:'request', component: RequestsComponent},
   { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
   { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)},
 ];
