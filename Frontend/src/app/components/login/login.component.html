@@ -54,8 +54,8 @@
                   placeholder="Email address"
                 />
                 <div *ngIf="submitted && formValidation['email'].errors" class="invalid-feedback">
-                  <div *ngIf="formValidation['email'].errors['required']" class="text-white">Email is required</div>
-                  <div *ngIf="formValidation['email'].errors['email']" class="text-white">Email is invalid</div>
+                  <div *ngIf="formValidation['email'].errors['required']" class="text-white text-xs">Email is required</div>
+                  <div *ngIf="formValidation['email'].errors['email']" class="text-white text-xs">Email is invalid</div>
                 </div>
               </div>
 
@@ -71,7 +71,7 @@
                   formControlName="password"
                 />
                 <div *ngIf="submitted && formValidation['password'].errors" class="invalid-feedback">
-                  <div *ngIf="formValidation['password'].errors['required']" class="text-white">Password is required</div>
+                  <div *ngIf="formValidation['password'].errors['required']" class="text-white text-xs">Password is required</div>
                 </div>
               </div>
 
