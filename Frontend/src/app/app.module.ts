@@ -17,10 +17,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserGuard } from './guards/user.guard';
 import { ProfileComponent } from './components/profile/profile.component';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent, ProfileComponent],
-  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent,ProfileComponent],
+  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
+
   providers: [UserGuard],
   bootstrap: [AppComponent],
 })
