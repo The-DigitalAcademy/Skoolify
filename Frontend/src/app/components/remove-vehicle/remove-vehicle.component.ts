@@ -65,16 +65,16 @@ export class RemoveVehicleComponent implements OnInit {
 }
     // this.viewvehicle.back()
     // sessionStorage.removeItem('selected_vehicle')
-
   remove()
   {
-   
+   this.message ='Removing'
+   this.load = true;
     this.AddvehicleService.RemoveVehicle(Number(sessionStorage.getItem('selected_vehicle'))).subscribe((result:any)=>{
       setTimeout(() => {
-        this.message ='Removed';
+        this.load=false
+        this.message ='Removed'
+      },2000);
       })
-      });
-
   }
 
 

@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AddvehicleService } from 'src/app/services/addvehicle.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import {FormBuilder,FormControl, FormGroup,Validators,} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Vehicle } from 'src/app/interfaces/vehicle';
 import { response } from 'express';
@@ -19,6 +14,8 @@ import { clippingParents } from '@popperjs/core';
   styleUrls: ['./addvehicle.component.scss'],
 })
 export class AddvehicleComponent implements OnInit {
+
+
   image_link: string = '';
   FormBuilder: any;
   //Uploads
@@ -31,6 +28,24 @@ export class AddvehicleComponent implements OnInit {
   imgUrl!: any;
   data: any;
   vehiclesDetails!:any;
+
+
+  vehiDetails = {
+    owner_id: 0,
+    vehicle_reg: '',
+    model: '',
+    brand: '',
+    driver_name: '',
+    driver_cellphone: '',
+    driver_image: '',
+    document: '',
+    color: '',
+    vehicle_image: '',
+  };
+
+  image = {
+    link: '',
+  };
 
   submitted: any;
 
@@ -80,14 +95,12 @@ export class AddvehicleComponent implements OnInit {
     ]),
   });
 
-  constructor(
-    private service: AddvehicleService,
-    private router: Router,
-    private http: HttpClient
-  ) {}
+  constructor(private service: AddvehicleService,private router: Router,private http: HttpClient,) {}
 
+
+  
   ngOnInit(): void {
-    this.service.viewvehicle(3).subscribe((view) => {
+    this.service.viewvehicle(2).subscribe((view) => {
       console.log(view);
 
       this.data = view;
@@ -119,108 +132,145 @@ export class AddvehicleComponent implements OnInit {
       driver_img: this.image.link,
       documents: '',
     });
+
+    
   }
 
   async onVehicleImg(event: any) {
     if (event.target.files.length > 0) {
-      this.vehicleImg = event.target.files[0];
-      console.log(this.vehicleImg);
+      // FormData.append('file', this.vehicleImg);
+    this.vehicleImg = await event.target.files[0];
+
+    const formData = new FormData();
+    formData.append('file', this.vehicleImg);
+    formData.append('upload_preset', this.preset);
+
+    this.http.post(this.cloudinaryUrl,formData).subscribe((res:any)=>{
+      this.vehiDetails.vehicle_image = res.url;
+      console.log(res.url);
+    },(error:HttpErrorResponse)=>{
+      console.log(error);
       
+    })
     }
   }
   async onDriverImg(event: any) {
     if (event.target.files.length > 0) {
-      this.driverImg = event.target.files[0];
+      // FormData.append('file', this.vehicleImg);
+    this.driverImg = await event.target.files[0];
+
+    const formData = new FormData();
+    formData.append('file', this.driverImg);
+    formData.append('upload_preset', this.preset);
+
+    this.http.post(this.cloudinaryUrl,formData).subscribe((res:any)=>{
+      this.vehiDetails.driver_image = res.url;
+      console.log(res.url);
+    },(error:HttpErrorResponse)=>{
+      console.log(error);
+      
+    })
     }
   }
 
   async onFileChangePdf(event: any) {
     if (event.target.files.length > 0) {
-      this.vehicleImg = event.target.files[0];
-      console.log(this.vehicleImg);
+      // FormData.append('file', this.vehicleImg);
+    this.file = await event.target.files[0];
+
+    const formData = new FormData();
+    formData.append('file', this.file);
+    formData.append('upload_preset', this.preset);
+
+    this.http.post(this.cloudinaryUrl,formData).subscribe((res:any)=>{
+      this.vehiDetails.document = res.url;
+      console.log(res.url);
+    },(error:HttpErrorResponse)=>{
+      console.log(error);
       
+    })
     }
   }
 
   onSubmit(form: FormGroup) {
 
     console.log(form.value)
+
+    this.vehiDetails.owner_id = Number(sessionStorage.getItem('user_id'))
+    this.vehiDetails.brand = form.value.brand;
+    this.vehiDetails.model = form.value.model;
+    this.vehiDetails.color = form.value.color;
+    this.vehiDetails.vehicle_reg = form.value.vehicle_reg;
+    this.vehiDetails.driver_name = form.value.driver_name;
+    this.vehiDetails.driver_cellphone = form.value.driver_cellphone;
+
+
     
-    const formData = new FormData();
-    formData.append('file', this.file);
-    formData.append('upload_preset', this.preset);
+    // const formData = new FormData();
+    // formData.append('file', this.file);
+    // formData.append('upload_preset', this.preset);
 
-    console.log(formData);
+    // console.log(formData);
 
-    this.http.post(this.cloudinaryUrl, formData).subscribe((pdfResult: any) => {
-      console.log(pdfResult.url);
-      this.vehiDetails.document = pdfResult.url;
+    // this.http.post(this.cloudinaryUrl, formData).subscribe((pdfResult: any) => {
+    //   console.log(pdfResult.url);
+    //   this.vehiDetails.document = pdfResult.url;
 
-      //new request
-      console.log(formData);
+    //   //new request
+    //   console.log(formData);
 
-      formData.append('file', this.vehicleImg);
-      formData.append('upload_preset', this.preset);
-      this.http
-        .post(this.cloudinaryUrl, formData)
-        .subscribe((vehicleResult: any) => {
-          console.log(vehicleResult.url);
+    //   formData.append('file', this.vehicleImg);
+    //   formData.append('upload_preset', this.preset);
+    //   this.http
+    //     .post(this.cloudinaryUrl, formData)
+    //     .subscribe((vehicleResult: any) => {
+    //       console.log(vehicleResult.url);
 
-          this.vehiDetails.vehicle_image = vehicleResult.url;
-          //new request
-          formData.append('file', this.driverImg);
-          formData.append('upload_preset', this.preset);
+    //       this.vehiDetails.vehicle_image = vehicleResult.url;
+    //       //new request
+    //       formData.append('file', this.driverImg);
+    //       formData.append('upload_preset', this.preset);
 
-          this.http
-            .post(this.cloudinaryUrl, formData)
-            .subscribe((driverResults: any) => {
-              console.log(driverResults.url);
-              this.vehiDetails.driver_image = driverResults.url;
+    //       this.http
+    //         .post(this.cloudinaryUrl, formData)
+    //         .subscribe((driverResults: any) => {
+    //           console.log(driverResults.url);
+    //           this.vehiDetails.driver_image = driverResults.url;
 
             
-            });
-        });
-    });
+    //         });
+    //     });
+    // });
  
 
    
     
-    this.vehiclesDetails = {
-      brand:form.value.brand,
-      color:form.value.color, 
-      document: '',
-      driver_cellphone:form.value.driver_cellphone,
-      driver_image:'',
-      driver_name: form.value.driver_name,
-      model: form.value.model,
-      owner_id: 3, 
-      vehicle_image: '',
-      vehicle_reg:form.value.vehicle_reg
-    }
+    // this.vehiclesDetails = {
+    //   brand:form.value.brand,
+    //   color:form.value.color, 
+    //   document: this.file,
+    //   driver_cellphone:form.value.driver_cellphone,
+    //   driver_image:this.driverImg,
+    //   driver_name: form.value.driver_name,
+    //   model: form.value.model,
+    //   owner_id: 3, 
+    //   vehicle_reg:form.value.vehicle_reg
+    // }
 
-    console.log(this.vehiclesDetails);
 
-    this.service.addvehicle(this.vehiclesDetails).subscribe((next: any) => {
+
+    console.log(this.vehiDetails);
+
+    this.service.addvehicle(this.vehiDetails).subscribe((next: any) => {
       console.log('Vehicle has been added successfully!');
       this.router.navigate(['/addvehicle/vehiclelist']);
       this.submitted = false;
+    },(error: HttpErrorResponse)=>{
+      console.log(error);
+      
     });
   }
 
-  vehiDetails = {
-    owner_id: 0,
-    vehicle_reg: '',
-    model: '',
-    brand: '',
-    driver_name: '',
-    driver_cellphone: '',
-    driver_image: '',
-    document: '',
-    color: '',
-    vehicle_image: '',
-  };
-
-  image = {
-    link: '',
-  };
+  
 }
+

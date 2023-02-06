@@ -3,30 +3,35 @@
   color: #9E9E9E;
 }
 .card{
-    height: 20vh;
-    width: 50vh;
+    display:flex;
+    height: 30vh;
+    width: 180vh;
     background-color: #F4F4F4;
-    margin-top: 5%;
+    margin-top: 10%;
 }
-h2 {
+h1 {
 	font-weight: bold;
-  padding: 30px 30px 5px 0;
+  position: fixed;
+  margin-top: 40px;
 }
 
 .dropdown-content {
+  display:inline-block;
   position: absolute;
   background-color: #333333;
-  min-width: 160px;
   color: white;
-  display:flex;
+  padding: 12px 10px;
 
 }
 
 
 .btn{
-    background-color: #A3B4A2;
+    background-color:white;
     float:right;
     margin-bottom: 20%;
-
+    padding: 12px 10px;
     
+}
+.card{
+  width: 65rem;
 }

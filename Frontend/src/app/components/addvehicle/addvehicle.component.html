@@ -1,7 +1,7 @@
+<div class="px-2  lg:px-20 lg:px-14">
+  <h1>Vehicles</h1>
 
-<h2>Vehicles</h2>
-
-<label for="my-modal-3" class="btn">Add Vehicle</label>
+<label for="my-modal-3" class="btn" >Add Vehicle</label>
 <input type="checkbox" id="my-modal-3" class="modal-toggle" />
 <div class="modal">
   <div class="modal-box relative">
@@ -10,7 +10,7 @@
     
     <div class="mb-6">
       <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Model</label>
-      <input type="text" id="base-input" formControlName="model" required minlength="1" maxlength="50"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      <input type="text" id="base-input" formControlName="model" required minlength="1" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
     </div>
 
     <div class="mb-6">
@@ -57,13 +57,11 @@
           </form>
 </div>
     </div>
-
     
-
 <div class="card w-100 bg-base-100 shadow-xl"*ngFor="let record of data, let x = index">
   <div class="dropdown dropdown-right">
-    <label tabindex="0" class="btn m-1">
-      
+    <label tabindex="0" class="btn gap-1 m-1" >  
+      <i class="fi fi-rr-menu-dots-vertical"></i>
     </label>
     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
       <li>
@@ -80,7 +78,10 @@
 </h2>
 <br>
       <i class="fi fi-sr-marker text-xs mr-1"></i>
-      <span class="text-xs " style="color:#9E9E9E;">{{record.vehicle_reg}}</span>
+      <span class="text-s " style="color:#9E9E9E;">{{record.vehicle_reg}}</span>
       <i class="fi fi-sr-marker text-xs mr-1"></i>
-        <span class="text-xs " style="color:#9E9E9E">{{record.driver_name }}</span>
+        <span class="text-s " style="color:#9E9E9E">{{record.driver_name }}</span>
+        <i class="fi fi-sr-marker text-xs mr-1"></i>
+        <span class="text-s " style="color:#9E9E9E">{{record.driver_cellphone }}</span>
+       
         
