@@ -191,7 +191,7 @@
           <input type="text" class="input bg-accent" formControlName="surname" [value]="user.surname" [placeholder]="user.surname">
         </div>
 
-        <div class="flex justify-start mt-8">
+        <div class="flex justify-center  lg:justify-start mt-8">
           <button type="submit" [style.background-color]="user.account=='PARENT'? 'var(--primary-color)' : (user.account=='OWNER' ? 'var(--main-dark)' : null)"
           [ngClass]="load? 'btn btn-ghost w-64 capitalize font-normal text-white rounded-2xl loading': 'btn btn-ghost w-64 capitalize font-normal text-white rounded-2xl'">{{message}}</button>
         </div>
