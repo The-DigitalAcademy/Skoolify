@@ -21,7 +21,7 @@ emailDetails = {
 
 exports.viewRequests = (req, res) => {
     const owner_id = req.params.owner_id
-    const sql = "SELECT * FROM requests WHERE owner_id = $1";
+    const sql = "SELECT * FROM requests WHERE owner_id = $1 AND status = 'PENDING'";
     client.query(sql,[owner_id],(err, results) => {
       if (err) {
         console.log(err);
@@ -66,17 +66,17 @@ exports.viewRequest = (req, res) => {
   };
 
   exports.decline = (req, res) => {
-    const request_id = req.params.owner_id
+    const request_id = req.params.request_id;
     const feedback = req.body.feedback;
-
 
     const sql = "SELECT * FROM requests WHERE request_id = $1";
     client.query(sql, [request_id], (err, results) => {
         if (err) {
           console.log(err);
         } else {
-          console.log(results.rows[0]);
+          console.log(results.rows);
           let parent_id = results.rows[0].parent_id;
+          console.log(results.rows[0]);
           let sql_2 = "SELECT * FROM users WHERE user_id = $1";
     
           client.query(sql_2, [parent_id], (err, parentResults) => {
@@ -110,6 +110,79 @@ exports.viewRequest = (req, res) => {
                                 } else {
                                     let sql_3 =
                                     "UPDATE requests SET status = 'DECLINED' WHERE request_id = $1";
+                                    client.query(sql_3, [request_id], (err, declinedResults) => {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        res.status(200).json({ message: "Request declined" });
+                                    }
+                                    });//update status
+                                }
+                                });
+                                //send the email
+                            }
+
+                        })//get the owner
+                        
+                    }
+
+                })
+            
+             
+
+
+            }
+          });
+        }
+      });
+   
+  };
+
+  exports.accept = (req, res) => {
+    const request_id = req.params.request_id;
+    const feedback = req.body.feedback;
+
+    const sql = "SELECT * FROM requests WHERE request_id = $1";
+    client.query(sql, [request_id], (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          //console.log(results.rows);
+          let parent_id = results.rows[0].parent_id;
+         //console.log(results.rows[0]);
+          let sql_2 = "SELECT * FROM users WHERE user_id = $1";
+    
+          client.query(sql_2, [parent_id], (err, parentResults) => {
+            if (err) {
+              console.log(err);
+            } else {
+                client.query('SELECT * FROM school WHERE school_id = $1',[results.rows[0].school_id],(err,schoolResults)=>{
+                    if(err)
+                    {
+                        console.log(err)
+                    }else{
+                        client.query('SELECT * FROM users WHERE user_id = $1',[results.rows[0].owner_id],(err,ownerResults) => {
+                            if(err){
+                                console.log(err)
+
+                            }else{
+                                emailDetails.from = sender;
+                                emailDetails.to = parentResults.rows[0].email;
+                                emailDetails.text =
+                                "Good Day " +
+                                parentResults.rows[0].name +
+                                "\n\nThank you for taking your time and sending an request to"+ownerResults.rows[0].name+" "+ownerResults.rows[0].surname+". However, we are sad to notify you that your application was rejected. \n\nReason: " +
+                                feedback +
+                                "\n\nThe SGB";
+                                emailDetails.subject = "Request Response";
+                
+                
+                                transporter.sendMail(emailDetails, (emailErr) => {
+                                if (emailErr) {
+                                    console.log(emailErr);
+                                } else {
+                                    let sql_3 =
+                                    "UPDATE requests SET status = 'ACCEPTED' WHERE request_id = $1";
                                     client.query(sql_3, [request_id], (err, declinedResults) => {
                                     if (err) {
                                         console.log(err);
