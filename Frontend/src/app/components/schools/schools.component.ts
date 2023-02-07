@@ -18,5 +18,11 @@ constructor(private service:ParentService) { }
 
   })
   }
+  viewSchool(school_id:any)
+  {
+    sessionStorage.setItem('selected_school',school_id);
 
+
+  
+}
 }

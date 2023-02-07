@@ -7,6 +7,7 @@ import { ParentService } from 'src/app/services/schools/parent.service';
   styleUrls: ['./owner-page.component.scss']
 })
 export class OwnerPageComponent implements OnInit {
+[x: string]: any;
   data:any
   driver:any
   searchSchool :any
