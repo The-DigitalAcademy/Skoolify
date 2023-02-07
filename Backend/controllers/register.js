@@ -9,8 +9,8 @@ const jwt = require("jsonwebtoken");
 exports.register = async (req, res) => {
   const { name, email, surname, password, gender, account } = req.body;
 
-  const image = "no image yet";
-  const ratings = 5.0;
+  const image = "https://res.cloudinary.com/dkvrb3pye/image/upload/v1675240135/vecteezy_profile-user-icon-isolated-on-white-background-vector-eps10__a4gxpc.jpg";
+  const ratings = 5.2;
   const votes = 0;
   const is_suspended = false;
 
@@ -21,35 +21,20 @@ exports.register = async (req, res) => {
     const arr = data.rows;
     if (arr.length != 0) {
       return res.status(400).json({
-        error: "Email already there, No need to register again.",
+        message: "Email already exists, Please sign in",
       });
     } else {
       bcrypt.hash(password, 10, (err, hash) => {
         if (err)
           res.status(err).json({
-            error: "Server error",
+            message: "Server error",
           });
-        // const  user  = {
-        // name,
-        // surname,
-
-        // email,
-
-        // password: hash,
-        // gender,
-        // image,
-        // account,
-
-        // ratings,
-        // votes,
-        // is_suspened
-        // };
         var flag = 1; //Declaring a flag
 
         //Inserting data into the database
 
         client.query(
-          `INSERT INTO Users ( name,surname,email, password,gender,image,account,ratings,votes,is_suspended) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);`,
+          `INSERT INTO Users ( name,surname,email, password,gender,image,account,ratings,votes,is_suspended) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
           [
             name,
             surname,
@@ -62,26 +47,32 @@ exports.register = async (req, res) => {
             votes,
             is_suspended,
           ],
-          (err) => {
+          (err,results) => {
             if (err) {
               flag = 0; //If user is not inserted is not inserted to database assigning flag as 0/false.
               console.error(err);
               return res.status(500).json({
-                error: "Database error",
+                message: "Database error",
               });
             } else {
               flag = 1;
-
               const token = jwt.sign(
                 //Signing a jwt token
                 {
                   email: email,
+                  name : results.rows[0].name,
+                  surname : results.rows[0].surname,
+                  account : results.rows[0].account,
+                  image : results.rows[0].image,
+                  ratings : results.rows[0].ratings
                 },
-                "egfiuehfiejfpiejfpiefhpiehf3pifnepkfnepfnepi"
-            
-              );
-
-              res.status(201).json(token)
+                "egfiuehfiejfpiejfpiefhpiehf3pifnepkfnepfnepi",
+                {
+                  algorithm: "HS256",
+                  expiresIn: '24h'
+                });
+              console.log(results.rows)
+              res.status(201).json({message:'You are now registered',token:token});
 
 
               
@@ -102,7 +93,7 @@ exports.register = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      error: "Database error while registring user!", //Database connection error
+      message: "Database error while registring user!", //Database connection error
     });
   }
 };

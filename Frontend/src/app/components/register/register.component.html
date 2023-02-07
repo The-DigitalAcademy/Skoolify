@@ -1,151 +1,218 @@
-<div class="px-6">
+<div class="container w-full mx-auto px-6 py-5 md:px-12">
   <img
-    class="logo items-center"
+    class="logo w-60 mx-auto my-1 md:my-4"
     id="logo"
-    src="../../../assets/Logo.png"
+    src="../../../assets/Logo & Slogan.png"
     alt="Backimage"
-    style="width: 219px;height:auto"
   />
-  <p class="mt-6 text-center tracking-tight text-gray-900">
-    sign up and ride a <br/>for your child
+  <img
+    class="logo-transparent fixed top-0 -right-20 w-60"
+    id="logo"
+    src="../../../assets/Transparent Logo.png"
+    alt="Backimage"
+  />
+  <img
+    class="logo-transparent fixed bottom-10 -left-20 w-60"
+    id="logo"
+    src="../../../assets/Transparent Logo.png"
+    alt="Backimage"
+  />
+
+  <p class="my-3 w-36 mx-auto md:hidden text-center text-gray-900">
+    Sign in and a get ride your child
   </p>
-</div>
-<br>
-  <form
-    [formGroup]="registerForm1"
-    (ngSubmit)="onRegister(registerForm1)"
-    id="control"
-    class="mx-auto mb-4"
-    registerForm1="ngForm"
-  >
-    <div
-      id="bg"
-      class=""
-      *ngIf="step == 1"
-      style="background-color: var(--grey-dark);border-radius:px"
+
+  <div class="flex justify-center mx-auto">
+    <div class="left-tab hidden md:block bg-accent w-80 my-auto px-8 py-16 -mr-4 rounded-l-3xl shadow-lg"
     >
+      <h2 class="text-primary font-bold text-5xl">
+        Sign <span style="color: var(--main-dark)">In</span>
+      </h2>
+      <p class="w-52 my-3">
+        Welcome to <span class="font-bold">Skoolify</span><br />
+        Sign in and get a ride for your child
+      </p>
+    </div>
+    <div
+      class="right-tab flex w-80 flex-col mx-auto shadow-lg md:mx-0 justify-center rounded-3xl h-96 px-7 md:px-9"
+      style="background-color: var(--grey-dark)"
+    >
+      <form
+        [formGroup]="registerForm1"
+        (ngSubmit)="onRegister(registerForm1)"
+        id="control"
+        class="w-full mx-auto">
+        <div class="w-full" *ngIf="step == 1">
 
+          <div class="form-control w-full">
+            <label for="email-address" class="label text-accent">Name</label>
+            <input
+              minlength="2"
+              formControlName="name"
+              id="name"
+              required="true"
+              class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
+              placeholder="Enter your name ..."
+            />
+            <div *ngIf="submitted && formValidation['name'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['name'].errors['required']" class="text-white text-xs">Name is required</div>
+            </div>
 
+          </div>
 
+          <div class="form-control w-full">
+            <label for="email-address" class="label text-accent">Surname</label>
+            <input
+              minlength="2"
+              formControlName="surname"
+              id="surname"
+              required
+              class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
+              placeholder="Enter your surname ..."
+            />
+            <div *ngIf="submitted && formValidation['surname'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['surname'].errors['required']" class="text-white text-xs">Surname is required</div>
+            </div>
+          </div>
 
+          <div class="w-full flex justify-start gap-3">
 
+            <div class="form-control">
+              <label for="account" class="label text-accent text-sm">Account Type</label>
+              <select name="account"  class="select-sm  rounded-lg w-full h-10 text-white bg-accent bg-opacity-50" formControlName="account">
+                <option disabled [defaultSelected]="true">Account</option>
+                <option value="PARENT">Parent</option>
+                <option value="OWNER">Car Owner</option>
+            </select>
+            <div *ngIf="submitted && formValidation['account'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['account'].errors['required']" class="text-white text-xs">Acc type is required</div>
+            </div>
+            </div>
 
-
-<div class="form-control my-2 w-full max-w-xs lg:mt-2">
-<input
-
-  type="text"
-  placeholder="First Name"
-  formControlName="name"
-  id="input"
-  class="input bg-accent input-bordered w-full max-w-xs"
-  minlength="2"
-  required
-/>
-</div>
-
-<div id="form" class="form-control w-full max-w-xs my-2 lg:mt-5">
-<input
-  type="text"
-  placeholder="Last name"
-  formControlName="surname"
-  class="input bg-accent input-bordered w-full max-w-xs"
-  minlength="2"
-  required
-/>
-</div>
-
-<div class="form-control w-full max-w-xs my-2 lg:mt-5">
-<input
-  type="text"
-  placeholder="Email"
-  formControlName="email"
-  [email]="true"
-  class="input bg-accent input-bordered w-full max-w-xs"
-  required
-/>
-</div>
-
-<div class="flex justify-between my-3">
-         <span></span>
-           <button  (click)="nextStep(registerForm1)" class="link decoration-transparent" >  Next <i class="fi fi-rr-angle-right text-sm"></i>
-            </button>         </div>
-
-</div>
-
-<div class="reg2 step-1" id = "back1"*ngIf="step == 2" >
-      <div class="form-control w-full max-w-xs lg:mt-2">
-
-
-
-              <div class="form-control w-full max-w-xs lg:mt-2">
-                <div id="  container" class="container">
-                  <div id="label"class="box">
-                    <div>
-
-                      <label for="account">acc type:</label>
-                      <select name="account"     formControlName="account" id="gender">
-                        <option value="PARENT">parent</option>
-                        <option value="OWNER">car owner</option>
-
-                      </select>
-                    </div>
-
-                    <div>
-                      <label for="dog-names">gender</label>
-                      <select name="dog-names" formControlName="gender"  id="dog-names">
-                        <option value="Male">male</option>
-                        <option value="Female">female</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-control w-full max-w-xs mb-2 lg:mt-5">
-                    create password
-                    <input
-                      type="password"
-                      placeholder="Password" formControlName="password"
-                      class="input input-bordered w-full max-w-xs"
-                      formControlName="password"
-                      required
-                      style="width: 210px"
-                    />
-                  </div>
-
-                  <div class="form-control w-full max-w-xs mb-2 lg:mt-5">
-                    re type password
-                    <input
-                      type="password"
-                      placeholder="Re-type password"
-                      class="input input-bordered w-full max-w-xs"
-                      formControlName="confirmPassword"
-                      required
-                      style="width: 210px"
-                    />
-                  </div>
-                </div>
+            <div class="form-control">
+              <label for="gender" class="label text-accent text-sm">Gender</label>
+              <select name="gender" formControlName="gender" class="select-sm  rounded-lg w-full h-10 text-white bg-accent bg-opacity-50">
+                <option disabled [defaultSelected]="true">Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Not Specified">Not Specify</option>
+              </select>
+              <div *ngIf="submitted && formValidation['gender'].errors" class="invalid-feedback">
+                <div *ngIf="formValidation['gender'].errors['required']" class="text-white text-xs">Gender is required</div>
               </div>
             </div>
-     
 
+          </div>
 
+          <div class="flex justify-center mt-3">
+            <button
+              (click)="nextStep(registerForm1)"
+              class="btn btn-sm btn-accent font-normal capitalize rounded-full w-28 mx-auto my-3 disabled:bg-accent disabled:bg-opacity-50"
+            >
+              Next <i class="fi fi-rr-arrow-small-right"></i>
+            </button>
+          </div>
 
-
-
-            <button type="submit"  class="btn btn-sm my-4 md:btn-sm w-52 mx-auto lg:btn-sm btn-primary">Sign up</button>
 
         </div>
 
+        <div class="reg2 step-1 w-full transition-all" id="back1" *ngIf="step == 2">
 
+          <div class="form-control w-full">
+            <label for="password" class="label text-accent">Email</label>
+            <input
+              formControlName="email"
+              [email]="true"
+              id="email"
+              required="true"
+              class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
+              placeholder="Enter your email"
+            />
+            <div *ngIf="submitted && formValidation['email'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['email'].errors['required']" class="text-white text-xs">Email is required</div>
+              <div *ngIf="formValidation['email'].errors['email']" class="text-white text-xs">Email is invalid</div>
+            </div>
+          </div>
 
+          <div class="form-control w-full tooltip tooltip-secondary lg:tooltip-right" data-tip="At least a minimum of 8 letters, 1 uppercase, 1 lowercase and 1 special character">
+            <label [style]="" for="password" class="label text-accent">Password</label>
+            <input formControlName="password" type="password" id="password" class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent" placeholder="Create a password"/>
+            <div *ngIf="submitted && formValidation['password'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['password'].errors['required']" class="text-white text-left text-xs">Password is required</div>
+              <div *ngIf="formValidation['password'].errors['pattern']" class="text-white text-left text-xs">Password is invalid</div>
+            </div>
+          </div>
 
+          <div class="form-control w-full">
+            <label for="confirmPassword" class="label text-accent">Re-type Password</label>
+            <input
+              formControlName="confirmPassword"
+              type="password"
+              id="confirmPassword"
+              required="true"
+              class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent"
+              placeholder="Re-type password"
+            />
+            <div *ngIf="submitted && formValidation['confirmPassword'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['confirmPassword'].errors['required']" class="text-white text-xs">Password is required</div>
+            </div>
+          </div>
 
+          <div class="flex justify-center mt-3">
 
+            <button
+              (click)="nextStep(registerForm1)"
+              class="btn btn-sm btn-accent font-normal capitalize rounded-full w-28 mx-auto my-3 disabled:bg-accent disabled:bg-opacity-50">
+              <i class="fi fi-rr-arrow-small-left"></i>Back
+            </button>
 
+          <button
+          type="submit"
+          class="btn btn-sm btn-accent font-normal capitalize rounded-full w-28 mx-auto my-3 disabled:bg-accent disabled:bg-opacity-50">
+          Sign Up
+          </button>
 
+          </div>
 
+        </div>
 
+      </form>
 
+    </div>
+  </div>
 
-</form>
+  <p class="text-center my-4">
+    Already have an account?
+    <a
+      class="link font-semibold no-underline w-28"
+      [routerLink]="['/login']"
+    >
+      Sign in</a
+    >
+  </p>
+</div>
+<div
+  class="footer hidden md:block w-full bg-primary h-44 fixed bottom-0 rounded-t-3xl px-40 py-5"
+>
+  <div class="flex flex-col">
+    <h3 class="text-white font-semibold">Contact Us</h3>
+    <p class="text-white">
+      The Digital Academy <br />
+      7 Quince Street Milpark <br />
+      Johannesburg 0258
+    </p>
+    <p class="text-white items-center">
+      <i class="fi fi-rr-envelope text-xs my-auto"></i>&nbsp;
+      <a class="my-auto" href="mailto:skoolify@outlook.com" target="_blank"
+        >skoolify@outlook.com</a
+      >
+    </p>
+  </div>
+</div>
 
+<img
+  class="logo-transparent hidden md:block fixed bottom-8 z-20 right-24 w-96"
+  id="logo"
+  src="../../../assets/Transparent Logo.png"
+  alt="Backimage"
+/>

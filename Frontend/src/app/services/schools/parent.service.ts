@@ -15,27 +15,12 @@ export class ParentService {
 
   constructor(private http:HttpClient) { }
 
-  getSchool(){
-    return this.http.get(`${this.baseUrl}/getSchool`)
+  getSchool():Observable<School[]>{
+    return this.http.get<School[]>(`${this.baseUrl}/getSchool`)
   }
 
-  // getDrivers(){
-
-  //   return this.http.get("http://localhost:8080/parent/getVehicle/1")//hard coded
-  //   // return this.http.get(${this.baseUrl}/getPost/${ownerID})
-  // }
-  // viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
-  //   return this.http.get<Transporter[]>(
-  //     this.baseUrl + '/getSchoolVehicle/' + school_id
-  //   );
-  // }
-  // viewOwnerVehicles(owner_id: number): Observable<Vehicle[]> {
-  //   return this.http.get<Vehicle[]>(
-  //     this.baseUrl + '/vehicles/' + owner_id
-  //   );
-  // }
-  viewSchool(school_id: number): Observable<School> {
-   return this.http.get<School>(this.baseUrl + '/getOneSchool/' + school_id);
+  getDrivers(user_id :number):Observable<Vehicle[]>{
+    return this.http.get<Vehicle[]>(this.baseUrl+"getVehicle/"+user_id)
   }
   // viewVehicle(vehicle_id: number): Observable<Vehicle> {
   //   return this.http.get<Vehicle>(
