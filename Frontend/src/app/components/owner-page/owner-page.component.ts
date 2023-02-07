@@ -20,10 +20,10 @@ export class OwnerPageComponent implements OnInit {
   // })
   // }
   ngOnInit(): void {
-    this.service.getDrivers().subscribe((view)=>{
-    this.driver=view
-    console.log("selected id", view)
-  })
+  //   this.service.getDrivers().subscribe((view)=>{
+  //   this.driver=view
+  //   console.log("selected id", view)
+  // })
   this.service.getSchool().subscribe((view)=>{
     this.data=view
     //console.log("selected id", view)

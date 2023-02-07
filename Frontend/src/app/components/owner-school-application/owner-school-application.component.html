@@ -1,3 +1,6 @@
+
+
+
 <div class="px-6 mt-4">
     <div class="flex justify-between">
       <button class="btn px-0 btn-ghost capitalize gap-2" (click)="back()">
@@ -8,16 +11,39 @@
     </div>
 
     <div class="w-full">
-      <h2 class="mx-auto text-center font-semibold text-xl">{{school.school_name}}</h2>
+      <h2 class="mx-auto text-center font-semibold text-xl">{{school.school_location}}</h2>
       <p class="mx-auto text-center font-medium text-lg">{{school.school_location}}</p>
 
       <div class="flex justify-center gap-2 w-fit mx-auto rounded-xl bg-accent h-11 px-3">
         <i class="fi fi-sr-badge-check my-auto" style="color: var(--grey-dark);"></i>
-        <span class="text-2xl font-semibold my-auto" style="color: var(--grey-light);">{{transporters.length}}</span>
+    
         <div class="flex flex-col my-auto">
           <span class="text-xs font-semibold my-0 -mb-1" style="color: var(--grey-light);">Verified</span>
           <span class="text-xs font-semibold my-0" style="color: var(--grey-light);">Transporters</span>
         </div>
       </div>
+
+      <br><br><br><br><br><br>
+
+
+
+
+      <p>Set Monthly fee</p>
+      <br>
+      <input class="form-control"  id ="input"type="text" placeholder="Default input">
+      <br>
+
+
+      <form [formGroup]="oppoSuitsForm"  id ="option"(ngSubmit)="onSubmit()">
+        <select formControlName="name">
+          <option disabled>Select Cars</option>
+          <option>Select cars</option>
+          <option *ngFor="let suit of oppoSuits">{{suit}}</option><i class="fi fi-rr-angle-small-down"></i>
+        </select>
+      </form>
+
+<br>
+<div class="text-center">
+<button type="submit" id ="button" class="btn  text-center  btn-primary">Submit Application</button>
+</div>
     </div>
-(click) = "viewSchool(record.school_id)"

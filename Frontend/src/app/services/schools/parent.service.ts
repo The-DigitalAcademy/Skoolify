@@ -11,7 +11,7 @@ const ownerID= localStorage.getItem('owner_id')
 })
 export class ParentService {
 
-  baseUrl='http://localhost:8080/parent/'
+  baseUrl='http://localhost:8080/parent'
 
   constructor(private http:HttpClient) { }
 
@@ -19,29 +19,29 @@ export class ParentService {
     return this.http.get(`${this.baseUrl}/getSchool`)
   }
 
-  getDrivers(){
+  // getDrivers(){
 
-    return this.http.get("http://localhost:8080/parent/getVehicle/2")//hard coded
-    // return this.http.get(${this.baseUrl}/getPost/${ownerID})
-  }
-  viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
-    return this.http.get<Transporter[]>(
-      this.baseUrl + '/getSchoolVehicle/' + school_id
-    );
-  }
-  viewOwnerVehicles(owner_id: number): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(
-      this.baseUrl + '/vehicles/' + owner_id
-    );
-  }
+  //   return this.http.get("http://localhost:8080/parent/getVehicle/1")//hard coded
+  //   // return this.http.get(${this.baseUrl}/getPost/${ownerID})
+  // }
+  // viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
+  //   return this.http.get<Transporter[]>(
+  //     this.baseUrl + '/getSchoolVehicle/' + school_id
+  //   );
+  // }
+  // viewOwnerVehicles(owner_id: number): Observable<Vehicle[]> {
+  //   return this.http.get<Vehicle[]>(
+  //     this.baseUrl + '/vehicles/' + owner_id
+  //   );
+  // }
   viewSchool(school_id: number): Observable<School> {
-    return this.http.get<School>(this.baseUrl + '/getOneSchool/' + school_id);
+   return this.http.get<School>(this.baseUrl + '/getOneSchool/' + school_id);
   }
-  viewVehicle(vehicle_id: number): Observable<Vehicle> {
-    return this.http.get<Vehicle>(
-      this.baseUrl + '/getVehicle/' + vehicle_id
-    );
-  }
+  // viewVehicle(vehicle_id: number): Observable<Vehicle> {
+  //   return this.http.get<Vehicle>(
+  //     this.baseUrl + '/getVehicle/' + vehicle_id
+  //   );
+  // }
 
 
 }

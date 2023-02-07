@@ -122,3 +122,34 @@ exports.getVehicle = async (req, res) => {
       });
     }
   };
+
+
+    
+  // exports.getSchoolVehicle = async (req, res) => {
+  //   const school_id = parseInt(req.params.id);
+  //   try {
+         
+  //         const data = await client.query(
+  //           `SELECT * FROM school where school_id = $1`,
+  //           [school_id],
+  //           (err,result) => {
+  //             if (err) {
+            
+  //               console.error(err);
+  //               return res.status(500).json({
+  //                 error: "Database error",
+  //               });
+  //             } else {
+  //               res
+  //                 .status(200)
+  //                 .send(result.rows);
+  //             }
+  //           }
+  //         );
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.status(500).json({
+  //       error: "Database error", //Database connection error
+  //     });
+  //   }
+  // };

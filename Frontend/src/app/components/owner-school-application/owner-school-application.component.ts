@@ -5,6 +5,7 @@ import{ School } from 'src/app/interfaces/school';
 import { ParentService } from 'src/app/services/schools/parent.service';
 import { Vehicle } from 'src/app/interfaces/vehicle'; 
 import{Transporter} from 'src/app/interfaces/transporter';
+import { FormBuilder } from "@angular/forms";
 @Component({
   selector: 'app-owner-school-application',
   templateUrl: './owner-school-application.component.html',
@@ -17,24 +18,37 @@ export class OwnerSchoolApplicationComponent implements OnInit {
   transporters : Transporter[] = []; 
   vehicles : Vehicle[] = [];
 
-  constructor(private service:ParentService,private location:Location) { }
+  constructor(private service:ParentService,private location:Location,public fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.service.viewSchool(Number(sessionStorage.getItem('selected_school'))).subscribe((school:School)=>{ 
       this.school = school;
       
-      this.service.viewSchoolTransporters(Number(sessionStorage.getItem('selected_school'))).subscribe((transporters:Transporter[])=>{
-        this.transporters = transporters;
+    //   this.service.viewSchoolTransporters(Number(sessionStorage.getItem('selected_school'))).subscribe((transporters:Transporter[])=>{
+    //     this.transporters = transporters;
 
      
-      
-    })  },(error:HttpErrorResponse)=>{ //failed to view school 
+    // }
+    // )  
+  },(error:HttpErrorResponse)=>{ //failed to view school 
+
+
+
+
       console.log(error) }); 
     }
     back() { 
       this.location.back()
       
   sessionStorage.removeItem('selected_school') } 
+  oppoSuits: any = ['', '', '', '']
+ 
+  oppoSuitsForm = this.fb.group({
+    name: ['']
+  })
+  onSubmit() {
+    alert(JSON.stringify(this.oppoSuitsForm.value))
+  }
 }
 
 
