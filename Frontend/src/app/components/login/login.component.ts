@@ -45,7 +45,7 @@ submitted: any;
    }
    else{
 
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/parent')
     console.warn('sucess');
     alert('successfully logged in');
 

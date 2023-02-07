@@ -41,8 +41,7 @@
     <div class="flex lg:px-14 flex-col gap-2">
       <div
         class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"
-        *ngFor="let vehicle of vehicles"
-      >
+        *ngFor="let vehicle of vehicles" (click) = "viewVehicle(vehicle.vehicle_id)">
         <img
           class="w-20 h-20 object-cover rounded-xl my-auto"
           [src]="vehicle.driver_image"

@@ -5,6 +5,7 @@ import { School } from 'src/app/interfaces/school';
 import { Transporter } from 'src/app/interfaces/transporter';
 import { ParentService } from 'src/app/services/schools/parent.service';
 import { Vehicle } from 'src/app/interfaces/vehicle';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vehicles',
@@ -19,11 +20,13 @@ export class VehiclesComponent implements OnInit {
 
   vehicles : Vehicle[] = [];
 
-  constructor(private service:ParentService,private location:Location) { }
+  constructor(private service:ParentService,private location:Location,private router:Router) { }
 
   ngOnInit(): void {
+
     this.service.viewSchool(Number(sessionStorage.getItem('selected_school'))).subscribe((school:School)=>{
       this.school = school;
+
       this.service.viewSchoolTransporters(Number(sessionStorage.getItem('selected_school'))).subscribe((transporters:Transporter[])=>{
         this.transporters = transporters;
 
@@ -54,6 +57,13 @@ export class VehiclesComponent implements OnInit {
   {
     this.location.back()
     sessionStorage.removeItem('selected_school')
+  }
+
+  viewVehicle(vehicle_id:any)
+  {
+    sessionStorage.setItem('selected_school',vehicle_id);
+    this.router.navigateByUrl('/request')
+
   }
 
 }

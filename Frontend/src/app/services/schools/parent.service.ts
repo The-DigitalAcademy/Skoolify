@@ -43,5 +43,8 @@ export class ParentService {
     );
   }
 
+  addRequests(data: any) {
+    return this.http.post(this.baseUrl + '/addRequests', data);
+  }
 
 }

@@ -180,33 +180,81 @@ exports.getSchoolVehicle = async (req, res) => {
   }
 };
 
- //add requests
- exports.addRequests = async (req, res)=>{
-  const {parent_id,owner_id,school_id,message,pickUp_address,num_kids,name,age} = req.body;
-console.log({parent_id,owner_id,school_id,message,pickUp_address,num_kids,name,age});
-try {
-    
-      const data = await client.query(
-        `INSERT INTO requests (parent_id,owner_id,school_id,message,pickUp_address,num_kids,name,age) VALUES ($1,$2,$3,$4,$5,$6,$7,$8);`,
-        [parent_id,owner_id,school_id,message,pickUp_address,num_kids,name,age],
-        (err) => {
-          if (err) {
-       
-            console.error(err);
-            return res.status(500).json({
-              error: "Database error",
-            });
-          } else {
-            res
-              .status(200)
-              .send({ message: `Post for user ${parent_id} have been added to the database`});
+//add requests
+
+// exports.addRequests = async (req, res) => {
+//   const {parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status} = req.body;
+//   try {
+        
+//         const data = await client.query(
+//           `INSERT INTO requests (parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status);`,
+//           [parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status],
+//           (err) => {
+//             if (err) {
+           
+//               console.error(err);
+//               return res.status(500).json({
+//                 error: "Database error",
+//               });
+//             } else {
+//               res
+//                 .status(200)
+//                 .send({ message: `Post for user ${parent_id} have been added to the database`});
+//             }
+//           }
+//         );
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({
+//       error: "Database error while creating post!", 
+//     });
+//   }
+// };
+
+//get requests
+exports.getRequests = async (req, res) => {
+  try {
+        //get all post form the database
+        const data = await client.query(
+          `SELECT * FROM requests`,
+          
+          (err,result) => {
+            if (err) {
+           //If post are not available is not inserted to database
+              console.error(err);
+              return res.status(500).json({
+                error: "Database error",
+              });
+            } else {
+              res
+                .status(200)
+                .send(result.rows);
+            }
           }
-        }
-      );
-} catch (err) {
-  console.log(err);
-  res.status(500).json({
-    error: "Database error while creating post!",
+        );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error while creating post!", //Database connection error
+    });
+  }
+};
+
+//parent requests
+exports.addRequests = (req, res) => {
+  //const {parent_id,owner_id,school_id} = parseInt(req.params.id);
+
+  const {parent_id,owner_id,school_id,message,pickUp_address,num_kids,description} = req.body;
+  const sql =
+    "INSERT INTO requests (parent_id,owner_id,school_id,message,address,num_kids,description,status) values($1,$2,$3,$4,$5,$6,$7,$8)";
+
+  client.query(sql, [parent_id,owner_id,school_id,message,pickUp_address,num_kids,description,"PENDING"], (err, results) => {
+    if (err) {
+      console.log(err)
+      res.status(401).json({ message: "Error inserting request" });
+    } else {
+      res.status(201).json({ message: "Request successfully added" });
+    }
   });
-}
-}; 
+};
+
