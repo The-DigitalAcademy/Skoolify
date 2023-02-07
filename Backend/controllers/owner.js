@@ -1,16 +1,6 @@
 const client = require("../config/db_config");
-var nodemailer = require("nodemailer");
-var smtpTransport = require("nodemailer-smtp-transport");
-
-const sender = "skoolify@outlook.com";
-
-var transporter = nodemailer.createTransport({
-  service: "hotmail",
-  auth: {
-    user: "skoolify@outlook.com", //
-    pass: "Letsdoit!", //
-  },
-});
+const transporter = require('../config/email_config')
+const sender = require('../config/email_config')
 
 emailDetails = {
   from: "", //where the email is from
@@ -20,195 +10,250 @@ emailDetails = {
 };
 
 exports.viewRequests = (req, res) => {
-    const owner_id = req.params.owner_id
-    const sql = "SELECT * FROM requests WHERE owner_id = $1 AND status = 'PENDING'";
-    client.query(sql,[owner_id],(err, results) => {
-      if (err) {
-        console.log(err);
-        res.status(400).json({ message: "Error fetching requests" });
-      } else {
-        res.status(200).json(results.rows);
-      }
-    });
-  };
-
+  const owner_id = req.params.owner_id;
+  const sql =
+    "SELECT * FROM requests WHERE owner_id = $1";
+  client.query(sql, [owner_id], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ message: "Error fetching requests" });
+    } else {
+      res.status(200).json(results.rows);
+    }
+  });
+};
 
 exports.viewRequest = (req, res) => {
-    const request_id = req.params.request_id;
-    const owner_id = req.params.owner_id;
+  const request_id = req.params.request_id;
+  const owner_id = req.params.owner_id;
 
-    const request = "SELECT * FROM requests WHERE request_id = $1 AND owner_id = $2";
-    const school = "SELECT * FROM school WHERE school_id = $1";
-    const parent = "SELECT * FROM users WHERE user_id = $1";
+  const request =
+    "SELECT * FROM requests WHERE request_id = $1 AND owner_id = $2";
+  const school = "SELECT * FROM school WHERE school_id = $1";
+  const parent = "SELECT * FROM users WHERE user_id = $1";
 
+  client.query(request, [request_id, owner_id], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ message: "Error fetching request" });
+    } else {
+      client.query(parent, [results.rows[0].parent_id], (err, parentRes) => {
+        if (err) {
+          res.status(400).json({ message: "Error fetching parent" });
+        } else {
+          client.query(
+            school,
+            [results.rows[0].school_id],
+            (err, schoolRes) => {
+              if (err) {
+                res.status(400).json({ message: "Error fetching school" });
+              } else {
+                res
+                  .status(200)
+                  .json({
+                    request: results.rows[0],
+                    parent: parentRes.rows[0],
+                    school: schoolRes.rows[0],
+                  });
+              }
+            }
+          ); //school call
+        }
+      }); //parent call
+    }
+  }); //request call
+};
 
-    client.query(request,[request_id,owner_id],(err, results) => {
-      if (err) {
-        console.log(err);
-        res.status(400).json({ message: "Error fetching request"});
-      } else {
-        client.query(parent,[results.rows[0].parent_id],(err,parentRes)=>{
-            if (err) {
-                res.status(400).json({ message: "Error fetching parent"});
-            }else{
-                client.query(school,[results.rows[0].school_id],(err,schoolRes)=>{
+exports.decline = (req, res) => {
+  const request_id = req.params.request_id;
+  const feedback = req.body.feedback;
+
+  const sql = "SELECT * FROM requests WHERE request_id = $1";
+  client.query(sql, [request_id], (err, results) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(results.rows);
+      let parent_id = results.rows[0].parent_id;
+      console.log(results.rows[0]);
+      let sql_2 = "SELECT * FROM users WHERE user_id = $1";
+
+      client.query(sql_2, [parent_id], (err, parentResults) => {
+        if (err) {
+          console.log(err);
+        } else {
+          client.query(
+            "SELECT * FROM school WHERE school_id = $1",
+            [results.rows[0].school_id],
+            (err, schoolResults) => {
+              if (err) {
+                console.log(err);
+              } else {
+                client.query(
+                  "SELECT * FROM users WHERE user_id = $1",
+                  [results.rows[0].owner_id],
+                  (err, ownerResults) => {
                     if (err) {
-                        res.status(400).json({ message: "Error fetching school"});
-                    }else{
-                       res.status(200).json({ request : results.rows[0], parent: parentRes.rows[0], school :schoolRes.rows[0]});
+                      console.log(err);
+                    } else {
+                      emailDetails.from = sender;
+                      emailDetails.to = parentResults.rows[0].email;
+                      emailDetails.text =
+                        "Good Day " +
+                        parentResults.rows[0].name +
+                        "\n\nThank you for taking your time and sending an request to" +
+                        ownerResults.rows[0].name +
+                        " " +
+                        ownerResults.rows[0].surname +
+                        ". However, we are sad to notify you that your application was rejected. \n\nReason: " +
+                        feedback +
+                        "\n\nThe SGB";
+                      emailDetails.subject = "Request Response";
+
+                      transporter.sendMail(emailDetails, (emailErr) => {
+                        if (emailErr) {
+                          console.log(emailErr);
+                        } else {
+                          let sql_3 =
+                            "UPDATE requests SET status = 'DECLINED' WHERE request_id = $1";
+                          client.query(
+                            sql_3,
+                            [request_id],
+                            (err, declinedResults) => {
+                              if (err) {
+                                console.log(err);
+                              } else {
+                                res
+                                  .status(200)
+                                  .json({ message: "Request declined" });
+                              }
+                            }
+                          ); //update status
+                        }
+                      });
+                      //send the email
                     }
-        
-                })//school call
+                  }
+                ); //get the owner
+              }
             }
-        })//parent call
-      }
-    });//request call
-  };
+          );
+        }
+      });
+    }
+  });
+};
 
-  exports.decline = (req, res) => {
-    const request_id = req.params.request_id;
-    const feedback = req.body.feedback;
+exports.accept = (req, res) => {
+  const request_id = req.params.request_id;
 
-    const sql = "SELECT * FROM requests WHERE request_id = $1";
-    client.query(sql, [request_id], (err, results) => {
+  const sql = "SELECT * FROM requests WHERE request_id = $1";
+  client.query(sql, [request_id], (err, results) => {
+    if (err) {
+      console.log(err);
+    } else {
+      //console.log(results.rows);
+      let parent_id = results.rows[0].parent_id;
+      //console.log(results.rows[0]);
+      let sql_2 = "SELECT * FROM users WHERE user_id = $1";
+
+      client.query(sql_2, [parent_id], (err, parentResults) => {
         if (err) {
           console.log(err);
         } else {
-          console.log(results.rows);
-          let parent_id = results.rows[0].parent_id;
-          console.log(results.rows[0]);
-          let sql_2 = "SELECT * FROM users WHERE user_id = $1";
-    
-          client.query(sql_2, [parent_id], (err, parentResults) => {
-            if (err) {
-              console.log(err);
-            } else {
-                client.query('SELECT * FROM school WHERE school_id = $1',[results.rows[0].school_id],(err,schoolResults)=>{
-                    if(err)
-                    {
-                        console.log(err)
-                    }else{
-                        client.query('SELECT * FROM users WHERE user_id = $1',[results.rows[0].owner_id],(err,ownerResults) => {
-                            if(err){
-                                console.log(err)
+          client.query(
+            "SELECT * FROM school WHERE school_id = $1",
+            [results.rows[0].school_id],
+            (err, schoolResults) => {
+              if (err) {
+                console.log(err);
+              } else {
+                client.query(
+                  "SELECT * FROM users WHERE user_id = $1",
+                  [results.rows[0].owner_id],
+                  (err, ownerResults) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      emailDetails.from = sender;
+                      emailDetails.to = parentResults.rows[0].email;
+                      emailDetails.text =
+                        "Good Day " +
+                        parentResults.rows[0].name +
+                        "\n\nThank you for taking your time and sending an request to " +
+                        ownerResults.rows[0].name +
+                        " " +
+                        ownerResults.rows[0].surname +
+                        ". We are glad to notify you that your application was accepted. Your name and email address will now be sent to the transport owner for further communication\n\nThe SGB";
+                      emailDetails.subject = "Request Response";
 
-                            }else{
+                      transporter.sendMail(emailDetails, (emailErr) => {
+                        if (emailErr) {
+                          console.log(emailErr);
+                        } else {
+                          let sql_3 =
+                            "UPDATE requests SET status = 'ACCEPTED' WHERE request_id = $1";
+                          client.query(
+                            sql_3,
+                            [request_id],
+                            (err, acceptedResults) => {
+                              if (err) {
+                                console.log(err);
+                              } else {
+                                //email to owner
                                 emailDetails.from = sender;
-                                emailDetails.to = parentResults.rows[0].email;
+                                emailDetails.to = ownerResults.rows[0].email;
                                 emailDetails.text =
-                                "Good Day " +
-                                parentResults.rows[0].name +
-                                "\n\nThank you for taking your time and sending an request to"+ownerResults.rows[0].name+" "+ownerResults.rows[0].surname+". However, we are sad to notify you that your application was rejected. \n\nReason: " +
-                                feedback +
-                                "\n\nThe SGB";
+                                  "Good Day " +
+                                  ownerResults.rows[0].name +
+                                  "\n\nYou have accepted the request from " +
+                                  parentResults.rows[0].name +
+                                  " " +
+                                  parentResults.rows[0].surname +
+                                  ". For further communication, here details the details of the parent.\nFull name: "+parentResults.rows[0].name +" "+parentResults.rows[0].surname+"\nEmail address: "+parentResults.rows[0].email+"\nPick up address: "+results.rows[0].pickUp_address+"\n\nWe wish you all the best on this opportunity.\n\nThe SGB";
                                 emailDetails.subject = "Request Response";
-                
-                
-                                transporter.sendMail(emailDetails, (emailErr) => {
-                                if (emailErr) {
-                                    console.log(emailErr);
-                                } else {
-                                    let sql_3 =
-                                    "UPDATE requests SET status = 'DECLINED' WHERE request_id = $1";
-                                    client.query(sql_3, [request_id], (err, declinedResults) => {
-                                    if (err) {
-                                        console.log(err);
+
+                                transporter.sendMail(
+                                  emailDetails,
+                                  (emailErr) => {
+                                    if (emailErr) {
+                                      console.log(emailErr);
                                     } else {
-                                        res.status(200).json({ message: "Request declined" });
+                                      let sql_3 =
+                                        "UPDATE requests SET status = 'ACCEPTED' WHERE request_id = $1";
+                                      client.query(
+                                        sql_3,
+                                        [request_id],
+                                        (err, acceptedResults) => {
+                                          if (err) {
+                                            console.log(err);
+                                          } else {
+                                            res
+                                              .status(200)
+                                              .json({
+                                                message: "Request accepted",
+                                              });
+                                          }
+                                        }
+                                      ); //update status
                                     }
-                                    });//update status
-                                }
-                                });
-                                //send the email
+                                  }
+                                );
+                                //send the email to parent
+                              }
                             }
-
-                        })//get the owner
-                        
+                          ); //update status
+                        }
+                      });
+                      //send the email to parent
                     }
-
-                })
-            
-             
-
-
+                  }
+                ); //get the owner
+              }
             }
-          });
+          );
         }
       });
-   
-  };
-
-  exports.accept = (req, res) => {
-    const request_id = req.params.request_id;
-    const feedback = req.body.feedback;
-
-    const sql = "SELECT * FROM requests WHERE request_id = $1";
-    client.query(sql, [request_id], (err, results) => {
-        if (err) {
-          console.log(err);
-        } else {
-          //console.log(results.rows);
-          let parent_id = results.rows[0].parent_id;
-         //console.log(results.rows[0]);
-          let sql_2 = "SELECT * FROM users WHERE user_id = $1";
-    
-          client.query(sql_2, [parent_id], (err, parentResults) => {
-            if (err) {
-              console.log(err);
-            } else {
-                client.query('SELECT * FROM school WHERE school_id = $1',[results.rows[0].school_id],(err,schoolResults)=>{
-                    if(err)
-                    {
-                        console.log(err)
-                    }else{
-                        client.query('SELECT * FROM users WHERE user_id = $1',[results.rows[0].owner_id],(err,ownerResults) => {
-                            if(err){
-                                console.log(err)
-
-                            }else{
-                                emailDetails.from = sender;
-                                emailDetails.to = parentResults.rows[0].email;
-                                emailDetails.text =
-                                "Good Day " +
-                                parentResults.rows[0].name +
-                                "\n\nThank you for taking your time and sending an request to"+ownerResults.rows[0].name+" "+ownerResults.rows[0].surname+". However, we are sad to notify you that your application was rejected. \n\nReason: " +
-                                feedback +
-                                "\n\nThe SGB";
-                                emailDetails.subject = "Request Response";
-                
-                
-                                transporter.sendMail(emailDetails, (emailErr) => {
-                                if (emailErr) {
-                                    console.log(emailErr);
-                                } else {
-                                    let sql_3 =
-                                    "UPDATE requests SET status = 'ACCEPTED' WHERE request_id = $1";
-                                    client.query(sql_3, [request_id], (err, declinedResults) => {
-                                    if (err) {
-                                        console.log(err);
-                                    } else {
-                                        res.status(200).json({ message: "Request declined" });
-                                    }
-                                    });//update status
-                                }
-                                });
-                                //send the email
-                            }
-
-                        })//get the owner
-                        
-                    }
-
-                })
-            
-             
-
-
-            }
-          });
-        }
-      });
-   
-  };
-
-
+    }
+  });
+};

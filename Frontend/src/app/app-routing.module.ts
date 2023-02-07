@@ -7,6 +7,7 @@ import { OwnerPageComponent } from './components/owner-page/owner-page.component
 import { UserGuard } from './guards/user.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SchoolsComponent } from './components/schools/schools.component';
+import { OwnerRequestsComponent } from './components/owner-requests/owner-requests.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path:'profile',component: ProfileComponent},
   { path:'parent-home', component: SchoolsComponent},
   { path:'owner-home', component: OwnerPageComponent},
+  { path:'owner-requests', component: OwnerRequestsComponent},
   { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
   { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)},
 ];

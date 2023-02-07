@@ -1,0 +1,23 @@
+<h1>Requests</h1>
+<div class="flex flex-col">
+  <span *ngFor="let request of requestsView; let i = index">
+    {{request.parent.name}}  <button class="btn btn-info" (click)="accept(request.request.request_id)">Accept</button> <label for="my-modal-6" class="btn btn-info"(click)="setReject(request.request.request_id,i)">Decline</label>
+  </span>
+
+  <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+  <div class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
+      <form action=""[formGroup]="feedbackForm" (ngSubmit)="decline(feedbackForm)">
+        <input type="text" class="input input-accent" formControlName="feedback">
+        <div class="modal-action">
+          <label for="my-modal-6" class="btn">Close</label>
+          <button class="btn" type="submit">Decline</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</div>
+
