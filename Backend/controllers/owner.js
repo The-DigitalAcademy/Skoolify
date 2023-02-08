@@ -12,7 +12,7 @@ emailDetails = {
 exports.viewRequests = (req, res) => {
   const owner_id = req.params.owner_id;
   const sql =
-    "SELECT * FROM requests WHERE owner_id = $1";
+    "SELECT * FROM requests WHERE owner_id = $1 ";
   client.query(sql, [owner_id], (err, results) => {
     if (err) {
       console.log(err);

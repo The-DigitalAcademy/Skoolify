@@ -10,15 +10,21 @@
           [src]="request.parent.image"
           alt=""
         />
-        <div class="flex flex-col pt-4 pl-4">
-          <div class="name font-medium">
-            {{ request.parent.name }} {{ request.parent.surname }}
+        <div class="flex flex-col justify-between py-2 pl-4">
+          <div class="details ">
+            <div class="name font-medium">
+              {{ request.parent.name }} {{ request.parent.surname }}
+            </div>
+            <div class="text flex text-xs w-40 ">
+              <p style="color: var(--grey-light)" class="school-name overflow-hidden text-ellipsis">
+                {{ request.school.school_name }} </p>
+            </div>
           </div>
-          <p style="color: var(--grey-light)" class="text-sm w-28 text-ellipsis h-5 overflow-auto">
-            {{ request.school.school_name }}
-          </p>
-          <div class="badge badge-info">
-            {{request.request.num_kids}} Learner(s)
+          <div class="badge badge-info text-sm" *ngIf="request.request.num_kids == 1">
+            {{request.request.num_kids}} Child
+          </div>
+          <div class="badge badge-info text-sm" *ngIf="request.request.num_kids > 1">
+            {{request.request.num_kids}} Children
           </div>
         </div>
       </div>
@@ -32,7 +38,7 @@
           </label>
           <ul tabindex="0" class="menu menu-compact dropdown-content mt-1 p-2 shadow bg-base-100 rounded-box w-fit">
             <li><a class="active:bg-info active:text-white">Accept<i class="fi fi-br-check text-base"></i></a></li>
-            <li><a class="active:bg-info active:text-white">Decline<i class="fi fi-br-cross"></i></a></li>
+            <li><a class="active:bg-info active:text-white w-full"><label for="my-modal-6" class="">Decline</label><i class="fi fi-br-cross"></i></a></li>
           </ul>
         </div>
 
