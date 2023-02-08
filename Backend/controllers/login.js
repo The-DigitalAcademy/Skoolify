@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    console.log(email);
+    //console.log(email);
     const data = await client.query("SELECT * FROM Users WHERE email= $1", [
       email,
     ]); //Verifying if the user exists in the database

@@ -11,7 +11,7 @@ export class JwtService {
 
   constructor() { }
 
-  getData(token:string):User|null{
+  getData(token:any):User|null{
 
     if(this.helper.isTokenExpired(token)){
       return null

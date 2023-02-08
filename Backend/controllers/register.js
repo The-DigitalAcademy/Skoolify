@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
     const arr = data.rows;
     if (arr.length != 0) {
       return res.status(400).json({
-        message: "Email already there, No need to register again.",
+        message: "Email already exists, Please sign in",
       });
     } else {
       bcrypt.hash(password, 10, (err, hash) => {
