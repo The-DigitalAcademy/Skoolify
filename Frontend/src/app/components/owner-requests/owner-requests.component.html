@@ -1,8 +1,24 @@
 <div class="px-4 mt-8 w-full lg:px-16">
-  <div class="flex flex-col gap-2">
+  <!-- Only if there are no requests -->
+  <div class="hero min-h-screen" *ngIf="requestsView.length == 0 ">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="text-5xl font-bold">Ooh No!!</h1>
+        <p class="py-6">You currently have no request. Try submitting some applications.</p>
+        <button class="btn btn-info rounded-2xl capitalize " routerLink="/owner-home">Start applying</button>
+      </div>
+    </div>
+  </div>
+
+ <div class="head" *ngIf="requestsView.length > 0 " >
+  <span>Requests</span>
+  <p class="text-xs mb-2">Looks like you have some requests</p>
+ </div>
+
+  <div class="flex flex-col gap-2 ">
     <label
       for="my-modal-4"
-      class="flex px-2 justify-between h-24 w-full bg-accent mx-auto rounded-xl"
+      class="flex px-2 py-1 justify-between h-24 w-full bg-accent mx-auto rounded-xl relative"
       *ngFor="let request of requestsView; index as i"
       (click)="setIndex(i)">
 
@@ -32,9 +48,7 @@
       </div>
 
       <div class="menu-request my-auto">
-
-        <div class="dropdown dropdown-bottom dropdown-end">
-
+        <div class="dropdown dropdown-bottom dropdown-end" *ngIf="request.request.status == 'PENDING'">
           <label tabindex="0" class="btn btn-ghost rounded-full my-auto">
             <i class="fi fi-br-menu-dots-vertical"></i>
           </label>
@@ -46,18 +60,63 @@
 
 
       </div>
+      <span *ngIf="request.request.status == 'PENDING'" class="badge badge-info absolute top-0 right-0 text-xs">New</span>
+      <span *ngIf="request.request.status == 'ACCPEPTED'" class="badge badge-neutral text-white absolute rounded-none rounded-tr-2xl rounded-bl-2xl top-0 right-0 text-xs">Accepted</span>
     </label>
 
     <input type="checkbox" id="my-modal-4" class="modal-toggle" />
     <label for="my-modal-4" class="modal cursor-pointer">
       <label class="modal-box relative" for="">
-        <h3 class="text-lg font-bold">{{requestsView[index].parent.name}}</h3>
-        <p class="py-4">Request to <span class="font-semibold">{{requestsView[index].school.school_name}}</span></p>
-        
+
+        <div class="flex gap-2">
+          <div class="avatar">
+            <div class="mask mask-squircle w-12 h-12">
+              <img [src]="requestsView[index].parent.image"alt="Avatar image" />
+            </div>
+          </div>
+          <div>
+            <div class="font-bold">{{requestsView[index].parent.name}} {{requestsView[index].parent.surname}}</div>
+            <div class="text-sm opacity-50">{{requestsView[index].school.school_name}}</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="flex flex-col justify-start">
+          <label for="" class="text-sm text-neutral">Number of children</label>
+          <div class="flex justify-start gap-2 place-items-center">
+            <i class="fi fi-rr-child-head my-auto"></i>
+            <p class="py-2 text-sm font-bold my-auto">{{requestsView[index].request.num_kids}}</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-start">
+          <label for="" class="text-sm text-neutral">Pick up address</label>
+          <div class="flex justify-start gap-2 place-items-center">
+            <i class="fi fi-rr-marker my-auto"></i>
+            <p class="py-2 text-sm font-bold my-auto">{{requestsView[index].request.address}}</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-start">
+          <label for="" class="text-sm text-neutral">Description</label>
+          <div class="flex justify-start gap-2 place-items-center">
+            <i class="fi fi-rr-marker my-auto"></i>
+            <p class="py-2 my-auto">{{requestsView[index].request.description}}</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-start" *ngIf="requestsView[index].request.message.length > 0 ">
+          <label for="" class="text-sm text-neutral">Special message</label>
+          <div class="flex justify-start gap-2 place-items-center">
+            <i class="fi fi-rr-marker my-auto"></i>
+            <p class="py-2 my-auto">{{requestsView[index].request.message}}</p>
+          </div>
+        </div>
+
+
       </label>
     </label>
-
-
 
     <input type="checkbox" id="my-modal-6" class="modal-toggle" />
     <div class="modal modal-bottom sm:modal-middle">
@@ -71,7 +130,6 @@
               <option value="Pick up address is too far">Out of my work region</option>
               <option value="Not specify">Other...</option>
             </select>
-
           </div>
           <div class="modal-action">
             <label for="my-modal-6" class="btn btn-info capitalize font-normal rounded-2xl">Close</label>
