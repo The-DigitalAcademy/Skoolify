@@ -3,25 +3,23 @@
   color: #9E9E9E;
 }
 .card{
-    display:flex;
     height: 30vh;
-    width: 180vh;
+    width: 100vh;
     background-color: #F4F4F4;
-    margin-top: 10%;
+    margin: 2%;
+
+
 }
-h1 {
-	font-weight: bold;
-  position: fixed;
-  margin-top: 40px;
+ h1 {
+  margin: 40px;
 }
 
 .dropdown-content {
-  display:inline-block;
   position: absolute;
   background-color: #333333;
   color: white;
   padding: 12px 10px;
-
+  width: 15%;
 }
 
 
@@ -30,8 +28,8 @@ h1 {
     float:right;
     margin-bottom: 20%;
     padding: 12px 10px;
-    
+    background: transparent;
+    border: none !important;
 }
-.card{
-  width: 65rem;
-}
+
+

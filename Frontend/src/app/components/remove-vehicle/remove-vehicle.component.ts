@@ -13,24 +13,23 @@ import { AbstractControl } from '@angular/forms';
   styleUrls: ['./remove-vehicle.component.scss']
 })
 export class RemoveVehicleComponent implements OnInit {
+removeVehicle: any;
+
+onSubmit(FormGroup:any) {
+}
   selected_vehicles: number = 0;
   load: boolean = false;
-  message: string= 'Remove Vehicle'
   vehicle!: Vehicle
   AddvehicleService: any;
-  delete: any;
-  // addVehicleForm: any;
   image_link: string = '';
   onFileChangePdf: any;
   onFileChange: any;
   onDriverImg: any;
   onVehicleImg: any;
-  
-  onSubmit(arg0: FormGroup) {
-  }
+ 
   FormBuilder: any;
   file: any;
-  public vehicles!:any[];
+  vehicles!:any[];
   imageUrl!:any;
 
   addVehicleForm: FormGroup = new FormGroup({
@@ -50,59 +49,76 @@ export class RemoveVehicleComponent implements OnInit {
   addvehicleservice: any;
   vehicleDetails: any;
 
-  constructor(private service: AddvehicleService) {}
+  constructor(private service: AddvehicleService) 
+  {    this.AddvehicleService.getVehicles().subscribe((data:any) => {
+       this.vehicles = data;
+  });
+}
   ngOnInit(): void {
-  
-  //   this.AddvehicleService.viewvehicle(Number(sessionStorage.getItem('selected_Vehicle'))).subscribe((vehicle:Vehicle)=>{
-  //     this.vehicle = vehicle
-  //   })
-
-
-  // },(error:HttpErrorResponse)=>{
-  //   console.log(error)
-  // });
-
-}
-    // this.viewvehicle.back()
-    // sessionStorage.removeItem('selected_vehicle')
-  remove()
-  {
-   this.message ='Removing'
-   this.load = true;
+    let vehicleDetails= {
+      model: this.addVehicleForm.value.model,
+      brand: this.addVehicleForm.value.brand,
+      vehicle_reg: this.addVehicleForm.value.vehicle_reg,
+      color: this.addVehicleForm.value.color,
+      vehicle_img: this.addVehicleForm.value.vehicle_img,
+      driver_name: this.addVehicleForm.value.driver_name,
+      driver_img: this.addVehicleForm.value.driver_img,
+      documents:this.addVehicleForm.value.documents,
+      driver_cellphone: this.addVehicleForm.value.driver_cellphone
+    }
+    {
+    sessionStorage.removeItem('selected_vehicle')
     this.AddvehicleService.RemoveVehicle(Number(sessionStorage.getItem('selected_vehicle'))).subscribe((result:any)=>{
-      setTimeout(() => {
-        this.load=false
-        this.message ='Removed'
-      },2000);
-      })
-  }
 
-
-  //   let vehicleDetails= {
-  //     model: this.addVehicleForm.value.model,
-  //     brand: this.addVehicleForm.value.brand,
-  //     vehicle_reg: this.addVehicleForm.value.vehicle_reg,
-  //     color: this.addVehicleForm.value.color,
-  //     vehicle_img: this.addVehicleForm.value.vehicle_img,
-  //     driver_name: this.addVehicleForm.value.driver_name,
-  //     driver_img: this.addVehicleForm.value.driver_img,
-  //     documents:this.addVehicleForm.value.documents,
-  //     driver_cellphone: this.addVehicleForm.value.driver_cellphone
-  //   }
-  //   console.log(vehicleDetails);
-
-  //   this.AddvehicleService.deleteVehicle(this.vehicleDetails.subscribe((next:any) => {
-  //     this.router.navigate(['/vehiclelist']);
-  //     this.submitted = false;
-  //   }))
-
-  // }
-
-  // get formValidation(): { [key: string]: AbstractControl } {
-  //   return this.addVehicleForm.controls;
-  // }
+  },(error:HttpErrorResponse)=>{
+    console.log(error)
+  })
 
 }
 
+  
+  }
+}
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // remove()
+  // {
+  //  this.message ='Removing'
+  //  this.load = true;
+  //   this.AddvehicleService.RemoveVehicle(Number(sessionStorage.getItem('selected_vehicle'))).subscribe((result:any)=>{
+  //     setTimeout(() => {
+  //       this.load=false
+  //       this.message ='Removed'
+  //     },2000);
+  //     })
+  // }
+
+
+  
+  

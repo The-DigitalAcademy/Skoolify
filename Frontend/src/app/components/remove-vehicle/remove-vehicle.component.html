@@ -1,10 +1,7 @@
-
-<label for="my-modal-3" class="btn">Add Vehicle</label>
 <input type="checkbox" id="my-modal-3" class="modal-toggle" />
 <div class="modal">
   <div class="modal-box relative">
     <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-    <form [formGroup]="addVehicleForm" (ngSubmit)="onSubmit(addVehicleForm)" >
     
     <div class="mb-6">
       <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Model</label>
@@ -18,13 +15,13 @@
 
 <div class="mb-6">
   <label for="base-input"class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Registration Number</label>
-  <input type="text" id="base-input"formControlName="vehicle_reg" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <input type="text" id="base-input"formControlName="vehicle_reg"required type="number"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
 </div>
 
 
 <div class="mb-6">
   <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Color</label>
-  <input type="text" id="base-input"formControlName="color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <input type="text" id="base-input"formControlName="color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 </div>
 
 
@@ -38,20 +35,11 @@
   <input type="text" id="base-input"formControlName="driver_cellphone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
 </div>
 
-<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Upload Driver Image</label>
-<input type = "file" accept = ".png, .jpg, .jpeg" formControlName="driver_img" (change)="onDriverImg($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size">
 
-         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Upload Vehicle Image</label>
-             <input type = "file" accept = ".png, .jpg, .jpeg" formControlName="vehicle_img" (change)="onVehicleImg($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size">
+         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Upload Image</label>
+             <input type = "file" accept = ".png, .jpg, .jpeg" (change)="onFileChange($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size">
 
 
              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Supporting Documents</label>
-             <input type = "file" accept = ".pdf" formControlName="documents" (change)="onFileChangePdf($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file">
+             <input type = "file" accept = ".pdf" (change)="onFileChangePdf($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file">
              
-            <br> <button type="submit" class="submit" class=btn-sm>Save</button>
-
-
-
-          </form>
-</div>
-    </div>

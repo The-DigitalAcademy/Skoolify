@@ -14,7 +14,7 @@ import { clippingParents } from '@popperjs/core';
   styleUrls: ['./addvehicle.component.scss'],
 })
 export class AddvehicleComponent implements OnInit {
-
+ 
 
   image_link: string = '';
   FormBuilder: any;
@@ -119,7 +119,7 @@ export class AddvehicleComponent implements OnInit {
   }
 
   editDriver(rec: any) {
-    console.log('helllo', rec);
+    console.log('vehicles', rec);
 
     this.addVehicleForm.setValue({
       vehicle_reg: rec.vehicle_reg,
@@ -135,6 +135,12 @@ export class AddvehicleComponent implements OnInit {
 
     
   }
+
+
+
+
+
+
 
   async onVehicleImg(event: any) {
     if (event.target.files.length > 0) {
@@ -204,58 +210,6 @@ export class AddvehicleComponent implements OnInit {
     this.vehiDetails.driver_name = form.value.driver_name;
     this.vehiDetails.driver_cellphone = form.value.driver_cellphone;
 
-
-    
-    // const formData = new FormData();
-    // formData.append('file', this.file);
-    // formData.append('upload_preset', this.preset);
-
-    // console.log(formData);
-
-    // this.http.post(this.cloudinaryUrl, formData).subscribe((pdfResult: any) => {
-    //   console.log(pdfResult.url);
-    //   this.vehiDetails.document = pdfResult.url;
-
-    //   //new request
-    //   console.log(formData);
-
-    //   formData.append('file', this.vehicleImg);
-    //   formData.append('upload_preset', this.preset);
-    //   this.http
-    //     .post(this.cloudinaryUrl, formData)
-    //     .subscribe((vehicleResult: any) => {
-    //       console.log(vehicleResult.url);
-
-    //       this.vehiDetails.vehicle_image = vehicleResult.url;
-    //       //new request
-    //       formData.append('file', this.driverImg);
-    //       formData.append('upload_preset', this.preset);
-
-    //       this.http
-    //         .post(this.cloudinaryUrl, formData)
-    //         .subscribe((driverResults: any) => {
-    //           console.log(driverResults.url);
-    //           this.vehiDetails.driver_image = driverResults.url;
-
-            
-    //         });
-    //     });
-    // });
- 
-
-   
-    
-    // this.vehiclesDetails = {
-    //   brand:form.value.brand,
-    //   color:form.value.color, 
-    //   document: this.file,
-    //   driver_cellphone:form.value.driver_cellphone,
-    //   driver_image:this.driverImg,
-    //   driver_name: form.value.driver_name,
-    //   model: form.value.model,
-    //   owner_id: 3, 
-    //   vehicle_reg:form.value.vehicle_reg
-    // }
 
 
 

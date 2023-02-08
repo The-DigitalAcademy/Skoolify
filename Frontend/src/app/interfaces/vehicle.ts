@@ -1,5 +1,6 @@
 
 export interface Vehicle {
+is_deleted: any;
     vehicle_id: string;
     owner_id: number;
     brand: string;
