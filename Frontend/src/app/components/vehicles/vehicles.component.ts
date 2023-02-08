@@ -17,7 +17,7 @@ export class VehiclesComponent implements OnInit {
   selected_school: number = 0;
   school!: School
   transporters : Transporter[] = [];
-
+  school_id=sessionStorage.getItem('school_id')
   vehicles : Vehicle[] = [];
 
   constructor(private service:ParentService,private location:Location,private router:Router) { }
@@ -26,11 +26,16 @@ export class VehiclesComponent implements OnInit {
 
     this.service.viewSchool(Number(sessionStorage.getItem('selected_school'))).subscribe((school:School)=>{
       this.school = school;
-
+      
+      console.log("school",this.school)
+      console.log("this id",this.selected_school)
+      
+      
       this.service.viewSchoolTransporters(Number(sessionStorage.getItem('selected_school'))).subscribe((transporters:Transporter[])=>{
         this.transporters = transporters;
 
         transporters.forEach(transporter => {
+          
           this.service.viewVehicle(transporter.vehicle_id).subscribe((vehicle:Vehicle)=>{
 
             this.vehicles.push(vehicle)
@@ -61,7 +66,7 @@ export class VehiclesComponent implements OnInit {
 
   viewVehicle(vehicle_id:any)
   {
-    sessionStorage.setItem('selected_school',vehicle_id);
+    sessionStorage.setItem('selected_vehicle',vehicle_id);
     this.router.navigateByUrl('/request')
 
   }

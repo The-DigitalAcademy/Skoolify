@@ -42,11 +42,11 @@
       <div
         class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"
         *ngFor="let vehicle of vehicles" (click) = "viewVehicle(vehicle.vehicle_id)">
-        <img
+        <!-- <img
           class="w-20 h-20 object-cover rounded-xl my-auto"
           [src]="vehicle.driver_image"
           alt=""
-        />
+        /> -->
         <div class="flex flex-col pt-4 pl-4">
           <div class="name font-medium">{{ vehicle.driver_name }}</div>
           <p style="color: var(--grey-light)" class="text-sm">

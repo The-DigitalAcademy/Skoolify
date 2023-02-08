@@ -1,4 +1,4 @@
-<div class="px-6 mt-4">
+<div class="px-2  md:px-10 lg:px-14">
   <div class="flex justify-between">
     <button class="btn px-0 btn-ghost capitalize gap-2" (click)="back()">
       <i class="fi fi-br-angle-left"></i>
@@ -17,7 +17,7 @@
     <div class="details flex flex-col justify-between">
       <div class="contacts flex flex-col">
         <span class="text-lg font-semibold w-48"
-          >{{ vehicle.driver_name}}
+          >{{vehicle.driver_name}}
         </span>
         <div class="contact flex flex-col text-xs">
           <span class="text-sm -my-1"
@@ -91,8 +91,11 @@
       </div>
     </div>
    -->
+
+
    <div class="mt-5 md:col-span-2 md:mt-0">
-    <form form (ngSubmit)="onSubmit(addRequestForm)"  [formGroup]="addRequestForm">
+    <!-- <form form (ngSubmit)="onSubmit(addRequestForm)"  [formGroup]="addRequestForm"> -->
+      <form   [formGroup]="addRequestForm" >
       <div class="overflow-hidden shadow sm:rounded-md">
         <div class="bg-white px-4 py-5 sm:p-6">
           <div class="grid grid-cols-6 gap-6">
@@ -103,30 +106,25 @@
 
             <div class="col-span-6 sm:col-span-3">
               <label for="last-name" class="block text-sm font-medium text-gray-700">Pick up address</label>
-              <input type="text" formControlName="pickUp_address" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+              <input type="text" formControlName="address" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
             <div class="col-span-6 sm:col-span-3">
-              <label for="first-name" class="block text-sm font-medium text-gray-700">Name</label>
-              <input type="text" formControlName="description" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+              <label for="first-name" class="block text-sm font-medium text-gray-700">Number of kids</label>
+              <input type="text" formControlName="num_kids" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 
             <div class="col-span-6 sm:col-span-3">
-              <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
-              <input type="text" formControlName="num_kids" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+              <label for="last-name" class="block text-sm font-medium text-gray-700">Description</label>
+              <input type="text" formControlName="description" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
-            <!-- <div class="col-span-6 sm:col-span-3">
-              <label for="last-name" class="block text-sm font-medium text-gray-700" >Select number of kids</label>
-              <select class="select select-info w-full max-w-xs" style=" width:150px;">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-              </select>
-            </div> -->
+         
+
             <div class="col-span-6 sm:col-span-3">
-              <button  class="btn btn-wide" [ngClass]="load ? 'btn text-white capitalize loading' : 'btn text-white capitalize'" style="background-color: var(--main-dark);">Submit
-                <span>{{messages}}</span>
+              <button  class="btn btn-wide" (click)=" onSubmit()" >Submit
+                <!-- <span>{{messages}}</span> -->
               </button>
             </div>
           </div>
        
    
+  </div>

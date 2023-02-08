@@ -16,7 +16,7 @@ export class ParentService {
   constructor(private http:HttpClient) { }
 
   getSchool(){
-    return this.http.get(`${this.baseUrl}/getSchool`)
+    return this.http.get(`${this.baseUrl}getSchool`)
   }
 
   getDrivers(){
@@ -26,25 +26,28 @@ export class ParentService {
   }
   viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
     return this.http.get<Transporter[]>(
-      this.baseUrl + '/getSchoolVehicle/' + school_id
+      this.baseUrl + 'getSchoolVehicle/' + school_id
     );
   }
   viewOwnerVehicles(owner_id: number): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(
-      this.baseUrl + '/vehicles/' + owner_id
+      this.baseUrl + 'vehicles/' + owner_id
     );
   }
   viewSchool(school_id: number): Observable<School> {
-    return this.http.get<School>(this.baseUrl + '/getOneSchool/' + school_id);
+    return this.http.get<School>(this.baseUrl + 'getOneSchool/' + school_id);
   }
+  
   viewVehicle(vehicle_id: number): Observable<Vehicle> {
+
+    console.log("from service"+vehicle_id)
     return this.http.get<Vehicle>(
-      this.baseUrl + '/getVehicle/' + vehicle_id
+      this.baseUrl + 'getVehicle/' + vehicle_id
     );
   }
 
   addRequests(data: any) {
-    return this.http.post(this.baseUrl + '/addRequests', data);
+    return this.http.post(this.baseUrl + 'addRequests', data);
   }
 
 }
