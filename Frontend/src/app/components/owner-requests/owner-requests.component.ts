@@ -17,6 +17,7 @@ export class OwnerRequestsComponent implements OnInit {
    user_id :any;
    selected : number = 0
    index : number = 0
+   load : boolean = false
 
    request : any = {
     request_id: 0,
@@ -62,17 +63,23 @@ export class OwnerRequestsComponent implements OnInit {
     this.toast.loading('Processing ...',{duration:10000})
     this.owner.accept(request_id).subscribe(async(result:any)=>{
       this.toast.success(await result.message);
-      this.requestsView = this.requestsView.splice(this.index,1)
+      this.requestsView =[]
+      this.viewRequests()
+      // this.requestsView = this.requestsView.splice(this.index,1)
     },(error:HttpErrorResponse)=>{
       console.log(error)
     })
   }
 
   decline(form:FormGroup){
+    this.load = true;
     this.toast.loading('Processing ...',{duration:10000})
     this.owner.decline(this.selected,form.value).subscribe(async(result:any)=>{
+      this.load = false;
       this.toast.success(await result.message);
-      this.requestsView = this.requestsView.splice(this.index,1)
+      this.requestsView =[]
+      this.viewRequests()
+      //this.requestsView = this.requestsView.splice(this.index,1)
     },(error:HttpErrorResponse)=>{
       console.log(error)
     })
@@ -82,5 +89,6 @@ export class OwnerRequestsComponent implements OnInit {
     this.selected = id;
     this.index = index;
   }
+  setIndex(i:number){this.index = i;}
 
 }

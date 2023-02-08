@@ -1,8 +1,10 @@
 <div class="px-4 mt-8 w-full lg:px-16">
   <div class="flex flex-col gap-2">
-    <div
+    <label
+      for="my-modal-4"
       class="flex px-2 justify-between h-24 w-full bg-accent mx-auto rounded-xl"
-      *ngFor="let request of requestsView; index as i">
+      *ngFor="let request of requestsView; index as i"
+      (click)="setIndex(i)">
 
       <div class="parent flex justify-start">
         <img
@@ -33,40 +35,52 @@
 
         <div class="dropdown dropdown-bottom dropdown-end">
 
-          <label tabindex="0" class="btn btn-ghost rounded-lg my-auto">
+          <label tabindex="0" class="btn btn-ghost rounded-full my-auto">
             <i class="fi fi-br-menu-dots-vertical"></i>
           </label>
           <ul tabindex="0" class="menu menu-compact dropdown-content mt-1 p-2 shadow bg-base-100 rounded-box w-fit">
-            <li><a class="active:bg-info active:text-white">Accept<i class="fi fi-br-check text-base"></i></a></li>
-            <li><a class="active:bg-info active:text-white w-full"><label for="my-modal-6" class="">Decline</label><i class="fi fi-br-cross"></i></a></li>
+            <li><a class="active:bg-info active:text-white" (click)="accept(request.request.request_id)">Accept<i class="fi fi-br-check text-base"></i></a></li>
+            <li><a (click)="setReject(request.request.request_id,i)" class="active:bg-info active:text-white w-full"><label for="my-modal-6" class="">Decline</label><i class="fi fi-br-cross"></i></a></li>
           </ul>
         </div>
 
 
       </div>
+    </label>
+
+    <input type="checkbox" id="my-modal-4" class="modal-toggle" />
+    <label for="my-modal-4" class="modal cursor-pointer">
+      <label class="modal-box relative" for="">
+        <h3 class="text-lg font-bold">{{requestsView[index].parent.name}}</h3>
+        <p class="py-4">Request to <span class="font-semibold">{{requestsView[index].school.school_name}}</span></p>
+        
+      </label>
+    </label>
+
+
+
+    <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+    <div class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <h3 class="font-bold text-lg">Feedback for rejection</h3>
+        <form action="" class="form w-full" [formGroup]="feedbackForm" (ngSubmit)="decline(feedbackForm)">
+          <div class="form-control">
+            <label for="input" class="label">Feedback</label>
+            <select type="text" class="input input-accent" formControlName="feedback">
+              <option value="Vehicle Overload">I dont have space left</option>
+              <option value="Pick up address is too far">Out of my work region</option>
+              <option value="Not specify">Other...</option>
+            </select>
+
+          </div>
+          <div class="modal-action">
+            <label for="my-modal-6" class="btn btn-info capitalize font-normal rounded-2xl">Close</label>
+            <button [ngClass]="load? 'btn btn-info capitalize font-normal rounded-2xl loading': 'btn btn-info capitalize font-normal  rounded-2xl'" type="submit">Decline</button>
+          </div>
+        </form>
+      </div>
     </div>
+
   </div>
 </div>
 
-<!-- <h1>Requests</h1>
-<div class="flex flex-col">
-  <span *ngFor="let request of requestsView; let i = index">
-    {{request.parent.name}}  <button class="btn btn-info" (click)="accept(request.request.request_id)">Accept</button> <label for="my-modal-6" class="btn btn-info"(click)="setReject(request.request.request_id,i)">Decline</label>
-  </span>
-
-  <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-  <div class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box">
-      <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
-      <form action=""[formGroup]="feedbackForm" (ngSubmit)="decline(feedbackForm)">
-        <input type="text" class="input input-accent" formControlName="feedback">
-        <div class="modal-action">
-          <label for="my-modal-6" class="btn">Close</label>
-          <button class="btn" type="submit">Decline</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-
-</div> -->
