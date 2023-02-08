@@ -23,7 +23,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent],
-  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
+  imports: [Ng2SearchPipeModule,BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
 
 
   providers: [UserGuard],

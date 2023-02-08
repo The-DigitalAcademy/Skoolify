@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2  } from '@angular/core';
 import { JwtService } from 'src/app/services/jwt.service';
 import { FormGroup,FormControl,Validators,}   from '@angular/forms';
 import { AuthusersService } from 'src/app/services/authusers.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -12,7 +13,7 @@ export class NavComponent implements OnInit {
   dashboardRoute: string ='';
   isLoggedIn!: boolean;
 
-  constructor(    private auth1: AuthusersService,private renderer: Renderer2) { }
+  constructor(private router : Router,private auth1: AuthusersService,private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.accountType = sessionStorage.getItem('role');
@@ -92,28 +93,34 @@ export class NavComponent implements OnInit {
     });
   }
 
+  signOut(){
+    sessionStorage.removeItem('role')
+    sessionStorage.removeItem('key')
+    this.router.navigateByUrl('login');
+  }
 
 
 
 
 
 
-  
+
+
   // checkAccount(){
-    
-    
+
+
   //   if(sessionStorage.getItem('account') == "OWNER")
   //   {
   //     this.accountType = 'OWNER';
-      
+
   //   }else if(sessionStorage.getItem('account') == "PARENT")
   //   {
   //     this.accountType = 'PARENT';
-     
+
   //   }else if(sessionStorage.getItem('account') == "ADMIN")
   //   {
   //     this.accountType = 'PARENT';
-   
+
   //   }
   //   console.log('account');
   // }
@@ -124,7 +131,7 @@ export class NavComponent implements OnInit {
   //   this.isLoggedIn = false;
   //   clearInterval(this.ref);
   //   sessionStorage.setItem('isLoggedIn','no');
-  
+
   // }
 
 

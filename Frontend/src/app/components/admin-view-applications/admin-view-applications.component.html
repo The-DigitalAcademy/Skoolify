@@ -1,7 +1,7 @@
-<div class="px-4 mt-8 lg:px-16">
+<div class="px-4 pt-20 lg:pt-28  lg:px-16">
   <div class="flex justify-between mb-2">
     <span class="my-auto font-semibold">Applications</span>
-    <span></span>
+    <span><span class="hidden btn btn-ghost btn-sm capitalize gap-1 my-auto font-semibold">Show all <i class="fi fi-rr-eye"></i></span></span>
   </div>
   <div class="w-full hidden lg:flex">
     <table class="table table-fixed w-full">
@@ -10,7 +10,7 @@
         <tr>
           <th>Details</th>
           <th>School</th>
-          <th>Fee</th>
+          <th>Charged Amount</th>
           <th>Uploaded Documents</th>
           <th>Response</th>
         </tr>
@@ -35,7 +35,7 @@
                 </div>
               </div>
               <div>
-                <div class="font-bold">{{ owners[i].name }}</div>
+                <div class="font-bold">{{ owners[i].name }} {{ owners[i].surname }}</div>
                 <div class="text-sm opacity-50">
                   {{ vehicles[i].brand }} {{ vehicles[i].model }}
                 </div>
@@ -43,7 +43,7 @@
             </div>
           </td>
           <td
-            class="transition-all hover:scale-95 cursor-pointer"
+            class="transition-all hover:scale-95 cursor-pointer w-full overflow-auto text-ellipsis"
             (click)="selectSchool(schools[i].school_id)"
           >
             {{ schools[i].school_name }}
@@ -62,8 +62,8 @@
               style="background-color: var(--main-dark)"
               [ngClass]="
                 load
-                  ? 'btn capitalize gap-2 loading text-white font-normal'
-                  : 'btn capitalize font-normal gap-2'
+                  ? 'btn btn-ghost capitalize gap-2 loading text-white font-normal'
+                  : 'btn btn-ghost capitalize font-normal gap-2'
               "
               (click)="viewDocument(vehicles[i])"
             >
@@ -72,7 +72,7 @@
             </button>
           </td>
           <td>
-            <div class="flex justify-start my-auto gap-2 w-3/4 mx-auto pb-4">
+            <div class="flex justify-start gap-2 w-full mx-auto">
               <label
                 for="my-modal-6"
                 class="btn btn-error capitalize font-normal"
