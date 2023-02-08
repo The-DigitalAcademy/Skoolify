@@ -49,7 +49,7 @@ exports.getOneSchool = async (req, res) => {
               } else {
                 res
                   .status(200)
-                  .send(result.rows);
+                  .send(result.rows[0]);
               }
             }
           );
@@ -153,3 +153,36 @@ exports.getVehicle = async (req, res) => {
   //     });
   //   }
   // };
+
+
+
+  exports.getSchoolVehicle = async (req, res) => {
+    const school_id = parseInt(req.params.id);
+    try {
+          //get all post form the database
+          const data = await client.query(
+           `SELECT * FROM vehicle_owner where school_id = $1`,
+            [school_id],
+            (err,result) => {
+              if (err) {
+             //If post are not available is not inserted to database
+                console.error(err);
+                return res.status(500).json({
+                  error: "Database error",
+                });
+              } else {
+                res
+                  .status(200)
+                  .send(result.rows);
+              }
+            }
+          );
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        error: "Database error while creating post!", //Database connection error
+      });
+    }
+  };
+  ﻿
+''  

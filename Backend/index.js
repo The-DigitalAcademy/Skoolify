@@ -7,7 +7,7 @@ const app = express();
 const admin = require("./routes/admin");
 const parent = require("./routes/parent");
 const account = require("./routes/account");
-
+const  owner =require("./routes/owner");
 const {register} = require("./controllers/register");
 const {login} = require("./controllers/login");
 
@@ -30,6 +30,7 @@ app.use('/account',account)
 app.use('/parent',parent)
 app.use("/register", register);
 app.use("/login", login);
+app.use("/owner",owner);
 
 
 

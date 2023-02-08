@@ -13,7 +13,8 @@ router.post('/register' , register); //POST request to register the user
 
 router.post('/login' , login); // POST request to login the user
 
-
+router.get('/getSchoolVehicle/:id',getSchoolVehicle)
+const {getSchoolVehicle}= require('../controllers/parent')
 
 //this goes at the bottom
 module.exports = router;

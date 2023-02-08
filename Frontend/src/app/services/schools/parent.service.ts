@@ -19,14 +19,33 @@ export class ParentService {
     return this.http.get<School[]>(`${this.baseUrl}/getSchool`)
   }
 
+
   getDrivers(user_id :number):Observable<Vehicle[]>{
-    return this.http.get<Vehicle[]>(this.baseUrl+"getVehicle/"+user_id)
+    return this.http.get<Vehicle[]>(this.baseUrl+"/getVehicle/"+user_id)
   }
-  // viewVehicle(vehicle_id: number): Observable<Vehicle> {
-  //   return this.http.get<Vehicle>(
-  //     this.baseUrl + '/getVehicle/' + vehicle_id
-  //   );
-  // }
+  viewVehicle(vehicle_id: number): Observable<Vehicle> {
+    return this.http.get<Vehicle>(this.baseUrl + '/getVehicle/' + vehicle_id
+    );
+  }
+
+  viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
+    return this.http.get<Transporter[]>(
+      this.baseUrl + '/getSchoolVehicle/' + school_id
+    );
+  }
+
+  viewSchool(school_id :number):Observable<School>{
+    return this.http.get<School>(this.baseUrl+"/getOneSchool/"+school_id);
 
 
+
+    
+    
+  }
+  
 }
+
+
+
+
+
