@@ -20,13 +20,16 @@ import { UserGuard } from './guards/user.guard';
 import { NavComponent } from './components/nav/nav.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { AdminGuard } from './guards/admin/admin.guard';
+import { ParentGuard } from './guards/parent/parent.guard';
+import { OwnerGuard } from './guards/owner/owner.guard';
 
 @NgModule({
   declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent],
   imports: [Ng2SearchPipeModule,BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
 
 
-  providers: [UserGuard],
+  providers: [UserGuard,AdminGuard,ParentGuard,OwnerGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
