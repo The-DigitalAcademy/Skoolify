@@ -1,18 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddvehicleComponent } from './components/addvehicle/addvehicle.component';
-import { LandingComponent } from './pages/landing/landing.component';
-import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
-import { RemoveVehicleComponent } from './components/remove-vehicle/remove-vehicle.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { OwnerPageComponent } from './components/owner-page/owner-page.component';
+import { UserGuard } from './guards/user.guard';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SchoolsComponent } from './components/schools/schools.component';
+import{AddvehicleComponent} from '../app/components/addvehicle/addvehicle.component'
+
+
 
 const routes: Routes = [
+  { path: '', component: LandingComponent },
+  { path: 'register', component: RegisterComponent },
+  { path:'login', component: LoginComponent},
+  { path:'home', component: OwnerPageComponent},
+  {path:'profile',component: ProfileComponent},
+  { path:'parent-home', component: SchoolsComponent},
+  { path:'owner-home', component: OwnerPageComponent},
   { path: '', component:LandingComponent},
   { path: 'addvehicle', component: AddvehicleComponent }, 
   { path: 'editvehicle', component: AddvehicleComponent }, 
   { path: 'removevehicle', component: AddvehicleComponent }, 
-
+  { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
+  { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)},
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

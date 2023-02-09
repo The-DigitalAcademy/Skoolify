@@ -1,0 +1,20 @@
+.search-bar input
+{
+  &::placeholder{
+    color: var(--grey-dark);
+  }
+}
+// .schools:nth-child(2n)
+// {
+//   background-color: rgba(247, 186, 33, 0.523);
+// }
+
+.school_name
+{
+  display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

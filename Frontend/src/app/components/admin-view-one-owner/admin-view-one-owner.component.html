@@ -1,0 +1,135 @@
+<div class="px-6 pt-28 md:px-12 lg:px-20">
+  <div class="flex justify-between mb-4 ">
+    <button class="btn px-2 lg:px-4 btn-ghost gap-2" (click)="back()">
+      <i class="fi fi-br-angle-left"></i>
+      Back
+    </button>
+    <span></span>
+  </div>
+
+  <div class="w-full mx-auto justify-center">
+    <div class="profile flex justify-start lg:justify-start gap-3 w-full h-fit mb-4">
+      <img
+        class="w-36 h-36 md:w-44 md:h-44 object-cover rounded-xl my-auto"
+        [src]="owner.image"
+        alt="Owner's image"
+      />
+
+      <div class="details flex flex-col justify-between">
+        <div class="contacts">
+          <span class="text-lg lg:text-2xl font-semibold w-48"
+            >{{ owner.name }} {{ owner.surname }}</span
+          >
+          <div class="contact flex flex-row gap-1 text-xs lg:text-base">
+            <i class="fi fi-sr-envelope my-auto"></i>
+            <span class="text-sm lg:text-base">{{ owner.email }}</span>
+          </div>
+        </div>
+
+        <button
+          class="btn px-2 py-1 btn-ghost w-32 text-white gap-1 rounded-md"
+          style="background-color: var(--main-dark)"
+        >
+          <i class="fi fi-rr-chart-line-up"></i>
+          {{ owner.ratings }}
+          <div
+            class="vl my-auto rounded-sm mx-1"
+            style="
+              border-left: 1px solid rgba(219, 219, 219, 0.545);
+              height: 20px;
+            "
+          ></div>
+          <div
+            class="flex flex-col justify-start text-xs text-start lowercase gap-0"
+          >
+            <span *ngIf="owner.votes > 50">50+</span>
+            <span [hidden]="owner.votes > 50">{{ owner.votes }}</span>
+            <span class="-mt-1">Voted</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <h2 class="font-semibold">Vehicle Owner's Details</h2>
+    <form action="" class="mb-4 w-full md:flex lg:flex gap-4">
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Owner's name</span>
+        </label>
+        <input
+          type="text"
+          [value]="owner.name"
+          disabled
+          class="input w-full disabled:bg-accent"
+        />
+      </div>
+
+      <div class="form-control w-full ">
+        <label class="label">
+          <span class="label-text">Owner's surname</span>
+        </label>
+        <input
+          type="text"
+          [value]="owner.surname"
+          disabled
+          class="input w-full disabled:bg-accent"
+        />
+      </div>
+      <div class="form-control hidden md:flex lg:flex w-full">
+        <label class="label">
+          <span class="label-text">Gender</span>
+        </label>
+        <input
+          type="text"
+          [value]="owner.gender"
+          disabled
+          class="input w-full disabled:bg-accent"
+        />
+      </div>
+    </form>
+
+    <h2 class="font-semibold mb-1">Registered Vehicles</h2>
+
+    <div class="vehicles overflow-y-scroll snap-y h-60">
+      <div class="text" *ngIf="vehicles.length == 0">No registered vehicles</div>
+
+      <div
+        class="flex justify-between pb-3 pt-2 w-full border-b"
+        *ngFor="let vehicle of vehicles"
+      >
+        <div class="flex flex-col text-start">
+          <span class="text-gray-400 mb-0"
+            >{{ vehicle.brand }} {{ vehicle.model }}</span
+          >
+          <span class="text-gray-400">{{ vehicle.vehicle_reg }} </span>
+          <span class="text-gray-400 text-xs"
+            >Driven by
+            <span class="font-semibold">{{ vehicle.driver_name }}</span></span
+          >
+        </div>
+
+        <button
+          class="btn my-auto rounded-xl text-white"
+          style="background-color: var(--main-dark)"
+          (click)="viewDoc(vehicle.document)"
+        >
+          <i class="fi fi-rr-document text-sm"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="w-full py-2 flex justify-center">
+      <button [ngClass]="load ? 'btn btn-error loading' : 'btn btn-error'" (click)="suspendAccount()" *ngIf="!owner.is_suspended">
+        <span *ngIf="load">Suspending</span>
+        <span [hidden]="load">Suspend Account</span>
+      </button>
+
+      <button
+        *ngIf="owner.is_suspended"
+        class="btn btn-accent">
+        Account Suspended
+      </button>
+    </div>
+  </div>
+
+</div>

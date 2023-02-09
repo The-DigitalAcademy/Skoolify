@@ -3,10 +3,12 @@ var client = new pg.Client('postgres://wjakvoxn:maJBFP6m0qat-bWHqkZ7-TDbuIbhZeno
 client.connect(function(err){
   if (err) {
     console.log("Database connection error");
+    console.log(err)
   }else
   {
     console.log("Database connected successfully");
   }
+  
 })
 
 module.exports = client;

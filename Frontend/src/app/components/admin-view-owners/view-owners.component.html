@@ -1,0 +1,108 @@
+<div class="px-4 pt-28 md:px-12 lg:px-20">
+  <div class="flex justify-between mb-2">
+    <span class="my-auto">Vehicle Owners</span>
+    <select class="select select-ghost w-fit max-w-xs" (change)="sort($event)">
+      <option disabled selected>Sort</option>
+      <option value="ratings">Rating</option>
+      <option value="name">Name</option>
+    </select>
+  </div>
+
+  <div class="w-full hidden lg:flex">
+    <table class="table table-fixed w-full">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>Details</th>
+          <th>Rating</th>
+          <th>Votes</th>
+          <th>Account Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+        <tr (click)="selectOwner(owner.user_id)" *ngFor="let owner of owners | orderBy : sorting" class="transition-all rounded-3xl hover:scale-95 cursor-pointer">
+          <td>
+            <div class="flex items-center space-x-3">
+              <div class="avatar">
+                <div class="mask mask-squircle w-12 h-12">
+                  <img [src]="owner.image" alt="Owner profile image" />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">{{owner.name}}</div>
+                <div class="text-sm opacity-50">{{owner.surname}}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            {{owner.ratings}}
+            <br/>
+            <span *ngIf="owner.ratings < 7.0" class="badge badge-error badge-sm">Below Average</span>
+            <span *ngIf="owner.ratings>= 7.0 && owner.ratings < 8.5" class="badge badge-ghost badge-sm">Average</span>
+            <span *ngIf="owner.ratings>= 8.5" class="badge badge-neutral badge-sm">Above Average</span>
+
+          </td>
+          <td>{{owner.votes}}</td>
+          <th>
+            <button class="btn btn-ghost btn-xs">
+              <span *ngIf="owner.is_suspended">Suspended</span>
+              <span *ngIf="!owner.is_suspended">Active</span>
+            </button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+  <div class="flex lg:hidden flex-col gap-2">
+    <div
+      class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"
+      *ngFor="let owner of owners | orderBy : sorting"
+      (click)="selectOwner(owner.user_id)"
+    >
+      <img
+        class="w-20 h-20 object-cover rounded-xl my-auto"
+        [src]="owner.image"
+        alt=""
+      />
+      <div class="flex flex-col pt-4 pl-4">
+        <div class="name font-medium">{{ owner.name }} {{ owner.surname }}</div>
+        <div
+          [ngClass]="
+            owner.is_suspended
+              ? 'text-error font-semibold'
+              : 'text-neutral font-semibold'
+          "
+        >
+          <span *ngIf="owner.is_suspended">Account Suspended</span>
+          <span [hidden]="owner.is_suspended">Account Active</span>
+        </div>
+      </div>
+
+      <div
+        class="flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg"
+        style="background-color: var(--main-dark)"
+      >
+        <span class="text-white font-bold my-auto">{{ owner.ratings }}</span>
+        <div
+          class="vl my-auto rounded-sm mx-1"
+          style="
+            border-left: 1px solid rgba(219, 219, 219, 0.545);
+            height: 14px;
+          "
+        ></div>
+        <div *ngIf="owner.votes > 50" class="text-white my-auto">
+          <span class="font-bold">50+ </span> <span>Voted</span>
+        </div>
+        <div [hidden]="owner.votes > 100" class="text-white my-auto">
+          <span class="font-bold">{{ owner.votes }} </span> <span>Voted</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

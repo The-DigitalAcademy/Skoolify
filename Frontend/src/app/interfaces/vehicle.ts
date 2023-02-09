@@ -1,18 +1,10 @@
-
 export interface Vehicle {
-is_deleted: any;
-    vehicle_id: string;
-    owner_id: number;
-    brand: string;
-    model: string;
-    vehicle_reg: string;   
-    driver_name: string;
-    driver_cellphone: string;
-    driver_image:string;
-    document: string;
-    color: string;
-    vehicle_image: string;
-  }
-
-
-  
+  brand: string;
+  model: string;
+  color: string;
+  vehicle_reg: string;
+  vehicle_image: string;
+  driver_name: string;
+  driver_cellphone: string;
+  document: string;
+}

@@ -1,0 +1,85 @@
+<div class="px-2 pt-28 md:px-10 lg:px-14">
+  <div class="schools-div">
+    <div class="search-bar">
+      <div class="flex mt-6 justify-center lg:mx-auto content-center">
+        <input
+          type="text"
+          [(ngModel)]="term"
+          placeholder="Search a school…"
+          class="input w-72 md:w-2/4 bg-accent text-center -ml-4 placeholder:text-centerS rounded-full"
+        />
+        <label
+          class="-ml-9 my-auto content-center"
+          style="color: var(--grey-dark)"
+        >
+          <i class="fi fi-sr-search my-auto"></i>
+        </label>
+      </div>
+    </div>
+
+    <div class="flex justify-between p-3">
+
+      <span class="my-auto font-semibold text-sm">Added Schools</span>
+      <label for="my-modal-6" class="btn gap-2 btn-ghost btn-sm capitalize">
+        Add school
+        <i class="fi fi-sr-add"></i>
+      </label>
+
+      <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+      <div class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">Add a school</h3>
+
+          <form (ngSubmit)="onSubmit(addSchoolForm)"  [formGroup]="addSchoolForm">
+            <div class="form-control w-full max-w-xs">
+              <label class="label">School Name</label>
+              <input
+                type="text"
+                formControlName="school_name"
+                placeholder="School name"
+                class="input w-full bg-accent"
+              />
+            </div>
+
+            <div class="form-control w-full max-w-xs">
+              <label class="label">School Location</label>
+              <input
+                type="text"
+                formControlName="school_location"
+                placeholder="School location"
+                class="input w-full bg-accent"
+              />
+            </div>
+
+            <div class="modal-action">
+              <label for="my-modal-6" class="btn text-white capitalize" style="background-color: var(--main-dark);">Cancel</label>
+              <button type="submit" [ngClass]="load ? 'btn text-white capitalize loading' : 'btn text-white capitalize'" style="background-color: var(--main-dark);">
+                <span>{{message}}</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="grid overflow-y-scroll grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full place-items-center gap-x-2 gap-y-2">
+    <div
+      class="grid-item bg-accent transition-all hover:scale-95 hover:shadow cursor-pointer schools w-full h-40 lg:h-32 max-w-xs rounded-3xl px-3 py-4"
+      *ngFor="let school of schools|filter:term" (click) = "viewSchool(school.school_id)">
+      <div class="flex flex-col justify-start gap-1">
+        <i class="fi fi-sr-graduation-cap"></i>
+        <h2 class="school_name font-bold text-base w-full">
+          {{ school.school_name }}
+        </h2>
+        <div class="text-primary">
+          <i class="fi fi-sr-marker text-xs mr-1"></i>
+          <span class="text-xs">{{ school.school_location }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

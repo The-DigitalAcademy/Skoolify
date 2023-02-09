@@ -1,0 +1,27 @@
+.search-bar input
+{
+  &::placeholder{
+    color: var(--grey-dark);
+  }
+}
+.schools
+{
+background-color: var(--main-light);
+}
+.w-4  {
+  margin-right: 0px !important;
+  display: inline-block
+}
+.schools:nth-child(2n)
+{
+  background-color: var( --secondary-color);
+}
+.school_name
+{
+  display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-width: 2000px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

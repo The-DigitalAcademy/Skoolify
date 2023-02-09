@@ -224,4 +224,3 @@ export class AddvehicleComponent implements OnInit {
 
   
 }
-
