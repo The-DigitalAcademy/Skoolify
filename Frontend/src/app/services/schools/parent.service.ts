@@ -15,14 +15,12 @@ export class ParentService {
 
   constructor(private http:HttpClient) { }
 
-  getSchool(){
-    return this.http.get(`${this.baseUrl}getSchool`)
+  getSchool():Observable<School[]>{
+    return this.http.get<School[]>(`${this.baseUrl}/getSchool`)
   }
 
-  getDrivers(){
-
-    return this.http.get("http://localhost:8080/parent/getVehicle/2")//hard coded
-    // return this.http.get(`${this.baseUrl}/getPost/${ownerID}`)
+  getDrivers(user_id :number):Observable<Vehicle[]>{
+    return this.http.get<Vehicle[]>(this.baseUrl+"getVehicle/"+user_id)
   }
   viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
     return this.http.get<Transporter[]>(

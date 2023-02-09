@@ -1,0 +1,204 @@
+<!-- <div class="px-6 mt-4 md:px-12 lg:px-20">
+  <div class="header">
+    <button class="btn px-0 btn-ghost capitalize gap-2" (click)="back()">
+      <i class="fi fi-br-angle-left"></i>
+      Back
+    </button>
+  </div>
+
+  <div class="w-full mx-auto justify-center">
+    <div class="profile flex justify-start lg:block md:bg-accent md:py-5 md:rounded-2xl md:pl-5 md:bg-opacity-40  gap-3 lg:gap-6 w-full h-fit mb-4">
+
+      <div class="relative image-side lg:hidden">
+        <img
+        class="w-36 h-36 md:w-44 md:h-44 object-cover rounded-2xl my-auto shadow"
+        [src]="user.image"
+        alt="Owner's image"
+      />
+      <label for="my-modal-6" class="btn-ghost h-6 md:h-7 shadow rounded-b-2xl absolute bottom-0  w-full  md:w-full text-xs text-center capitalize font-normal  text-white" style="background-color: var(--grey-dark);">Change picture</label>
+
+      <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+      <div class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">Change your profile picture</h3>
+          <form [formGroup]="update_dp" (submit)="onSumbitImage(update_dp)" class="form">
+              <div class="form-control">
+                <label for="fileInput" class="label">Choose an image</label>
+                <input formControlName="file" type="file" (change)="onFileChange($event)" name="fileInput" class="file-input capitalize file-input-ghost w-full">
+              </div>
+
+          <div class="modal-action">
+            <label for="my-modal-6"  [style.background-color]="user.account=='PARENT'? 'var(--primary-color)' : (user.account=='OWNER' ? 'var(--main-dark)' : null)" class="btn btn-ghost capitalize text-white font-normal rounded-2xl">Cancel</label>
+            <button for="my-modal-6"  [style.background-color]="user.account=='PARENT'? 'var(--primary-color)' : (user.account=='OWNER' ? 'var(--main-dark)' : null)" [ngClass]="load?'btn btn-ghost capitalize font-normal text-white rounded-2xl loading':'btn btn-ghost text-white capitalize font-normal rounded-2xl'">{{message}}</button>
+
+          </div>
+        </form>
+        </div>
+      </div>
+
+      </div>
+      <div class="details flex flex-col justify-between lg:hidden">
+        <div class="contacts">
+          <span class="text-lg lg:text-2xl font-semibold w-48"
+            >{{ user.name }} {{ user.surname }}</span
+          >
+          <div [ngClass]="user.account=='PARENT'? 'contact flex flex-row gap-1 text-xs text-primary lg:text-base':'contact flex flex-row gap-1 text-xs lg:text-base'">
+            <i class="fi fi-sr-envelope my-auto"></i>
+            <span class="text-sm w-28 text-ellipsis overflow-auto lg:w-fit lg:text-base">{{ user.email }}</span>
+          </div>
+          <button (click)="toggleEditDetails()" [ngClass]="user.account=='PARENT'? 'btn btn-secondary btn-sm gap-1 font-medium capitalize text-primary mt-1':'btn btn-info btn-sm gap-1 font-normal capitalize  text-white mt-1'"> <i class="fi fi-rr-pencil"></i>Edit Details</button>
+
+        </div>
+
+      </div>
+
+      <div class="desktop hidden lg:flex justify-between place-items-center pr-5">
+        <div class="left flex gap-6">
+          <div class="relative image-side">
+            <img
+            class="w-36 h-36 md:w-44 md:h-44 object-cover rounded-2xl my-auto shadow"
+            [src]="user.image"
+            alt="Owner's image"
+          />
+          <label for="my-modal-6" class="btn-ghost h-6 md:h-7 shadow rounded-b-2xl absolute bottom-0  w-full  md:w-full text-xs text-center capitalize font-normal  text-white" style="background-color: var(--grey-dark);">Change picture</label>
+
+          <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+          <div class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+              <h3 class="font-bold text-lg">Change your profile picture</h3>
+              <form [formGroup]="update_dp" (submit)="onSumbitImage(update_dp)" class="form">
+                  <div class="form-control">
+                    <label for="fileInput" class="label">Choose an image</label>
+                    <input formControlName="file" type="file" (change)="onFileChange($event)" name="fileInput" class="file-input capitalize file-input-ghost w-full">
+                  </div>
+
+              <div class="modal-action">
+                <label for="my-modal-6"  [style.background-color]="user.account=='PARENT'? 'var(--primary-color)' : (user.account=='OWNER' ? 'var(--main-dark)' : null)" class="btn btn-ghost capitalize text-white font-normal rounded-2xl">Cancel</label>
+                <button for="my-modal-6"  [style.background-color]="user.account=='PARENT'? 'var(--primary-color)' : (user.account=='OWNER' ? 'var(--main-dark)' : null)" [ngClass]="load?'btn btn-ghost capitalize font-normal text-white rounded-2xl loading':'btn btn-ghost text-white capitalize font-normal rounded-2xl'">{{message}}</button>
+
+              </div>
+            </form>
+            </div>
+          </div>
+
+          </div>
+          <div class="details flex flex-col justify-between">
+            <div class="contacts">
+              <span class="text-lg lg:text-2xl font-semibold w-48"
+                >{{ user.name }} {{ user.surname }}</span
+              >
+              <div [ngClass]="user.account=='PARENT'? 'contact flex flex-row gap-1 text-xs text-primary lg:text-base':'contact flex flex-row gap-1 text-xs lg:text-base'">
+                <i class="fi fi-sr-envelope my-auto"></i>
+                <span class="text-sm w-28 text-ellipsis overflow-hidden lg:w-36 lg:text-base">{{ user.email }}</span>
+              </div>
+              <button (click)="toggleEditDetails()" [ngClass]="user.account=='PARENT'? 'btn btn-secondary btn-sm gap-1 font-medium capitalize text-primary mt-1':'btn btn-info btn-sm gap-1 font-normal capitalize  text-white mt-1'"> <i class="fi fi-rr-pencil"></i>Edit Details</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="right">
+          <div class="stats shadow max-h-fit my-auto" *ngIf="user.account == 'OWNER'">
+
+            <div class="stat">
+              <div class="stat-figure text-2xl place-items-center">
+                <i class="fi fi-sr-car-alt"></i>
+              </div>
+              <div class="stat-title">Owned Vehicles</div>
+              <div class="stat-value">{{vehicles.length}}</div>
+              <div class="stat-desc">Registered Vehicles</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-figure text-primary text-2xl place-items-center">
+                <i class="fi fi-sr-chart-pie-alt"></i>
+              </div>
+              <div class="stat-title">Rating</div>
+              <div class="stat-value text-primary">{{user.ratings}}</div>
+              <div class="stat-desc">Rated by <span class="font-bold">{{user.votes}}</span> parents</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-figure text-secondary">
+                <div class="avatar online">
+                  <div class="w-16 rounded-full">
+                    <img [src]="user.image" />
+                  </div>
+                </div>
+              </div>
+              <div class="stat-title">A Registered</div>
+              <div class="stat-desc">Car Owner</div>
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="ratings w-full lg:hidden" *ngIf="user.account == 'OWNER'">
+      <div class="flex justify-center gap-2 w-fit mx-auto rounded-xl bg-accent h-11 px-3">
+        <i class="fi fi-sr-badge-check my-auto" style="color: var(--green-200);"></i>
+        <span class="text-2xl font-semibold my-auto" style="color: var(--grey-light);">{{user.ratings}}</span>
+        <div class="flex flex-col my-auto">
+          <span class="text-xs font-semibold my-0 -mb-1" style="color: var(--grey-light);">Rated by</span>
+          <span class="text-xs font-semibold my-0" style="color: var(--grey-light);" *ngIf="user.votes <= 50">{{user.votes}} Parent(s)</span>
+          <span class="text-xs font-semibold my-0" style="color: var(--grey-light);" *ngIf="user.votes > 50">50+ Parent(s)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="forms mt-4">
+      <form *ngIf="!editDetails" [formGroup]="passwordForm" (ngSubmit)="onSubmitPassword(passwordForm)" class="form passwordForm w-full flex flex-col gap-2 transition-all">
+        <h2 class="font-semibold">Change your password</h2>
+        <div class="form-control gap-1 lg:max-w-xl">
+          <label for="oldPassword">Old Password</label>
+          <input type="password" class="input bg-accent" formControlName="oldPassword" placeholder="Old password">
+        </div>
+
+        <div class="form-control gap-1 lg:max-w-xl">
+          <label for="newPassword">New Password</label>
+          <input type="password" class="input bg-accent" formControlName="newPassword" placeholder="New password">
+        </div>
+
+        <div class="form-control gap-1 lg:max-w-xl">
+          <label for="confirmPassword">Re-type Password</label>
+          <input type="password" class="input bg-accent" formControlName="confirmPassword" placeholder="Re-type password">
+        </div>
+
+        <div class="flex justify-center mt-8 lg:justify-start">
+      
+          <button type="submit" [style.background-color]="user.account=='PARENT'? 'var(--primary-color)' : (user.account=='OWNER' ? 'var(--main-dark)' : null)"
+          [ngClass]="load? 'btn btn-ghost w-64 capitalize font-normal text-white rounded-2xl loading': 'btn btn-ghost w-64 capitalize font-normal text-white rounded-2xl'">{{message}}</button>
+        </div>
+
+      </form>
+
+      <form *ngIf="editDetails" [formGroup]="detailsForm" (ngSubmit)="onSubmitDetails(detailsForm)" class="form w-full flex flex-col gap-2 transition-all">
+        <h2 class="font-semibold">Change your details</h2>
+        <div class="form-control gap-1 lg:max-w-xl">
+          <label for="name">Name</label>
+          <input type="text" class="input bg-accent" formControlName="name" [placeholder]="user.name" [value]="user.name">
+        </div>
+
+        <div class="form-control gap-1 lg:max-w-xl">
+          <label for="surname">Surname</label>
+          <input type="text" class="input bg-accent" formControlName="surname" [value]="user.surname" [placeholder]="user.surname">
+        </div>
+
+        <div class="flex justify-center  lg:justify-start mt-8">
+          <button type="submit" [style.background-color]="user.account=='PARENT'? 'var(--primary-color)' : (user.account=='OWNER' ? 'var(--main-dark)' : null)"
+          [ngClass]="load? 'btn btn-ghost w-64 capitalize font-normal text-white rounded-2xl loading': 'btn btn-ghost w-64 capitalize font-normal text-white rounded-2xl'">{{message}}</button>
+        </div>
+      </form>
+
+    </div>
+
+
+
+</div> -->

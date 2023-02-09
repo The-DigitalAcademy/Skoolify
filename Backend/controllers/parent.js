@@ -248,9 +248,11 @@ exports.addRequests = (req, res) => {
   const sql =
     "INSERT INTO requests (parent_id,owner_id,school_id,message,address,num_kids,description,status) values($1,$2,$3,$4,$5,$6,$7,$8)";
 
+    console.log(address)
   client.query(sql, [parent_id,owner_id,school_id,message,address,num_kids,description,"PENDING"], (err, results) => {
     if (err) {
       console.log(err)
+      
       res.status(401).json({ message: "Error inserting request" });
     } else {
       res.status(201).json({ message: "Request successfully added" });

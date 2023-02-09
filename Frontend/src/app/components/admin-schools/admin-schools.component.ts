@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { async } from 'rxjs';
 import { School } from 'src/app/interfaces/school';
 import { AdminService } from 'src/app/services/admin.service';
 
@@ -31,8 +32,7 @@ export class AdminSchoolsComponent implements OnInit {
   }
 
   getSchools(){
-    this.adminService.viewSchools().subscribe(
-      (schools: School[]) => {
+    this.adminService.viewSchools().subscribe((schools: School[]) => {
         this.schools = schools;
       },
       (error: HttpErrorResponse) => {

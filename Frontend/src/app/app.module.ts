@@ -18,9 +18,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserGuard } from './guards/user.guard';
 import { RequestsComponent } from './components/requests/requests.component';
 
+import { NavComponent } from './components/nav/nav.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { HotToastModule } from '@ngneat/hot-toast';
+
 @NgModule({
   declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent, RequestsComponent],
-  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule, Ng2SearchPipeModule],
+  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule, Ng2SearchPipeModule,HotToastModule.forRoot()],
   providers: [UserGuard],
   bootstrap: [AppComponent],
 })

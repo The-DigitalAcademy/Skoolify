@@ -5,9 +5,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { OwnerPageComponent } from './components/owner-page/owner-page.component';
 import { UserGuard } from './guards/user.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 import { SchoolsComponent } from './components/schools/schools.component';
-import { VehiclesComponent } from './components/vehicles/vehicles.component';
-import {RequestsComponent} from './components/requests/requests.component'
+import{VehiclesComponent} from '../app/components/vehicles/vehicles.component';
+import{RequestsComponent} from '../app/components/requests/requests.component'
+
 
 const routes: Routes = [
   { path: '', component: LandingComponent },

@@ -27,7 +27,7 @@ export class RequestsComponent implements OnInit {
   school_id=sessionStorage.getItem('school_id')
   //ids
   schoolID:any = sessionStorage.getItem('selected_school');
-  parentID:any = sessionStorage.getItem('parent_id');
+  parentID:any = sessionStorage.getItem('user_ID');
   ownerID:any = sessionStorage.getItem('selected_vehicle');
 
 
@@ -137,17 +137,18 @@ ngOnInit(): void {
 
   // }
 
-  onSubmit()
+  onSubmit(form: FormGroup)
   {
     this.messages = "Saving...";
     this.load = true;
 
     const dataValues= {
     
-      pickUp_address: this.addRequestForm.value.pickUp_address,
-      message:this.addRequestForm.value.message,
-      num_kids:this.addRequestForm.value.num_kids,
-      description:this.addRequestForm.value.description,
+      address: form.value.address,
+    
+      message: form.value.message,
+      num_kids:form.value.num_kids,
+      description:form.value.description,
       // parent_id:sessionStorage.getItem('parent_id'),
       // school_id:sessionStorage.getItem('school_id'),
       // owner_id:sessionStorage.getItem('owner_id')
