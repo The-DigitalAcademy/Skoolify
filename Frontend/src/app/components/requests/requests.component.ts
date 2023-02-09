@@ -26,9 +26,9 @@ export class RequestsComponent implements OnInit {
   //checking the id
   school_id=sessionStorage.getItem('school_id')
   //ids
-  schoolID:any = sessionStorage.getItem('school_id');
+  schoolID:any = sessionStorage.getItem('selected_school');
   parentID:any = sessionStorage.getItem('parent_id');
-  ownerID:any = sessionStorage.getItem('owner_id');
+  ownerID:any = sessionStorage.getItem('selected_vehicle');
 
 
 
