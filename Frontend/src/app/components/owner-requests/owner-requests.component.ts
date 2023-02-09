@@ -18,6 +18,7 @@ export class OwnerRequestsComponent implements OnInit {
    selected : number = 0
    index : number = 0
    load : boolean = false
+   message : string = 'Decline'
 
    request : any = {
     request_id: 0,
@@ -63,7 +64,7 @@ export class OwnerRequestsComponent implements OnInit {
     this.toast.loading('Processing ...',{duration:10000})
     this.owner.accept(request_id).subscribe(async(result:any)=>{
       this.toast.success(await result.message);
-      this.requestsView =[]
+      this.requestsView = []
       this.viewRequests()
       // this.requestsView = this.requestsView.splice(this.index,1)
     },(error:HttpErrorResponse)=>{
@@ -73,14 +74,21 @@ export class OwnerRequestsComponent implements OnInit {
 
   decline(form:FormGroup){
     this.load = true;
+    this.message = 'Declining...'
     this.toast.loading('Processing ...',{duration:10000})
     this.owner.decline(this.selected,form.value).subscribe(async(result:any)=>{
       this.load = false;
+      this.message = 'Decline'
+
+
       this.toast.success(await result.message);
-      this.requestsView =[]
+      this.requestsView = []
       this.viewRequests()
       //this.requestsView = this.requestsView.splice(this.index,1)
     },(error:HttpErrorResponse)=>{
+      this.load = true;
+      this.message = 'Decline'
+
       console.log(error)
     })
   }
