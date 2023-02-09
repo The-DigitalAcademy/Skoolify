@@ -5,9 +5,6 @@ import {FormBuilder,FormControl, FormGroup,Validators,} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Vehicle } from 'src/app/interfaces/vehicle';
 import { response } from 'express';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
-import { clippingParents } from '@popperjs/core';
-
 @Component({
   selector: 'app-addvehicle',
   templateUrl: './addvehicle.component.html',
