@@ -7,6 +7,11 @@ router.get('/:user_id',account.getUser);
 router.patch('/details/:user_id',account.updateDetails);
 router.patch('/details/image/:user_id',account.updateImage);
 router.patch('/password/:user_id',account.updatePassword);
+router.post('/forgotPassword',account.forgotPassword);
+router.patch('/resetPassword',account.resetPassword);
+
+
+
 
 module.exports = router;
 

@@ -32,7 +32,13 @@ export class LoginComponent implements OnInit {
     ratings: 0.0,
 
   };
+
   loginForm1 = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.min(6)]),
+  });
+
+  forgotPasswordForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.min(6)]),
   });
@@ -46,15 +52,41 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.loginForm1 = this.formbuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [ Validators.required ]]
     })
 
+    
+      this.forgotPasswordForm = this.formbuilder.group({
+        email: ['', [Validators.required, Validators.email]],
+
+      })
+
   }
 
   get formValidation(): { [key: string]: AbstractControl } {
     return this.loginForm1.controls;
+  }
+
+
+
+  get forgotPasswordValidation(): { [key: string]: AbstractControl } {
+    return this.forgotPasswordForm.controls;
+  }
+
+
+  onforgotPassword(form: FormGroup) {
+    this.submitted = true
+    this.toast.loading('Processing ...',{duration:5000})
+    if(form.valid)
+    {
+      
+      form.reset()
+      this.submitted=false
+    }
+    
   }
 
  
@@ -93,3 +125,4 @@ export class LoginComponent implements OnInit {
     }
   }
 }
+

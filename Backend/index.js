@@ -10,7 +10,7 @@ const account = require("./routes/account");
 
 const {register} = require("./controllers/register");
 const {login} = require("./controllers/login");
-
+const {forgotpassword} = require("./controllers/forgotpassword");
 
 
 var corsOptions = {
@@ -30,6 +30,7 @@ app.use('/account',account)
 app.use('/parent',parent)
 app.use("/register", register);
 app.use("/login", login);
+app.use("/forgotpassword", forgotpassword);
 
 
 
