@@ -8,8 +8,8 @@ exports.addvehicle = async (req, res)=>{
   try {
         //Inserting data into the database
         const data = await client.query(
-          `INSERT INTO vehicle (owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);`,
-          [owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image],
+          `INSERT INTO vehicle (owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image,is_deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);`,
+          [owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image,false],
           (err) => {
             if (err) {
            //If post is not inserted is not inserted to database
@@ -64,12 +64,12 @@ exports.viewvehicle = async (req, res) => {
 };
 
 exports.removeVehicle = async (req, res) => {
-  const owner_id = parseInt(req.params.id);
+  const vehicle_id = req.params.vehicle_id
   try {
         //get all post form the database
         const data = await client.query(
-          `SELECT * FROM vehicle where owner_id = $1`,
-          [owner_id],
+          `UPDATE vehicle SET is_deleted = $2  where vehicle_id = $1`,
+          [vehicle_id,true],
           (err,result) => {
             if (err) {
            //If post are not available is not inserted to database
@@ -80,7 +80,7 @@ exports.removeVehicle = async (req, res) => {
             } else {
               res
                 .status(200)
-                .send(result.rows);
+                .json({message:"Vehicle removed"});
             }
           }
         );

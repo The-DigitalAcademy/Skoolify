@@ -5,6 +5,7 @@ import {FormBuilder,FormControl, FormGroup,Validators,} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Vehicle } from 'src/app/interfaces/vehicle';
 import { response } from 'express';
+import { JwtService } from 'src/app/services/jwt.service';
 @Component({
   selector: 'app-addvehicle',
   templateUrl: './addvehicle.component.html',
@@ -12,7 +13,7 @@ import { response } from 'express';
 })
 export class AddvehicleComponent implements OnInit {
  
-
+  user_id :any
   image_link: string = '';
   FormBuilder: any;
   //Uploads
@@ -92,12 +93,21 @@ export class AddvehicleComponent implements OnInit {
     ]),
   });
 
-  constructor(private service: AddvehicleService,private router: Router,private http: HttpClient,) {}
+  constructor(private service: AddvehicleService,private router: Router,private http: HttpClient, private jwt : JwtService) {}
 
 
   
   ngOnInit(): void {
-    this.service.viewvehicle(2).subscribe((view) => {
+
+    this.user_id = this.jwt.getData(sessionStorage.getItem('key'))?.user_id
+    this.viewVehicles()
+   
+  }
+
+
+  viewVehicles()
+  {
+    this.service.viewvehicle(this.user_id).subscribe((view) => {
       console.log(view);
 
       this.data = view;
@@ -134,6 +144,17 @@ export class AddvehicleComponent implements OnInit {
   }
 
 
+removeVehicle(vehicle : number){
+  console.log('vehicles',vehicle);
+  this.service.RemoveVehicle(vehicle).subscribe((result:any)=>{
+    console.log("removed");
+    this.viewVehicles();
+
+  },(error:HttpErrorResponse)=>{
+    console.log(error);
+    
+  })
+}
 
 
 
@@ -199,7 +220,7 @@ export class AddvehicleComponent implements OnInit {
 
     console.log(form.value)
 
-    this.vehiDetails.owner_id = Number(sessionStorage.getItem('user_id'))
+    this.vehiDetails.owner_id = this.user_id
     this.vehiDetails.brand = form.value.brand;
     this.vehiDetails.model = form.value.model;
     this.vehiDetails.color = form.value.color;

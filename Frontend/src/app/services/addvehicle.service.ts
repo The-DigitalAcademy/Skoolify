@@ -41,9 +41,10 @@ export class AddvehicleService  {
 
   RemoveVehicle(vehicle_id:number)
   {
-    return this.http.patch(this.baseUrl + '/removeVehicle/' + vehicle_id, null);
+    return this.http.patch(this.baseUrl + '/removevehicle/' + vehicle_id, null);
 
   }
+  
   updateVehicle(vehicleId:any ,form:any)
   {
     return this.http.patch(this.baseUrl+'/updateVehicle/'+vehicleId,form);

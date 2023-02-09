@@ -67,6 +67,7 @@ onSubmit(FormGroup:any) {
       driver_cellphone: this.addVehicleForm.value.driver_cellphone
     }
     {
+      
     sessionStorage.removeItem('selected_vehicle')
     this.AddvehicleService.RemoveVehicle(Number(sessionStorage.getItem('selected_vehicle'))).subscribe((result:any)=>{
 

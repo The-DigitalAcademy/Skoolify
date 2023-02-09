@@ -11,11 +11,8 @@ const account = require("./routes/account");
 const {register} = require("./controllers/register");
 const {login} = require("./controllers/login");
 
-<<<<<<< HEAD
 //impot classes
 const vehicle = require("./routes/vehicle");
-=======
->>>>>>> 9e6ac88ce922b862a8becd57120c48247c98907a
 
 
 var corsOptions = {
@@ -36,9 +33,6 @@ app.use('/parent',parent)
 app.use("/register", register);
 app.use("/login", login);
 
-<<<<<<< HEAD
 app.use('/vehicle', vehicle)
-=======
->>>>>>> 9e6ac88ce922b862a8becd57120c48247c98907a
 
 

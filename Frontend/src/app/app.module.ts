@@ -16,13 +16,16 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import{FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { UserGuard } from './guards/user.guard';
-
+import { AddvehicleComponent } from './components/addvehicle/addvehicle.component';
+import { AddvehicleService } from './services/addvehicle.service';
+import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
+import { RemoveVehicleComponent } from './components/remove-vehicle/remove-vehicle.component';
 import { NavComponent } from './components/nav/nav.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent,EditVehicleComponent,RemoveVehicleComponent, AddvehicleComponent,OwnerPageComponent, LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent],
   imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
 
 
