@@ -79,12 +79,18 @@ export class LoginComponent implements OnInit {
 
   onforgotPassword(form: FormGroup) {
     this.submitted = true
-    this.toast.loading('Processing ...',{duration:5000})
+    this.toast.loading('Processing ...',{duration:10000})
     if(form.valid)
     {
-      
+      this.auth1.forgotPassword(form.value).subscribe((res:any)=>{
       form.reset()
-      this.submitted=false
+      this.submitted =false
+        this.toast.success(res.message);
+
+      },(error:HttpErrorResponse)=>{
+        this.toast.error(error.error.message)
+      })
+      
     }
     
   }
