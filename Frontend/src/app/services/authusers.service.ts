@@ -12,6 +12,10 @@ export class AuthusersService {
   loginData(data: any) {
     return this.http.post('http://localhost:8080/login', data);
   }
+
+  forgotPassword(data:any){
+    return this.http.post('http://localhost:8080/account/forgotPassword', data);
+  }
   //saving data
   saveToken(token: string) {
     sessionStorage.setItem('key', token);

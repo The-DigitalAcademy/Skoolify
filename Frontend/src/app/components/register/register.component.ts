@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z ]$'),
       ]),
-      password: new FormControl('',[Validators.pattern('(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[$@$!%?&])[A-Za-zd$@$!%?&].{8,15}')]),
+      password: new FormControl('',[Validators.required,Validators.minLength(8),Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]),
       account: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
       gender: new FormControl('', [Validators.required]),
@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.pattern('^[a-zA-Z ]$'),
     ]),
-    password: new FormControl('', [Validators.required, Validators.min(6)]),
+    password: new FormControl('', [Validators.required, Validators.min(8)]),
     account: new FormControl(),
     confirmPassword: new FormControl(),
     gender: new FormControl(),
@@ -85,7 +85,7 @@ export class RegisterComponent implements OnInit {
     }else
     {
       this.step = 1;
-      
+
     }
 
 
@@ -106,13 +106,13 @@ export class RegisterComponent implements OnInit {
           (results: any) => {
             this.auth.saveToken(results.token);
             this.user = this.jwt.getData(results.token);
-  
+
             if (this.user != null) {
               sessionStorage.setItem('role', this.user.account);
               this.role = this.user.account;
               this.toast.success('Welcome to Skoolify')
             }
-  
+
             if (this.role == 'PARENT') {
               this.router.navigateByUrl('/parent-home');
             } else if (this.role == 'OWNER') {
@@ -121,12 +121,12 @@ export class RegisterComponent implements OnInit {
               this.router.navigateByUrl('/admin/schools');
             }
           },
-  
+
           (error: HttpErrorResponse) => {
             this.toast.error(error.error.message)
           }
         );
-  
+
       }else{
         this.toast.warning('Oops! Passwords do not match');
       }

@@ -81,7 +81,7 @@
 
               <div class="flex justify-between my-1">
                 <span></span>
-                <span><label for="my-modal" class="link no-underline cursor-pointer text-accent">Forgot password?</label></span>
+                <span><label for="my-modal-6" class="link no-underline cursor-pointer text-accent">Forgot password?</label></span>
               </div>
 
             </div>
@@ -114,6 +114,9 @@
 </div>
 <div class="footer hidden md:block w-full bg-accent h-44 fixed bottom-0 rounded-t-3xl px-40 py-3">
 
+
+
+
   <div class="flex flex-col">
     <h3 class="text font-semibold">Contact Us</h3>
     <p class="text">The Digital Academy <br> 7 Quince Street Milpark <br> Johannesburg 0258</p>
@@ -129,3 +132,42 @@ id="logo"
 src="../../../assets/Transparent Logo.png"
 alt="Backimage"
 />
+<input type="checkbox" id="my-modal-6" class="modal-toggle" />
+
+
+
+<div class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box px-8">
+    <h3 class="font-bold text-lg">Enter your email</h3>
+    <form
+    [formGroup]=" forgotPasswordForm"
+    (ngSubmit)="onforgotPassword(forgotPasswordForm)"
+    class="w-full mx-auto"> <!--  -->
+
+   <div class="form-control">
+    <label for="" class="label">Email address</label>
+    <input          
+    [email]="true"
+    formControlName="email"
+    id="email-address"
+    required
+    class="input w-full h-12 bg-accent placeholder:text-"
+    placeholder="Email address">
+    <div *ngIf="submitted && forgotPasswordValidation['email'].errors" class="invalid-feedback">
+      <div *ngIf="forgotPasswordValidation['email'].errors['required']" class="text-xs">Email is required</div>
+      <div *ngIf="forgotPasswordValidation['email'].errors['email']" class="text-xs">Email is invalid</div>
+    </div>
+   </div>
+
+
+   
+
+    <div class="modal-action">
+      <label for="my-modal-6" class="btn btn-primary capitalize font-normal rounded-2xl">Cancel</label>
+      <button type="submit" class="btn btn-primary capitalize font-normal rounded-2xl">Submit</button>
+
+    </div>
+  </form>
+    <!--  -->
+  </div>
+</div>
