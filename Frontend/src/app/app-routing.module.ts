@@ -7,7 +7,9 @@ import { OwnerPageComponent } from './components/owner-page/owner-page.component
 import { UserGuard } from './guards/user.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SchoolsComponent } from './components/schools/schools.component';
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { OwnerRequestsComponent } from './components/owner-requests/owner-requests.component';
+
 
 
 
@@ -15,6 +17,7 @@ const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'register', component: RegisterComponent },
   { path:'login', component: LoginComponent},
+  { path:'forgotPassword', component: ForgotpasswordComponent },
   { path:'home', component: OwnerPageComponent},
   {path:'profile',component: ProfileComponent},
   { path:'parent-home', component: SchoolsComponent},

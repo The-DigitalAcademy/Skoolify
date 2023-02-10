@@ -11,7 +11,7 @@ const owner = require("./routes/owner");
 
 const {register} = require("./controllers/register");
 const {login} = require("./controllers/login");
-
+const {forgotpassword} = require("./controllers/forgotpassword");
 
 
 var corsOptions = {
@@ -32,6 +32,7 @@ app.use('/parent',parent)
 app.use('/owner',owner)
 app.use("/register", register);
 app.use("/login", login);
+app.use("/forgotpassword", forgotpassword);
 
 
 
