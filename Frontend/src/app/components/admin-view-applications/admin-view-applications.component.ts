@@ -84,6 +84,14 @@ export class AdminViewApplicationsComponent implements OnInit {
   {
     sessionStorage.setItem('selected_application',application_id);
   }
+  openApplication(application_id:any)
+  {
+    sessionStorage.setItem('selected_application',application_id);
+    this.router.navigateByUrl('admin/view-application')
+
+
+
+  }
 
   selectSchool(school_id:any)
   {
