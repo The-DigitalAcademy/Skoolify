@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminViewOneSchoolComponent } from 'src/app/components/admin-view-one-school/admin-view-one-school.component';
 import { AdminViewOneApplicationComponent } from 'src/app/components/admin-view-one-application/admin-view-one-application.component';
 import { AdminViewApplicationsComponent } from 'src/app/components/admin-view-applications/admin-view-applications.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 @NgModule({
   declarations: [
@@ -25,6 +27,6 @@ import { AdminViewApplicationsComponent } from 'src/app/components/admin-view-ap
     AdminViewApplicationsComponent
 
   ],
-  imports: [CommonModule, AdminRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [Ng2SearchPipeModule,CommonModule ,AdminRoutingModule, FormsModule, ReactiveFormsModule],
 })
 export class AdminModule {}
