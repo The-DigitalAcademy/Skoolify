@@ -1,108 +1,106 @@
                 
-
-<div class="container-box" style="padding:4rem">
-  <div class="header">
-    <h1 style="margin-bottom:0.5em;">Vehicles</h1>
-    <label for="my-modal-3" class="btn" style="width:20%;margin-bottom: 10em; float: right;" >Add Vehicle 
+<main >
+  <div class=" ml-4 pt-8 " >
+    <label for="my-modal-3" class="btn"  >Add  Vehicle 
       <i class="fi fi-bs-plus" style="padding:5%"></i>
-
+  
     </label>
-  </div>
-  </div>
-
-  <input type="checkbox" id="my-modal-3" class="modal-toggle"/>
-  <div class="modal">
-    <div class="modal-box relative">
-      <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-    
-      <form [formGroup]="addVehicleForm" (ngSubmit)="onSubmit(addVehicleForm)" >
+    <div class="absolute  mx-2 ">
+      <h1>Vehicles</h1>
       
-      <div class="mb-6">
-        <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Model</label>
-        <input type="text" id="base-input" formControlName="model" required minlength="1" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-      </div>
-  
-      <div class="mb-6">
-        <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"style="background-color:9E9E9E">Brand</label>
-        <input type="text" id="base-input"formControlName="brand" required minlength="1" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
     </div>
   
-  <div class="mb-6">
-    <label for="base-input"class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Registration Number</label>
-    <input type="text" id="base-input"formControlName="vehicle_reg" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  </div>
-  
-  
-  <div class="mb-6">
-    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Color</label>
-    <input type="text" id="base-input"formControlName="color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  </div>
-  
-  
-  <div class="mb-6">
-    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Driver's Name</label>
-    <input type="text" id="base-input" required maxlength="45"formControlName="driver_name"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  </div>
-  
-  <div class="mb-6">
-    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Driver's Cellphone Number</label>
-    <input type="text" id="base-input"formControlName="driver_cellphone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  </div>
-  
-  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Upload Driver Image</label>
-  <input type = "file" accept = ".png, .jpg, .jpeg" formControlName="driver_img" (change)="onDriverImg($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size">
-  
-           <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Upload Vehicle Image</label>
-               <input type = "file" accept = ".png, .jpg, .jpeg" formControlName="vehicle_img" (change)="onVehicleImg($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size">
-  
-  
-               <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Supporting Documents</label>
-               <input type = "file" accept = ".pdf" formControlName="documents" (change)="onFileChangePdf($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file">
-<br>               <button type="submit" style="background-color:#333333 ;color:white;" class="submit"class=btn-sm>Save</button>
-
-  
-  
-            </form>
-  </div>
-      </div>
+    <input type="checkbox" id="my-modal-3" class="modal-toggle"/>
+    <div class="modal">
+      <div class="modal-box relative">
+        <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
       
-      
-
-
-  <div  style="background-color: 9E9E9E;width:100%;padding: 2rem;" class="card bg-base-100 shadow-xl"*ngFor="let record of data, let x = index">
+        <form [formGroup]="addVehicleForm" (ngSubmit)="onSubmit(addVehicleForm)" >
+        
+        <div class="mb-6">
+          <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Model</label>
+          <input type="text" id="base-input" formControlName="model" required minlength="1" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </div>
     
-    <div class="dropdown dropdown-top dropdown-end">
-      <label tabindex="0" class="btn gap-1 m-1" >  
-        <i class="fi fi-rr-menu-dots-vertical" style="font-size:45px"></i>
-      </label>
-       <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-          <li>
-            <label for="my-modal-3" (click)="editDriver(record)">Edit Driver  <i class="fi fi-rr-pencil"></i></label>
-            <input type="checkbox" id="my-modal-3" class="modal-toggle" /> 
-          </li>
+        <div class="mb-6">
+          <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"style="background-color:9E9E9E">Brand</label>
+          <input type="text" id="base-input"formControlName="brand" required minlength="1" maxlength="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      </div>
+    
+    <div class="mb-6">
+      <label for="base-input"class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Registration Number</label>
+      <input type="text" id="base-input"formControlName="vehicle_reg" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+    
+    
+    <div class="mb-6">
+      <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Color</label>
+      <input type="text" id="base-input"formControlName="color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+    
+    
+    <div class="mb-6">
+      <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Driver's Name</label>
+      <input type="text" id="base-input" required maxlength="45"formControlName="driver_name"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+    
+    <div class="mb-6">
+      <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Driver's Cellphone Number</label>
+      <input type="text" id="base-input"formControlName="driver_cellphone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </div>
+    
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Upload Driver Image</label>
+    <input type = "file" accept = ".png, .jpg, .jpeg" formControlName="driver_img" (change)="onDriverImg($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size">
+    
+             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Upload Vehicle Image</label>
+                 <input type = "file" accept = ".png, .jpg, .jpeg" formControlName="vehicle_img" (change)="onVehicleImg($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size">
+    
+    
+                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="large_size">Supporting Documents</label>
+                 <input type = "file" accept = ".pdf" formControlName="documents" (change)="onFileChangePdf($event)" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-9E9E9E-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" type="file">
+  <br>               <button type="submit" style="background-color:#333333 ;color:white;" class="submit"class=btn-sm>Save</button>
+  
+    
+    
+              </form>
+    </div>
+        </div>
 
-          <li><a (click)="removeVehicle(record.vehicle_id)">Remove
-            <i class="fi fi-ts-remove folder"></i></a>   
-          </li>
-        </ul>
-
-    <div class="flex flex-col justify-start gap-1">
-      <i class="fi fi-sr-graduation-cap text-secondary"></i>
-        <h2 class="font-bold text-base w-full text-black" style="color:#333333">
-        {{record.brand}} {{record.model}}
-        </h2>
-        <br>
+        
+    <div   class="card bg-base-50 shadow-xl gap-y-8 "*ngFor="let record of data, let x = index">
       
-      <span class="text-s " style="color:#9E9E9E;">{{record.vehicle_reg}}</span>
-        <span class="text-s " style="color:#9E9E9E">{{record.driver_name }}</span>
-        <span class="text-s " style="color:#9E9E9E">{{record.driver_cellphone }}</span>
-       
+      <div class="dropdown dropdown-top dropdown-end">
+        <label tabindex="0" class="btn gap-1 m-1" >  
+          <i class="fi fi-rr-menu-dots-vertical" style="font-size:45px"></i>
+        </label>
+         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <li>
+              <label for="my-modal-3" (click)="editDriver(record.vehicle_id)">Edit Driver  <i class="fi fi-rr-pencil"></i></label>
+              <input type="checkbox" id="my-modal-3" class="modal-toggle" /> 
+            </li>
+  
+            <li><a (click)="removeVehicle(record.vehicle_id)">Remove
+              <i class="fi fi-ts-remove folder"></i></a>   
+            </li>
+          </ul>
+  
+      <div class="flex flex-col justify-start">
+          <h2 class="font-bold text-base w-full text-black" style="color:#333333">
+          {{record.brand}} {{record.model}}
+          </h2>
+        
+        <span class="text-s " style="color:#9E9E9E;">{{record.vehicle_reg}}</span>
+          <span class="text-s " style="color:#9E9E9E"><i class="fi fi-sr-user"></i>{{record.driver_name }}</span>
+          <span class="text-s " style="color:#9E9E9E">{{record.driver_cellphone }}</span>
+         
+        </div>
       </div>
     </div>
-  </div>
-
-
-
-
-
-      
+  
+  
+  
+  
+  
+        
+</main>

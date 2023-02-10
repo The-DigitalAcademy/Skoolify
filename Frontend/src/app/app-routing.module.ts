@@ -8,6 +8,7 @@ import { UserGuard } from './guards/user.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SchoolsComponent } from './components/schools/schools.component';
 import{AddvehicleComponent} from '../app/components/addvehicle/addvehicle.component'
+import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
 
 
 
@@ -21,8 +22,8 @@ const routes: Routes = [
   { path:'owner-home', component: OwnerPageComponent},
   { path: '', component:LandingComponent},
   { path: 'addvehicle', component: AddvehicleComponent }, 
-  { path: 'editvehicle', component: AddvehicleComponent }, 
-  { path: 'removevehicle', component: AddvehicleComponent }, 
+  { path: 'editvehicle', component: EditVehicleComponent }, 
+  //{ path: 'removevehicle', component: AddvehicleComponent }, 
   { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
   { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)},
 ];

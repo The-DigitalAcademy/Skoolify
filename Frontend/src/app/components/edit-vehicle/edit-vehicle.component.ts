@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Route } from '@angular/router';
 import { AddvehicleService } from 'src/app/services/addvehicle.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Vehicle } from 'src/app/interfaces/vehicle';
 
 @Component({
   selector: 'app-edit-vehicle',
@@ -29,6 +30,7 @@ export class EditVehicleComponent implements OnInit {
     color: '',
     vehicle_image: '',
   };
+editDriver: any;
 
 
 
@@ -67,26 +69,23 @@ onSubmit(arg0: FormGroup) {
   }
   ngOnInit(): void {
 
-    let vehicleDetails= {
-      model: this.addVehicleForm.value.model,
-      brand: this.addVehicleForm.value.brand,
-      vehicle_reg: this.addVehicleForm.value.vehicle_reg,
-      color: this.addVehicleForm.value.color,
-      vehicle_img: this.addVehicleForm.value.vehicle_img,
-      driver_name: this.addVehicleForm.value.driver_name,
-      driver_img: this.addVehicleForm.value.driver_img,
-      documents:this.addVehicleForm.value.documents,
-      driver_cellphone: this.addVehicleForm.value.driver_cellphone
-    }
-    console.log(vehicleDetails);
+    this.service.getvehicle(Number(sessionStorage.getItem('selected_vehicle'))).subscribe((get:any)=>{
+      console.log(get);
+    
+      //this.data = get;
+      console.log('selected vehicle', get);
 
-    this.addvehicleservice.updateVehicle(this.vehicleDetails.subscribe((next:any) => {
+    this.vehiDetails =  get
+    console.log(this.vehiDetails);
+
+    // this.addvehicleservice.updateVehicle(this.vehicleDetails.subscribe((next:any) => {
       
-      this.router.navigate(['/vehiclelist']);
-      this.submitted = false;
-    }))
+    //   this.router.navigate(['/vehiclelist']);
+    //   this.submitted = false;
+    // }))
 
   
+  })
 }
 
 
@@ -105,7 +104,10 @@ onDriverImg(event:any){
 
   }
 
+  onSubmitvehiDetails(event:FormGroup){
+  console.log(this.vehiDetails)
 
+  }
 
 
 

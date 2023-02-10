@@ -128,17 +128,11 @@ export class AddvehicleComponent implements OnInit {
   editDriver(rec: any) {
     console.log('vehicles', rec);
 
-    this.addVehicleForm.setValue({
-      vehicle_reg: rec.vehicle_reg,
-      model: rec.model,
-      brand: rec.brand,
-      driver_name: rec.driver_name,
-      driver_cellphone: rec.driver_cellphone,
-      color: rec.color,
-      vehicle_img: this.image.link,
-      driver_img: this.image.link,
-      documents: '',
-    });
+
+    sessionStorage.setItem('selected_vehicle',rec)
+    this.router.navigateByUrl('editvehicle')
+
+   
 
     
   }
