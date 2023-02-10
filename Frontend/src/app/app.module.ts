@@ -17,8 +17,14 @@ import { UserGuard } from './guards/user.guard';
 import { NavComponent } from './components/nav/nav.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HotToastModule } from '@ngneat/hot-toast';
+
+import { AdminGuard } from './guards/admin/admin.guard';
+import { ParentGuard } from './guards/parent/parent.guard';
+import { OwnerGuard } from './guards/owner/owner.guard';
+
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { OwnerRequestsComponent } from './components/owner-requests/owner-requests.component';
+
 
 @NgModule({
 
@@ -27,8 +33,8 @@ import { OwnerRequestsComponent } from './components/owner-requests/owner-reques
 
 
 
+  providers: [UserGuard,AdminGuard,ParentGuard,OwnerGuard],
 
-  providers: [UserGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

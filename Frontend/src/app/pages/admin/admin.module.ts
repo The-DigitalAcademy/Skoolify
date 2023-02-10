@@ -13,6 +13,7 @@ import { AdminViewOneSchoolComponent } from 'src/app/components/admin-view-one-s
 import { AdminViewOneApplicationComponent } from 'src/app/components/admin-view-one-application/admin-view-one-application.component';
 import { AdminViewApplicationsComponent } from 'src/app/components/admin-view-applications/admin-view-applications.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { AdminGuard } from 'src/app/guards/admin/admin.guard';
 
 
 @NgModule({
@@ -28,5 +29,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
   ],
   imports: [Ng2SearchPipeModule,CommonModule ,AdminRoutingModule, FormsModule, ReactiveFormsModule],
+
+  providers:[AdminGuard]
 })
 export class AdminModule {}
