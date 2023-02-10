@@ -13,10 +13,11 @@ export class NavComponent implements OnInit {
   dashboardRoute: string ='';
   isLoggedIn!: boolean;
 
-  constructor(private router : Router,private auth1: AuthusersService,private renderer: Renderer2) { }
+  constructor(private router : Router,private auth1: AuthusersService,private renderer: Renderer2, public jwt : JwtService) { }
 
   ngOnInit(): void {
     this.accountType = sessionStorage.getItem('role');
+
   }
 
   // loginForm1 = new FormGroup({

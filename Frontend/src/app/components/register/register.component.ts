@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z ]$'),
       ]),
-      password: new FormControl('',[Validators.required,Validators.minLength(8),Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]),
+      password: new FormControl('',[Validators.required,Validators.minLength(8)]),
       account: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
       gender: new FormControl('', [Validators.required]),
@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.pattern('^[a-zA-Z ]$'),
     ]),
-    password: new FormControl('', [Validators.required, Validators.min(8)]),
+    password: new FormControl(''),
     account: new FormControl(),
     confirmPassword: new FormControl(),
     gender: new FormControl(),
@@ -101,6 +101,7 @@ export class RegisterComponent implements OnInit {
 
     if(form.valid){
       this.toast.loading('Signing you up ...',{duration:200})
+      console.log(form.value)
       if(form.value.password === form.value.confirmPassword){
         this.auth.postData(form.value).subscribe(
           (results: any) => {
