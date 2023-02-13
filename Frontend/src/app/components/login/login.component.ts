@@ -118,7 +118,7 @@ export class LoginComponent implements OnInit {
           if (this.role == 'PARENT') {
             this.router.navigateByUrl('/parent-home');
           } else if (this.role == 'OWNER') {
-            this.router.navigateByUrl('/owner-home');
+            this.router.navigateByUrl('/addvehicle');
           } else if (this.role == 'ADMIN') {
             this.router.navigateByUrl('/admin/schools');
           }

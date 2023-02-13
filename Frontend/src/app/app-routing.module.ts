@@ -7,6 +7,8 @@ import { OwnerPageComponent } from './components/owner-page/owner-page.component
 import { UserGuard } from './guards/user.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SchoolsComponent } from './components/schools/schools.component';
+import{AddvehicleComponent} from '../app/components/addvehicle/addvehicle.component'
+import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
 
 import { AdminGuard } from './guards/admin/admin.guard';
 import { ParentGuard } from './guards/parent/parent.guard';
@@ -23,12 +25,14 @@ const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'register', component: RegisterComponent },
   { path:'login', component: LoginComponent},
-
   { path:'forgotPassword', component: ForgotpasswordComponent },
+  { path: 'addvehicle', component: AddvehicleComponent }, 
+  { path: 'editvehicle', component: EditVehicleComponent }, 
   { path:'profile',component: ProfileComponent,canActivate:[UserGuard]},
   { path:'parent-home', component: SchoolsComponent,canActivate:[ParentGuard]},
   { path:'owner-home', component: OwnerPageComponent,canActivate:[OwnerGuard]},
   { path:'owner-requests', component: OwnerRequestsComponent,canActivate:[OwnerGuard]},
+
   { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
   { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),canActivate:[AdminGuard]},
 ];

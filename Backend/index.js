@@ -11,6 +11,9 @@ const owner = require("./routes/owner");
 
 const {register} = require("./controllers/register");
 const {login} = require("./controllers/login");
+
+//impot classes
+const vehicle = require("./routes/vehicle");
 const {forgotpassword} = require("./controllers/forgotpassword");
 
 
@@ -34,5 +37,6 @@ app.use("/register", register);
 app.use("/login", login);
 app.use("/forgotpassword", forgotpassword);
 
+app.use('/vehicle', vehicle)
 
 

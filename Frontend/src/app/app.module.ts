@@ -12,8 +12,12 @@ import { OwnerPageComponent } from './components/owner-page/owner-page.component
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import{FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { UserGuard } from './guards/user.guard';
+import { AddvehicleComponent } from './components/addvehicle/addvehicle.component';
+import { AddvehicleService } from './services/addvehicle.service';
+import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
+import { RemoveVehicleComponent } from './components/remove-vehicle/remove-vehicle.component';
 import { NavComponent } from './components/nav/nav.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HotToastModule } from '@ngneat/hot-toast';
@@ -28,8 +32,10 @@ import { OwnerRequestsComponent } from './components/owner-requests/owner-reques
 
 @NgModule({
 
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent,OwnerRequestsComponent,ForgotpasswordComponent],
+
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent,EditVehicleComponent, AddvehicleComponent ,LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent,OwnerRequestsComponent,ForgotpasswordComponent],
   imports: [Ng2SearchPipeModule,BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
+
 
 
 

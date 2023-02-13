@@ -87,8 +87,6 @@ export class RegisterComponent implements OnInit {
       this.step = 1;
 
     }
-
-
   }
 
   get formValidation(): { [key: string]: AbstractControl } {
