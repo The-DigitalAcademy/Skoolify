@@ -18,9 +18,12 @@ import { UserGuard } from './guards/user.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { OwnerViewSchoolComponent } from './components/owner-page/owner-view-school/owner-view-school.component';
+import { OwnerSchoolApplicationComponent } from './components/owner-school-application/owner-school-application.component';
+import { OwnerApplicationCompletionComponent } from './components/owner-application-completion/owner-application-completion.component';
+
 
 @NgModule({
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent,ProfileComponent, OwnerViewSchoolComponent],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent,ProfileComponent, OwnerViewSchoolComponent,OwnerSchoolApplicationComponent, OwnerApplicationCompletionComponent],
   imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
 
   providers: [UserGuard],

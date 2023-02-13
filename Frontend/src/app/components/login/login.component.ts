@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('role', this.user.account);
             this.role = this.user.account;
             this.toast.success(results.message,{duration:3000});
+            sessionStorage.setItem('user_ID', this.user.user_id);
   
   
          }

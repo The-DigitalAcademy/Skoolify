@@ -41,5 +41,11 @@ export class OwnerPageComponent implements OnInit {
 
     this.router.navigateByUrl('schoolsApplication');
   }
+  // getVehicleUser(owner_id:any){
+  //   console.log(owner_id)
 
+  //   sessionStorage.setItem('selected_school',owner_id);
+
+  //   this.router.navigateByUrl('schoolsApplication');
+  // }
 }

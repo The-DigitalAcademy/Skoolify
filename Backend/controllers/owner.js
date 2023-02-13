@@ -60,3 +60,20 @@ exports.viewRequests = (req, res) => {
       });
     }
   };
+
+
+
+  exports.price = (req, res) => {
+    const {price,owner_id,vehicle_id,school_id } = req.body;
+    let status="PENDING"
+    const sql =
+      "INSERT INTO application (owner_id,vehicle_id,price,school_id,status) values($1,$2,$3,$4,$5)";
+  
+    client.query(sql, [owner_id,vehicle_id,price,school_id,status], (err, results) => {
+      if (err) {
+        res.status(401).json({ message: "Error inserting price" });
+      } else {
+        res.status(201).json({ message: "price successfully added" });
+      }
+    });
+  };

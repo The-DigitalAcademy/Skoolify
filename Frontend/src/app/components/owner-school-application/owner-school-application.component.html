@@ -11,10 +11,9 @@
       </button>
       <span></span>
     </div>
-    
-
+   
     <div class="w-full ">
-      <h2 class="mx-auto text-center font-semibold text-xl">{{school.school_name}}</h2>
+      <h2 class="mx-auto text-center font-semibold text-xl">{{school.school_name}}  </h2>
       <p class="mx-auto text-center font-medium text-lg">{{school.school_location}}</p>
 
       <div class="flex justify-center gap-2 w-fit mx-auto rounded-xl bg-accent h-11 px-3">
@@ -31,18 +30,40 @@
 
 
 
-      <p>Set Monthly fee</p>
-      <br>
-      <input class="form-control  bg-gray-100 "  id ="input" type="text"  placeholder="Set monthly fee">
-      <br>
+      <!-- <p>Set Monthly fee</p> -->
+      <!-- <br>
+      <input class="form-control box-content bg-gray-100 "  id ="input" type="text" formControlName="price" placeholder="Set monthly fee">
+      <br> -->
 
-
-   
+      <div class="mt-5 md:col-span-2 md:mt-0">
+        <form   [formGroup]="priceInputForm" >
+        <label for="price" class="block text-sm font-medium text-gray-700">Set Monthly fee</label>
+        <div class="relative mt-1 rounded-md shadow-sm">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+            <span class="text-gray-500 sm:text-sm">R</span>
+          </div>
+          <input type="text" formControlName="price" name="price" id="price" class="block w-full  rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"formControlName="price" placeholder="0.00">
+          <div class="absolute inset-y-0 right-0 flex items-center">
+            <label for="currency" class="sr-only">Currency</label>
+      
+          </div>
+        </div>
+      
+      <div class="form-control w-full max-w-xs">
+        <label class="label">
+          <span class="label-text">Vehicles</span>
+        </label>
+        <select class="select select-bordered" formControlName="vehicle_id" >
+          <option   *ngFor="let vehicle of vehicle" [value]="vehicle.vehicle_id">{{vehicle.brand}} {{vehicle.model}}</option>
+         
+        </select>
+      
+      </div>
 
 <!-- Dropdown menu -->
 
 <!-- component -->
-<div class="group inline-block">
+<!-- <div class="group inline-block">
   <button
     class="outline-none px-3 py-1 bg-gray-100 rounded-sm flex items-center min-w-32"
   >
@@ -125,7 +146,7 @@
     </li>
     <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Testing</li>
   </ul>
-</div>
+</div> -->
 
 <style>
   /* since nested groupes are not supported we have to use 
@@ -145,12 +166,13 @@
   .group:hover .group-hover\:scale-100 { transform: scale(1) }
   .group:hover .group-hover\:-rotate-180 { transform: rotate(180deg) }
   .scale-0 { transform: scale(0) }
-  .min-w-32 { min-width: 8rem }
+  .min-w-32 { min-width: 8 rem }
 </style>
 
 <br><br>
 <br>
 <div class="text-center">
-<button type="submit" id ="button" class="btn  text-center  btn-primary">Submit Application</button>
+<button type="submit" id ="button" class="btn  text-center  btn-primary" (click)=" onSubmit(priceInputForm)">Submit Application</button>
 </div>
-    </div>
+ 
+

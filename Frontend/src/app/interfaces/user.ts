@@ -1,5 +1,5 @@
 export interface User{
-  user_id : number,
+  user_id : any,
   name : string,
   surname : string,
   account : string,
