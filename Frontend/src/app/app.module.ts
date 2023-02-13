@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SchoolsComponent } from './components/schools/schools.component';
@@ -24,12 +22,25 @@ import { NavComponent } from './components/nav/nav.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HotToastModule } from '@ngneat/hot-toast';
 
+import { AdminGuard } from './guards/admin/admin.guard';
+import { ParentGuard } from './guards/parent/parent.guard';
+import { OwnerGuard } from './guards/owner/owner.guard';
+
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { OwnerRequestsComponent } from './components/owner-requests/owner-requests.component';
+
+
 @NgModule({
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent,EditVehicleComponent,RemoveVehicleComponent, AddvehicleComponent,OwnerPageComponent, LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent],
-  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
 
 
-  providers: [UserGuard],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent,EditVehicleComponent, AddvehicleComponent,LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent,OwnerRequestsComponent,ForgotpasswordComponent],
+  imports: [Ng2SearchPipeModule,BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
+
+
+
+
+  providers: [UserGuard,AdminGuard,ParentGuard,OwnerGuard],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}
