@@ -56,5 +56,11 @@ export class AddvehicleService  {
     return this.http.get<Vehicle>(this.baseUrl+'/getvehicle/'+id);
   }
 
-    }
+  editDriver(id:number,data :any){
+    return this.http.patch(this.baseUrl+'/edit/'+id,data);
+  }
+
+
+
+}
 

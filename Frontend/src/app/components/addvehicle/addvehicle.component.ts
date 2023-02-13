@@ -5,6 +5,8 @@ import {FormBuilder,FormControl, FormGroup,Validators,} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Vehicle } from 'src/app/interfaces/vehicle';
 import { response } from 'express';
+import { HotToastService } from '@ngneat/hot-toast';
+
 import { JwtService } from 'src/app/services/jwt.service';
 @Component({
   selector: 'app-addvehicle',
@@ -12,6 +14,12 @@ import { JwtService } from 'src/app/services/jwt.service';
   styleUrls: ['./addvehicle.component.scss'],
 })
 export class AddvehicleComponent implements OnInit {
+
+  tsBrand = new RegExp("^[ a-zA-Z ]{2,}$");
+  tsModel = new RegExp("^[ A-Za-z0-9]{2,}$");
+  tsReg = new RegExp("^[ A-Za-z0-9 ]{2,}$");
+  tsColor = new RegExp("^[ a-zA-Z ]{2,}$");
+  step : number = 1;
  
   user_id :any
   image_link: string = '';
@@ -24,7 +32,7 @@ export class AddvehicleComponent implements OnInit {
   company!: any;
   public vehicles!: any[];
   imgUrl!: any;
-  data: any;
+  data: any= 0;
   vehiclesDetails!:any;
 
 
@@ -92,14 +100,17 @@ export class AddvehicleComponent implements OnInit {
       Validators.pattern('^[a-zA-Z ]*$'),
     ]),
   });
+  name:any
 
-  constructor(private service: AddvehicleService,private router: Router,private http: HttpClient, private jwt : JwtService) {}
+  constructor(private service: AddvehicleService,private router: Router,private http: HttpClient, private jwt : JwtService, private toast : HotToastService) {}
 
 
   
   ngOnInit(): void {
 
     this.user_id = this.jwt.getData(sessionStorage.getItem('key'))?.user_id
+    this.name = this.jwt.getData(sessionStorage.getItem('key'))?.name
+
     this.viewVehicles()
    
   }
@@ -139,13 +150,17 @@ export class AddvehicleComponent implements OnInit {
 
 
 removeVehicle(vehicle : number){
-  console.log('vehicles',vehicle);
+  //console.log('vehicles',vehicle);
   this.service.RemoveVehicle(vehicle).subscribe((result:any)=>{
-    console.log("removed");
+    //console.log("removed");
+    this.toast.success('Vehicle removed')
     this.viewVehicles();
+
 
   },(error:HttpErrorResponse)=>{
     console.log(error);
+
+    this.toast.error(error.error.message)
     
   })
 }
@@ -210,7 +225,20 @@ removeVehicle(vehicle : number){
     }
   }
 
+  nextStep(form:FormGroup)
+  {
+    if(this.step == 1 && this.tsBrand.test(form.value.brand)&& this.tsModel.test(form.value.model)&& this.tsReg.test(form.value.vehicle_reg)&& this.tsColor.test(form.value.color)){
+      this.step = 2;
+    }else
+    {
+      this.step = 1;
+
+    }
+  }
+
   onSubmit(form: FormGroup) {
+
+    this.toast.loading('Adding vehicle ...',{duration:1000});
 
     console.log(form.value)
 
@@ -229,10 +257,12 @@ removeVehicle(vehicle : number){
 
     this.service.addvehicle(this.vehiDetails).subscribe((next: any) => {
       console.log('Vehicle has been added successfully!');
-      this.router.navigate(['/addvehicle/vehiclelist']);
+      this.toast.success(next.message)
+      this.viewVehicles();
       this.submitted = false;
     },(error: HttpErrorResponse)=>{
-      console.log(error);
+      console.log(error)
+      this.toast.error(error.error.message)
       
     });
   }

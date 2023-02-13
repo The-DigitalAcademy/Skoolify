@@ -8,6 +8,7 @@ const{getvehicle} = require('../controllers/addvehicle');
 
 router.post('/addvehicle',addvehicle.addvehicle)
 router.patch('/removevehicle/:vehicle_id',addvehicle.removeVehicle)
+router.patch('/edit/:vehicle_id',addvehicle.editDriver)
 router.get('/viewvehicle/:id',viewvehicle)
 router.get('/getvehicle/:id',addvehicle.getvehicle)
 

@@ -33,7 +33,7 @@ import { OwnerRequestsComponent } from './components/owner-requests/owner-reques
 @NgModule({
 
 
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent,EditVehicleComponent, AddvehicleComponent,LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent,OwnerRequestsComponent,ForgotpasswordComponent],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent,EditVehicleComponent, AddvehicleComponent ,LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent,OwnerRequestsComponent,ForgotpasswordComponent],
   imports: [Ng2SearchPipeModule,BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
 
 

@@ -1,6 +1,15 @@
+.car-name
+{
 
+  display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
 .input{
-  color: #9E9E9E;
+  //color: #9E9E9E;
 }
 .card{
     background-color: #F4F4F4;
@@ -15,19 +24,22 @@
 }
 
 .dropdown-content {
-  position: absolute;
-  background-color: #333333;
-  color: white;
-  padding: 12px 10px;
-  width: 10%;
+  //position: absolute;
+  //background-color: #333333;
+  //color: white;
+  &:active{
+    color: var(--main-dark);
+  }
+  //padding: 12px 10px;
+  //width: 10%;
 }
 
 
 .btn{
-    background-color:white;
-    float:right;
-    background: transparent;
-    border: none !important;
+    // background-color:white;
+    // float:right;
+    // background: transparent;
+    // border: none !important;
     
 }
 

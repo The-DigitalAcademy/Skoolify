@@ -20,7 +20,7 @@ exports.addvehicle = async (req, res)=>{
             } else {
               res
                 .status(200)
-                .send({ message: `Post for user ${owner_id} have been added to the database`});
+                .json({ message:'Vehicle added'});
             }
           }
         );
@@ -39,7 +39,7 @@ exports.viewvehicle = async (req, res) => {
   try {
         //get all post form the database
         const data = await client.query(
-          `SELECT * FROM vehicle where owner_id = $1`,
+          `SELECT * FROM vehicle where owner_id = $1 AND is_deleted = false`,
           [owner_id],
           (err,result) => {
             if (err) {
@@ -51,7 +51,7 @@ exports.viewvehicle = async (req, res) => {
             } else {
               res
                 .status(200)
-                .send(result.rows);
+                .json(result.rows);
             }
           }
         );
@@ -91,6 +91,27 @@ exports.removeVehicle = async (req, res) => {
     });
   }
 };
+
+
+exports.editDriver = async (req, res) => {
+  const vehicle_id = req.params.vehicle_id
+  const {driver_name, driver_cellphone, driver_image} = req.body;
+
+  console.log(driver_image);
+
+  const sql = "UPDATE vehicle SET driver_name = $1, driver_cellphone = $2 , driver_image = $3 WHERE vehicle_id = $4"
+  client.query(sql,[driver_name,driver_cellphone,driver_image,vehicle_id],(err,results)=>{
+    if(err)
+    {
+      console.log(err);
+      res.status(401).json({message:'Database error while updating vehicle'})
+    }else{
+      res.status(201).json({message:'Driver updated successfully'})
+    }
+
+  })
+
+}
 
 
 
