@@ -20,6 +20,9 @@ import { stringify } from '@angular/compiler/src/util';
 export class OwnerSchoolApplicationComponent implements OnInit {
 //   [x: string]: any;
   message: string = 'Save';
+  schoolName:any;
+  schoolLocation:any;
+  
 //   user_id : any;
   selected_school: number = 0; 
   transporters : Transporter[] = [];
@@ -82,7 +85,8 @@ priceInputForm = new FormGroup({
         this.vehicleID = school.school_id;
         this.vehicle = vehicles
         
-
+this.schoolName=this.school.school_name;
+this.schoolLocation=this.school.school_location;
         vehicles.forEach(vehicle => {
           this.vehicle.push(vehicle)
           console.log(vehicle.brand)

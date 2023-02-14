@@ -21,6 +21,7 @@ export class ParentService {
 
 
   getDrivers(user_id :number):Observable<Vehicle[]>{
+    console.log(user_id)
     return this.http.get<Vehicle[]>(this.baseUrl+"/getVehicle/"+user_id);
   }
   viewVehicle(owner_id: number): Observable<Vehicle> {

@@ -19,7 +19,8 @@ export class OwnerPageComponent implements OnInit {
  constructor(private service:ParentService,private jwt : JwtService,private router:Router) { }
 
   ngOnInit(): void {
-    this.user_id = Number(this.jwt.getData(sessionStorage.getItem('key'))?.user_id)
+    this.user_id =this.jwt.getData(sessionStorage.getItem('key'))?.user_id
+    console.log(this.user_id)
     this.getAll()
   }
 
