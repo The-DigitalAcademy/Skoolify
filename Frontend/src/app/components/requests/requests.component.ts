@@ -23,6 +23,7 @@ export class RequestsComponent implements OnInit {
   vehicleReg:any;
   driverName:any;
   vehicleName:any;
+  driverImage:any;
   color:any;
   price1:any;
   vehicleModel:any;
@@ -112,6 +113,7 @@ this. vehicleReg=this.details[0].vehicle_reg;
 this.color=this.details[0].color;
 this.ratings1=this.details[0].ratings
 this.owner1=this.details[0].name
+this.driverImage=this.details[0].driver_image
 
 
 

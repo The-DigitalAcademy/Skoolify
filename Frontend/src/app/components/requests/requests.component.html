@@ -9,10 +9,9 @@
   
   <div class="profile flex justify-items-start gap-3 w-full h-36 mb-4">
     <img
-        class="w-36 h-36 object-cover rounded-xl my-auto"
-        src="https://media.istockphoto.com/id/1377893181/photo/shot-of-young-man-delivering-a-package-while-sitting-in-a-vehicle.jpg?b=1&s=170667a&w=0&k=20&c=XweAFF0r3bKaydPxQ5hT2B3RKnv5FiAAFRb9xya1nWI="
-        alt=""
-      />
+          class="w-40 h-40 object-cover rounded-xl my-auto"
+          [src]="driverImage"
+          alt="" />
 
     <div class="details flex flex-col justify-between">
       <div class="contacts flex flex-col">
@@ -20,10 +19,10 @@
           >{{driverName}}
         </span>
         <div class="contact flex flex-col ">
-          <span class="text-sm -my-1"
+          <span class="text-sm -my-1 text-primary" 
             >{{vehicleName}} {{vehicleModel}}</span
           >
-          <span class="text-sm"
+          <span class="text-sm text-primary"
             >{{vehicleReg}} {{color}}</span
           >
         </div>
@@ -34,12 +33,12 @@
           {{ vehicle.vehicle_reg }}
         </button> -->
         <div>
-        <span class="text-lg font-semibold">{{price1}} pm</span>
+        <span class="text-lg font-semibold text-primary">{{price1}} pm</span>
       </div>
      
       <button 
-      class="btn px-2 py-0 btn-ghost w-28 text-white gap-1 rounded-md"
-      style="background-color: var(--main-dark)"
+      class="btn px-2 py-0 btn-ghost w-28 text-primary gap-1 rounded-md"
+      style="background-color: var(--secondary-color)"
     >
       <i class="fi fi-rr-chart-line-up"></i>
       {{ ratings1}}
@@ -52,7 +51,7 @@
       ></div>
       
     </button>
-      <span class="ratings font-semibold text-sm">vehicle Owner by {{owner1}} </span>
+      <span class="ratings font-semibold text-xs">vehicle Owner by {{owner1}} </span>
       </div>
     </div>
   </div>
