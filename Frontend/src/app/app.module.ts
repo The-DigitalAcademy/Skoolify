@@ -21,9 +21,10 @@ import { RequestsComponent } from './components/requests/requests.component';
 import { NavComponent } from './components/nav/nav.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 @NgModule({
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent, RequestsComponent],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent, RequestsComponent, ConfirmationComponent],
   imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule, Ng2SearchPipeModule,HotToastModule.forRoot()],
   providers: [UserGuard],
   bootstrap: [AppComponent],

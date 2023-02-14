@@ -29,7 +29,7 @@ exports.getUser = (req, res) => {
             //console.log(result.rows[0].password)
             if(error) {
 
-            } else if(same === true) {
+            } else if(same != true) {
                 const sql1 = "UPDATE users SET password = $1";
                 bcrypt.hash(newPassword, 10, (err, hash) => {
                     if (err)

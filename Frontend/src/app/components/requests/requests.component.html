@@ -17,25 +17,42 @@
     <div class="details flex flex-col justify-between">
       <div class="contacts flex flex-col">
         <span class="text-lg font-semibold w-48"
-          >{{vehicle.driver_name}}
+          >{{driverName}}
         </span>
-        <div class="contact flex flex-col text-xs">
+        <div class="contact flex flex-col ">
           <span class="text-sm -my-1"
-            >{{ vehicle.brand }} {{ vehicle.model }}</span
+            >{{vehicleName}} {{vehicleModel}}</span
           >
           <span class="text-sm"
-            >{{ vehicle.vehicle_reg }} ({{ vehicle.color }})</span
+            >{{vehicleReg}} {{color}}</span
           >
         </div>
-        <button
-          class="btn px-2 py-0 btn-ghost w-28 text-white gap-1 rounded-md"
+        <!-- <button
+          class="btn px-0 py-0 btn-ghost w-28 h-10 text-white gap-1 rounded-md"
           style="background-color: var(--main-dark)"
         >
-          <i class="fi fi-rr-chart-line-up"></i>
           {{ vehicle.vehicle_reg }}
-        
-        </button>
+        </button> -->
+        <div>
+        <span class="text-lg font-semibold">{{price1}} pm</span>
+      </div>
+     
+      <button 
+      class="btn px-2 py-0 btn-ghost w-28 text-white gap-1 rounded-md"
+      style="background-color: var(--main-dark)"
+    >
+      <i class="fi fi-rr-chart-line-up"></i>
+      {{ ratings1}}
+      <div
+        class="vl my-auto rounded-sm mx-1"
+        style="
+          border-left: 1px solid rgba(219, 219, 219, 0.545);
+          height: 20px;
+        "
+      ></div>
       
+    </button>
+      <span class="ratings font-semibold text-sm">vehicle Owner by {{owner1}} </span>
       </div>
     </div>
   </div>
@@ -104,8 +121,8 @@
               <input type="text"  formControlName="message" placeholder="Type a message" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 block w-full  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-accent " style="height: 60px;">
             </div>
 
-           
-              <label for="last-name" class="block text-sm font-medium text-gray-70">Pick up address</label>
+            <div class="col-span-6 sm:col-span-3">
+              <label for="last-name" class="block text-sm font-medium text-gray-700">Pick up address</label>
               <input type="text" formControlName="address" placeholder="Address Line 1" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-accent " style="height: 32px;">
             </div>
 
@@ -116,13 +133,12 @@
 
             <div class="col-span-6 sm:col-span-3">
               <label for="last-name" class="block text-sm font-medium text-gray-700">Description</label>
-              <input type="text" formControlName="description text-xs" placeholder="Children Details" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-accent" style="height: 70px;">
+              <input type="text" formControlName="description" placeholder="Children Details" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-accent" style="height: 70px;">
             </div>
          
 
-            <div class="col-span-6 sm:col-span-3">
-              <button  class="btn btn-wide" (click)=" onSubmit(addRequestForm)" >Submit
-                <!-- <span>{{messages}}</span> -->
+            <div class="col-span-6 sm:col-span-3 mx-10">
+              <button  class="btn btn-wide mx-center"  (click)=" onSubmit(addRequestForm)" style="background-color: var(--primary-color);" >Submit
               </button>
             </div>
           </div>

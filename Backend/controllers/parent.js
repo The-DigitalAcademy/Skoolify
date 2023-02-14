@@ -67,7 +67,7 @@ exports.getVehicle = async (req, res) => {
     try {
           //get all post form the database
           const data = await client.query(
-            `SELECT * FROM vehicle where owner_id = $1`,
+            `SELECT * FROM vehicle_owner o , vehicle v  ,users u WHERE u.user_id = o.owner_id  and o.vehicle_id = v.vehicle_id and school_id = $1`,
             [owner_id],
             (err,result) => {
               if (err) {
@@ -79,7 +79,35 @@ exports.getVehicle = async (req, res) => {
               } else {
                 res
                   .status(200)
-                  .send(result.rows[0]);
+                  .send(result.rows);
+              }
+            }
+          );
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        error: "Database error while creating post!", //Database connection error
+      });
+    }
+  };
+  exports.priceOfTransport = async (req, res) => {
+    const {owner_id,school_id } = req.body;
+    try {
+          //get all post form the database
+          const data = await client.query(
+            `SELECT * from application where school_id = $1 and owner_id = $2`,
+            [school_id,owner_id],
+            (err,result) => {
+              if (err) {
+             //If post are not available is not inserted to database
+                console.error(err);
+                return res.status(500).json({
+                  error: "Database error",
+                });
+              } else {
+                res
+                  .status(200)
+                  .send(result.rows);
               }
             }
           );
@@ -260,3 +288,47 @@ exports.addRequests = (req, res) => {
   });
 };
 
+//get price from application
+// exports.getAppPrice = (req, res) => {
+//   const application_id = req.params.application_id;
+//   const sql = "SELECT * FROM application WHERE application_id  = $1";
+
+//   client.query(sql, [application_id], (err, results) => {
+//     if (err) {
+//       console.log(err);
+//       res.status(400).json({ message: "Error fetching application" });
+//     } else {
+//       res.status(200).json(results.rows[0]);
+//     }
+//   });
+// };
+
+exports.getAppPrice = async (req, res) => {
+  const vehicle_id = parseInt(req.params.id);
+  try {
+        //get all post form the database
+        const data = await client.query(
+          `SELECT * FROM vehicle_owner o, vehicle v , application a, users u where o.vehicle_id = v.vehicle_id and a.school_id = $1 and a.vehicle_id = v.vehicle_id and u.user_id = o.owner_id`,
+
+          [vehicle_id],
+          (err,result) => {
+            if (err) {
+           //If post are not available is not inserted to database
+              console.error(err);
+              return res.status(500).json({
+                error: "Database error",
+              });
+            } else {
+              res
+                .status(200)
+                .send(result.rows);
+            }
+          }
+        );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error while creating post!", //Database connection error
+    });
+  }
+};

@@ -23,7 +23,9 @@ constructor(private service:ParentService,private router:Router) { }
 
   viewSchool(school_id:any)
   {
+    console.log(school_id)
     sessionStorage.setItem('selected_school',school_id);
+    sessionStorage.setItem('id',school_id)
     this.router.navigateByUrl('/vehicle')
 
   }

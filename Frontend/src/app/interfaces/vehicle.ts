@@ -9,4 +9,7 @@ export interface Vehicle {
   driver_cellphone: string;
   driver_image: string;
   document: string;
+  price:number;
+  owner_id:number;
+  ratings	:number;
 }

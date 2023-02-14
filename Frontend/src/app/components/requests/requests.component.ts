@@ -15,10 +15,20 @@ import { School } from 'src/app/interfaces/school';
   styleUrls: ['./requests.component.scss']
 })
 export class RequestsComponent implements OnInit {
-  data:any
-  selected_school: number = 0;
+  data:any;
+  owner1:any
+  all:any;
+  details:any;
+  ratings1:any
+  vehicleReg:any;
+  driverName:any;
+  vehicleName:any;
+  color:any;
+  price1:any;
+  vehicleModel:any;
+    selected_school: number = 0;
   load : boolean = false;
-  vehicle!: Vehicle
+  vehicle: Vehicle[] =[]
   transporters : Transporter[] = [];
   vehicles : Vehicle[] = [];
   requests : RequestInterface[] = [];
@@ -79,7 +89,7 @@ export class RequestsComponent implements OnInit {
 ngOnInit(): void {
 
   console.log(sessionStorage.getItem('selected_vehicle'))
-  this.service.viewVehicle(Number(sessionStorage.getItem('selected_vehicle'))).subscribe(async(vehicle:Vehicle)=>{
+  this.service.viewVehicle(Number(sessionStorage.getItem('selected_school'))).subscribe(async(vehicle:Vehicle[])=>{
     this.vehicle = await vehicle;
 
     // this.service.viewOwnerVehicles(Number(sessionStorage.getItem('selected_owner'))).subscribe((vehicles:Vehicle[])=>{
@@ -88,7 +98,31 @@ ngOnInit(): void {
     //   //vehicles fetching error
     //   console.log(error);
     // })
+    this.all= localStorage.getItem('allInfo')
+this.details = JSON.parse(this.all)
 
+console.log(this.details,'xoz')
+
+
+this.driverName=this.details[0].driver_name;
+this.vehicleName=this.details[0].brand;
+this.vehicleModel=this.details[0].model;
+ this.price1=this.details[0].price;
+this. vehicleReg=this.details[0].vehicle_reg;
+this.color=this.details[0].color;
+this.ratings1=this.details[0].ratings
+this.owner1=this.details[0].name
+
+
+
+
+
+// this.vehicleReg=vehicle.vehicle_reg;
+// this.driverName=vehicle.driver_name;
+// this.vehicleName=vehicle.brand;
+// this.vehicleModel=vehicle.model;
+// this.color=vehicle.color;
+// this.price1=vehicle.price;
   },(error:HttpErrorResponse)=>{
 
     //owner fetching error
