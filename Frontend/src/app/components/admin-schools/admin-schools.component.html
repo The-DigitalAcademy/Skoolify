@@ -1,6 +1,6 @@
-<div class="px-2 pt-28 md:px-10 lg:px-14">
-  <div class="schools-div">
-    <div class="search-bar w-full fixed top-5 pt-10 pb-12">
+<div class="px-2 pt-48 md:px-10 lg:px-14">
+  <div class="schools-div flex justify-center">
+    <div class="search-bar px-2 md:px-10 w-full justify-center fixed top-5 pt-10 pb-12">
       <div class="flex justify-center lg:mx-auto content-center">
         <input
           type="text"
@@ -14,55 +14,56 @@
           </i>
         </label>
       </div>
-    </div>
 
+      <div class="flex justify-between p-3">
 
-    <div class="flex justify-between p-3">
+        <span class="my-auto font-semibold text-sm">Added Schools</span>
+        <label for="my-modal-6" class="btn gap-2 btn-ghost btn-sm capitalize">
+          Add school
+          <i class="fi fi-sr-add"></i>
+        </label>
 
-      <span class="my-auto font-semibold text-sm">Added Schools</span>
-      <label for="my-modal-6" class="btn gap-2 btn-ghost btn-sm capitalize">
-        Add school
-        <i class="fi fi-sr-add"></i>
-      </label>
+        <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+        <div class="modal modal-bottom sm:modal-middle">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg">Add a school</h3>
 
-      <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-      <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
-          <h3 class="font-bold text-lg">Add a school</h3>
+            <form (ngSubmit)="onSubmit(addSchoolForm)"  [formGroup]="addSchoolForm">
+              <div class="form-control w-full max-w-xs">
+                <label class="label">School Name</label>
+                <input
+                  type="text"
+                  formControlName="school_name"
+                  placeholder="School name"
+                  class="input w-full bg-accent"
+                />
+              </div>
 
-          <form (ngSubmit)="onSubmit(addSchoolForm)"  [formGroup]="addSchoolForm">
-            <div class="form-control w-full max-w-xs">
-              <label class="label">School Name</label>
-              <input
-                type="text"
-                formControlName="school_name"
-                placeholder="School name"
-                class="input w-full bg-accent"
-              />
-            </div>
+              <div class="form-control w-full max-w-xs">
+                <label class="label">School Location</label>
+                <input
+                  type="text"
+                  formControlName="school_location"
+                  placeholder="School location"
+                  class="input w-full bg-accent"
+                />
+              </div>
 
-            <div class="form-control w-full max-w-xs">
-              <label class="label">School Location</label>
-              <input
-                type="text"
-                formControlName="school_location"
-                placeholder="School location"
-                class="input w-full bg-accent"
-              />
-            </div>
+              <div class="modal-action">
+                <label for="my-modal-6" class="btn text-white capitalize" style="background-color: var(--main-dark);">Cancel</label>
+                <button type="submit" [ngClass]="load ? 'btn text-white capitalize loading' : 'btn text-white capitalize'" style="background-color: var(--main-dark);">
+                  <span>{{message}}</span>
+                </button>
+              </div>
 
-            <div class="modal-action">
-              <label for="my-modal-6" class="btn text-white capitalize" style="background-color: var(--main-dark);">Cancel</label>
-              <button type="submit" [ngClass]="load ? 'btn text-white capitalize loading' : 'btn text-white capitalize'" style="background-color: var(--main-dark);">
-                <span>{{message}}</span>
-              </button>
-            </div>
-
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
+
+
   </div>
 
 

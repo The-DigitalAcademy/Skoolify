@@ -20,10 +20,17 @@ background-color: var(--main-light);
 {
   background-color: var( --secondary-color);
 }
+.vehicles{
+  scroll-snap-type: x mandatory;
+
+}
+
 .drivers
 {
+    scroll-snap-align: start;
     background-color:var( --secondary-color);
-    min-width: 200px;
+    min-width: 180px;
+
 
 }
 .car-name, .driver_name

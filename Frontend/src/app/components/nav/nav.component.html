@@ -21,6 +21,7 @@
       >
         <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
       </svg>
+
     </button>
   </div>
 
@@ -60,10 +61,11 @@
       <a
         class="text-sm text-gray-400 hover:text-gray-500"
         routerLink="/parent-requests"
+
         >Requests</a
       >
     </li>
-    <li *ngIf="isLoggedIn">
+    <li *ngIf="isLoggedIn && accountType != 'ADMIN'">
       <a class="text-sm text-gray-400 hover:text-gray-500" routerLink="/profile"
         >Profile</a
       >
@@ -110,10 +112,10 @@
   </ul>
 </nav>
 
-<div *ngIf="showNav()" class="navbar-menu relative z-50 hidden">
+<div *ngIf="showNav()" class="navbar-menu relative z-50  hidden">
   <div class="navbar-backdrop fixed inset-0 bg-opacity-10"></div>
   <nav
-    class="fixed top-0 left-0 bottom-0 flex flex-col w-full py-6 px-6 bg-info bg-opacity-80"
+    class="mobile fixed top-0 left-0 bottom-0 flex flex-col w-4/5 rounded-r-3xl py-6 px-6 bg-info backdrop-blur-sm bg-opacity-80"
   >
     <div class="flex items-center mb-8">
       <a class="mr-auto text-3xl font-bold leading-none" href="#"> </a>
@@ -138,15 +140,15 @@
       <ul>
         <li class="mb-1" *ngIf="accountType == 'OWNER' && isLoggedIn">
           <a
-            class="navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="navbar-close flex gap-2 p-4 font-semibold  text-white hover:text-gray-500"
             routerLink="/owner-home"
           >
-            <i class="fi fi-sr-home"></i> Home</a
+            <i class="fi fi-rr-home"></i> Home</a
           >
         </li>
         <li class="mb-1" *ngIf="accountType == 'OWNER' && isLoggedIn">
           <a
-            class=" navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class=" navbar-close flex gap-2 p-4 font-semibold  text-white hover:text-gray-500"
             routerLink="/owner-applications"
 
           >
@@ -155,7 +157,7 @@
         </li>
         <li class="mb-1" *ngIf="accountType == 'OWNER' && isLoggedIn">
           <a
-            class="navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="navbar-close flex gap-2 p-4 font-semibold  text-white hover:text-gray-500"
             routerLink="/owner-vehicles"
             ><i class="fi fi-rr-car-alt"></i> Vehicles</a
           >
@@ -164,39 +166,39 @@
 
         <li class="mb-1" *ngIf="accountType == 'PARENT' && isLoggedIn">
           <a
-            class="navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="navbar-close flex gap-2 p-4 font-semibold  text-white hover:text-gray-500"
             routerLink="/parent-home"
-            ><i class="fi fi-sr-home"></i> Home</a
+            ><i class="fi fi-rr-home"></i> Home</a
           >
         </li>
         <li class="mb-1" *ngIf="accountType == 'PARENT' && isLoggedIn">
           <a
-            class="navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="navbar-close flex gap-2 p-4 font-semibold  text-white hover:text-gray-500"
             routerLink="/parent-requests"
 
-            >Requests</a
+            ><i class="fi fi-rr-time-check"></i>Requests</a
           >
         </li>
-        <li class="mb-1" *ngIf="isLoggedIn">
+        <li class="mb-1" *ngIf="isLoggedIn && accountType != 'ADMIN'" >
           <a
-            class="navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="navbar-close p-4 font-semibold  text-white hover:text-gray-500 flex gap-2"
             routerLink="/profile"
-            >Profile</a
+            ><i class="fi fi-rr-user"></i> Profile</a
           >
         </li>
 
         <li class="mb-1" *ngIf="accountType == 'ADMIN' && isLoggedIn">
           <a
-            class="navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="navbar-close block p-4 font-semibold  text-white hover:text-gray-500"
             routerLink="/admin/"
 
           >
-            <i class="fi fi-sr-home"></i> Home</a
+            <i class="fi fi-rr-home"></i> Home</a
           >
         </li>
         <li class="mb-1" *ngIf="accountType == 'ADMIN'">
           <a
-            class="navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="navbar-close block p-4 font-semibold  text-white hover:text-gray-500"
             routerLink="/admin/view-applications"
 
           >
@@ -205,7 +207,7 @@
         </li>
         <li class="mb-1" *ngIf="accountType == 'ADMIN' && isLoggedIn">
           <a
-            class="navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="navbar-close block p-4 font-semibold  text-white hover:text-gray-500"
             routerLink="/admin/view-owners"
             ><i class="fi fi-rr-car-alt"></i> Vehicle Owners</a
           >
@@ -213,7 +215,7 @@
 
         <li class="mb-1" [hidden]="isLoggedIn">
           <a
-            class="navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="navbar-close block p-4 font-semibold  text-white hover:text-gray-500"
              routerLink="/register"
           >
           <div class="flex gap-2"><i class="fi fi-rr-user-add"></i>Sign Up</div>
@@ -225,7 +227,7 @@
 
         <li class="mb-1" [hidden]="isLoggedIn">
           <a
-            class="block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="block p-4 font-semibold  text-white hover:text-gray-500"
              routerLink="/login"
           >
           <div class="flex gap-2"><i class="fi fi-rr-sign-in-alt"></i>Sign In</div>
@@ -235,7 +237,7 @@
 
         <li class="mb-1" *ngIf="isLoggedIn">
           <a
-            class="navbar-close block p-4 font-semibold text-sm text-white hover:text-gray-500"
+            class="navbar-close flex gap-2 p-4 font-semibold  text-white hover:text-gray-500"
             (click)="signOut()"
           >
             <i class="fi fi-sr-exit"></i> Sign Out</a
