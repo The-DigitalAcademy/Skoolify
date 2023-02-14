@@ -14,8 +14,8 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class RegisterComponent implements OnInit {
   role: any;
-  tsAccount = new RegExp("^[a-zA-Z ]{5,6}$");
-  tsGender = new RegExp("^[a-zA-Z ]{4,6}$");
+  tsAccount = new RegExp("^[a-zA-Z ]{2,}$");
+  tsGender = new RegExp("^[a-zA-Z ]{2,}$");
   tsName = new RegExp("^[a-zA-Z ]{2,}$");
   tsSurname = new RegExp("^[a-zA-Z ]{2,}$");
 
@@ -42,15 +42,34 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    sessionStorage.setItem('state','No go...');
+
+
+    //check if user is logged in
+    if(this.jwt.isAuthenticated()){
+      this.user = this.jwt.getData(sessionStorage.getItem('key'));
+      this.toast.success('You\'re already logged in')
+      sessionStorage.setItem('state','logged in');
+
+
+      if (this.user?.account == 'PARENT') {
+        this.router.navigateByUrl('/parent-home');
+      } else if (this.user?.account == 'OWNER') {
+        this.router.navigateByUrl('/owner-home');
+      } else if (this.user?.account == 'ADMIN') {
+        this.router.navigateByUrl('/admin/schools');
+      }
+
+    }
+
     this.registerForm1 = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       name: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]$'),
       ]),
       surname: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]$'),
       ]),
       password: new FormControl('',[Validators.required,Validators.minLength(8)]),
       account: new FormControl('', [Validators.required]),
@@ -73,15 +92,18 @@ export class RegisterComponent implements OnInit {
       Validators.pattern('^[a-zA-Z ]$'),
     ]),
     password: new FormControl(''),
-    account: new FormControl(),
-    confirmPassword: new FormControl(),
-    gender: new FormControl(),
+    account: new FormControl('',[Validators.required,]),
+    confirmPassword: new FormControl(''),
+    gender: new FormControl('',[Validators.required,]),
   });
   step = 1;
 
   nextStep(form: FormGroup) {
+    this.submitted = true
     if(this.step == 1 && this.tsAccount.test(form.value.account)&& this.tsGender.test(form.value.gender)&& this.tsName.test(form.value.name)&& this.tsSurname.test(form.value.surname)){
       this.step = 2;
+      this.submitted = false
+
     }else
     {
       this.step = 1;
@@ -94,22 +116,26 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister(form: FormGroup) {
+    console.log('here....')
 
     this.submitted = true;
+    console.log(form.valid)
 
     if(form.valid){
+      console.log('first step')
       this.toast.loading('Signing you up ...',{duration:200})
       console.log(form.value)
       if(form.value.password === form.value.confirmPassword){
+
         this.auth.postData(form.value).subscribe(
           (results: any) => {
             this.auth.saveToken(results.token);
             this.user = this.jwt.getData(results.token);
-
             if (this.user != null) {
-              sessionStorage.setItem('role', this.user.account);
               this.role = this.user.account;
               this.toast.success('Welcome to Skoolify')
+              sessionStorage.setItem('state','logged in');
+
             }
 
             if (this.role == 'PARENT') {

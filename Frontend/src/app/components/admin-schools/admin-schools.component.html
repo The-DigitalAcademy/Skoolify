@@ -1,21 +1,21 @@
 <div class="px-2 pt-28 md:px-10 lg:px-14">
   <div class="schools-div">
-    <div class="search-bar">
-      <div class="flex mt-6 justify-center lg:mx-auto content-center">
+    <div class="search-bar w-full fixed top-5 pt-10 pb-12">
+      <div class="flex justify-center lg:mx-auto content-center">
         <input
           type="text"
           [(ngModel)]="term"
           placeholder="Search a school…"
-          class="input w-72 md:w-2/4 bg-accent text-center -ml-4 placeholder:text-centerS rounded-full"
-        />
+          class="input w-72 md:w-2/4 bg-accent text-center -ml-4 placeholder:text-centerS rounded-full" />
         <label
           class="-ml-9 my-auto content-center"
-          style="color: var(--grey-dark)"
-        >
-          <i class="fi fi-sr-search my-auto"></i>
+          style="color: var(--grey-dark)">
+          <i class="fi fi-rr-search my-auto">
+          </i>
         </label>
       </div>
     </div>
+
 
     <div class="flex justify-between p-3">
 

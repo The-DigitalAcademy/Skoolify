@@ -1,31 +1,29 @@
 
-  <div class="px-2 md:px-10 lg:px-14">
-    <br>
-    <h4>My vehicles</h4>
-    <div class="grid overflow-y-scroll grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full place-items-center gap-x-2 gap-y-2">
+  <div class="px-2 pt-72 md:px-10 lg:px-14">
+    <div class="header w-full fixed top-5 pt-10 pb-20">
+      <h4>My vehicles</h4>
+      <div class="flex overflow-x-scroll scroll-smooth snap-x h-28 w-full gap-2">
         <div
-          class="grid-item drivers w-full h-30 max-w-xs rounded-2xl px-3 py-4"
-          *ngFor="let record of driver, let x = index">
-          <div class="flex flex-col justify-start gap-1">
-            <i class="fi fi-sr-graduation-cap text-secondary"></i>
-            <h2 class="font-bold text-base w-full text-black" style="color:#F18420">
+          class="drivers rounded-2xl px-3 py-4"
+          *ngFor="let record of driver, let x = index" routerLink="/owner-vehicles">
+          <div class="flex w-full flex-col justify-start gap-1">
+            <h2 class="font-bold text-base w-full text-black car-name" style="color:#F18420">
               {{record.brand}} {{record.model}}
             </h2>
             <div class="text-primary" >
               <!-- <i class="fi fi-sr-marker text-xs mr-1"></i> -->
               <span class="text-xs " style="color:#F18420;">{{record.vehicle_reg}}</span>
             </div>
-            <div class="text-primary" >
+            <div class="text-primary driver_name" >
                 <i class="fi fi-sr-marker text-xs mr-1"></i>
                 <span class="text-xs " style="color:#F18420">{{record.driver_name }}</span>
               </div>
           </div>
         </div>
       </div>
-      <br>
 
-    <div class="search-bar">
-      <div class="flex mt-6 justify-center lg:mx-auto content-center">
+    <div class="search-bar pt-3">
+      <div class="flex justify-center lg:mx-auto content-center">
         <input
           type="text"
           [(ngModel)]="searchSchool"
@@ -42,12 +40,12 @@
         </label>
       </div>
     </div>
+    </div>
 <br>
-<h4>Featured Schools</h4>
     <div class="grid overflow-y-scroll grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full place-items-center gap-x-2 gap-y-2">
         <div
           class="grid-item schools w-full h-40 max-w-xs rounded-3xl px-3 py-4"
-          *ngFor="let record of data; let x = index">
+          *ngFor="let record of data|filter:searchSchool ; let x = index" >
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16"  style="color: #F18420;">
             <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5ZM8 8.46 1.758 5.965 8 3.052l6.242 2.913L8 8.46Z"/>
             <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46l-3.892-1.556Z"/>

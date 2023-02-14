@@ -52,13 +52,30 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    sessionStorage.setItem('state','No go...');
+    //check if user is logged in
+    if(this.jwt.isAuthenticated()){
+      this.user = this.jwt.getData(sessionStorage.getItem('key'));
+      this.toast.success('You\'re already logged in')
+      sessionStorage.setItem('state','logged in');
+
+
+      if (this.user?.account == 'PARENT') {
+        this.router.navigateByUrl('/parent-home');
+      } else if (this.user?.account == 'OWNER') {
+        this.router.navigateByUrl('/owner-home');
+      } else if (this.user?.account == 'ADMIN') {
+        this.router.navigateByUrl('/admin/schools');
+      }
+
+    }
 
     this.loginForm1 = this.formbuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [ Validators.required ]]
     })
 
-    
+
       this.forgotPasswordForm = this.formbuilder.group({
         email: ['', [Validators.required, Validators.email]],
 
@@ -90,12 +107,12 @@ export class LoginComponent implements OnInit {
       },(error:HttpErrorResponse)=>{
         this.toast.error(error.error.message)
       })
-      
+
     }
-    
+
   }
 
- 
+
 
   onlogin(form: FormGroup) {
     //Sign in the User to the to the app
@@ -106,19 +123,17 @@ export class LoginComponent implements OnInit {
         (results: any) => {
           this.auth1.saveToken(results.token);
           this.user = this.jwt.getData(results.token);
-  
+
           if(this.user!=null) {
-            sessionStorage.setItem('role', this.user.account);
             this.role = this.user.account;
             this.toast.success(results.message,{duration:3000});
-  
-  
+            sessionStorage.setItem('state','logged in');
          }
-  
+
           if (this.role == 'PARENT') {
             this.router.navigateByUrl('/parent-home');
           } else if (this.role == 'OWNER') {
-            this.router.navigateByUrl('/addvehicle');
+            this.router.navigateByUrl('/owner-home');
           } else if (this.role == 'ADMIN') {
             this.router.navigateByUrl('/admin/schools');
           }
