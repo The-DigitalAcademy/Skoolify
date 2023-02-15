@@ -1,3 +1,4 @@
+
 <div class="px-4 pt-20 lg:pt-28  lg:px-16">
   <div class="flex justify-between mb-2">
     <span class="my-auto font-semibold">Applications</span>
@@ -19,53 +20,49 @@
         <!-- row 1 -->
         <tr
           (click)="selectApplication(application.application_id)"
-          *ngFor="let application of applications; index as i"
+          *ngFor="let application of viewApps; index as i"
         >
           <td
             class="transition-all hover:scale-95 cursor-pointer"
-            (click)="selectOwner(owners[i].user_id)"
+            (click)="selectOwner(application.owner.user_id)"
           >
             <div class="flex items-center space-x-3">
               <div class="avatar">
                 <div class="mask mask-squircle w-12 h-12">
                   <img
-                    [src]="owners[i].image"
+                    [src]="application.owner.image"
                     alt="Owner profile image"
                   />
                 </div>
               </div>
               <div>
-                <div class="font-bold">{{ owners[i].name }} {{ owners[i].surname }}</div>
+                <div class="font-bold">{{ application.owner.name}} {{ application.owner.surname}}</div>
                 <div class="text-sm opacity-50">
-                  {{ vehicles[i].brand }} {{ vehicles[i].model }}
+                  {{ application.vehicle.brand }} {{ application.vehicle.model }}
                 </div>
               </div>
             </div>
           </td>
           <td
             class="transition-all hover:scale-95 cursor-pointer w-full overflow-auto text-ellipsis"
-            (click)="selectSchool(schools[i].school_id)"
+            (click)="selectSchool(application.school.school_id)"
           >
-            {{ schools[i].school_name }}
+            {{ application.school.school_name }}
             <br />
             <span class="badge badge-ghost badge-sm">{{
-              schools[i].school_location
+              application.school.school_location
             }}</span>
           </td>
           <td>
             <!--price -->
-            {{prices[i]}}
+            {{application.application.price.replace('$','R')}}
           </td>
           <td>
             <!-- button for document -->
             <button
-              style="background-color: var(--main-dark)"
-              [ngClass]="
-                load
-                  ? 'btn btn-ghost capitalize gap-2 loading text-white font-normal'
-                  : 'btn btn-ghost capitalize font-normal gap-2'
-              "
-              (click)="viewDocument(vehicles[i])"
+
+              [ngClass]="load? 'btn btn-info capitalize gap-2 loading text-white font-normal': 'btn btn-info capitalize font-normal gap-2'"
+              (click)="viewDocument(application.vehicle)"
             >
               <span class="text-white">View Documentation</span>
               <i class="fi fi-rr-document text-white"></i>
@@ -75,8 +72,8 @@
             <div class="flex justify-start gap-2 w-full mx-auto">
               <label
                 for="my-modal-6"
-                class="btn btn-error capitalize font-normal"
-                (click)="declineApplication(application.application_id)"
+                class="btn btn-info text-white capitalize font-normal"
+                (click)="declineApplication(application.application.application_id)"
               >
                 Decline</label
               >
@@ -119,14 +116,13 @@
 
               <button
                 style="background-color: var(--main-dark)"
-                [ngClass]="
-                  loadApprove
-                    ? 'btn capitalize text-white loading font-normal'
-                    : 'btn capitalize font-normal'
+                class="
+
+                    btn capitalize text-white font-normal
                 "
-                (click)="approveApplication(application)"
+                (click)="approveApplication(application.application)"
               >
-                <span class="text-white">{{ messageApprove }}</span>
+                <span class="text-white">Approve</span>
               </button>
             </div>
           </td>
@@ -135,26 +131,26 @@
     </table>
   </div>
 
-  <div class="flex lg:hidden flex-col gap-2">
+ <div class="flex lg:hidden flex-col gap-2">
     <div
       class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"
-      *ngFor="let application of applications; index as i"
-      (click)="openApplication(application.application_id)"
+      *ngFor="let application of viewApps; index as i"
+      (click)="openApplication(application.application.application_id)"
     >
       <img
         class="w-20 h-20 object-cover rounded-xl my-auto"
-        [src]="owners[i].image"
+        [src]="application.owner.image"
         alt=""
       />
       <div class="flex flex-col pt-4 pl-4">
         <div class="name font-medium">
-          {{ owners[i].name }} {{ owners[i].surname }}
+          {{ application.owner.name}} {{ application.owner.surname}}
         </div>
         <p style="color: var(--grey-light)" class="text-sm">
-          {{ vehicles[i].brand }} {{ vehicles[i].model }}
+          {{ application.vehicle.brand }} {{ application.vehicle.model }}
         </p>
         <p style="color: var(--grey-light)" class="text-xs">
-          {{ schools[i].school_name }}
+          {{ application.school.school_name }}
         </p>
       </div>
 
@@ -166,3 +162,5 @@
     </div>
   </div>
 </div>
+
+
