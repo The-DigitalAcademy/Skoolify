@@ -16,9 +16,14 @@ constructor(private service:ParentService,private router:Router) { }
 
   ngOnInit(): void {
     this.service.getSchool().subscribe((view)=>{
-    this.data = view;
+
+    this.data=view;
   })
   }
+  viewSchool(school_id:any)
+  {
+    sessionStorage.setItem('selected_school',school_id);
+
 
   viewSchool(school_id:any)
   {
@@ -28,4 +33,5 @@ constructor(private service:ParentService,private router:Router) { }
     this.router.navigateByUrl('/vehicle')
 
   }
+
 }

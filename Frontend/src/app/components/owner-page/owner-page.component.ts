@@ -3,7 +3,7 @@ import { School } from 'src/app/interfaces/school';
 import { Vehicle } from 'src/app/interfaces/vehicle';
 import { JwtService } from 'src/app/services/jwt.service';
 import { ParentService } from 'src/app/services/schools/parent.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-owner-page',
   templateUrl: './owner-page.component.html',
@@ -14,11 +14,13 @@ export class OwnerPageComponent implements OnInit {
   driver:Vehicle[] = []
   user_id = 0;
   searchSchool :any
+  data1: any;
 
- constructor(private service:ParentService,private jwt : JwtService) { }
+ constructor(private service:ParentService,private jwt : JwtService,private router:Router) { }
 
   ngOnInit(): void {
-    this.user_id = Number(this.jwt.getData(sessionStorage.getItem('key'))?.user_id)
+    this.user_id =this.jwt.getData(sessionStorage.getItem('key'))?.user_id
+    console.log(this.user_id)
     this.getAll()
   }
 
@@ -33,4 +35,18 @@ export class OwnerPageComponent implements OnInit {
     })
   }
 
+  viewschool(school_id:any){
+    console.log(school_id)
+
+    sessionStorage.setItem('selected_school',school_id);
+
+    this.router.navigateByUrl('schoolsApplication');
+  }
+  // getVehicleUser(owner_id:any){
+  //   console.log(owner_id)
+
+  //   sessionStorage.setItem('selected_school',owner_id);
+
+  //   this.router.navigateByUrl('schoolsApplication');
+  // }
 }

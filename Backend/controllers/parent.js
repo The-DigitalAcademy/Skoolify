@@ -90,6 +90,37 @@ exports.getVehicle = async (req, res) => {
       });
     }
   };
+ 
+   exports.getVehicleUser = async (req, res) => {
+    const user_id = parseInt(req.params.id);
+    try {
+          //get all post form the database
+          const data = await client.query(
+            `SELECT * FROM vehicle where owner_id = $1`,
+            [user_id],   (err,result) => {
+              if (err) {
+             //If post are not available is not inserted to database
+                console.error(err);
+                return res.status(500).json({
+                  error: "Database error",
+                });
+              } else {
+                res
+                  .status(200).json(result.rows);
+                  
+                        }
+            }
+          );
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        error: "Database error while creating post!", //Database connection error
+      });
+    }
+};
+  
+  
+
   exports.priceOfTransport = async (req, res) => {
     const {owner_id,school_id } = req.body;
     try {
@@ -97,6 +128,36 @@ exports.getVehicle = async (req, res) => {
           const data = await client.query(
             `SELECT * from application where school_id = $1 and owner_id = $2`,
             [school_id,owner_id],
+             (err,result) => {
+              if (err) {
+             //If post are not available is not inserted to database
+                console.error(err);
+                return res.status(500).json({
+                  error: "Database error",
+                });
+              } else {
+                res
+                  .status(200).json(result.rows);
+              }
+            }
+          );
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        error: "Database error while creating post!", //Database connection error
+      });
+    }
+  };
+
+
+
+  exports.getSchoolVehicle = async (req, res) => {
+    const school_id = parseInt(req.params.id);
+    try {
+          //get all post form the database
+          const data = await client.query(
+           `SELECT * FROM vehicle_owner where school_id = $1`,
+            [school_id],
             (err,result) => {
               if (err) {
              //If post are not available is not inserted to database
@@ -118,6 +179,7 @@ exports.getVehicle = async (req, res) => {
       });
     }
   };
+
 
   //get one vehicle
 exports.ViewVehicle = (req, res) => {
@@ -332,3 +394,4 @@ exports.getAppPrice = async (req, res) => {
     });
   }
 };
+

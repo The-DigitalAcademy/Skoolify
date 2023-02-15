@@ -12,7 +12,7 @@ const ownerID= localStorage.getItem('owner_id')
 })
 export class ParentService {
 
-  baseUrl='http://localhost:8080/parent/'
+  baseUrl='http://localhost:8080/parent'
 
   constructor(private http:HttpClient) { }
 
@@ -20,9 +20,33 @@ export class ParentService {
     return this.http.get<School[]>(`${this.baseUrl}/getSchool`)
   }
 
+
   getDrivers(user_id :number):Observable<Vehicle[]>{
-    return this.http.get<Vehicle[]>(this.baseUrl+"getVehicle/"+user_id)
+    console.log(user_id)
+    return this.http.get<Vehicle[]>(this.baseUrl+"/getVehicle/"+user_id);
   }
+  viewVehicle(owner_id: number): Observable<Vehicle> {
+    return this.http.get<Vehicle>(this.baseUrl + "/getVehicle/" +owner_id
+    );
+  }
+
+  viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
+    return this.http.get<Transporter[]>(
+      this.baseUrl + '/getSchoolVehicle/' + school_id
+    );
+  }
+
+  getVehicleUser(user_id: number): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(
+      this.baseUrl + '/getVehicleUser/' + user_id
+    );
+  }
+
+  viewSchool(school_id :number):Observable<School>{
+    return this.http.get<School>(this.baseUrl+"/getOneSchool/"+school_id);
+  }
+  
+
   viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
     return this.http.get<Transporter[]>(
       this.baseUrl + 'getSchoolVehicle/' + school_id
@@ -58,4 +82,10 @@ export class ParentService {
   priceOfTransport(data: any) {
     return this.http.post(this.baseUrl + 'priceOfTransport', data);
   }
+
 }
+
+
+
+
+

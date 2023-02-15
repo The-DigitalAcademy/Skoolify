@@ -5,8 +5,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { OwnerPageComponent } from './components/owner-page/owner-page.component';
 import { UserGuard } from './guards/user.guard';
+import { OwnerSchoolApplicationComponent } from './components/owner-school-application/owner-school-application.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SchoolsComponent } from './components/schools/schools.component';
+import{OwnerApplicationCompletionComponent} from './components/owner-application-completion/owner-application-completion.component'
+
 import{AddvehicleComponent} from '../app/components/addvehicle/addvehicle.component'
 import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
 
@@ -21,10 +24,14 @@ import { OwnerRequestsComponent } from './components/owner-requests/owner-reques
 
 
 
+
 const routes: Routes = [
   { path:'', component: LandingComponent },
   { path:'register', component: RegisterComponent },
   { path:'login', component: LoginComponent},
+
+  { path:'schoolsApplication', component: OwnerSchoolApplicationComponent,canActivate:[OwnerGuard]},
+  { path:'owner-requestNotification', component:OwnerApplicationCompletionComponent,canActivate:[OwnerGuard]},
   { path:'forgotPassword', component: ForgotpasswordComponent },
   { path:'owner-vehicles', component: AddvehicleComponent ,canActivate:[OwnerGuard] },
   { path:'editvehicle', component: EditVehicleComponent ,canActivate:[OwnerGuard] },
@@ -34,6 +41,7 @@ const routes: Routes = [
   { path:'owner-requests', component: OwnerRequestsComponent,canActivate:[OwnerGuard]},
   { path:'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
   { path:'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),canActivate:[AdminGuard]},
+
 ];
 
 @NgModule({
