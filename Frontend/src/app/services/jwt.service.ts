@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { HotToastService } from '@ngneat/hot-toast';
 import { User } from '../interfaces/user';
 
 @Injectable({
@@ -9,7 +11,7 @@ export class JwtService {
   private helper = new JwtHelperService();
   user !: User
 
-  constructor() { }
+  constructor(private toast : HotToastService, private router : Router) { }
 
   getData(token:any):User|null{
 
@@ -22,6 +24,7 @@ export class JwtService {
   }
 
   isAuthenticated():boolean{
+
     return !this.helper.isTokenExpired(sessionStorage.getItem('key'));
   }
 }
