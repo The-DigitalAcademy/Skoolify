@@ -130,10 +130,13 @@ export class LoginComponent implements OnInit {
 
             sessionStorage.setItem('state','logged in');
 
-         }
 
-          if (this.role == 'PARENT') {
-            this.router.navigateByUrl('/parent');
+         }
+         if(sessionStorage.getItem('guestState') == 'schoolSelected')
+         {
+           this.router.navigateByUrl('/request');
+         }else if (this.role == 'PARENT') {
+            this.router.navigateByUrl('/parent-home');
           } else if (this.role == 'OWNER') {
             this.router.navigateByUrl('/owner-home');
           } else if (this.role == 'ADMIN') {

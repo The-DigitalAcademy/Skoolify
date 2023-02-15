@@ -69,8 +69,8 @@ export class AdminService {
     return this.http.get<OwnerApplication[]>(this.baseUrl + '/applications');
   }
 
-  viewApplication(application_id: number): Observable<OwnerApplication> {
-    return this.http.get<OwnerApplication>(
+  viewApplication(application_id: number) {
+    return this.http.get(
       this.baseUrl + '/applications/' + application_id
     );
   }

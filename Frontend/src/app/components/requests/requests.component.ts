@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RequestInterface } from 'src/app/interfaces/request';
 import { School } from 'src/app/interfaces/school';
+import { JwtService } from 'src/app/services/jwt.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-requests',
@@ -39,7 +41,7 @@ export class RequestsComponent implements OnInit {
   school_id=sessionStorage.getItem('school_id')
   //ids
   schoolID:any = sessionStorage.getItem('selected_school');
-  parentID:any = sessionStorage.getItem('user_ID');
+  parentID:any = 0
   ownerID:any = sessionStorage.getItem('selected_vehicle');
 
 
@@ -49,11 +51,11 @@ export class RequestsComponent implements OnInit {
     message: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
     num_kids:new FormControl,
     description:new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-  
+
   })
 
 
-  constructor(private service:ParentService,private location:Location,private router:Router) { }
+  constructor(private toast: HotToastService,private jwt : JwtService, private service:ParentService,private location:Location,private router:Router) { }
 
 
 //  ngOnInit(): void {
@@ -62,7 +64,7 @@ export class RequestsComponent implements OnInit {
 
 //       this.service.viewSchoolTransporters(Number(sessionStorage.getItem('selected_school'))).subscribe((transporters:Transporter[])=>{
 //         this.transporters = transporters;
-        
+
 //       //  console.log("this id",this.school_id)
 
 //         transporters.forEach(transporter => {
@@ -75,7 +77,7 @@ export class RequestsComponent implements OnInit {
 //             console.log(err)
 //             //failed to get vehicle
 //           })
-          
+
 //         });
 
 
@@ -85,10 +87,13 @@ export class RequestsComponent implements OnInit {
 //       //failed to view school
 //       console.log(error)
 //     });
-   
+
 //   }
 
 ngOnInit(): void {
+  sessionStorage.setItem('state','Goo...');
+
+  this.parentID = this.jwt.getData(sessionStorage.getItem('key'))?.user_id
 
   console.log(sessionStorage.getItem('selected_vehicle'))
   this.service.viewVehicle(Number(sessionStorage.getItem('selected_school'))).subscribe(async(vehicle:Vehicle[])=>{
@@ -142,7 +147,7 @@ this.votes=this.details[0].votes
     sessionStorage.removeItem('selected_vehicle')
   }
 
-  
+
   viewVehicle(vehicle_id:any)
   {
     sessionStorage.setItem('selected_vehicle',vehicle_id);
@@ -156,7 +161,7 @@ this.votes=this.details[0].votes
   //   this.messages = "Saving...";
   //   this.load = true;
   //   this.service.addRequests(data.value).subscribe((result:any) => {
-     
+
   //     console.log('added school')
   //     data.reset()
   //     setTimeout(() => {
@@ -177,45 +182,55 @@ this.votes=this.details[0].votes
 
   onSubmit(form: FormGroup)
   {
-    this.messages = "Saving...";
-    this.load = true;
 
-    const dataValues= {
-    
-      address: form.value.address,
-    
-      message: form.value.message,
-      num_kids:form.value.num_kids,
-      description:form.value.description,
-      // parent_id:sessionStorage.getItem('parent_id'),
-      // school_id:sessionStorage.getItem('school_id'),
-      // owner_id:sessionStorage.getItem('owner_id')
-      school_id:this.schoolID,
-      parent_id:this.parentID,
-      owner_id:this.ownerID,
-      
+    if(this.jwt.isAuthenticated() && this.jwt.getData(sessionStorage.getItem('key'))?.account == 'PARENT'){
+      this.messages = "Saving...";
+      this.load = true;
+
+      const dataValues= {
+
+        address: form.value.address,
+
+        message: form.value.message,
+        num_kids:form.value.num_kids,
+        description:form.value.description,
+        // parent_id:sessionStorage.getItem('parent_id'),
+        // school_id:sessionStorage.getItem('school_id'),
+        // owner_id:sessionStorage.getItem('owner_id')
+        school_id:this.schoolID,
+        parent_id:this.parentID,
+        owner_id:this.ownerID,
+
+      }
+
+
+      console.log("add",dataValues)
+      this.toast.loading('Requesting ...',{duration:3000})
+
+      this.service.addRequests(dataValues).subscribe((result:any) => {
+
+        setTimeout(() => {
+          form.reset()
+          this.toast.success('Request sent')
+
+        }, 2000);
+
+        setTimeout(() => {
+          this.messages = "Save";
+        }, 4000);
+      },(error:HttpErrorResponse)=>{
+        //failed to save school
+        this.toast.error('Failed to send request')
+
+        console.log(error)
+
+      })
+
+    }else{
+      sessionStorage.setItem('guestState','schoolSelected')
+      this.toast.warning('Oops!, No privilage to this, Sign in first')
+      this.router.navigateByUrl('/login');
     }
-
-
-    console.log("add",dataValues)
-
-    this.service.addRequests(dataValues).subscribe((result:any) => {
-     
-      console.log('added school')
-      // data.reset()
-      setTimeout(() => {
-        this.messages = "Saved";
-        this.load = false;
-      }, 2000);
-
-      setTimeout(() => {
-        this.messages = "Save";
-      }, 4000);
-    },(error:HttpErrorResponse)=>{
-      //failed to save school
-      console.log(error)
-
-    })
 
 
 
@@ -224,5 +239,5 @@ this.votes=this.details[0].votes
 
 
 
-  
+
 }

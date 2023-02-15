@@ -114,14 +114,56 @@ exports.viewAllApplications = (req, res) => {
 };
 exports.viewApplication = (req, res) => {
   const application_id = req.params.application_id;
-  const sql = "SELECT * FROM application WHERE application_id = $1";
+  const applicationSql = "SELECT * FROM application WHERE application_id = $1";
+  const ownerSql = "SELECT * FROM users WHERE user_id = $1";
+  const vehicleSql = "SELECT * FROM vehicle WHERE vehicle_id = $1";
+  const schoolSql = "SELECT * FROM school WHERE school_id = $1";
 
-  client.query(sql, [application_id], (err, results) => {
+  client.query(applicationSql, [application_id], (err, applications) => {
     if (err) {
       console.log(err);
       res.status(400).json({ message: "Error fetching application" });
     } else {
-      res.status(200).json(results.rows[0]);
+      client.query(ownerSql, [applications.rows[0].owner_id], (err, owner) => {
+        if (err) {
+          console.log(err);
+          res.status(400).json({ message: "Error fetching owner" });
+        } else {
+          client.query(
+            vehicleSql,
+            [applications.rows[0].vehicle_id],
+            (err, vehicle) => {
+              if (err) {
+                console.log(err);
+                res.status(400).json({ message: "Error fetching vehicle" });
+              } else {
+                client.query(
+                  schoolSql,
+                  [applications.rows[0].school_id],
+                  (err, school) => {
+                    if (err) {
+                      console.log(err);
+                      res
+                        .status(400)
+                        .json({ message: "Error fetching application" });
+                    } else {
+                      
+                      res
+                        .status(200)
+                        .json({
+                          application: applications.rows[0],
+                          owner: owner.rows[0],
+                          vehicle: vehicle.rows[0],
+                          school: school.rows[0],
+                        });
+                    }
+                  }
+                );
+              }
+            }
+          );
+        }
+      });
     }
   });
 };
@@ -186,43 +228,53 @@ exports.approve = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      client.query(sql, [owner_id, school_id, vehicle_id,results.rows[0].price], (err, results) => {
-        if (err) {
-          console.log(err);
-          res.status(400).json({ message: "Error insert owner into school" });
-        } else {
-          let sql_2 = "SELECT * FROM users WHERE user_id = $1";
+      client.query(
+        sql,
+        [owner_id, school_id, vehicle_id, results.rows[0].price],
+        (err, results) => {
+          if (err) {
+            console.log(err);
+            res.status(400).json({ message: "Error insert owner into school" });
+          } else {
+            let sql_2 = "SELECT * FROM users WHERE user_id = $1";
 
-          client.query(sql_2, [owner_id], (err, ownerResults) => {
-            if (err) {
-              console.log(err);
-            } else {
-              emailDetails.from = sender;
-              emailDetails.to = ownerResults.rows[0].email;
-              emailDetails.text =
-                "Good Day " +
-                ownerResults.rows[0].name +
-                "\n\nThank you for taking your time and sending an application to get verified. Upon reviewing your application, we are happy to notify you that your application was successful. \nYou will now recieve requests to transport children. All the best.\n\nThe SGB";
-              emailDetails.subject = "Application Response";
-              transporter.sendMail(emailDetails, (emailErr) => {
-                if (emailErr) {
-                  console.log(emailErr);
-                } else {
-                  let sql_3 =
-                    "UPDATE application SET status = 'APPROVED' WHERE application_id = $1";
-                  client.query(sql_3, [application_id], (err, acceptResult) => {
-                    if (err) {
-                      console.log(err);
-                    } else {
-                      res.status(200).json({ message: "Application accepted" });
-                    }
-                  });
-                }
-              });
-            }
-          });
+            client.query(sql_2, [owner_id], (err, ownerResults) => {
+              if (err) {
+                console.log(err);
+              } else {
+                emailDetails.from = sender;
+                emailDetails.to = ownerResults.rows[0].email;
+                emailDetails.text =
+                  "Good Day " +
+                  ownerResults.rows[0].name +
+                  "\n\nThank you for taking your time and sending an application to get verified. Upon reviewing your application, we are happy to notify you that your application was successful. \nYou will now recieve requests to transport children. All the best.\n\nThe SGB";
+                emailDetails.subject = "Application Response";
+                transporter.sendMail(emailDetails, (emailErr) => {
+                  if (emailErr) {
+                    console.log(emailErr);
+                  } else {
+                    let sql_3 =
+                      "UPDATE application SET status = 'APPROVED' WHERE application_id = $1";
+                    client.query(
+                      sql_3,
+                      [application_id],
+                      (err, acceptResult) => {
+                        if (err) {
+                          console.log(err);
+                        } else {
+                          res
+                            .status(200)
+                            .json({ message: "Application accepted" });
+                        }
+                      }
+                    );
+                  }
+                });
+              }
+            });
+          }
         }
-      });
+      );
 
       //archive the application after accepting
       //Send email to the owner
