@@ -16,8 +16,7 @@ constructor(private service:ParentService,private router:Router) { }
 
   ngOnInit(): void {
     this.service.getSchool().subscribe((view)=>{
-    this.data=view
-
+    this.data = view;
   })
   }
 
