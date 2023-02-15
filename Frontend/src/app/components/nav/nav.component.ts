@@ -95,8 +95,8 @@ export class NavComponent implements OnInit,OnChanges {
   }
 
   signOut(){
-    sessionStorage.removeItem('key')
-    sessionStorage.removeItem('state')
+
+    sessionStorage.clear()
     this.router.navigateByUrl('/login');
   }
 
