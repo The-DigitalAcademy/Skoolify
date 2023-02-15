@@ -177,23 +177,20 @@ exports.declineApplication = (req, res) => {
 };
 
 exports.approve = (req, res) => {
-  const { application_id ,owner_id, school_id, vehicle_id } = req.params;
+  const { application_id, owner_id, school_id, vehicle_id } = req.params;
   const sql =
-    "INSERT INTO vehicle_owner (owner_id, school_id, vehicle_id) VALUES ($1, $2, $3)";
+    "INSERT INTO vehicle_owner (owner_id, school_id, vehicle_id,price) VALUES ($1, $2, $3, $4)";
+  const sql_1 = "SELECT * FROM application WHERE application_id = $1";
 
-  client.query(sql, [owner_id, school_id, vehicle_id], (err, results) => {
+  client.query(sql_1, [application_id], (err, results) => {
     if (err) {
       console.log(err);
-      res.status(400).json({ message: "Error insert owner into school" });
     } else {
-      const sql_1 = "SELECT * FROM application WHERE application_id = $1";
-
-      client.query(sql_1, [application_id], (err, results) => {
+      client.query(sql, [owner_id, school_id, vehicle_id,results.rows[0].price], (err, results) => {
         if (err) {
           console.log(err);
+          res.status(400).json({ message: "Error insert owner into school" });
         } else {
-          //console.log(results.rows[0]);
-          // let owner_id = results.rows[0].owner_id;
           let sql_2 = "SELECT * FROM users WHERE user_id = $1";
 
           client.query(sql_2, [owner_id], (err, ownerResults) => {
@@ -213,19 +210,13 @@ exports.approve = (req, res) => {
                 } else {
                   let sql_3 =
                     "UPDATE application SET status = 'APPROVED' WHERE application_id = $1";
-                  client.query(
-                    sql_3,
-                    [application_id],
-                    (err, acceptResult) => {
-                      if (err) {
-                        console.log(err);
-                      } else {
-                        res
-                          .status(200)
-                          .json({ message: "Application accepted" });
-                      }
+                  client.query(sql_3, [application_id], (err, acceptResult) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      res.status(200).json({ message: "Application accepted" });
                     }
-                  );
+                  });
                 }
               });
             }

@@ -1,0 +1,266 @@
+
+<main class="w-full pt-12 px-4 md:px-8 lg:px-12">
+  <div class="header pt-8 flex flex-row-reverse justify-between">
+    <label for="my-modal-3" class="btn btn-ghost btn-sm gap-2 capitalize">
+      Add Vehicle
+      <i class="fi fi-bs-plus"></i>
+    </label>
+
+    <h3>Vehicles</h3>
+  </div>
+
+  <div class="hero pt-8" *ngIf="data.length == 0">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="text-5xl font-bold">Hello {{name}}</h1>
+        <p class="py-6">You currently have no vehicle added. <br>Start by <b>adding one</b></p>
+        <label for="my-modal-3" class="btn btn-info capitalize rounded-2xl">Add Vehicle</label>
+      </div>
+    </div>
+  </div>
+
+  <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+  <div class="modal">
+    <div class="modal-box">
+      <label
+        for="my-modal-3"
+        class="btn btn-ghost btn-sm btn-circle absolute right-2 top-2"
+        >✕</label
+      >
+
+      <form [formGroup]="addVehicleForm" (ngSubmit)="onSubmit(addVehicleForm)" class="form flex flex-col gap-2">
+
+        <div class="step-1 flex flex-col gap-2" *ngIf="step == 1">
+          <div class="form-control">
+            <label
+              for="model"
+              class="text-sm"
+              >Brand</label
+            >
+            <input
+              type="text"
+              id="base-input"
+              formControlName="brand"
+              required
+              placeholder="Brand"
+              class="input bg-accent  text-sm"/>
+          </div>
+
+
+          <div class="form-control">
+            <label
+              for="model"
+              class="text-sm"
+              >Model</label
+            >
+            <input
+              type="text"
+              id="base-input"
+              formControlName="model"
+              required
+              placeholder="Model"
+              class="input bg-accent text-sm"/>
+          </div>
+
+          <div class="form-control">
+            <label
+              for="model"
+              class="text-sm"
+              >Vehicle Registration</label
+            >
+            <input
+              type="text"
+              id="base-input"
+              formControlName="vehicle_reg"
+              required
+              placeholder="Vehicle registration"
+              class="input bg-accent text-sm"/>
+          </div>
+
+          <div class="form-control">
+            <label
+              for="model"
+              class="text-sm"
+              >Color</label
+            >
+            <input
+              type="text"
+              id="base-input"
+              formControlName="color"
+              required
+              placeholder="Vehicle color"
+              class="input bg-accent text-sm"/>
+          </div>
+
+
+          <button
+            class="btn w-52 mx-auto mt-4 rounded-2xl btn-info capitalize text-white gap-2"
+            (click)="nextStep(addVehicleForm)"
+          >
+            Next
+          </button>
+
+        </div>
+
+
+        <div class="step-2 flex flex-col gap-2" *ngIf="step===2">
+
+          <h3 class="font-semibold">Assign a driver</h3>
+
+          <div class="form-control">
+            <label
+              for="model"
+              class="text-sm">Driver full name</label>
+
+            <input
+              type="text"
+              id="base-input"
+              formControlName="driver_name"
+              required
+              placeholder="John Murphy"
+              class="input bg-accent  text-sm"/>
+          </div>
+
+          <div class="form-control">
+            <label
+              for="model"
+              class="text-sm">Driver's cellphone</label>
+
+            <input
+              type="text"
+              id="base-input"
+              formControlName="driver_cellphone"
+              required
+              placeholder="0256278276"
+              class="input bg-accent  text-sm"/>
+          </div>
+
+          <div class="form-control">
+            <label
+              for="model"
+              class="text-sm">Driver's image</label>
+
+            <input
+            class="file-input file-input-sm bg-accent file-input-info border-0"
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            formControlName="driver_img"
+            (change)="onDriverImg($event)"/>
+          </div>
+
+          <div class="form-control">
+            <label
+              for="model"
+              class="text-sm">Vehicle image</label>
+
+            <input
+            class="file-input file-input-sm bg-accent file-input-info border-0"
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            formControlName="vehicle_img"
+            (change)="onVehicleImg($event)"/>
+          </div>
+
+          <div class="form-control">
+
+            <h3 class="font-semibold">Supporting Documents</h3>
+            <label
+              for="model"
+              class="text-xs w-full text-gray-500 mb-2">Please ensure that the document consists of your ID Copy, Ownership Certificate, PDP and Proof of residence</label>
+
+            <input
+            class="file-input file-input-sm bg-accent file-input-info border-0"
+            type="file"
+            accept=".pdf"
+            formControlName="documents"
+            (change)="onFileChangePdf($event)"/>
+          </div>
+
+
+          <div class="flex justify-end gap-2">
+            <button
+            class="btn  px-5 rounded-2xl btn-info capitalize text-white gap-2"
+            (click)="nextStep(addVehicleForm)"
+          >
+            Back
+          </button>
+
+            <button
+            type="submit"
+            class="btn px-5 rounded-2xl btn-info capitalize text-white gap-2"
+          >
+            Save
+          </button>
+
+          </div>
+
+
+        </div>
+
+
+
+
+
+      </form>
+    </div>
+  </div>
+
+  <div class="vehicles flex flex-col gap-2">
+    <div
+      class="flex pl-4 pr-2 py-2 justify-between h-24 w-full bg-accent place-items-center mx-auto rounded-xl"
+      *ngFor="let record of data; let x = index"
+    >
+      <div class="flex flex-col justify-start details">
+        <div class="car flex w-48 md:w-fit">
+          <h2 class="car-name font-medium text-ellipsis overflow-auto">
+            {{ record.brand }} {{ record.model }}
+          </h2>
+        </div>
+        <span class="text-sm" style="color: #9e9e9e">{{
+          record.vehicle_reg
+        }}</span>
+
+        <div class="flex justify-start gap-2 place-items-center">
+          <img
+            class="w-8 h-8 object-cover rounded-full"
+            [src]="record.driver_image"
+            alt=""
+          />
+          <div class="driver flex flex-col gap-0">
+            <span class="text-sm" >{{
+              record.driver_name
+            }}</span>
+            <span class="text-xs" style="color: #9e9e9e">{{
+              record.driver_cellphone
+            }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dropdown dropdown-bottom dropdown-end">
+        <label tabindex="0" class="btn btn-ghost rounded-full my-auto">
+          <i class="fi fi-br-menu-dots-vertical"></i>
+        </label>
+        <ul
+          tabindex="0"
+          class="menu menu-compact dropdown-content mt-1 p-2 shadow bg-gray-600 bg-opacity-90 text-white rounded-box w-fit"
+        >
+          <li>
+            <a
+              class="flex active:bg-info active:text-white justify-between"
+              (click)="editDriver(record.vehicle_id)"
+              >Edit<i class="fi fi-rr-pencil"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              class="flex active:bg-info active:text-white w-full justify-between"
+              (click)="removeVehicle(record.vehicle_id)"
+              >Remove<i class="fi fi-rr-trash"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>

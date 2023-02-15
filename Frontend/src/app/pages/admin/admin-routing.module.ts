@@ -6,16 +6,17 @@ import { AdminViewOneApplicationComponent } from 'src/app/components/admin-view-
 import { AdminViewOneOwnerComponent } from 'src/app/components/admin-view-one-owner/admin-view-one-owner.component';
 import { AdminViewOneSchoolComponent } from 'src/app/components/admin-view-one-school/admin-view-one-school.component';
 import { ViewOwnersComponent } from 'src/app/components/admin-view-owners/view-owners.component';
+import { AdminGuard } from 'src/app/guards/admin/admin.guard';
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
-  { path: '', component: AdminSchoolsComponent },
-  {path:'view-owners',component:ViewOwnersComponent},
-  {path:'view-owner',component: AdminViewOneOwnerComponent},
-  {path:'schools',component: AdminSchoolsComponent},
-  {path:'view-school',component: AdminViewOneSchoolComponent},
-  {path:'view-applications',component:AdminViewApplicationsComponent},
-  {path:'view-application',component:AdminViewOneApplicationComponent}
+  { path: '', component: AdminSchoolsComponent,canActivate: [AdminGuard]},
+  {path:'view-owners',component:ViewOwnersComponent,canActivate: [AdminGuard]},
+  {path:'view-owner',component: AdminViewOneOwnerComponent,canActivate: [AdminGuard]},
+  {path:'schools',component: AdminSchoolsComponent,canActivate: [AdminGuard]},
+  {path:'view-school',component: AdminViewOneSchoolComponent,canActivate: [AdminGuard]},
+  {path:'view-applications',component:AdminViewApplicationsComponent,canActivate: [AdminGuard]},
+  {path:'view-application',component:AdminViewOneApplicationComponent,canActivate: [AdminGuard]}
 
 ]
 @NgModule({

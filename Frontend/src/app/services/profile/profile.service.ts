@@ -27,4 +27,8 @@ export class ProfileService {
   {
     return this.http.patch(this.baseUrl+'/details/image/'+user_id,image);
   }
+  resetPassword(data:any)
+  {
+    return this.http.patch(this.baseUrl+'/resetpassword',data);
+  }
 }
