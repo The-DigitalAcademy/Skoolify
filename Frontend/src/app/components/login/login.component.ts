@@ -111,12 +111,13 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('role', this.user.account);
             this.role = this.user.account;
             this.toast.success(results.message,{duration:3000});
+            sessionStorage.setItem('user_ID', this.user.user_id);
   
   
          }
   
           if (this.role == 'PARENT') {
-            this.router.navigateByUrl('/parent-home');
+            this.router.navigateByUrl('/parent');
           } else if (this.role == 'OWNER') {
             this.router.navigateByUrl('/addvehicle');
           } else if (this.role == 'ADMIN') {

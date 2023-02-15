@@ -1,4 +1,5 @@
 export interface Vehicle {
+  vehicle_id: number
   brand: string;
   model: string;
   color: string;
@@ -6,5 +7,9 @@ export interface Vehicle {
   vehicle_image: string;
   driver_name: string;
   driver_cellphone: string;
+  driver_image: string;
   document: string;
+  price:number;
+  owner_id:number;
+  ratings	:number;
 }

@@ -1,4 +1,4 @@
-<div class="px-6 mt-4 md:px-12 lg:px-20">
+<!-- <div class="px-6 mt-4 md:px-12 lg:px-20">
   <div class="header">
     <button class="btn px-0 btn-ghost capitalize gap-2" (click)="back()">
       <i class="fi fi-br-angle-left"></i>
@@ -140,7 +140,7 @@
       </div>
 
     </div>
-    <!-- Hidden div when the usertype is not OWNER... it only apprears if the type is CAR-OWNER -->
+
     <div class="ratings w-full lg:hidden" *ngIf="user.account == 'OWNER'">
       <div class="flex justify-center gap-2 w-fit mx-auto rounded-xl bg-accent h-11 px-3">
         <i class="fi fi-sr-badge-check my-auto" style="color: var(--green-200);"></i>
@@ -172,7 +172,7 @@
         </div>
 
         <div class="flex justify-center mt-8 lg:justify-start">
-          <!-- Changing color based on account type {Primary Color is for type PARENT and Main Dark is for type CAR-OWNER} -->
+      
           <button type="submit" [style.background-color]="user.account=='PARENT'? 'var(--primary-color)' : (user.account=='OWNER' ? 'var(--main-dark)' : null)"
           [ngClass]="load? 'btn btn-ghost w-64 capitalize font-normal text-white rounded-2xl loading': 'btn btn-ghost w-64 capitalize font-normal text-white rounded-2xl'">{{message}}</button>
         </div>
@@ -201,4 +201,4 @@
 
 
 
-</div>
+</div> -->
