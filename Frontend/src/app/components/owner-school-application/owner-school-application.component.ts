@@ -75,19 +75,22 @@ priceInputForm = new FormGroup({
     ngOnInit(): void {
    
     
-    
-  
       this.service.viewSchool(Number(sessionStorage.getItem('selected_school'))).subscribe((school:School)=>{
       this.school = school;
+      
+      this.service.viewSchoolTransporters(Number(sessionStorage.getItem('selected_school'))).subscribe((transporters:Transporter[])=>{
+        this.transporters = transporters;
+       
 
       this.service.getVehicleUser(this.ownerID).subscribe((vehicles:Vehicle[])=>{
 
         this.vehicleID = school.school_id;
         this.vehicle = vehicles
-        
-this.schoolName=this.school.school_name;
-this.schoolLocation=this.school.school_location;
-        vehicles.forEach(vehicle => {
+       
+
+        this.schoolName=this.school.school_name;
+        this.schoolLocation=this.school.school_location;
+         vehicles.forEach(vehicle => {
           this.vehicle.push(vehicle)
           console.log(vehicle.brand)
 
@@ -105,7 +108,9 @@ this.schoolLocation=this.school.school_location;
     });
   
   })
+})
     }
+    
 
   back()
   {
