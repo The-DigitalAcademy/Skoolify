@@ -1,0 +1,79 @@
+<div class="flex justify-between pt-3">
+  <button class="btn btn-ghost  capitalize gap-2" (click)="back()">
+    <i class="fi fi-br-angle-left"></i>
+    Back
+  </button>
+  <span></span>
+</div>
+<div class="container px-5 pt-4" >
+
+  <div class="header">
+    <h4>
+      <span id="span"> {{vehiDetails.brand }} {{ vehiDetails.model }}</span>
+    </h4>
+  </div>
+  
+    
+      <div
+        class="driver justify-start w-full mb-4"
+      >
+      <h4 class="font-semibold">Change your driver</h4>
+
+        <form
+          [formGroup]="addVehicleForm"
+          (ngSubmit)="onSubmitvehiDetails(addVehicleForm)"
+          class="form w-full flex flex-col transition-all gap-2"
+        >
+  
+          <div class="form-control gap-1 lg:max-w-xl">
+            <label for="name" class="text-sm">Driver full name</label>
+            <input
+              type="text"
+              class="input bg-accent"
+              formControlName="driver_name"
+              [placeholder]="vehiDetails.driver_name"
+            />
+          </div>
+  
+  
+          <div class="form-control gap-1 lg:max-w-xl">
+            <label for="name" class="text-sm">Driver's cellphone</label>
+            <input
+              type="text"
+              class="input bg-accent"
+              formControlName="driver_cellphone"
+              [placeholder]="vehiDetails.driver_cellphone"
+            />
+          </div>
+  
+          <div>
+            <div class="form-control gap-1 lg:max-w-xl">
+              <label for="name" class="text-sm">Driver's image</label>
+
+              <input
+              class="file-input bg-accent file-input-info border-0"
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                formControlName="driver_image"
+                (change)="onDriverImg($event)"
+              />
+              
+            </div>
+          </div>
+          <div class="flex justify-center lg:justify-start mt-8">
+          
+            <button
+              type="submit"  
+              [ngClass]="load? 'btn btn-info px-12 capitalize text-white font-medium rounded-2xl gap-3 loading':'btn btn-info px-12 capitalize text-white font-medium rounded-2xl gap-3'"
+            >
+              {{message}}
+
+              <i [hidden]="load" class="fi fi-rr-disk"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    
+  
+  
+</div>

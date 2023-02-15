@@ -20,4 +20,8 @@ export class JwtService {
     return this.user;
     }
   }
+
+  isAuthenticated():boolean{
+    return !this.helper.isTokenExpired(sessionStorage.getItem('key'));
+  }
 }

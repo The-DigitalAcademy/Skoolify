@@ -136,13 +136,18 @@
             </div>
           </div>
 
-          <div class="form-control w-full tooltip tooltip-secondary lg:tooltip-right" data-tip="At least a minimum of 8 letters, 1 uppercase, 1 lowercase and 1 special character">
+          <div class="form-control w-full">
             <label [style]="" for="password" class="label text-accent">Password</label>
-            <input formControlName="password" type="password" id="password" class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent" placeholder="Create a password"/>
-            <div *ngIf="submitted && formValidation['password'].errors" class="invalid-feedback">
-              <div *ngIf="formValidation['password'].errors['required']" class="text-white text-left text-xs">Password is required</div>
-              <div *ngIf="formValidation['password'].errors['pattern']" class="text-white text-left text-xs">Password is invalid</div>
+            <div class="tooltip tooltip-secondary lg:tooltip-right" data-tip="At least a minimum of 8 characters, uppercase, lowercase and numbers required">
+              <input formControlName="password" type="password" id="password" class="input w-full h-10 text-white bg-accent bg-opacity-50 placeholder:text-accent" placeholder="Create a password"/>
             </div>
+            <!-- <div *ngIf="submitted && formValidation['password'].errors" class="invalid-feedback">
+              <div *ngIf="formValidation['password'].errors['required']" class="text-white text-left text-xs">Password is required</div>
+              <div *ngIf="formValidation['password'].errors['minlength']" class="text-white text-left text-xs">Password too short</div>
+              <div *ngIf="formValidation['password'].errors['pattern']" class="text-white text-left text-xs">Password invalid</div>
+
+
+            </div> -->
           </div>
 
           <div class="form-control w-full">

@@ -1519,9 +1519,9 @@
     "tslib" "^2.3.0"
 
 "@ngneat/overview@^3.0.0", "@ngneat/overview@>=3.0.0":
-  "integrity" "sha512-tPj58vs2dVafBZr84K/kZ9xCw3y1v3MwrR3AX6VLGPA7x/JDZgApaFTRjuMBVfqd5c3zFmgjB26TzkNGDW/y3Q=="
-  "resolved" "https://registry.npmjs.org/@ngneat/overview/-/overview-3.0.0.tgz"
-  "version" "3.0.0"
+  "integrity" "sha512-w5cyli3goDBegN1G/v9dCGDOQIecDN78C83nUs1STuarS/ry9kjgAp/W9IJSQhqrcVhvHhOVPIkhZ4Pj3Yw9Xg=="
+  "resolved" "https://registry.npmjs.org/@ngneat/overview/-/overview-3.0.4.tgz"
+  "version" "3.0.4"
   dependencies:
     "tslib" "^2.0.0"
 
@@ -4688,7 +4688,14 @@
     "merge-stream" "^2.0.0"
     "supports-color" "^8.0.0"
 
+<<<<<<< HEAD
 "js-tokens@^3.0.0 || ^4.0.0", "js-tokens@^4.0.0":
+=======
+"jquery@>=1.12.0":
+  "version" "3.6.3"
+
+"js-tokens@^4.0.0":
+>>>>>>> 89dcd23c42be1abf4ebd00f1f9f14e10dcaeeeb0
   "integrity" "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="
   "resolved" "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
   "version" "4.0.0"
@@ -7379,6 +7386,7 @@
   dependencies:
     "is-number" "^7.0.0"
 
+<<<<<<< HEAD
 "toast@^0.5.4":
   "integrity" "sha512-/0us8QyyJJ3jGKCOfJNYfxiDlABDmQDs8mePVcTEabwHH31KyFw3kS2nMeydTFVcHAhm4bWuNRHwIPPTcF8tfQ=="
   "resolved" "https://registry.npmjs.org/toast/-/toast-0.5.4.tgz"
@@ -7391,6 +7399,12 @@
     "preact" "10.10.6"
     "preact-render-to-string" "^5.2.2"
     "react-helmet" "^6.1.0"
+=======
+"toastr@^2.1.4":
+  "version" "2.1.4"
+  dependencies:
+    "jquery" ">=1.12.0"
+>>>>>>> 89dcd23c42be1abf4ebd00f1f9f14e10dcaeeeb0
 
 "toidentifier@1.0.1":
   "integrity" "sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA=="
