@@ -11,7 +11,7 @@ export class OwnerService {
   constructor(private http : HttpClient) { }
 
   viewRequests(owner_id:number):Observable<RequestInterface[]>{
-    return this.http.get<RequestInterface[]>(this.baseUrl + '/requests/' + owner_id).pipe();
+    return this.http.get<RequestInterface[]>(this.baseUrl + '/myrequests/' + owner_id).pipe();
   }
 
   viewOneRequest(request_id:number,owner_id : number){

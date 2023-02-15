@@ -20,11 +20,7 @@ constructor(private service:ParentService,private router:Router) { }
     this.data=view;
   })
   }
-  viewSchool(school_id:any)
-  {
-    sessionStorage.setItem('selected_school',school_id);
-
-
+ 
   viewSchool(school_id:any)
   {
     console.log(school_id)

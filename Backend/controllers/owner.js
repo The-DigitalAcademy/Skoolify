@@ -10,9 +10,8 @@ emailDetails = {
 };
 
 exports.viewRequests = (req, res) => {
-
     const sql = "SELECT * FROM school WHERE is_deleted = false";
-  
+
     client.query(sql, (err, results) => {
       if (err) {
         console.log(err);
@@ -71,7 +70,9 @@ exports.viewRequests = (req, res) => {
     });
   };
 
-  const owner_id = req.params.owner_id;
+
+  exports.viewMyRequests = (req, res) => {
+    const owner_id = req.params.owner_id;
   const sql =
     "SELECT * FROM requests WHERE owner_id = $1 AND (status = 'PENDING' OR status = 'ACCEPTED')";
   client.query(sql, [owner_id], (err, results) => {

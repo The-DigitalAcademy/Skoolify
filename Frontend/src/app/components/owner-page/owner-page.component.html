@@ -22,7 +22,7 @@
               </div>
           </div>
         </div>
-        <div class="hero h-full overflow-hidden">
+        <div class="hero h-full overflow-hidden" *ngIf="driver.length == 0">
           <div class="hero-content gap-1 flex-col">
             <p class="font-bold">You have no vehicle added.</p>
             <p class="">Start by adding one</p>
@@ -70,7 +70,7 @@
           <div class="flex flex-col justify-start  gap-1  ">
             <!-- <i class="fi fi-sr-graduation-cap text-white"></i> -->
             <h2 class="font-bold text-base w-full text-black "  >
-              {{record.school_name}} 
+              {{record.school_name}}
             </h2>
             <div class="text-primary" >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4" style="color:#A3B4A2 ;">

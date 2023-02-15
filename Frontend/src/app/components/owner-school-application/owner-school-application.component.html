@@ -1,178 +1,98 @@
-
-
-
 <div class="px-6 mt-4">
-    <div class="flex justify-between">
-      <button class="btn px-0 btn-ghost capitalize gap-2 "(click)="back()" >
-<!--        
+  <div class="flex justify-between">
+    <button class="btn px-0 btn-ghost capitalize gap-2" (click)="back()">
+      <!--
       (click)="back()" -->
-        <i class="fi fi-br-angle-left"></i>
-        Back
-      </button>
-      <span></span>
+      <i class="fi fi-br-angle-left"></i>
+      Back
+    </button>
+    <span></span>
+  </div>
+
+  <div class="w-full">
+    <h2 class="mx-auto text-center font-semibold text-xl">{{ schoolName }}</h2>
+    <p class="mx-auto text-center font-medium text-lg">{{ schoolLocation }}</p>
+
+    <div
+      class="flex justify-center gap-2 w-fit mx-auto rounded-xl bg-accent h-11 px-3"
+    >
+      <i
+        class="fi fi-sr-badge-check my-auto"
+        style="color: var(--grey-dark)"
+      ></i>
+      <span
+        class="text-2xl font-semibold my-auto"
+        style="color: var(--grey-light)"
+        >{{ transporters.length }}</span
+      >
+      <div class="flex flex-col my-auto">
+        <span
+          class="text-xs font-semibold my-0 -mb-1"
+          style="color: var(--grey-light)"
+          >Verified</span
+        >
+        <span
+          class="text-xs font-semibold my-0"
+          style="color: var(--grey-light)"
+          >Transporters</span
+        >
+      </div>
     </div>
-   
-    <div class="w-full ">
-      <h2 class="mx-auto text-center font-semibold text-xl">{{schoolName}}  </h2>
-      <p class="mx-auto text-center font-medium text-lg">{{schoolLocation}}</p>
 
-      <div class="flex justify-center gap-2 w-fit mx-auto rounded-xl bg-accent h-11 px-3">
-        <i class="fi fi-sr-badge-check my-auto" style="color: var(--grey-dark);"></i>
-        <span class="text-2xl font-semibold my-auto" style="color: var(--grey-light);">{{transporters.length}}</span>
-        <div class="flex flex-col my-auto">
-          <span class="text-xs font-semibold my-0 -mb-1" style="color: var(--grey-light);">Verified</span>
-          <span class="text-xs font-semibold my-0" style="color: var(--grey-light);">Transporters</span>
-        </div>
-      </div>
-
-      <br><br><br><br><br><br>
-
-
-
-
-      <!-- <p>Set Monthly fee</p> -->
-      <!-- <br>
-      <input class="form-control box-content bg-gray-100 "  id ="input" type="text" formControlName="price" placeholder="Set monthly fee">
-      <br> -->
-
-      <div class="mt-5 md:col-span-2 md:mt-0">
-        <form   [formGroup]="priceInputForm" >
-        <label for="price" class="block text-sm font-medium text-gray-700">Set Monthly fee</label>
-        <div class="relative mt-1 rounded-md shadow-sm">
-          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-            <span class="text-gray-500 sm:text-sm">R</span>
-          </div>
-          <input type="text" formControlName="price" name="price" id="price" class="block w-full  rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"formControlName="price" placeholder="0.00">
-          <div class="absolute inset-y-0 right-0 flex items-center">
-            <label for="currency" class="sr-only">Currency</label>
-      
-          </div>
-        </div>
-      
-      <div class="form-control w-full max-w-xs">
-        <label class="label">
-          <span class="label-text">Vehicles</span>
-        </label>
-        <select class="select select-bordered" formControlName="vehicle_id" >
-          <option   *ngFor="let vehicle of vehicle" [value]="vehicle.vehicle_id">{{vehicle.brand}} {{vehicle.model}}</option>
-         
-        </select>
-      
-      </div>
-
-<!-- Dropdown menu -->
-
-<!-- component -->
-<!-- <div class="group inline-block">
-  <button
-    class="outline-none px-3 py-1 bg-gray-100 rounded-sm flex items-center min-w-32"
-  >
-    <span class="pr-1 font-semibold flex-1">Select Car</span>
-    <span>
-      <svg
-        class="fill-current h-4 w-4 transform group-hover:-rotate-180
-        transition duration-150 ease-in-out"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-      >
-        <path
-          d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-        />
-      </svg>
-    </span>
-  </button>
-  <ul
-    class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
-  transition duration-150 ease-in-out origin-top min-w-32"
-  >
-    <li class="rounded-sm px-3 py-1 hover:bg-gray-100"></li>
-    <li class="rounded-sm px-3 py-1 hover:bg-gray-100">DevOps</li>
-    <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-      <button
-        class="w-full text-left flex items-center outline-none focus:outline-none"
-      >
-        <span class="pr-1 flex-1">Langauges</span>
-        <span class="mr-auto">
-          <svg
-            class="fill-current h-4 w-4
-            transition duration-150 ease-in-out"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+    <div class="mt-5 md:col-span-2 md:mt-0">
+      <form [formGroup]="priceInputForm" class="form">
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Set monthly fee</span>
+          </label>
+          <div class="relative">
+            <div
+              class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+            >
+              <span class="">R</span>
+            </div>
+            <input
+              type="number"
+              formControlName="price"
+              name="price"
+              id="price"
+              class="input bg-accent pl-6"
+              formControlName="price"
+              placeholder="0.00"
             />
-          </svg>
-        </span>
-      </button>
-      <ul
-        class="bg-white border rounded-sm absolute top-0 right-0 
-  transition duration-150 ease-in-out origin-top-left
-  min-w-32
-  "
-      >
-        <li class="px-3 py-1 hover:bg-gray-100">Javascript</li>
-        <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+            <div class="absolute inset-y-0 right-0 flex items-center">
+              <label for="currency" class="sr-only">Currency</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-control w-full max-w-xs">
+          <label class="label">
+            <span class="label-text">Vehicles</span>
+          </label>
+          <select class="select bg-accent" formControlName="vehicle_id">
+            <option disabled [defaultSelected]="true">Select Vehicle</option>
+            <option
+              *ngFor="let vehicle of vehicle"
+              [value]="vehicle.vehicle_id"
+            >
+              {{ vehicle.brand }} {{ vehicle.model }}
+            </option>
+
+          </select>
+        </div>
+
+        <div class="w-full pt-5 flex justify-center">
           <button
-            class="w-full text-left flex items-center outline-none focus:outline-none"
+            type="submit"
+            id="button"
+            class="btn btn-info rounded-2xl capitalize font-normal"
+            (click)="onSubmit(priceInputForm)"
           >
-            <span class="pr-1 flex-1">Python</span>
-            <span class="mr-auto">
-              <svg
-                class="fill-current h-4 w-4
-                transition duration-150 ease-in-out"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                />
-              </svg>
-            </span>
+            Submit Application
           </button>
-          <ul
-            class="bg-white border rounded-sm absolute top-0 right-0 
-      transition duration-150 ease-in-out origin-top-left
-      min-w-32
-      "
-          >
-            <li class="px-3 py-1 hover:bg-gray-100">2.7</li>
-            <li class="px-3 py-1 hover:bg-gray-100">3+</li>
-          </ul>
-        </li>
-        <li class="px-3 py-1 hover:bg-gray-100">Go</li>
-        <li class="px-3 py-1 hover:bg-gray-100">Rust</li>
-      </ul>
-    </li>
-    <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Testing</li>
-  </ul>
-</div> -->
-
-<style>
-  /* since nested groupes are not supported we have to use 
-     regular css for the nested dropdowns 
-  */
-  li>ul                 { transform: translatex(100%) scale(0) }
-  li:hover>ul           { transform: translatex(101%) scale(1) }
-  li > button svg       { transform: rotate(-90deg) }
-  li:hover > button svg { transform: rotate(-270deg) }
-
-  /* Below styles fake what can be achieved with the tailwind config
-     you need to add the group-hover variant to scale and define your custom
-     min width style.
-  	 See https://codesandbox.io/s/tailwindcss-multilevel-dropdown-y91j7?file=/index.html
-  	 for implementation with config file
-  */
-  .group:hover .group-hover\:scale-100 { transform: scale(1) }
-  .group:hover .group-hover\:-rotate-180 { transform: rotate(180deg) }
-  .scale-0 { transform: scale(0) }
-  .min-w-32 { min-width: 8 rem }
-</style>
-
-<br><br>
-<br>
-<div class="text-center">
-<button type="submit" id ="button" class="btn  text-center  btn-primary" (click)=" onSubmit(priceInputForm)">Submit Application</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
- 
-

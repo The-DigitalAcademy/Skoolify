@@ -25,10 +25,6 @@ export class ParentService {
     console.log(user_id)
     return this.http.get<Vehicle[]>(this.baseUrl+"/getVehicle/"+user_id);
   }
-  viewVehicle(owner_id: number): Observable<Vehicle> {
-    return this.http.get<Vehicle>(this.baseUrl + "/getVehicle/" +owner_id
-    );
-  }
 
   viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
     return this.http.get<Transporter[]>(
@@ -45,42 +41,35 @@ export class ParentService {
   viewSchool(school_id :number):Observable<School>{
     return this.http.get<School>(this.baseUrl+"/getOneSchool/"+school_id);
   }
-  
 
-  viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
-    return this.http.get<Transporter[]>(
-      this.baseUrl + 'getSchoolVehicle/' + school_id
-    );
-  }
   viewOwnerVehicles(owner_id: number): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(
-      this.baseUrl + 'vehicles/' + owner_id
+      this.baseUrl + '/vehicles/' + owner_id
     );
   }
-  viewSchool(school_id: number): Observable<School> {
-    return this.http.get<School>(this.baseUrl + 'getOneSchool/' + school_id);
-  }
-  
+
+
   viewVehicle(vehicle_id: number): Observable<Vehicle[]> {
 
     console.log("from service"+vehicle_id)
     return this.http.get<Vehicle[]>(
-      this.baseUrl + 'getVehicle/' + vehicle_id
+      this.baseUrl + '/getVehicle/' + vehicle_id
     );
   }
 
   viewApplication(vehicle_id: number): Observable<OwnerApplication> {
     console.log("appli id"+vehicle_id)
     return this.http.get<OwnerApplication>(
-      this.baseUrl + 'getAppPrice/' + vehicle_id
+      this.baseUrl + '/getAppPrice/' + vehicle_id
     );
   }
 
   addRequests(data: any) {
-    return this.http.post(this.baseUrl + 'addRequests', data);
+    return this.http.post(this.baseUrl + '/addRequests', data);
   }
+
   priceOfTransport(data: any) {
-    return this.http.post(this.baseUrl + 'priceOfTransport', data);
+    return this.http.post(this.baseUrl + '/priceOfTransport', data);
   }
 
 }
