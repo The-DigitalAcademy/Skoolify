@@ -127,11 +127,13 @@ export class LoginComponent implements OnInit {
           if(this.user!=null) {
             this.role = this.user.account;
             this.toast.success(results.message,{duration:3000});
+
             sessionStorage.setItem('state','logged in');
+
          }
 
           if (this.role == 'PARENT') {
-            this.router.navigateByUrl('/parent-home');
+            this.router.navigateByUrl('/parent');
           } else if (this.role == 'OWNER') {
             this.router.navigateByUrl('/owner-home');
           } else if (this.role == 'ADMIN') {
