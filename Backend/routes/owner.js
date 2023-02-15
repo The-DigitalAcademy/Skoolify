@@ -10,8 +10,13 @@ router.get('/getSchool/:id',getSchool);
 
 
 
-const {price }= require('../controllers/owner');
+const {price}= require('../controllers/owner');
 router.post('/price',price);
+
+
+
+const {viewOwnerRequests}= require('../controllers/owner');
+router.get('/viewOwnerRequests/:id',viewOwnerRequests);
 
 module.exports = router;
 

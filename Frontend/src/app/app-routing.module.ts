@@ -9,12 +9,14 @@ import { OwnerSchoolApplicationComponent } from './components/owner-school-appli
 import { ProfileComponent } from './components/profile/profile.component';
 import { SchoolsComponent } from './components/schools/schools.component';
 import{OwnerApplicationCompletionComponent} from './components/owner-application-completion/owner-application-completion.component'
+import { RequestsOwnerComponent } from './components/requests-owner/requests-owner.component';
 
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'register', component: RegisterComponent },
   { path:'login', component: LoginComponent},
+  {path:'owner-request',component:RequestsOwnerComponent},
   { path:'home', component: OwnerPageComponent},
   { path:'schoolsApplication', component: OwnerSchoolApplicationComponent},
   {path:'profile',component: ProfileComponent},

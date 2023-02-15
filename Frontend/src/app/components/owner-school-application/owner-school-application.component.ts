@@ -98,7 +98,8 @@ this.schoolLocation=this.school.school_location;
       
       console.log("hello");
       console.log(school);
-      console.log(vehicles);
+
+      console.log(vehicles,"gggjgjh");
     },(error:HttpErrorResponse)=>{
       //failed to view vehicle
       console.log(error)
@@ -127,7 +128,7 @@ this.schoolLocation=this.school.school_location;
       
     }
 
-
+    console.log("Im here")
     console.log("add",applicationData)
 
     this.services.price(applicationData).subscribe((result:any) => {

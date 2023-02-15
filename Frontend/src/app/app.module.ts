@@ -20,10 +20,12 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { OwnerViewSchoolComponent } from './components/owner-page/owner-view-school/owner-view-school.component';
 import { OwnerSchoolApplicationComponent } from './components/owner-school-application/owner-school-application.component';
 import { OwnerApplicationCompletionComponent } from './components/owner-application-completion/owner-application-completion.component';
+import { CommonModule } from '@angular/common'
+import { RequestsOwnerComponent } from './components/requests-owner/requests-owner.component';
 
 
 @NgModule({
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent,ProfileComponent, OwnerViewSchoolComponent,OwnerSchoolApplicationComponent, OwnerApplicationCompletionComponent],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent,ProfileComponent, OwnerViewSchoolComponent,OwnerSchoolApplicationComponent,RequestsOwnerComponent, OwnerApplicationCompletionComponent],
   imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
 
   providers: [UserGuard],
