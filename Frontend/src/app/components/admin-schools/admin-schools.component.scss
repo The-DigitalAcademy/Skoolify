@@ -1,5 +1,6 @@
-.search-bar input
+.search-bar
 {
+  background:linear-gradient(0deg, rgba(30, 30, 0, 0) 0%, rgba(255, 255, 255, 1) 18%, rgba(255, 255, 255, 1) 100%);
   &::placeholder{
     color: var(--grey-dark);
   }

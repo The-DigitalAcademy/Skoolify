@@ -27,7 +27,12 @@
 
 * {
   margin: 0;
+  scroll-behavior: smooth;
   padding: 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 
@@ -38,7 +43,10 @@ body {
   background-position: center;
   align-items: center;
 
+
+
 }
+
 
 
 h1,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2  } from '@angular/core';
+import { Component, OnChanges, OnInit, Renderer2, SimpleChanges  } from '@angular/core';
 import { JwtService } from 'src/app/services/jwt.service';
 import { FormGroup,FormControl,Validators,}   from '@angular/forms';
 import { AuthusersService } from 'src/app/services/authusers.service';
@@ -8,48 +8,48 @@ import { Router } from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
-  accountType : any
+export class NavComponent implements OnInit,OnChanges {
+  accountType : any = '';
   dashboardRoute: string ='';
-  isLoggedIn!: boolean;
+  isLoggedIn: boolean = false;
 
   constructor(private router : Router,private auth1: AuthusersService,private renderer: Renderer2, public jwt : JwtService) { }
 
   ngOnInit(): void {
-    this.accountType = sessionStorage.getItem('role');
+
+
+
+
+    this.accountType = this.jwt.getData(sessionStorage.getItem('key'))?.account
+    console.log(this.accountType)
+
+    if(this.accountType)
+    {
+      this.isLoggedIn = true
+      console.log('isLoggedIn = '+this.isLoggedIn)
+
+    }else{
+      this.isLoggedIn = false
+      console.log('isLoggedIn = '+this.isLoggedIn)
+    }
+
+
+    console.log(this.router.routerState)
 
   }
 
-  // loginForm1 = new FormGroup({
-  //   email: new FormControl('', [Validators.required, Validators.email]),
-  //   password: new FormControl('', [Validators.required, Validators.min(6)]),
-  // });
-  // onlogin(form: FormGroup) {
-  //   //Sign in the User to the to the app
-  //   this.auth1.loginData(form.value).subscribe(
-  //     (results: any) => {
-  //       this.auth1.saveToken(results.token);
-  //       this.user = this.jwt.getData(results.token);
+  ngOnChanges(changes: SimpleChanges): void {
 
-  //       if(this.user!=null) {
-  //         sessionStorage.setItem('role', this.user.account);
-  //         this.role = this.user.account;
-  //      }
+  }
 
-
-  //       if (this.role == 'PARENT') {
-  //         this.router.navigateByUrl('/parent-home');
-  //       } else if (this.role == 'OWNER') {
-  //         this.router.navigateByUrl('/owner-home');
-  //       } else if (this.role == 'ADMIN') {
-  //         this.router.navigateByUrl('/admin/schools');
-  //       }
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
+   public showNav():boolean{
+    if(sessionStorage.getItem('state')=='No go...')
+    {
+      return false
+    }else{
+      return true
+    }
+  }
 
 
   ngAfterViewInit() {
@@ -95,9 +95,9 @@ export class NavComponent implements OnInit {
   }
 
   signOut(){
-    sessionStorage.removeItem('role')
     sessionStorage.removeItem('key')
-    this.router.navigateByUrl('login');
+    sessionStorage.removeItem('state')
+    this.router.navigateByUrl('/login');
   }
 
 
