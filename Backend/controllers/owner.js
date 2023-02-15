@@ -18,16 +18,3 @@ emailDetails = {
   subject: "", //email subject
   text: "", //email
 };
-
-exports.viewRequests = (req, res) => {
-    const sql = "SELECT * FROM school WHERE is_deleted = false";
-  
-    client.query(sql, (err, results) => {
-      if (err) {
-        console.log(err);
-        res.status(400).json({ message: "Error fetching owners" });
-      } else {
-        res.status(200).json(results.rows);
-      }
-    });
-  };

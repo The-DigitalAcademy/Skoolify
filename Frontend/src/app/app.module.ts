@@ -19,9 +19,10 @@ import { UserGuard } from './guards/user.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { ParentsRequestComponent } from './parents-request/parents-request.component';
 
 @NgModule({
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent,ProfileComponent, ForgotpasswordComponent],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent, LandingComponent, LoginComponent, RegisterComponent,ProfileComponent, ForgotpasswordComponent, ParentsRequestComponent],
   imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
 
   providers: [UserGuard],

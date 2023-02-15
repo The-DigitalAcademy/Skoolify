@@ -12,7 +12,5 @@ router.get('/getOneSchool/:id',getOneSchool)
 router.get('/getVehicle/:id',getVehicle)
 
 
-
-
 //this goes at the bottom
 module.exports = router;

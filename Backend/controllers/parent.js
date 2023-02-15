@@ -122,3 +122,38 @@ exports.getVehicle = async (req, res) => {
       });
     }
   };
+
+
+
+
+exports.getSchool= async (req, res) => {
+    try {
+          //get all schools form the database
+          const data = await client.query(
+            `SELECT * FROM school WHERE is_deleted = false`,
+            
+            (err,result) => {
+              if (err) {
+             //If no school inserted to database
+                console.error(err);
+                return res.status(500).json({
+                  error: "Database error",
+                });
+              } else {
+                res
+                  .status(200)
+                  .send(result.rows);
+              }
+            }
+          );
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        error: "Database error", //Database connection error
+      });
+    }
+  };
+
+  //getSchool by id
+
+  

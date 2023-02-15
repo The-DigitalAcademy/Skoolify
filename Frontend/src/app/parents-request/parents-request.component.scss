@@ -1,0 +1,20 @@
+.request{
+    position: relative;
+    display: flex;
+    justify-content: start;
+    height: 6rem;
+    padding: 10px;
+    border-radius: 12px;
+    gap: 10px;
+}
+
+.requests{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 12px;
+}
+#flex{
+    gap: 1px;
+    color: var(--grey-light)
+}

@@ -8,6 +8,7 @@ import { UserGuard } from './guards/user.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SchoolsComponent } from './components/schools/schools.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { ParentsRequestComponent } from './parents-request/parents-request.component';
 
 
 
@@ -19,7 +20,9 @@ const routes: Routes = [
   { path:'home', component: OwnerPageComponent},
   {path:'profile',component: ProfileComponent},
   { path:'parent-home', component: SchoolsComponent},
-  { path:'owner-home', component: OwnerPageComponent},
+  { path:'parents-request', component:ParentsRequestComponent},
+
+
   { path: 'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
   { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)},
 ];
