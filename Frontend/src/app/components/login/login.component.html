@@ -1,4 +1,5 @@
-<div class="container w-full mx-auto px-6 py-6 md:px-12">
+
+<div class="container w-full mx-auto px-6 py-6   md:px-12">
   <img
     class="logo w-60 mx-auto my-1 md:my-4"
     id="logo"
@@ -18,8 +19,6 @@
     alt="Backimage"
   />
 
-
-
   <p class="my-3 w-36 mx-auto md:hidden text-center text-gray-900">
     Sign in and a get ride your child
   </p>
@@ -38,6 +37,7 @@
         [formGroup]="loginForm1"
         (ngSubmit)="onlogin(loginForm1)"
         class="w-full mx-auto"
+
       >
         <div class="w-full">
 
@@ -110,7 +110,7 @@
     Sign up</a></p>
 
 </div>
-<div class="footer hidden md:block w-full bg-accent h-44 fixed bottom-0 rounded-t-3xl px-40 py-3">
+<!-- <div class="footer hidden md:block w-full bg-accent h-44 fixed bottom-0 rounded-t-3xl px-40 py-3">
 
 
 
@@ -122,7 +122,7 @@
 
   </div>
 
-</div>
+</div> -->
 
 <img
 class="logo-transparent hidden md:block fixed bottom-8 z-20 right-24 w-96"
@@ -144,7 +144,7 @@ alt="Backimage"
 
    <div class="form-control">
     <label for="" class="label">Email address</label>
-    <input          
+    <input
     [email]="true"
     formControlName="email"
     id="email-address"
@@ -158,7 +158,7 @@ alt="Backimage"
    </div>
 
 
-   
+
 
     <div class="modal-action">
       <label for="my-modal-6" class="btn btn-primary capitalize font-normal rounded-2xl">Cancel</label>

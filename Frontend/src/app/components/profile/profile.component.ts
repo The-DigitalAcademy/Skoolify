@@ -66,6 +66,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.user_id = Number(this.jwt.getData(sessionStorage.getItem('key'))?.user_id);
+    console.log(this.user_id);
+
     this.getUser();
   }
 

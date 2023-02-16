@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import * as saveAs from 'file-saver';
 import { OwnerApplication } from 'src/app/interfaces/applications';
 import { Owner } from 'src/app/interfaces/owner';
@@ -17,6 +18,7 @@ import { AdminService } from 'src/app/services/admin.service';
 export class AdminViewApplicationsComponent implements OnInit {
 
     applications : OwnerApplication[] = [];
+    viewApps : any[] = [];
     schools : School[] = [];
     owners: Owner [] = [];
     vehicles: Vehicle[] = [];
@@ -34,7 +36,7 @@ export class AdminViewApplicationsComponent implements OnInit {
     })
 
 
-  constructor(private adminService:AdminService,private router: Router, private http: HttpClient) {
+  constructor(private adminService:AdminService,private router: Router, private http: HttpClient, private toast: HotToastService) {
 
    }
 
@@ -44,36 +46,17 @@ export class AdminViewApplicationsComponent implements OnInit {
 
   getApplications()
   {
-    this.adminService.viewAllApplications().subscribe((applications:OwnerApplication[])=>{
-      this.applications =  applications;
-
-      this.applications.forEach(application => {
-        this.prices.push(application.price.replace('$','R'));
-
-        this.adminService.viewOwner(application.owner_id).subscribe((owner: Owner)=>{
-          this.owners.push(owner);
-
-          this.adminService.viewSchool(application.school_id).subscribe((school:School)=>{
-            this.schools.push(school)
-
-            this.adminService.viewVehicle(application.vehicle_id).subscribe((vehicle:Vehicle)=>{
-              this.vehicles.push(vehicle)
-
-            },(error: HttpErrorResponse)=>{
-              // error fetching vehicle
-              console.log(error)
-            })//fetching vehicle
-
-          },(error: HttpErrorResponse)=>{
-            // error fetching school
-          })//fetching school
-
-        },(error: HttpErrorResponse)=>{
-          // error fetching owner
-        })//fetching owner
-
+    this.viewApps = []
+    this.toast.loading('Loading applications...',{duration:5000})
+    this.adminService.viewAllApplications().subscribe( (applications:OwnerApplication[])=>{
+      applications.forEach(app => {
+        this.adminService.viewApplication(app.application_id).subscribe(async(appView:any)=>{
+          console.log(appView)
+          this.viewApps.push(await appView);
+        },(error:HttpErrorResponse)=>{
+          console.log(error)
+        })
       });
-
     },(error: HttpErrorResponse)=>{
       //failed to get applications
       console.log(error)
@@ -83,6 +66,11 @@ export class AdminViewApplicationsComponent implements OnInit {
   selectApplication(application_id:any)
   {
     sessionStorage.setItem('selected_application',application_id);
+  }
+  openApplication(application_id:any)
+  {
+    sessionStorage.setItem('selected_application',application_id);
+    this.router.navigateByUrl('admin/view-application')
   }
 
   selectSchool(school_id:any)
@@ -98,12 +86,15 @@ export class AdminViewApplicationsComponent implements OnInit {
   }
 
 
-  viewDocument(vehicle : Vehicle){
+  viewDocument(vehicle : any){
     //this.load = true;
+    this.toast.loading('Downloading...',{duration:2000})
     this.http.get(vehicle.document, { responseType: 'blob' }).subscribe(response => {
       saveAs(response, '.pdf');
+      this.toast.success('File downloaded')
     },(error:HttpErrorResponse)=>{
       //failed to retrieve pdf file
+      this.toast.error('Error downloading')
       console.log(error);
 
     });
@@ -117,14 +108,13 @@ export class AdminViewApplicationsComponent implements OnInit {
 
 
   approveApplication(application: OwnerApplication){
-    //this.loadApprove = true;
-    //this.messageApprove = 'Approving'
-
+    this.toast.loading('Processing ...',{duration:5000})
     this.adminService.approveApplication(application).subscribe((result:any) => {
       this.getApplications()
-
+      this.toast.success('Application approved')
     },(error:HttpErrorResponse)=>{
       //failed to approve application
+      this.toast.error('Error approving application')
       console.log(error)
     })
 
@@ -140,6 +130,7 @@ export class AdminViewApplicationsComponent implements OnInit {
   onDecline(form:FormGroup)
   {
 
+    this.toast.loading('Processing ...',{duration:5000})
     this.adminService.declineApplication(this.selected_application,form.value).subscribe((result:any) => {
       this.getApplications();
       //

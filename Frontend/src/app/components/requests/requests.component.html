@@ -1,0 +1,153 @@
+<div class="px-4 pt-12 md:pt-20 md:px-10 lg:px-14">
+  <div class="flex justify-between">
+    <button class="btn px-0 btn-ghost capitalize gap-2" (click)="back()">
+      <i class="fi fi-br-angle-left"></i>
+      Back
+    </button>
+    <span></span>
+  </div>
+
+  <div class="profile flex justify-items-start gap-3 w-full h-36">
+    <img
+          class=" w-32 h-32  md:w-40 md:h-40 object-cover rounded-xl my-auto"
+          [src]="driverImage"
+          alt="" />
+
+    <div class="details flex flex-col justify-between">
+      <div class="contacts flex flex-col">
+        <span class="font-semibold w-48"
+          >{{driverName}}
+        </span>
+        <div class="contact flex flex-col ">
+          <span class="text-sm -my-1 text-primary"
+            >{{vehicleName}} {{vehicleModel}}</span
+          >
+          <span class="text-sm text-primary"
+            >{{vehicleReg}} {{color}}</span
+          >
+        </div>
+        <!-- <button
+          class="btn px-0 py-0 btn-ghost w-28 h-10 text-white gap-1 rounded-md"
+          style="background-color: var(--main-dark)"
+        >
+          {{ vehicle.vehicle_reg }}
+        </button> -->
+        <div>
+        <span class="text-lg font-semibold text-primary">{{price1.replace('$','R')}} pm</span>
+      </div>
+
+      <button
+      class="btn btn-sm px-2 text-xs py-0 h-5 btn-ghost w-28 text-primary gap-1 rounded-md"
+      style="background-color: var(--secondary-color)"
+    >
+      <i class="fi fi-rr-chart-line-up"></i>
+      {{ ratings1}}
+      <div
+        class="vl my-auto rounded-sm mx-1"
+        style="
+          border-left: 1px solid rgba(219, 219, 219, 0.545);
+          height: 20px;
+        "
+      ></div>
+      <div
+      class="flex flex-col justify-start text-xs text-start lowercase gap-0"
+    >
+      <span *ngIf="votes > 50">50+</span>
+      <span [hidden]="votes > 50">{{ votes }}</span>
+      <span class="-mt-1">Voted</span>
+    </div>
+    </button>
+      <span class="ratings text-gray-500 md:mt-1 text-xs">Vehicle owned by <span class="font-semibold">{{owner1}}</span> </span>
+      </div>
+    </div>
+  </div>
+
+    <!-- <div class="profile flex justify-items-start gap-3 w-full h-36 mb-4">
+      <img
+        class="w-36 h-36 object-cover rounded-xl my-auto"
+        src="https://media.istockphoto.com/id/1377893181/photo/shot-of-young-man-delivering-a-package-while-sitting-in-a-vehicle.jpg?b=1&s=170667a&w=0&k=20&c=XweAFF0r3bKaydPxQ5hT2B3RKnv5FiAAFRb9xya1nWI="
+        alt=""
+      />
+    </div>
+
+       <div class="details flex flex-col justify-between">
+        <div class="contacts flex flex-col">
+          <span class="text-lg font-semibold w-48"
+            >{{ vehicle.driver_name}}
+          </span>
+          <div class="contact flex flex-col text-xs">
+            <span class="text-sm -my-1"
+              >{{ vehicle.brand }} {{ vehicle.model }}</span
+            >
+            <span class="text-sm"
+              >{{ vehicle.vehicle_reg }}</span
+            >
+          </div>
+        </div> -->
+
+
+
+          <!-- <button
+            class="btn px-2 py-0 btn-ghost w-28 text-white gap-1 rounded-md"
+            style="background-color: var(--main-dark)"
+          >
+            <i class="fi fi-rr-chart-line-up"></i>
+            {{ owner.ratings }}
+            <div
+              class="vl my-auto rounded-sm mx-1"
+              style="
+                border-left: 1px solid rgba(219, 219, 219, 0.545);
+                height: 20px;
+              "
+            ></div>
+            <div
+              class="flex flex-col justify-start text-xs text-start lowercase gap-0"
+            >
+              <span *ngIf="owner.votes > 50">50+</span>
+              <span [hidden]="owner.votes > 50">{{ owner.votes }}</span>
+              <span class="-mt-1">Voted</span>
+            </div>
+          </button>
+          <span class="text-lg font-semibold">{{ price }} pm</span>
+        </div>
+      </div>
+    </div>
+   -->
+
+
+   <div class="md:col-span-2 md:mt-0">
+    <!-- <form form (ngSubmit)="onSubmit(addRequestForm)"  [formGroup]="addRequestForm"> -->
+      <form   [formGroup]="addRequestForm" >
+      <div class="overflow-hidden">
+        <div class="bg-white py-5">
+          <div class="grid grid-cols-6 gap-3">
+            <div class="col-span-6 sm:col-span-3">
+              <label for="first-name" class="block text-sm font-medium text-gray-700">Message(optional)</label>
+              <textarea type="text"  formControlName="message" placeholder="Type a message" class="textarea mt-1 block w-full bg-accent"></textarea>
+            </div>
+
+
+            <div class="col-span-6 sm:col-span-3">
+              <label for="last-name" class="block text-sm font-medium text-gray-700">Pick up address</label>
+              <textarea type="text" formControlName="address" placeholder="Enter address" name="last-name" id="last-name" class="textarea mt-1 block w-full bg-accent"></textarea>
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+              <label for="first-name" class="block text-sm font-medium text-gray-700">Number of kids</label>
+              <input type="number" formControlName="num_kids" name="first-name" placeholder="Enter Number of Kids" id="first-name" class="input mt-1 placeholder:text-sm block w-full bg-accent">
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+              <label for="last-name" class="block text-sm font-medium text-gray-700">Description</label>
+              <textarea type="text" formControlName="description" placeholder="Children Details" name="last-name" id="last-name" autocomplete="family-name" class="textarea mt-1 block w-full bg-accent"></textarea>
+            </div>
+          </div>
+
+          <div class="flex w-full py-4 justify-center">
+            <button  class="btn btn-primary mx-auto px-10 md:px-16 text-white capitalize font-normal rounded-2xl"  (click)=" onSubmit(addRequestForm)"  >Submit
+            </button>
+          </div>
+
+
+
+  </div>
