@@ -4,6 +4,7 @@ import { Transporter } from 'src/app/interfaces/transporter';
 import { Observable } from 'rxjs';
 import { Vehicle } from 'src/app/interfaces/vehicle';
 import { School } from 'src/app/interfaces/school';
+import { OwnerApplication } from 'src/app/interfaces/applications';
 
 const ownerID= localStorage.getItem('owner_id')
 @Injectable({
@@ -24,16 +25,13 @@ export class ParentService {
     console.log(user_id)
     return this.http.get<Vehicle[]>(this.baseUrl+"/getVehicle/"+user_id);
   }
-  viewVehicle(owner_id: number): Observable<Vehicle> {
-    return this.http.get<Vehicle>(this.baseUrl + "/getVehicle/" +owner_id
-    );
-  }
 
   viewSchoolTransporters(school_id: number): Observable<Transporter[]> {
     return this.http.get<Transporter[]>(
       this.baseUrl + '/getSchoolVehicle/' + school_id
     );
   }
+
   getVehicleUser(user_id: number): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(
       this.baseUrl + '/getVehicleUser/' + user_id
@@ -42,13 +40,38 @@ export class ParentService {
 
   viewSchool(school_id :number):Observable<School>{
     return this.http.get<School>(this.baseUrl+"/getOneSchool/"+school_id);
-
-
-
-    
-    
   }
-  
+
+  viewOwnerVehicles(owner_id: number): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(
+      this.baseUrl + '/vehicles/' + owner_id
+    );
+  }
+
+
+  viewVehicle(vehicle_id: number): Observable<Vehicle[]> {
+
+    console.log("from service"+vehicle_id)
+    return this.http.get<Vehicle[]>(
+      this.baseUrl + '/getVehicle/' + vehicle_id
+    );
+  }
+
+  viewApplication(vehicle_id: number): Observable<OwnerApplication> {
+    console.log("appli id"+vehicle_id)
+    return this.http.get<OwnerApplication>(
+      this.baseUrl + '/getAppPrice/' + vehicle_id
+    );
+  }
+
+  addRequests(data: any) {
+    return this.http.post(this.baseUrl + '/addRequests', data);
+  }
+
+  priceOfTransport(data: any) {
+    return this.http.post(this.baseUrl + '/priceOfTransport', data);
+  }
+
 }
 
 

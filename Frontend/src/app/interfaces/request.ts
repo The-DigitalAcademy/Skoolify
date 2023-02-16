@@ -4,7 +4,7 @@ export interface RequestInterface{
   owner_id : number,
   school_id : number,
   message: any,
-  pickUp_Address : string,
+  address : string,
   num_kids : number,
   desc : string
 }
