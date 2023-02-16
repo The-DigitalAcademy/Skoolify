@@ -36,7 +36,5 @@ router.get('/getAppPrice/:id',getAppPrice)
 //router.get('/viewSchool/:id',viewSchool)
 //router.get('schoolTransporters/:id',schoolTransporters)
 
-
-
 //this goes at the bottom
 module.exports = router;

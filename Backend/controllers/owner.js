@@ -9,6 +9,7 @@ emailDetails = {
   text: "", //email
 };
 
+
 exports.viewRequests = (req, res) => {
     const sql = "SELECT * FROM school WHERE is_deleted = false";
 
@@ -377,4 +378,5 @@ exports.accept = (req, res) => {
     }
   });
 };
+
 

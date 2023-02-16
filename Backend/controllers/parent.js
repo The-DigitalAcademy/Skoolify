@@ -90,6 +90,7 @@ exports.getVehicle = async (req, res) => {
       });
     }
   };
+
  
    exports.getVehicleUser = async (req, res) => {
     const user_id = parseInt(req.params.id);
@@ -161,6 +162,7 @@ exports.getVehicle = async (req, res) => {
             (err,result) => {
               if (err) {
              //If post are not available is not inserted to database
+
                 console.error(err);
                 return res.status(500).json({
                   error: "Database error",
@@ -175,10 +177,13 @@ exports.getVehicle = async (req, res) => {
     } catch (err) {
       console.log(err);
       res.status(500).json({
+
         error: "Database error while creating post!", //Database connection error
+
       });
     }
   };
+
 
 
   //get one vehicle
@@ -394,4 +399,5 @@ exports.getAppPrice = async (req, res) => {
     });
   }
 };
+
 

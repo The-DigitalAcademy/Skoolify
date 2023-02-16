@@ -38,15 +38,16 @@ import { ParentGuard } from './guards/parent/parent.guard';
 import { OwnerGuard } from './guards/owner/owner.guard';
 
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { ParentsRequestComponent } from './parents-request/parents-request.component';
+
+
 import { OwnerRequestsComponent } from './components/owner-requests/owner-requests.component';
 import { RequestsComponent } from './components/requests/requests.component';
 
 
 @NgModule({
 
-
-
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent,EditVehicleComponent, AddvehicleComponent ,LandingComponent, LoginComponent,NavComponent, RegisterComponent,RequestsOwnerComponent,ProfileComponent,OwnerRequestsComponent,ForgotpasswordComponent, RequestsComponent, ConfirmationComponent, OwnerViewSchoolComponent,OwnerSchoolApplicationComponent, OwnerApplicationCompletionComponent],
+  declarations: [AppComponent, SchoolsComponent, ParentsRequestComponent,VehiclesComponent, OwnerPageComponent,EditVehicleComponent, AddvehicleComponent ,LandingComponent, LoginComponent,NavComponent, RegisterComponent,RequestsOwnerComponent,ProfileComponent,OwnerRequestsComponent,ForgotpasswordComponent, RequestsComponent, ConfirmationComponent, OwnerViewSchoolComponent,OwnerSchoolApplicationComponent, OwnerApplicationCompletionComponent],
   imports: [Ng2SearchPipeModule,BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
 
 
