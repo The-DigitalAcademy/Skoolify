@@ -1,4 +1,4 @@
-<div class="px-6 mt-4">
+<div class="px-6 mt-4 pt-12">
   <!-- flex instead of 'hidden' -->
   <div class="justify-between hidden">
     <button class="btn px-0 btn-ghost capitalize gap-2" (click)="back()">
@@ -11,21 +11,21 @@
   <div class="profile flex justify-items-start gap-3 w-full h-36 mb-4">
     <img
       class="w-36 h-36 object-cover rounded-xl my-auto"
-      [src]="owner.image"
+      [src]="application.owner.image"
       alt=""
     />
 
     <div class="details flex flex-col justify-between">
       <div class="contacts flex flex-col">
         <span class="text-lg font-semibold w-48"
-          >{{ owner.name }} {{ owner.surname }}
+          >{{ application.owner.name }} {{ application.owner.surname }}
         </span>
         <div class="contact flex flex-col text-xs">
           <span class="text-sm -my-1"
-            >{{ vehicle.brand }} {{ vehicle.model }}</span
+            >{{ application.vehicle.brand }} {{ application.vehicle.model }}</span
           >
           <span class="text-sm"
-            >{{ vehicle.vehicle_reg }} ({{ vehicle.color }})</span
+            >{{ application.vehicle.vehicle_reg }} ({{ application.vehicle.color }})</span
           >
         </div>
         <button
@@ -33,7 +33,7 @@
           style="background-color: var(--main-dark)"
         >
           <i class="fi fi-rr-chart-line-up"></i>
-          {{ owner.ratings }}
+          {{ application.owner.ratings }}
           <div
             class="vl my-auto rounded-sm mx-1"
             style="
@@ -44,12 +44,12 @@
           <div
             class="flex flex-col justify-start text-xs text-start lowercase gap-0"
           >
-            <span *ngIf="owner.votes > 50">50+</span>
-            <span [hidden]="owner.votes > 50">{{ owner.votes }}</span>
+            <span *ngIf="application.owner.votes > 50">50+</span>
+            <span [hidden]="application.owner.votes > 50">{{ application.owner.votes }}</span>
             <span class="-mt-1">Voted</span>
           </div>
         </button>
-        <span class="text-lg font-semibold">{{ price }} pm</span>
+        <span class="text-lg font-semibold">{{ application.application.price.replace('$','R') }} pm</span>
       </div>
     </div>
   </div>
@@ -62,7 +62,7 @@
       </label>
       <input
         type="text"
-        [value]="owner.name"
+        [value]="application.owner.name"
         disabled
         class="input w-full disabled:bg-accent"
       />
@@ -74,7 +74,7 @@
       </label>
       <input
         type="text"
-        [value]="owner.surname"
+        [value]="application.owner.surname"
         disabled
         class="input w-full disabled:bg-accent"
       />
@@ -89,7 +89,7 @@
       </label>
       <input
         type="text"
-        [value]="school.school_name"
+        [value]="application.school.school_name"
         disabled
         class="input w-full disabled:bg-accent"
       />
@@ -104,7 +104,7 @@
       </label>
       <input
         type="text"
-        [value]="vehicle.driver_name"
+        [value]="application.vehicle.driver_name"
         disabled
         class="input w-full disabled:bg-accent"
       />

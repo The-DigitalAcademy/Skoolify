@@ -1,4 +1,4 @@
-<div class="px-2  md:px-10 lg:px-14">
+<div class="px-4 pt-12 md:pt-20 md:px-10 lg:px-14">
   <div class="flex justify-between">
     <button class="btn px-0 btn-ghost capitalize gap-2" (click)="back()">
       <i class="fi fi-br-angle-left"></i>
@@ -6,20 +6,20 @@
     </button>
     <span></span>
   </div>
-  
-  <div class="profile flex justify-items-start gap-3 w-full h-36 mb-4">
+
+  <div class="profile flex justify-items-start gap-3 w-full h-36">
     <img
-          class="w-40 h-40 object-cover rounded-xl my-auto"
+          class=" w-32 h-32  md:w-40 md:h-40 object-cover rounded-xl my-auto"
           [src]="driverImage"
           alt="" />
 
     <div class="details flex flex-col justify-between">
       <div class="contacts flex flex-col">
-        <span class="text-lg font-semibold w-48"
+        <span class="font-semibold w-48"
           >{{driverName}}
         </span>
         <div class="contact flex flex-col ">
-          <span class="text-sm -my-1 text-primary" 
+          <span class="text-sm -my-1 text-primary"
             >{{vehicleName}} {{vehicleModel}}</span
           >
           <span class="text-sm text-primary"
@@ -33,11 +33,11 @@
           {{ vehicle.vehicle_reg }}
         </button> -->
         <div>
-        <span class="text-lg font-semibold text-primary">{{price1}} pm</span>
+        <span class="text-lg font-semibold text-primary">{{price1.replace('$','R')}} pm</span>
       </div>
-     
-      <button 
-      class="btn px-2 py-0 btn-ghost w-28 text-primary gap-1 rounded-md"
+
+      <button
+      class="btn btn-sm px-2 text-xs py-0 h-5 btn-ghost w-28 text-primary gap-1 rounded-md"
       style="background-color: var(--secondary-color)"
     >
       <i class="fi fi-rr-chart-line-up"></i>
@@ -57,11 +57,11 @@
       <span class="-mt-1">Voted</span>
     </div>
     </button>
-      <span class="ratings font-semibold text-xs">vehicle Owner by {{owner1}} </span>
+      <span class="ratings text-gray-500 md:mt-1 text-xs">Vehicle owned by <span class="font-semibold">{{owner1}}</span> </span>
       </div>
     </div>
   </div>
-    
+
     <!-- <div class="profile flex justify-items-start gap-3 w-full h-36 mb-4">
       <img
         class="w-36 h-36 object-cover rounded-xl my-auto"
@@ -115,38 +115,39 @@
    -->
 
 
-   <div class="mt-5 md:col-span-2 md:mt-0">
+   <div class="md:col-span-2 md:mt-0">
     <!-- <form form (ngSubmit)="onSubmit(addRequestForm)"  [formGroup]="addRequestForm"> -->
       <form   [formGroup]="addRequestForm" >
-      <div class="overflow-hidden shadow sm:rounded-md">
-        <div class="bg-white px-4 py-5 sm:p-6">
-          <div class="grid grid-cols-6 gap-6">
+      <div class="overflow-hidden">
+        <div class="bg-white py-5">
+          <div class="grid grid-cols-6 gap-3">
             <div class="col-span-6 sm:col-span-3">
               <label for="first-name" class="block text-sm font-medium text-gray-700">Message(optional)</label>
-              <input type="text"  formControlName="message" placeholder="Type a message" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 block w-full  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-accent " style="height: 60px;">
+              <textarea type="text"  formControlName="message" placeholder="Type a message" class="textarea mt-1 block w-full bg-accent"></textarea>
             </div>
+
 
             <div class="col-span-6 sm:col-span-3">
               <label for="last-name" class="block text-sm font-medium text-gray-700">Pick up address</label>
-              <input type="text" formControlName="address" placeholder="Address Line 1" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-accent " style="height: 32px;">
+              <textarea type="text" formControlName="address" placeholder="Enter address" name="last-name" id="last-name" class="textarea mt-1 block w-full bg-accent"></textarea>
             </div>
 
             <div class="col-span-6 sm:col-span-3">
               <label for="first-name" class="block text-sm font-medium text-gray-700">Number of kids</label>
-              <input type="text" formControlName="num_kids" name="first-name" placeholder="Enter Number of Kids" id="first-name" autocomplete="given-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-accent" style="height: 32px;">
+              <input type="number" formControlName="num_kids" name="first-name" placeholder="Enter Number of Kids" id="first-name" class="input mt-1 placeholder:text-sm block w-full bg-accent">
             </div>
 
             <div class="col-span-6 sm:col-span-3">
               <label for="last-name" class="block text-sm font-medium text-gray-700">Description</label>
-              <input type="text" formControlName="description" placeholder="Children Details" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-accent" style="height: 70px;">
-            </div>
-         
-
-            <div class="col-span-6 sm:col-span-3 mx-10">
-              <button  class="btn btn-wide mx-center"  (click)=" onSubmit(addRequestForm)" style="background-color: var(--primary-color);" >Submit
-              </button>
+              <textarea type="text" formControlName="description" placeholder="Children Details" name="last-name" id="last-name" autocomplete="family-name" class="textarea mt-1 block w-full bg-accent"></textarea>
             </div>
           </div>
-       
-   
+
+          <div class="flex w-full py-4 justify-center">
+            <button  class="btn btn-primary mx-auto px-10 md:px-16 text-white capitalize font-normal rounded-2xl"  (click)=" onSubmit(addRequestForm)"  >Submit
+            </button>
+          </div>
+
+
+
   </div>

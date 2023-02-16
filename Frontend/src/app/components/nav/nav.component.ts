@@ -43,7 +43,7 @@ export class NavComponent implements OnInit,OnChanges {
   }
 
    public showNav():boolean{
-    if(sessionStorage.getItem('state')=='No go...')
+    if(sessionStorage.getItem('state') =='No go...')
     {
       return false
     }else{
@@ -95,8 +95,8 @@ export class NavComponent implements OnInit,OnChanges {
   }
 
   signOut(){
-    sessionStorage.removeItem('key')
-    sessionStorage.removeItem('state')
+
+    sessionStorage.clear()
     this.router.navigateByUrl('/login');
   }
 

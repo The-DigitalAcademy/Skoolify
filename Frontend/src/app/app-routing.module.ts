@@ -20,29 +20,30 @@ import { OwnerGuard } from './guards/owner/owner.guard';
 
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { OwnerRequestsComponent } from './components/owner-requests/owner-requests.component';
-
-
-
-
+import { VehiclesComponent } from './components/vehicles/vehicles.component';
+import { RequestsComponent } from './components/requests/requests.component';
 
 
 const routes: Routes = [
   { path:'', component: LandingComponent },
   { path:'register', component: RegisterComponent },
   { path:'login', component: LoginComponent},
-{path:'owner-appplication',component:RequestsOwnerComponent,canActivate:[OwnerGuard]},
 
+  {path:'owner-appplication',component:RequestsOwnerComponent,canActivate:[OwnerGuard]},
   { path:'schoolsApplication', component: OwnerSchoolApplicationComponent,canActivate:[OwnerGuard]},
   { path:'owner-requestNotification', component:OwnerApplicationCompletionComponent,canActivate:[OwnerGuard]},
   { path:'forgotPassword', component: ForgotpasswordComponent },
   { path:'owner-vehicles', component: AddvehicleComponent ,canActivate:[OwnerGuard] },
   { path:'editvehicle', component: EditVehicleComponent ,canActivate:[OwnerGuard] },
   { path:'profile',component: ProfileComponent,canActivate:[UserGuard]},
-  { path:'parent-home', component: SchoolsComponent,canActivate:[ParentGuard]},
+  { path:'parent-home', component: SchoolsComponent},
+  { path:'vehicle', component: VehiclesComponent},
+  //{ path:'vehicle', component: VehiclesComponent,canActivate:[ParentGuard]},
+  { path:'request', component: RequestsComponent},
   { path:'owner-home', component: OwnerPageComponent,canActivate:[OwnerGuard]},
   { path:'owner-requests', component: OwnerRequestsComponent,canActivate:[OwnerGuard]},
   { path:'landing', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
-  { path:'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),canActivate:[AdminGuard]},
+  { path:'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)},
 
 ];
 

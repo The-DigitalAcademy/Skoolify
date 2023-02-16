@@ -15,12 +15,13 @@ export class SchoolsComponent implements OnInit {
 constructor(private service:ParentService,private router:Router) { }
 
   ngOnInit(): void {
+    sessionStorage.setItem('state','Goo...');
     this.service.getSchool().subscribe((view)=>{
 
     this.data=view;
   })
   }
- 
+
   viewSchool(school_id:any)
   {
     console.log(school_id)

@@ -138,12 +138,14 @@ export class RegisterComponent implements OnInit {
 
             }
 
-            if (this.role == 'PARENT') {
-              this.router.navigateByUrl('/parent-home');
-            } else if (this.role == 'OWNER') {
+            if (this.role == 'OWNER') {
               this.router.navigateByUrl('/owner-home');
             } else if (this.role == 'ADMIN') {
               this.router.navigateByUrl('/admin/schools');
+            } else if (sessionStorage.getItem('guestState') == 'schoolSelected') {
+              this.router.navigateByUrl('/request');
+            } else if (this.role == 'PARENT') {
+              this.router.navigateByUrl('/parent-home');
             }
           },
 

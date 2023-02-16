@@ -20,7 +20,7 @@ export class AdminViewOneApplicationComponent implements OnInit {
   owner !: Owner;
   vehicle !: Vehicle;
   school !: School;
-  application!: OwnerApplication;
+  application : any;
   price : string = ''
 
   load : boolean = false;
@@ -40,32 +40,8 @@ export class AdminViewOneApplicationComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.adminService.viewApplication(Number(sessionStorage.getItem('selected_application'))).subscribe((application:OwnerApplication) => {
+    this.adminService.viewApplication(Number(sessionStorage.getItem('selected_application'))).subscribe((application:any) => {
       this.application = application;
-      this.price = application.price.replace('$','R');
-
-
-      this.adminService.viewOwner(application.owner_id).subscribe((owner: Owner)=>{
-        this.owner = owner
-
-        this.adminService.viewSchool(application.school_id).subscribe((school:School)=>{
-          this.school = school
-
-          this.adminService.viewVehicle(application.vehicle_id).subscribe((vehicle:Vehicle)=>{
-            this.vehicle = vehicle
-
-          },(error: HttpErrorResponse)=>{
-            // error fetching vehicle
-            console.log(error)
-          })//fetching vehicle
-
-        },(error: HttpErrorResponse)=>{
-          // error fetching school
-        })//fetching school
-
-      },(error: HttpErrorResponse)=>{
-        // error fetching owner
-      })//fetching owner
     })
   }
 
@@ -78,7 +54,7 @@ export class AdminViewOneApplicationComponent implements OnInit {
   viewDocument(){
     this.load = true;
 
-    this.http.get(this.vehicle.document, { responseType: 'blob' }).subscribe(response => {
+    this.http.get(this.application.vehicle.document, { responseType: 'blob' }).subscribe(response => {
       saveAs(response, '.pdf');
     },(error:HttpErrorResponse)=>{
       //failed to retrieve pdf file
@@ -98,7 +74,7 @@ export class AdminViewOneApplicationComponent implements OnInit {
     this.loadApprove = true;
     this.messageApprove = 'Approving'
 
-    this.adminService.approveApplication(this.application).subscribe((result:any) => {
+    this.adminService.approveApplication(this.application.application).subscribe((result:any) => {
 
     },(error:HttpErrorResponse)=>{
       //failed to approve application
@@ -120,7 +96,7 @@ export class AdminViewOneApplicationComponent implements OnInit {
 
   onDecline(form:FormGroup)
   {
-    this.adminService.declineApplication(this.application.application_id,form.value).subscribe((result:any) => {
+    this.adminService.declineApplication(this.application.application.application_id,form.value).subscribe((result:any) => {
       //
 
     },(error:HttpErrorResponse)=>{
