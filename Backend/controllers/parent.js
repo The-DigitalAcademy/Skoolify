@@ -104,7 +104,7 @@ exports.getVehicle = async (req, res) => {
                 return res.status(500).json({
                   error: "Database error",
                 });
-              } else {
+              } else {  
                 res
                   .status(200).json(result.rows);
                   

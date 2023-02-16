@@ -14,5 +14,10 @@ router.patch('/requests/accept/:request_id',owner.accept);
 
 
 
+
+
+const {viewOwnerRequests}= require('../controllers/owner');
+router.get('/viewOwnerRequests/:id',viewOwnerRequests);
+
 module.exports = router;
 

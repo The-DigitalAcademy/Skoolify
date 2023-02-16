@@ -4,4 +4,7 @@ export interface OwnerApplication{
   vehicle_id: number;
   application_id: number;
   price:string;
+  school_name:string;
+  school_location:string;
+  status:string;
 }

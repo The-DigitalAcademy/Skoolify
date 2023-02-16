@@ -71,6 +71,64 @@ exports.viewRequests = (req, res) => {
   };
 
 
+
+  exports.viewO = async (req, res) => {
+    const {owner_id,school_id } = req.body;
+    try {
+          //get all post form the database
+          const data = await client.query(
+        "SELECT * from application where school_id = $1 and owner_id = $2,"
+            [school_id,owner_id],
+            (err,result) => {
+              if (err) {
+             //If post are not available is not inserted to database
+                console.error(err);
+                return res.status(500).json({
+                  error: "Database error",
+                });
+              } else {
+                res
+                  .status(200)
+                  .send(result.rows);
+              }
+            }
+          );    } catch (err) {
+            console.log(err);
+            res.status(500).json({
+              error: "Database error while creating post!", //Database connection error
+            });
+          }
+        };
+        exports.viewOwnerRequests= async (req, res) => {
+          const user_id = parseInt(req.params.id);
+          try {
+                //get all post form the database
+                const data = await client.query(
+                ` SELECT * FROM application a, school s where application_id = s.school_id and a.owner_id = $1 `,
+        
+                  [user_id],
+                  (err,result) => {
+                    if (err) {
+                   //If post are not available is not inserted to database
+                      console.error(err);
+                      return res.status(500).json({
+                        error: "Database error",
+                      });
+                    } else {
+                      res
+                        .status(200)
+                        .send(result.rows);
+                    }
+                  }
+                );
+          } catch (err) {
+            console.log(err);
+            res.status(500).json({
+              error: "Database error while creating post!", //Database connection error
+            });
+          }
+        };
+        
   exports.viewMyRequests = (req, res) => {
     const owner_id = req.params.owner_id;
   const sql =

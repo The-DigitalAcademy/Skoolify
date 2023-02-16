@@ -29,6 +29,8 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { OwnerViewSchoolComponent } from './components/owner-page/owner-view-school/owner-view-school.component';
 import { OwnerSchoolApplicationComponent } from './components/owner-school-application/owner-school-application.component';
 import { OwnerApplicationCompletionComponent } from './components/owner-application-completion/owner-application-completion.component';
+import { CommonModule } from '@angular/common'
+import { RequestsOwnerComponent } from './components/requests-owner/requests-owner.component';
 
 
 import { AdminGuard } from './guards/admin/admin.guard';
@@ -44,7 +46,7 @@ import { RequestsComponent } from './components/requests/requests.component';
 
 
 
-  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent,EditVehicleComponent, AddvehicleComponent ,LandingComponent, LoginComponent,NavComponent, RegisterComponent,ProfileComponent,OwnerRequestsComponent,ForgotpasswordComponent, RequestsComponent, ConfirmationComponent, OwnerViewSchoolComponent,OwnerSchoolApplicationComponent, OwnerApplicationCompletionComponent],
+  declarations: [AppComponent, SchoolsComponent, VehiclesComponent, OwnerPageComponent,EditVehicleComponent, AddvehicleComponent ,LandingComponent, LoginComponent,NavComponent, RegisterComponent,RequestsOwnerComponent,ProfileComponent,OwnerRequestsComponent,ForgotpasswordComponent, RequestsComponent, ConfirmationComponent, OwnerViewSchoolComponent,OwnerSchoolApplicationComponent, OwnerApplicationCompletionComponent],
   imports: [Ng2SearchPipeModule,BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
 
 
