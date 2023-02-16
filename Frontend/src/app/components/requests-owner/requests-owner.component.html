@@ -28,8 +28,8 @@
 </div> -->
 
 
-<br>
-<div>
+
+<div class="pt-14">
   
   <div class="requests" >
     <span id="heading "><h3>Applications</h3></span>
@@ -45,8 +45,7 @@
         </p>
       </div>
 
-      <div
-        class="flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral"
+      <div [ngClass]="request.status =='APPROVED'? 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-info':'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral'"
       >
         <span class="text-white my-auto">{{request.status}}</span>
 

@@ -30,7 +30,8 @@ const routes: Routes = [
   { path:'', component: LandingComponent },
   { path:'register', component: RegisterComponent },
   { path:'login', component: LoginComponent},
-{path:'owner-request',component:RequestsOwnerComponent},
+{path:'owner-appplication',component:RequestsOwnerComponent,canActivate:[OwnerGuard]},
+
   { path:'schoolsApplication', component: OwnerSchoolApplicationComponent,canActivate:[OwnerGuard]},
   { path:'owner-requestNotification', component:OwnerApplicationCompletionComponent,canActivate:[OwnerGuard]},
   { path:'forgotPassword', component: ForgotpasswordComponent },

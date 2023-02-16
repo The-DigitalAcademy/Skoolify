@@ -87,12 +87,7 @@ export class OwnerSchoolApplicationComponent implements OnInit {
         
 this.schoolName=this.school.school_name;
 this.schoolLocation=this.school.school_location;
-        vehicles.forEach(vehicle => {
-          this.vehicle.push(vehicle)
-          console.log(vehicle.brand)
-
-
-        });
+     
       
 
       

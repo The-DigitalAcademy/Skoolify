@@ -3,6 +3,7 @@ import { OwnerService } from 'src/app/services/owner.service';
 import { OwnerApplication } from 'src/app/interfaces/applications';
 import { application, Application } from 'express';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { JwtService } from 'src/app/services/jwt.service';
 @Component({
   selector: 'app-requests-owner',
   templateUrl: './requests-owner.component.html',
@@ -16,12 +17,12 @@ price1:any
 school1:any
 applications:OwnerApplication[]=[]
 schoolName:any;
-  constructor(private services:OwnerService,) { }
+  constructor(private services:OwnerService,private jwt: JwtService) { }
 OwnerApplication!:OwnerApplication
 
   ngOnInit(): void {
 
-this.services.viewOwnerRequests(Number(sessionStorage.getItem('user_ID'))).subscribe((applications1:any)=>{
+this.services.viewOwnerRequests(this.jwt.getData(sessionStorage.getItem('key'))?.user_id).subscribe((applications1:any)=>{
 
  
 
