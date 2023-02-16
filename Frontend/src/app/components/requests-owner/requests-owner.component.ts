@@ -23,12 +23,7 @@ OwnerApplication!:OwnerApplication
   ngOnInit(): void {
 
 this.services.viewOwnerRequests(this.jwt.getData(sessionStorage.getItem('key'))?.user_id).subscribe((applications1:any)=>{
-
   this.applications=applications1;
-
-  //console.log(this.applications,'ffd')
-  // this.OwnerApplication.price[0]
-
 },(error:HttpErrorResponse)=>{
   //failed to view vehicle
   console.log(error)

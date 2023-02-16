@@ -68,29 +68,29 @@ export class OwnerSchoolApplicationComponent implements OnInit {
                 this.vehicle = vehicles;
 
 
-    
-   
+
+
   //   },(error:HttpErrorResponse)=>{
-  
+
   //     //owner fetching error
   //     console.log(error);
   //   })
   // }
 
 
-    
-    
-  
 
 
-   
-        
+
+
+
+
+
 this.schoolName=this.school.school_name;
 this.schoolLocation=this.school.school_location;
-     
-      
 
-      
+
+
+
       console.log("hello");
       console.log(school);
 
@@ -99,10 +99,10 @@ this.schoolLocation=this.school.school_location;
       //failed to view vehicle
       console.log(error)
     });
-  
+
   })
     }
-    
+
 
 );
   }
@@ -122,7 +122,7 @@ this.schoolLocation=this.school.school_location;
       price: form.value.price,
       school_id: this.schoolID,
       owner_id: this.ownerID,
-      vehicle_id: this.vehicleID,
+      vehicle_id: form.value.vehicle_id,
     };
     this.services.price(applicationData).subscribe(
       (result: any) => {
