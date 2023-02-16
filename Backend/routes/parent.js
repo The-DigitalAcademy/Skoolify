@@ -19,6 +19,10 @@ const{getRequests} = require('../controllers/parent')
 const{getAppPrice} = require('../controllers/parent')
 const{priceOfTransport} = require('../controllers/parent')
 
+const parent = require('../controllers/parent')
+
+router.get('/requests/:parent_id',parent.viewMyRequests)
+router.get('/requests/:parent_id/:request_id',parent.viewRequest)
 
 router.get('/getSchool',getSchool)
 router.get('/getOneSchool/:id',getOneSchool)

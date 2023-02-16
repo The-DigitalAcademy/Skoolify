@@ -1,55 +1,48 @@
-<div>
-    Requests
-  <div class="requests">
-    <div class="request bg-accent">
-      <img
-        class="w-20 h-20 object-cover rounded-2xl my-auto"
-        src="https://media.istockphoto.com/id/1372641621/photo/portrait-of-a-businessman-on-gray-background.jpg?b=1&s=170667a&w=0&k=20&c=Yyi5slaeNpq_HPcfgy1305VpJSwerPm_s7mTz_bBk6c="
-        alt=""
-      />
-      <div id="flex" class="flex flex-col">
-        <div class="name font-medium">Andries BHILA</div>
-        <p style="color: var(--grey-light)" class="text-sm">
-          toyota .quantum 2013
-        </p>
-        <p style="color: var(--grey-light)" class="text-xs">
-          auklandpark primary school
-        </p>
-      </div>
+<div class="pt-14
+">
+    <span class="pl-5
+    ">Requests</span>
 
-      <div
-        class="flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral"
-      >
-        <span class="text-white my-auto">Pending</span>
+
+    <div class="hero" *ngIf="requestsView.length ==0">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold">Oops!</h1>
+          <p class="py-6">You have not sent any requests so far</p>
+          <button class="btn btn-primary text-white rounded-2xl capitalize font-normal" routerLink="/owner-home">Find a driver</button>
+        </div>
       </div>
     </div>
 
 
-    <div class="request bg-accent">
+  <div class="requests px-3 md:px-12">
+    <div class="request bg-accent" *ngFor="let request of requestsView">
+
+
         <img
-          class="w-20 h-20 object-cover rounded-2xl my-auto"
-          src="https://media.istockphoto.com/id/1372641621/photo/portrait-of-a-businessman-on-gray-background.jpg?b=1&s=170667a&w=0&k=20&c=Yyi5slaeNpq_HPcfgy1305VpJSwerPm_s7mTz_bBk6c="
-          alt=""
-        />
-        <div id="flex" class="flex flex-col">
-          <div class="name font-medium">Clement White</div>
-          <p style="color: var(--grey-light)" class="text-sm">
-            toyota .Avanza 2014
-          </p>
-          <p style="color: var(--grey-light)" class="text-xs">
-            <button class="btn btn-xs sm:btn-sm md:btn-md ">rates service</button>
-          
-          </p>
-        </div>
-  
-        <div
-          class="flex h-5 w-fit px-3 bg-info absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg"
-        >
-          <span class="text-white  my-auto">Approved</span>
+        class="w-20 h-20 object-cover rounded-2xl my-auto"
+        [src]="request.vehicle.driver_image"
+        alt=""
+      />
+      <div id="flex" class="flex flex-col">
+        <div class="name font-medium">{{request.vehicle.driver_name}}</div>
+        <p style="color: var(--grey-light)" class="text-sm">
+          {{request.vehicle.brand}}  {{request.vehicle.model}}
+        </p>
+        <p style="color: var(--grey-light)" class="text-xs">
+          {{request.school.school_name}}
+        </p>
+        <div class="hidden justify-between">
+          <span></span>
+          <button class="btn btn-ghost btn-xs capitalize ">Rate Service</button>
         </div>
       </div>
+      <div
+        [ngClass]="request.request.status=='ACCEPTED'? 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-info':'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral'"
+      >
+        <span class="text-white my-auto">{{request.request.status}}</span>
+      </div>
+    </div>
 
-
-    
   </div>
 </div>

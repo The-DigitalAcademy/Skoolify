@@ -64,7 +64,8 @@ exports.register = async (req, res) => {
                   surname : results.rows[0].surname,
                   account : results.rows[0].account,
                   image : results.rows[0].image,
-                  ratings : results.rows[0].ratings
+                  ratings : results.rows[0].ratings,
+                  user_id : results.rows[0].user_id
                 },
                 "egfiuehfiejfpiejfpiefhpiehf3pifnepkfnepfnepi",
                 {

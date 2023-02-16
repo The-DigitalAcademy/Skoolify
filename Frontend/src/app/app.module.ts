@@ -46,12 +46,8 @@ import { RequestsComponent } from './components/requests/requests.component';
 
 
 @NgModule({
-
   declarations: [AppComponent, SchoolsComponent, ParentsRequestComponent,VehiclesComponent, OwnerPageComponent,EditVehicleComponent, AddvehicleComponent ,LandingComponent, LoginComponent,NavComponent, RegisterComponent,RequestsOwnerComponent,ProfileComponent,OwnerRequestsComponent,ForgotpasswordComponent, RequestsComponent, ConfirmationComponent, OwnerViewSchoolComponent,OwnerSchoolApplicationComponent, OwnerApplicationCompletionComponent],
   imports: [Ng2SearchPipeModule,BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule,HotToastModule.forRoot()],
-
-
-
 
   providers: [UserGuard,AdminGuard,ParentGuard,OwnerGuard],
 

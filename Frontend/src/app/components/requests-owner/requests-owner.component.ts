@@ -15,7 +15,7 @@ throw new Error('Method not implemented.');
 }
 price1:any
 school1:any
-applications:OwnerApplication[]=[]
+applications:OwnerApplication[] = [];
 schoolName:any;
   constructor(private services:OwnerService,private jwt: JwtService) { }
 OwnerApplication!:OwnerApplication
@@ -24,12 +24,9 @@ OwnerApplication!:OwnerApplication
 
 this.services.viewOwnerRequests(this.jwt.getData(sessionStorage.getItem('key'))?.user_id).subscribe((applications1:any)=>{
 
- 
-
-
   this.applications=applications1;
-  
-  console.log(this.applications,'ffd')
+
+  //console.log(this.applications,'ffd')
   // this.OwnerApplication.price[0]
 
 },(error:HttpErrorResponse)=>{

@@ -1,47 +1,30 @@
-<!-- <div class ="header">
-
-<span id="heading"><h3>Applications</h3></span>
-
-<div class="flex lg:px-14 flex-col gap-2">
-    <div
-      class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"
-    >
-
-      <div class="flex flex-col pt-4 pl-4 relative w-full">
-
-        <div class="name font-medium">gg</div>
-        <p style="color: var(--grey-light)" class="text-sm">
-     hi
-        </p>
-        <p style="color: var(--grey-light)" class="text-sm ">
-      hi
-        </p>
-        <p class="tes text-sm justify-end absolute right-2 bottom-1 rounded-xl text-white">
-      
-        </p>
-
-      </div>
-
-      </div>
-    </div>
-
-</div> -->
-
 
 
 <div class="pt-14">
-  
+
   <div class="requests" >
     <span id="heading "><h3>Applications</h3></span>
-    <div class="request bg-accent" *ngFor="let request of applications  " > 
-    
+
+
+    <div class="hero" *ngIf="applications.length ==0">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold">Oops!</h1>
+          <p class="py-6">You have not sent any applications so far</p>
+          <button class="btn btn-info text-white rounded-2xl capitalize font-normal" routerLink="/owner-home">Find Schools</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="request bg-accent" *ngFor="let request of applications  " >
+
       <div id="flex" class="flex flex-col"  >
         <div class="name font-medium">{{request.school_name}}</div>
         <p style="color: var(--grey-light)" class="text-sm">
         {{request.school_location}}
         </p>
         <p style="color: var(--grey-light)" class="text-xs">
-      
+
         </p>
       </div>
 
@@ -53,9 +36,9 @@
           <div
           class="flex h-5 w-fit px-3 absolute top-20 right-0 text-xs rounded-bl-xl  "
         >
-<span id="price"> {{request.price.replace('$','R')}}</span> 
+<span id="price"> {{request.price.replace('$','R')}}</span>
     </div>
-        
+
 
 
 
@@ -64,5 +47,5 @@
 
 
   </div>
-  
+
 </div>

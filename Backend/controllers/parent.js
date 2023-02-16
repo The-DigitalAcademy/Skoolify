@@ -1,192 +1,248 @@
-const client=require('../config/db_config')
+const client = require("../config/db_config");
+
+//requests
+exports.viewMyRequests = (req, res) => {
+  const parent_id = req.params.parent_id;
+  const sql =
+    "SELECT * FROM requests WHERE parent_id = $1 AND (status = 'PENDING' OR status = 'ACCEPTED')";
+  client.query(sql, [parent_id], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ message: "Error fetching requests" });
+    } else {
+      res.status(200).json(results.rows);
+    }
+  });
+};
+
+exports.viewRequest = (req, res) => {
+  const request_id = req.params.request_id;
+  const parent_id = req.params.parent_id;
+
+  const request = "SELECT * FROM requests WHERE request_id = $1 AND parent_id = $2";
+  const school = "SELECT * FROM school WHERE school_id = $1";
+  const owner = "SELECT * FROM users WHERE user_id = $1";
+  const vehicle_id = "SELECT * FROM vehicle_owner WHERE school_id = $1 AND owner_id = $2";
+
+  client.query(request, [request_id, parent_id], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ message: "Error fetching request" });
+    } else {
+      client.query(owner, [results.rows[0].owner_id], (err, ownerRes) => {
+        if (err) {
+          res.status(400).json({ message: "Error fetching owner" });
+        } else {
+          client.query(
+            school,
+            [results.rows[0].school_id],
+            (err, schoolRes) => {
+              if (err) {
+                res.status(400).json({ message: "Error fetching school" });
+              } else {
+                client.query(
+                  vehicle_id,
+                  [results.rows[0].school_id,results.rows[0].owner_id],
+                  (err, vehicleId) => {
+                    if (err) {
+                      res.status(400).json({ message: "Error fetching vehicle id" });
+                    } else {
+                      client.query(
+                        "SELECT * FROM vehicle WHERE vehicle_id = $1",
+                        [vehicleId.rows[0].vehicle_id],
+                        (err, vehicleRes) => {
+                          if (err) {
+                            res.status(400).json({ message: "Error fetching vehicle" });
+                          } else {
+                            res.status(200).json({
+                              request: results.rows[0],
+                              owner: ownerRes.rows[0],
+                              school: schoolRes.rows[0],
+                              vehicle : vehicleRes.rows[0]
+                            });
+                            
+                          }
+                        }
+                      )
+                      
+                    }
+                  }
+                )
+              }
+            }
+          ); //school call
+        }
+      }); //parent call
+    }
+  }); //request call
+};
 
 //get schools query
 
-exports.getSchool= async (req, res) => {
-    try {
-          //get all schools form the database
-          const data = await client.query(
-            `SELECT * FROM school WHERE is_deleted = false`,
-            
-            (err,result) => {
-              if (err) {
-             //If no school inserted to database
-                console.error(err);
-                return res.status(500).json({
-                  error: "Database error",
-                });
-              } else {
-                res
-                  .status(200)
-                  .send(result.rows);
-              }
-            }
-          );
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({
-        error: "Database error", //Database connection error
-      });
-    }
-  };
 
-  //getSchool by id
+exports.getSchool = async (req, res) => {
+  try {
+    //get all schools form the database
+    const data = await client.query(
+      `SELECT * FROM school WHERE is_deleted = false`,
+
+      (err, result) => {
+        if (err) {
+          //If no school inserted to database
+          console.error(err);
+          return res.status(500).json({
+            error: "Database error",
+          });
+        } else {
+          res.status(200).send(result.rows);
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error", //Database connection error
+    });
+  }
+};
+
+//getSchool by id
 
 exports.getOneSchool = async (req, res) => {
-    const school_id = parseInt(req.params.id);
-    try {
-         
-          const data = await client.query(
-            `SELECT * FROM school where school_id = $1`,
-            [school_id],
-            (err,result) => {
-              if (err) {
-            
-                console.error(err);
-                return res.status(500).json({
-                  error: "Database error",
-                });
-              } else {
-                res
-                  .status(200)
-                  .send(result.rows[0]);
-              }
-            }
-          );
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({
-        error: "Database error", //Database connection error
-      });
-    }
-  };
-
-  
-exports.getVehicle = async (req, res) => {
-    const owner_id = parseInt(req.params.id);
-    try {
-          //get all post form the database
-          const data = await client.query(
-            `SELECT * FROM vehicle_owner o , vehicle v  ,users u WHERE u.user_id = o.owner_id  and o.vehicle_id = v.vehicle_id and school_id = $1`,
-            [owner_id],
-            (err,result) => {
-              if (err) {
-             //If post are not available is not inserted to database
-                console.error(err);
-                return res.status(500).json({
-                  error: "Database error",
-                });
-              } else {
-                res
-                  .status(200)
-                  .send(result.rows);
-              }
-            }
-          );
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({
-        error: "Database error while creating post!", //Database connection error
-      });
-    }
-  };
-
- 
-   exports.getVehicleUser = async (req, res) => {
-    const user_id = parseInt(req.params.id);
-    try {
-          //get all post form the database
-          const data = await client.query(
-            `SELECT * FROM vehicle where owner_id = $1`,
-            [user_id],   (err,result) => {
-              if (err) {
-             //If post are not available is not inserted to database
-                console.error(err);
-                return res.status(500).json({
-                  error: "Database error",
-                });
-              } else {  
-                res
-                  .status(200).json(result.rows);
-                  
-                        }
-            }
-          );
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({
-        error: "Database error while creating post!", //Database connection error
-      });
-    }
+  const school_id = parseInt(req.params.id);
+  try {
+    const data = await client.query(
+      `SELECT * FROM school where school_id = $1`,
+      [school_id],
+      (err, result) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({
+            error: "Database error",
+          });
+        } else {
+          res.status(200).send(result.rows[0]);
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error", //Database connection error
+    });
+  }
 };
-  
-  
 
-  exports.priceOfTransport = async (req, res) => {
-    const {owner_id,school_id } = req.body;
-    try {
-          //get all post form the database
-          const data = await client.query(
-            `SELECT * from application where school_id = $1 and owner_id = $2`,
-            [school_id,owner_id],
-             (err,result) => {
-              if (err) {
-             //If post are not available is not inserted to database
-                console.error(err);
-                return res.status(500).json({
-                  error: "Database error",
-                });
-              } else {
-                res
-                  .status(200).json(result.rows);
-              }
-            }
-          );
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({
-        error: "Database error while creating post!", //Database connection error
-      });
-    }
-  };
+exports.getVehicle = async (req, res) => {
+  const owner_id = parseInt(req.params.id);
+  try {
+    //get all post form the database
+    const data = await client.query(
+      `SELECT * FROM vehicle_owner o , vehicle v  ,users u WHERE u.user_id = o.owner_id  and o.vehicle_id = v.vehicle_id and school_id = $1`,
+      [owner_id],
+      (err, result) => {
+        if (err) {
+          //If post are not available is not inserted to database
+          console.error(err);
+          return res.status(500).json({
+            error: "Database error",
+          });
+        } else {
+          res.status(200).send(result.rows);
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error while creating post!", //Database connection error
+    });
+  }
+};
 
+exports.getVehicleUser = async (req, res) => {
+  const user_id = parseInt(req.params.id);
+  try {
+    //get all post form the database
+    const data = await client.query(
+      `SELECT * FROM vehicle where owner_id = $1`,
+      [user_id],
+      (err, result) => {
+        if (err) {
+          //If post are not available is not inserted to database
+          console.error(err);
+          return res.status(500).json({
+            error: "Database error",
+          });
+        } else {
+          res.status(200).json(result.rows);
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error while creating post!", //Database connection error
+    });
+  }
+};
 
+exports.priceOfTransport = async (req, res) => {
+  const { owner_id, school_id } = req.body;
+  try {
+    //get all post form the database
+    const data = await client.query(
+      `SELECT * from application where school_id = $1 and owner_id = $2`,
+      [school_id, owner_id],
+      (err, result) => {
+        if (err) {
+          //If post are not available is not inserted to database
+          console.error(err);
+          return res.status(500).json({
+            error: "Database error",
+          });
+        } else {
+          res.status(200).json(result.rows);
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error while creating post!", //Database connection error
+    });
+  }
+};
 
-  exports.getSchoolVehicle = async (req, res) => {
-    const school_id = parseInt(req.params.id);
-    try {
-          //get all post form the database
-          const data = await client.query(
-           `SELECT * FROM vehicle_owner where school_id = $1`,
-            [school_id],
-            (err,result) => {
-              if (err) {
-             //If post are not available is not inserted to database
+exports.getSchoolVehicle = async (req, res) => {
+  const school_id = parseInt(req.params.id);
+  try {
+    //get all post form the database
+    const data = await client.query(
+      `SELECT * FROM vehicle_owner where school_id = $1`,
+      [school_id],
+      (err, result) => {
+        if (err) {
+          //If post are not available is not inserted to database
 
-                console.error(err);
-                return res.status(500).json({
-                  error: "Database error",
-                });
-              } else {
-                res
-                  .status(200)
-                  .send(result.rows);
-              }
-            }
-          );
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({
+          console.error(err);
+          return res.status(500).json({
+            error: "Database error",
+          });
+        } else {
+          res.status(200).send(result.rows);
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      error: "Database error while creating post!", //Database connection error
+    });
+  }
+};
 
-        error: "Database error while creating post!", //Database connection error
-
-      });
-    }
-  };
-
-
-
-  //get one vehicle
+//get one vehicle
 exports.ViewVehicle = (req, res) => {
   const vehicle_id = req.params.vehicle_id;
   const sql = "SELECT * FROM vehicle WHERE vehicle_id = $1";
@@ -249,24 +305,22 @@ exports.viewSchool = (req, res) => {
 exports.getSchoolVehicle = async (req, res) => {
   const school_id = parseInt(req.params.id);
   try {
-        //get all post form the database
-        const data = await client.query(
-          `SELECT * FROM vehicle_owner where school_id = $1`,
-          [school_id],
-          (err,result) => {
-            if (err) {
-           //If post are not available is not inserted to database
-              console.error(err);
-              return res.status(500).json({
-                error: "Database error",
-              });
-            } else {
-              res
-                .status(200)
-                .send(result.rows);
-            }
-          }
-        );
+    //get all post form the database
+    const data = await client.query(
+      `SELECT * FROM vehicle_owner where school_id = $1`,
+      [school_id],
+      (err, result) => {
+        if (err) {
+          //If post are not available is not inserted to database
+          console.error(err);
+          return res.status(500).json({
+            error: "Database error",
+          });
+        } else {
+          res.status(200).send(result.rows);
+        }
+      }
+    );
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -280,13 +334,13 @@ exports.getSchoolVehicle = async (req, res) => {
 // exports.addRequests = async (req, res) => {
 //   const {parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status} = req.body;
 //   try {
-        
+
 //         const data = await client.query(
 //           `INSERT INTO requests (parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status);`,
 //           [parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status],
 //           (err) => {
 //             if (err) {
-           
+
 //               console.error(err);
 //               return res.status(500).json({
 //                 error: "Database error",
@@ -301,7 +355,7 @@ exports.getSchoolVehicle = async (req, res) => {
 //   } catch (err) {
 //     console.log(err);
 //     res.status(500).json({
-//       error: "Database error while creating post!", 
+//       error: "Database error while creating post!",
 //     });
 //   }
 // };
@@ -309,24 +363,22 @@ exports.getSchoolVehicle = async (req, res) => {
 //get requests
 exports.getRequests = async (req, res) => {
   try {
-        //get all post form the database
-        const data = await client.query(
-          `SELECT * FROM requests`,
-          
-          (err,result) => {
-            if (err) {
-           //If post are not available is not inserted to database
-              console.error(err);
-              return res.status(500).json({
-                error: "Database error",
-              });
-            } else {
-              res
-                .status(200)
-                .send(result.rows);
-            }
-          }
-        );
+    //get all post form the database
+    const data = await client.query(
+      `SELECT * FROM requests`,
+
+      (err, result) => {
+        if (err) {
+          //If post are not available is not inserted to database
+          console.error(err);
+          return res.status(500).json({
+            error: "Database error",
+          });
+        } else {
+          res.status(200).send(result.rows);
+        }
+      }
+    );
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -339,20 +391,41 @@ exports.getRequests = async (req, res) => {
 exports.addRequests = (req, res) => {
   //const {parent_id,owner_id,school_id} = parseInt(req.params.id);
 
-  const {parent_id,owner_id,school_id,message,address,num_kids,description} = req.body;
+  const {
+    parent_id,
+    owner_id,
+    school_id,
+    message,
+    address,
+    num_kids,
+    description,
+  } = req.body;
   const sql =
     "INSERT INTO requests (parent_id,owner_id,school_id,message,address,num_kids,description,status) values($1,$2,$3,$4,$5,$6,$7,$8)";
 
-    console.log(address)
-  client.query(sql, [parent_id,owner_id,school_id,message,address,num_kids,description,"PENDING"], (err, results) => {
-    if (err) {
-      console.log(err)
-      
-      res.status(401).json({ message: "Error inserting request" });
-    } else {
-      res.status(201).json({ message: "Request successfully added" });
+  console.log(address);
+  client.query(
+    sql,
+    [
+      parent_id,
+      owner_id,
+      school_id,
+      message,
+      address,
+      num_kids,
+      description,
+      "PENDING",
+    ],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+
+        res.status(401).json({ message: "Error inserting request" });
+      } else {
+        res.status(201).json({ message: "Request successfully added" });
+      }
     }
-  });
+  );
 };
 
 //get price from application
@@ -373,25 +446,23 @@ exports.addRequests = (req, res) => {
 exports.getAppPrice = async (req, res) => {
   const vehicle_id = parseInt(req.params.id);
   try {
-        //get all post form the database
-        const data = await client.query(
-          `SELECT * FROM vehicle_owner o, vehicle v , application a, users u where o.vehicle_id = v.vehicle_id and a.school_id = $1 and a.vehicle_id = v.vehicle_id and u.user_id = o.owner_id`,
+    //get all post form the database
+    const data = await client.query(
+      `SELECT * FROM vehicle_owner o, vehicle v , application a, users u where o.vehicle_id = v.vehicle_id and a.school_id = $1 and a.vehicle_id = v.vehicle_id and u.user_id = o.owner_id`,
 
-          [vehicle_id],
-          (err,result) => {
-            if (err) {
-           //If post are not available is not inserted to database
-              console.error(err);
-              return res.status(500).json({
-                error: "Database error",
-              });
-            } else {
-              res
-                .status(200)
-                .send(result.rows);
-            }
-          }
-        );
+      [vehicle_id],
+      (err, result) => {
+        if (err) {
+          //If post are not available is not inserted to database
+          console.error(err);
+          return res.status(500).json({
+            error: "Database error",
+          });
+        } else {
+          res.status(200).send(result.rows);
+        }
+      }
+    );
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -399,5 +470,3 @@ exports.getAppPrice = async (req, res) => {
     });
   }
 };
-
-

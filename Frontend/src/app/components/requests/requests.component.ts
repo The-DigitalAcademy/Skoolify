@@ -58,38 +58,6 @@ export class RequestsComponent implements OnInit {
   constructor(private toast: HotToastService,private jwt : JwtService, private service:ParentService,private location:Location,private router:Router) { }
 
 
-//  ngOnInit(): void {
-//     this.service.viewVehicle(Number(sessionStorage.getItem('selected_vehicle'))).subscribe((vehicle:Vehicle)=>{
-//       this.vehicle = vehicle;
-
-//       this.service.viewSchoolTransporters(Number(sessionStorage.getItem('selected_school'))).subscribe((transporters:Transporter[])=>{
-//         this.transporters = transporters;
-
-//       //  console.log("this id",this.school_id)
-
-//         transporters.forEach(transporter => {
-//           this.service.viewVehicle(transporter.vehicle_id).subscribe((vehicle:Vehicle)=>{
-
-//             this.vehicles.push(vehicle)
-
-
-//           },(err:HttpErrorResponse)=>{
-//             console.log(err)
-//             //failed to get vehicle
-//           })
-
-//         });
-
-
-//       })
-//       console.log(this.vehicles);
-//     },(error:HttpErrorResponse)=>{
-//       //failed to view school
-//       console.log(error)
-//     });
-
-//   }
-
 ngOnInit(): void {
   sessionStorage.setItem('state','Goo...');
 
@@ -99,12 +67,6 @@ ngOnInit(): void {
   this.service.viewVehicle(Number(sessionStorage.getItem('selected_school'))).subscribe(async(vehicle:Vehicle[])=>{
     this.vehicle = await vehicle;
 
-    // this.service.viewOwnerVehicles(Number(sessionStorage.getItem('selected_owner'))).subscribe((vehicles:Vehicle[])=>{
-    //   this.vehicles = vehicles;
-    // },(error:HttpErrorResponse)=>{
-    //   //vehicles fetching error
-    //   console.log(error);
-    // })
     this.all= localStorage.getItem('allInfo')
 this.details = JSON.parse(this.all)
 
@@ -122,16 +84,6 @@ this.owner1=this.details[0].name
 this.driverImage=this.details[0].driver_image
 this.votes=this.details[0].votes
 
-
-
-
-
-// this.vehicleReg=vehicle.vehicle_reg;
-// this.driverName=vehicle.driver_name;
-// this.vehicleName=vehicle.brand;
-// this.vehicleModel=vehicle.model;
-// this.color=vehicle.color;
-// this.price1=vehicle.price;
   },(error:HttpErrorResponse)=>{
 
     //owner fetching error
@@ -156,30 +108,6 @@ this.votes=this.details[0].votes
   }
 
 
-  // onSubmit(data: FormGroup)
-  // {
-  //   this.messages = "Saving...";
-  //   this.load = true;
-  //   this.service.addRequests(data.value).subscribe((result:any) => {
-
-  //     console.log('added school')
-  //     data.reset()
-  //     setTimeout(() => {
-  //       this.messages = "Saved";
-  //       this.load = false;
-  //     }, 2000);
-
-  //     setTimeout(() => {
-  //       this.messages = "Save";
-  //     }, 4000);
-  //   },(error:HttpErrorResponse)=>{
-  //     //failed to save school
-  //     console.log(error)
-
-  //   })
-
-  // }
-
   onSubmit(form: FormGroup)
   {
 
@@ -194,9 +122,6 @@ this.votes=this.details[0].votes
         message: form.value.message,
         num_kids:form.value.num_kids,
         description:form.value.description,
-        // parent_id:sessionStorage.getItem('parent_id'),
-        // school_id:sessionStorage.getItem('school_id'),
-        // owner_id:sessionStorage.getItem('owner_id')
         school_id:this.schoolID,
         parent_id:this.parentID,
         owner_id:this.ownerID,

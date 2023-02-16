@@ -179,6 +179,15 @@
             ><i class="fi fi-rr-time-check"></i>Requests</a
           >
         </li>
+
+        <li class="mb-1" *ngIf="accountType == 'OWNER' && isLoggedIn">
+          <a
+            class="navbar-close flex gap-2 p-4 font-semibold  text-white hover:text-gray-500"
+            routerLink="/owner-requests"
+
+            ><i class="fi fi-rr-time-check"></i>Requests</a
+          >
+        </li>
         <li class="mb-1" *ngIf="isLoggedIn && accountType != 'ADMIN'" >
           <a
             class="navbar-close p-4 font-semibold  text-white hover:text-gray-500 flex gap-2"

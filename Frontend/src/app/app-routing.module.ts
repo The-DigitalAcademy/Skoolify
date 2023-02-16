@@ -42,7 +42,7 @@ const routes: Routes = [
   { path:'profile',component: ProfileComponent,canActivate:[UserGuard]},
   { path:'parent-home', component: SchoolsComponent},
 
-  { path:'parents-request', component:ParentsRequestComponent},
+  { path:'parent-requests', component:ParentsRequestComponent},
 
   { path:'vehicle', component: VehiclesComponent},
   //{ path:'vehicle', component: VehiclesComponent,canActivate:[ParentGuard]},

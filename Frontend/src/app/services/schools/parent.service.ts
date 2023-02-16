@@ -20,6 +20,15 @@ export class ParentService {
     return this.http.get<School[]>(`${this.baseUrl}/getSchool`)
   }
 
+  getAllRequests(parent_id:any)
+  {
+    return this.http.get(this.baseUrl+"/requests/"+parent_id);
+  }
+
+  getRequest(parent_id:any,request_id:any):Observable<any>
+  {
+    return this.http.get<any>(this.baseUrl+"/requests/"+parent_id+"/"+request_id);
+  }
 
   getDrivers(user_id :number):Observable<Vehicle[]>{
     console.log(user_id)
