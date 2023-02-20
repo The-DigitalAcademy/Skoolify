@@ -161,11 +161,12 @@ exports.getVehicle = async (req, res) => {
 };
 
 exports.getVehicleUser = async (req, res) => {
-  const user_id = parseInt(req.params.id);
+  const user_id = req.params.id
+  console.log(user_id)
   try {
     //get all post form the database
     const data = await client.query(
-      `SELECT * FROM vehicle where vehicle_id = $1`,
+      `SELECT * FROM vehicle where owner_id = $1 AND is_deleted = false`,
       [user_id],
       (err, result) => {
         if (err) {
@@ -286,6 +287,7 @@ exports.viewSchool = (req, res) => {
     }
   });
 };
+
 //view transport
 // exports.schoolTransporters = (req, res) => {
 //   const school_id = req.params.school_id;

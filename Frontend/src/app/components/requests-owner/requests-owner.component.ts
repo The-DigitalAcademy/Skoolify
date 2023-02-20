@@ -24,6 +24,7 @@ OwnerApplication!:OwnerApplication
 
 this.services.viewOwnerRequests(this.jwt.getData(sessionStorage.getItem('key'))?.user_id).subscribe((applications1:any)=>{
   this.applications=applications1;
+
 },(error:HttpErrorResponse)=>{
   //failed to view vehicle
   console.log(error)

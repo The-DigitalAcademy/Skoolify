@@ -59,8 +59,7 @@ exports.viewRequests = (req, res) => {
   exports.price = (req, res) => {
     const {price,owner_id,vehicle_id,school_id } = req.body;
 
-
-    console.log('vehi' + vehicle_id+'\nsc' + vehicle_id+'\n')
+    //console.log('vehi' + vehicle_id+'\nsc' + vehicle_id+'\n')
     let status="PENDING"
     const sql =
       "INSERT INTO application (owner_id,vehicle_id,price,school_id,status) values($1,$2,$3,$4,$5)";
@@ -103,6 +102,8 @@ exports.viewRequests = (req, res) => {
             });
           }
         };
+
+
         exports.viewOwnerRequests= async (req, res) => {
           const user_id = parseInt(req.params.id);
           try {
