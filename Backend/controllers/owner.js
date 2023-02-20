@@ -108,7 +108,7 @@ exports.viewRequests = (req, res) => {
           try {
                 //get all post form the database
                 const data = await client.query(
-                ` SELECT * FROM application a, school s where application_id = s.school_id and a.owner_id = $1 `,
+                ` SELECT * FROM application a, school s where a.owner_id = $1 `,
         
                   [user_id],
                   (err,result) => {

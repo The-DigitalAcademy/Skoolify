@@ -47,10 +47,10 @@ export class RequestsComponent implements OnInit {
 
 
   addRequestForm = new FormGroup({
-    address: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-    message: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-    num_kids:new FormControl,
-    description:new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
+    address: new FormControl(''),
+    message: new FormControl(''),
+    num_kids:new FormControl(''),
+    description:new FormControl(''),
 
   })
 
@@ -64,7 +64,7 @@ ngOnInit(): void {
   this.parentID = this.jwt.getData(sessionStorage.getItem('key'))?.user_id
 
   console.log(sessionStorage.getItem('selected_vehicle'))
-  this.service.viewVehicle(Number(sessionStorage.getItem('selected_school'))).subscribe(async(vehicle:Vehicle[])=>{
+  this.service.getVehicleUser(Number(sessionStorage.getItem('selected_vehicle'))).subscribe(async(vehicle:Vehicle[])=>{
     this.vehicle = await vehicle;
 
     this.all= localStorage.getItem('allInfo')
@@ -73,15 +73,15 @@ this.details = JSON.parse(this.all)
 console.log(this.details,'xoz')
 
 
-this.driverName=this.details[0].driver_name;
-this.vehicleName=this.details[0].brand;
-this.vehicleModel=this.details[0].model;
- this.price1=this.details[0].price;
-this. vehicleReg=this.details[0].vehicle_reg;
-this.color=this.details[0].color;
-this.ratings1=this.details[0].ratings
-this.owner1=this.details[0].name
-this.driverImage=this.details[0].driver_image
+this.driverName=this.vehicle[0].driver_name;
+this.vehicleName=this.vehicle[0].brand;
+this.vehicleModel=this.vehicle[0].model;
+ this.price1=this.vehicle[0].price;
+this. vehicleReg=this.vehicle[0].vehicle_reg;
+this.color=this.vehicle[0].color;
+this.ratings1=this.vehicle[0].ratings
+//this.owner1=this.[0].name
+this.driverImage=this.vehicle[0].driver_image
 this.votes=this.details[0].votes
 
   },(error:HttpErrorResponse)=>{
@@ -108,26 +108,23 @@ this.votes=this.details[0].votes
   }
 
 
-  onSubmit(form: FormGroup)
+  onSubmit(form:any)
   {
+    console.log(form);
 
     if(this.jwt.isAuthenticated() && this.jwt.getData(sessionStorage.getItem('key'))?.account == 'PARENT'){
       this.messages = "Saving...";
       this.load = true;
 
-      const dataValues= {
-
+      let dataValues = {
         address: form.value.address,
-
         message: form.value.message,
         num_kids:form.value.num_kids,
         description:form.value.description,
         school_id:this.schoolID,
         parent_id:this.parentID,
-        owner_id:this.ownerID,
-
+        owner_id:this.vehicle[0].owner_id,
       }
-
 
       console.log("add",dataValues)
       this.toast.loading('Requesting ...',{duration:3000})

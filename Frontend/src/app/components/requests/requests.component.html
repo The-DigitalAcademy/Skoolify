@@ -36,7 +36,11 @@
         <span class="text-lg font-semibold text-primary">{{price1.replace('$','R')}} pm</span>
       </div>
 
-      <button
+    </div>
+  </div>
+</div>
+
+      <!-- <button
       class="btn btn-sm px-2 text-xs py-0 h-5 btn-ghost w-28 text-primary gap-1 rounded-md"
       style="background-color: var(--secondary-color)"
     >
@@ -56,12 +60,9 @@
       <span [hidden]="votes > 50">{{ votes }}</span>
       <span class="-mt-1">Voted</span>
     </div>
-    </button>
-      <span class="ratings text-gray-500 md:mt-1 text-xs">Vehicle owned by <span class="font-semibold">{{owner1}}</span> </span>
-      </div>
-    </div>
-  </div>
-
+    </button> -->
+      <!-- <span class="ratings text-gray-500 md:mt-1 text-xs">Vehicle owned by <span class="font-semibold">{{owner1}}</span> </span> -->
+   
     <!-- <div class="profile flex justify-items-start gap-3 w-full h-36 mb-4">
       <img
         class="w-36 h-36 object-cover rounded-xl my-auto"
@@ -117,37 +118,46 @@
 
    <div class="md:col-span-2 md:mt-0">
     <!-- <form form (ngSubmit)="onSubmit(addRequestForm)"  [formGroup]="addRequestForm"> -->
-      <form   [formGroup]="addRequestForm" >
-      <div class="overflow-hidden">
-        <div class="bg-white py-5">
-          <div class="grid grid-cols-6 gap-3">
-            <div class="col-span-6 sm:col-span-3">
-              <label for="first-name" class="block text-sm font-medium text-gray-700">Message(optional)</label>
-              <textarea type="text"  formControlName="message" placeholder="Type a message" class="textarea mt-1 block w-full bg-accent"></textarea>
-            </div>
 
-
-            <div class="col-span-6 sm:col-span-3">
-              <label for="last-name" class="block text-sm font-medium text-gray-700">Pick up address</label>
-              <textarea type="text" formControlName="address" placeholder="Enter address" name="last-name" id="last-name" class="textarea mt-1 block w-full bg-accent"></textarea>
-            </div>
-
-            <div class="col-span-6 sm:col-span-3">
-              <label for="first-name" class="block text-sm font-medium text-gray-700">Number of kids</label>
-              <input type="number" formControlName="num_kids" name="first-name" placeholder="Enter Number of Kids" id="first-name" class="input mt-1 placeholder:text-sm block w-full bg-accent">
-            </div>
-
-            <div class="col-span-6 sm:col-span-3">
-              <label for="last-name" class="block text-sm font-medium text-gray-700">Description</label>
-              <textarea type="text" formControlName="description" placeholder="Children Details" name="last-name" id="last-name" autocomplete="family-name" class="textarea mt-1 block w-full bg-accent"></textarea>
-            </div>
+      <form [formGroup]="addRequestForm" #requestForm="ngForm" >
+        <div class="grid grid-cols-6 gap-3">
+          <div class="col-span-6 sm:col-span-3">
+            <label for="first-name" class="block text-sm font-medium text-gray-700">Message(optional)</label>
+            <textarea formControlName="message" placeholder="Type a message" class="textarea mt-1 block w-full bg-accent"></textarea>
           </div>
 
-          <div class="flex w-full py-4 justify-center">
-            <button  class="btn btn-primary mx-auto px-10 md:px-16 text-white capitalize font-normal rounded-2xl"  (click)=" onSubmit(addRequestForm)"  >Submit
-            </button>
+
+          <div class="col-span-6 sm:col-span-3">
+            <label for="last-name" class="block text-sm font-medium text-gray-700">Pick up address</label>
+            <input type="text" formControlName="address" placeholder="Enter address"  class="textarea mt-1 block w-full bg-accent">
           </div>
+
+          <div class="col-span-6 sm:col-span-3">
+            <label for="first-name" class="block text-sm font-medium text-gray-700">Number of kids</label>
+            <input type="text" formControlName="num_kids"  class="input mt-1 placeholder:text-sm block w-full bg-accent">
+          </div>
+
+          <div class="col-span-6 sm:col-span-3">
+            <label for="last-name" class="block text-sm font-medium text-gray-700">Description</label>
+            <input type="text" formControlName="description" placeholder="Children Details" class="textarea mt-1 block w-full bg-accent">
+          </div>
+        </div>
+
+        <div class="flex w-full py-4 justify-center">
+          <button  class="btn btn-primary mx-auto px-10 md:px-16 text-white capitalize font-normal rounded-2xl" type="submit" type="submit" (click)="onSubmit(addRequestForm)" >Submit
+          </button>
+        </div>
+
+     
+      
+      </form>
+      
+    
+          
+     
 
 
 
   </div>
+</div>
+
