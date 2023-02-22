@@ -331,36 +331,43 @@ exports.getSchoolVehicle = async (req, res) => {
   }
 };
 
-//add requests
 
-// exports.addRequests = async (req, res) => {
-//   const {parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status} = req.body;
-//   try {
+//rating transport owner
+exports.rateOwner = async (req, res) => {
+  const owner_id = req.params.owner_id;
+  const rating = Number(req.body.rating)
 
-//         const data = await client.query(
-//           `INSERT INTO requests (parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status);`,
-//           [parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status],
-//           (err) => {
-//             if (err) {
+  const votes = "SELECT * FROM users WHERE user_id = $1"
+  const sql = "UPDATE users SET ratings = $1, votes = $2 WHERE user_id = $3"
 
-//               console.error(err);
-//               return res.status(500).json({
-//                 error: "Database error",
-//               });
-//             } else {
-//               res
-//                 .status(200)
-//                 .send({ message: `Post for user ${parent_id} have been added to the database`});
-//             }
-//           }
-//         );
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({
-//       error: "Database error while creating post!",
-//     });
-//   }
-// };
+  client.query(votes,[owner_id],(err,votesRes)=>{
+    if (err) {
+      res.status(400).json({message:'Error fetching votes'})
+    }else{
+      //rating calculation on average
+      let counter = votesRes.rows[0].votes;
+      let currentRate = votesRes.rows[0].ratings;
+      let newRate = ((currentRate * counter) + rating)/(counter+1);
+      newRate = Math.round( newRate * 10 ) / 10;
+
+      //update rating in the database
+      client.query(sql,[newRate,(counter+1),owner_id],(err,votesRes)=>{
+        if(err) {
+          res.status(402).json({message:'Error rating owner'})
+        }else{
+          console.log(newRate)
+          res.status(200).json({message:'Owner rated'})
+        }
+      })
+    }
+
+  })
+
+
+
+
+
+}
 
 //get requests
 exports.getRequests = async (req, res) => {

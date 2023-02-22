@@ -1,48 +1,130 @@
-<div class="pt-14
-">
-    <span class="pl-5
-    ">Requests</span>
+<div class="pt-14">
+  <span class="pl-5">Requests</span>
 
-
-    <div class="hero" *ngIf="requestsView.length ==0">
-      <div class="hero-content text-center">
-        <div class="max-w-md">
-          <h1 class="text-5xl font-bold">Oops!</h1>
-          <p class="py-6">You have not sent any requests so far</p>
-          <button class="btn btn-primary text-white rounded-2xl capitalize font-normal" routerLink="/owner-home">Find a driver</button>
-        </div>
+  <div class="hero" *ngIf="requestsView.length == 0">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="text-5xl font-bold">Oops!</h1>
+        <p class="py-6">You have not sent any requests so far</p>
+        <button
+          class="btn btn-primary text-white rounded-2xl capitalize font-normal"
+          routerLink="/owner-home"
+        >
+          Find a driver
+        </button>
       </div>
     </div>
-
+  </div>
 
   <div class="requests px-3 md:px-12">
     <div class="request bg-accent" *ngFor="let request of requestsView">
-
-
-        <img
+      <img
         class="w-20 h-20 object-cover rounded-2xl my-auto"
         [src]="request.vehicle.driver_image"
         alt=""
       />
-      <div id="flex" class="flex flex-col">
-        <div class="name font-medium">{{request.vehicle.driver_name}}</div>
+      <div id="flex" class="flex flex-col w-full">
+        <div class="name font-medium">{{ request.vehicle.driver_name }}</div>
         <p style="color: var(--grey-light)" class="text-sm">
-          {{request.vehicle.brand}}  {{request.vehicle.model}}
+          {{ request.vehicle.brand }} {{ request.vehicle.model }}
         </p>
-        <p style="color: var(--grey-light)" class="text-xs">
-          {{request.school.school_name}}
+        <p
+          *ngIf="request.request.status != 'ACCEPTED'"
+          style="color: var(--grey-light)"
+          class="text-xs"
+        >
+          {{ request.school.school_name }}
         </p>
-        <div class="hidden justify-between">
+        <div
+          class="flex flex-row-reverse justify-between w-full"
+          *ngIf="request.request.status == 'ACCEPTED'"
+        >
           <span></span>
-          <button class="btn btn-ghost btn-xs capitalize ">Rate Service</button>
+          <label
+            for="my-modal-6"
+            class="btn btn-primary gap-1 text-white font-normal btn-xs capitalize"
+            (click)="select(request)"
+            >Rate Service <i class="fi fi-rr-chart-line-up"></i
+          ></label>
         </div>
       </div>
       <div
-        [ngClass]="request.request.status=='ACCEPTED'? 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-info':'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral'"
+        [ngClass]="
+          request.request.status == 'ACCEPTED'
+            ? 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-info'
+            : 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral'
+        "
       >
-        <span class="text-white my-auto">{{request.request.status}}</span>
+        <span class="text-white my-auto">{{ request.request.status }}</span>
       </div>
     </div>
 
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+    <div class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <div class="text-xl font-semibold my-2">Rate transport owner</div>
+        <div class="flex justify-start gap-3">
+          <img
+            [src]="request.driver_image"
+            alt="driver image"
+            class="rounded-2xl w-20 h-20 object-cover"
+          />
+          <div class="flex flex-col">
+            <h3 class="font-bold text-base">{{ request.driver }}</h3>
+            <h3 class="text-sm font-normal text-gray-600 w-full">
+              Vehicle owned by
+              <span class="font-semibold">{{ request.owner }}</span>
+            </h3>
+          </div>
+        </div>
+        <form action="" [formGroup]="rateForm" (ngSubmit)="rate(rateForm)" class="w-full">
+        <div class="py-4">
+            <div class="form-control gap-1">
+              <label for="">Select a rating</label>
+              <select class="select bg-accent" formControlName="rating">
+                <option value="#" disabled [defaultSelected]="true">
+                  Rate Owner
+                </option>
+                <option value="1.0">1</option>
+
+                <option value="2.0">2</option>
+
+                <option value="3.0">3</option>
+
+                <option value="4.0">4</option>
+
+                <option value="5.0">5</option>
+
+                <option value="6.0">6</option>
+
+                <option value="7.0">7</option>
+
+                <option value="8.0">8</option>
+
+                <option value="9.0">9</option>
+
+                <option value="10.0">10</option>
+              </select>
+            </div>
+
+        </div>
+        <div class="modal-action">
+          <label
+            for="my-modal-6"
+            class="btn btn-info rounded-2xl text-white font-normal capitalize"
+            >Cancel</label
+          >
+          <button
+          type="submit"
+            for="my-modal-6"
+            class="btn btn-info rounded-2xl text-white font-normal capitalize"
+          >
+            Rate
+          </button>
+        </div>
+      </form>
+      </div>
+    </div>
   </div>
 </div>
