@@ -46,14 +46,14 @@ count=0;
    this.service.viewSchoolTransporters(Number(sessionStorage.getItem('selected_school'))).subscribe((transporters:Transporter[])=>{
      this.transporters = transporters;
 
-     
+
 
      this.service.viewVehicle(Number(sessionStorage.getItem('selected_school'))).subscribe((vehicle:Vehicle[])=>{
-  
+
       console.log(Object.keys(vehicle).length)
       this.vehichleData = vehicle;
       this.lenght=Object.keys(vehicle).length
-  
+
   console.log(vehicle[0].ratings,"gg")
   this.ratings1=vehicle[0].ratings
   console.log(vehicle)
@@ -69,30 +69,30 @@ count=0;
   // this.driverProfile=vehicle.driver_image
   // this.vehicleModel=vehicle.model;
   // console.log(this.driverProfile);
- 
+
           },(err:HttpErrorResponse)=>{
-               
+
   //     //         //failed to get vehicle
            })
-            
-        
-  
-  
+
+
+
+
         })
       //   console.log(this.vehicles);
       },(error:HttpErrorResponse)=>{
       //   //failed to view school
       console.log(error)
        });
-     
-  
-  
-  
-  
-  
- 
-  
-  
+
+
+
+
+
+
+
+
+
     }
 
   back()
@@ -104,9 +104,7 @@ count=0;
   viewVehicle(vehicle_id:any)
   {
     sessionStorage.setItem('selected_vehicle',vehicle_id);
-
     this.router.navigateByUrl('/request')
-
   }
 
 }

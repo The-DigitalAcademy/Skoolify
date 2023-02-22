@@ -81,6 +81,10 @@ export class ParentService {
     return this.http.post(this.baseUrl + '/priceOfTransport', data);
   }
 
+  rate(data: any,owner_id: number) {
+    return this.http.patch(this.baseUrl + '/rate/'+ owner_id, data);
+  }
+
 }
 
 

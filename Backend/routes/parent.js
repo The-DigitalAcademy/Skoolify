@@ -37,6 +37,7 @@ router.get('/getOneVehicle/:id',ViewVehicle)
 router.post('/addRequests',addRequests)
 router.get('/getRequests',getRequests)
 router.get('/getAppPrice/:id',getAppPrice)
+router.patch('/rate/:owner_id',parent.rateOwner)
 //router.get('/viewSchool/:id',viewSchool)
 //router.get('schoolTransporters/:id',schoolTransporters)
 
