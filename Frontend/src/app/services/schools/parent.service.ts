@@ -81,9 +81,15 @@ export class ParentService {
     return this.http.post(this.baseUrl + '/priceOfTransport', data);
   }
 
+  ViewoneVehicle(vehicle_id:number ):Observable<any>{
+    return this.http.get<any>(this.baseUrl + '/ViewoneVehicle/' + vehicle_id ).pipe();
+  }
+
+
   rate(data: any,owner_id: number) {
     return this.http.patch(this.baseUrl + '/rate/'+ owner_id, data);
   }
+
 
 }
 

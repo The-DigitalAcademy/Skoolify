@@ -104,6 +104,7 @@ count=0;
   viewVehicle(vehicle_id:any)
   {
     sessionStorage.setItem('selected_vehicle',vehicle_id);
+
     this.router.navigateByUrl('/request')
   }
 

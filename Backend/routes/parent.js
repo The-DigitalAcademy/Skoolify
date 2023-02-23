@@ -18,7 +18,7 @@ const{addRequests} = require('../controllers/parent')
 const{getRequests} = require('../controllers/parent')
 const{getAppPrice} = require('../controllers/parent')
 const{priceOfTransport} = require('../controllers/parent')
-
+const{ViewoneVehicle} = require('../controllers/parent')
 const parent = require('../controllers/parent')
 
 router.get('/requests/:parent_id',parent.viewMyRequests)
@@ -37,7 +37,11 @@ router.get('/getOneVehicle/:id',ViewVehicle)
 router.post('/addRequests',addRequests)
 router.get('/getRequests',getRequests)
 router.get('/getAppPrice/:id',getAppPrice)
+
+router.get('/ViewoneVehicle/:vehicle_id',ViewoneVehicle)
+
 router.patch('/rate/:owner_id',parent.rateOwner)
+
 //router.get('/viewSchool/:id',viewSchool)
 //router.get('schoolTransporters/:id',schoolTransporters)
 
