@@ -188,6 +188,7 @@ exports.getVehicleUser = async (req, res) => {
   }
 };
 
+
 exports.priceOfTransport = async (req, res) => {
   const { owner_id, school_id } = req.body;
   try {
@@ -471,4 +472,58 @@ exports.getAppPrice = async (req, res) => {
       error: "Database error while creating post!", //Database connection error
     });
   }
+};
+exports.ViewoneVehicle = (req, res) => {
+  const vehicle_id = req.params.vehicle_id;
+
+
+  console.log(vehicle_id)
+
+  const  vehicle = "SELECT * FROM vehicle WHERE vehicle_id = $1 " ;
+  console.log(vehicle_id)
+  const owner = "SELECT * FROM users WHERE user_id = $1";
+
+  client.query( vehicle,[vehicle_id], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ message: "Error fetching request" });
+    } 
+    else {
+      client.query(owner, [results.rows[0].owner_id], (err, ownerRes) => {
+        if (err) {
+          res.status(400).json({ message: "Error fetching vehivle" });
+        } 
+        else {
+          client.query('SELECT * FROM vehicle_owner WHERE vehicle_id = $1',[vehicle_id],(err,priceRes)=>{
+            if (err) {
+                    res.status(400).json({ message: "Error fetching price" });
+                  } else {
+
+                    res
+                    .status(200)
+                    .json({
+                      vehicle: results.rows[0],
+                      request: priceRes.rows[0],
+                      owner: ownerRes.rows[0],
+                    });
+
+
+                  }
+
+
+          })
+          //   owner,
+          //   [results.rows[0].user_id],
+          //   (err, ownerRes) => {
+          //     if (err) {
+          //       res.status(400).json({ message: "Error fetching school" });
+          //     } else {
+               
+
+              }
+        
+        
+      }); //parent call
+    }
+  }); //request call
 };

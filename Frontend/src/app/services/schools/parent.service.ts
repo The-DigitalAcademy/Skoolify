@@ -80,7 +80,9 @@ export class ParentService {
   priceOfTransport(data: any) {
     return this.http.post(this.baseUrl + '/priceOfTransport', data);
   }
-
+  ViewoneVehicle(vehicle_id:number ):Observable<any>{
+    return this.http.get<any>(this.baseUrl + '/ViewoneVehicle/' + vehicle_id ).pipe();
+  }
 }
 
 
