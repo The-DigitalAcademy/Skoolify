@@ -109,7 +109,7 @@ exports.viewRequests = (req, res) => {
           try {
                 //get all post form the database
                 const data = await client.query(
-                ` SELECT * FROM application a, school s where a.owner_id = $1 `,
+                ` SELECT * FROM application where owner_id = $1 `,
         
                   [user_id],
                   (err,result) => {
@@ -120,6 +120,7 @@ exports.viewRequests = (req, res) => {
                         error: "Database error",
                       });
                     } else {
+
                       res
                         .status(200)
                         .send(result.rows);
@@ -133,6 +134,30 @@ exports.viewRequests = (req, res) => {
             });
           }
         };
+
+        exports.getOneApplication = async (req,res)=>{
+          const app_id = req.params.application_id;
+          const app = "SELECT * FROM application where application_id = $1 ";
+          const school = "SELECT * FROM school where school_id = $1 ";
+
+          client.query(app,[app_id],(err,application)=>{
+            if(err){
+              res.status(400).json({message:'Failed to get application'})
+            }else{
+              client.query(school,[application.rows[0].school_id],(err,school)=>{
+                if(err){
+                  res.status(400).json({message:'Failed to get application'})
+                }else{
+                  res.status(200).json({application:application.rows[0],school:school.rows[0]})
+                }
+              })
+            }
+          })
+
+
+
+        }
+
         
   exports.viewMyRequests = (req, res) => {
     const owner_id = req.params.owner_id;
