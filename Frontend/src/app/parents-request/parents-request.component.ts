@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { JwtService } from 'src/app/services/jwt.service';
 import { ParentService } from 'src/app/services/schools/parent.service';
@@ -11,7 +12,19 @@ import { ParentService } from 'src/app/services/schools/parent.service';
 })
 export class ParentsRequestComponent implements OnInit {
   parent_id : any = 0;
-  requestsView :any[] =[]
+  requestsView :any[] = [];
+
+  request = {
+    owner : '',
+    driver :'',
+    driver_image : '',
+    rating : 0.0,
+    owner_id: 0
+  }
+
+  rateForm = new FormGroup({
+    rating: new FormControl('')
+  })
 
   constructor(private jwt : JwtService, private toast : HotToastService, private parent : ParentService) { }
 
@@ -38,6 +51,26 @@ export class ParentsRequestComponent implements OnInit {
     },(error:HttpErrorResponse)=>{
       console.log(error)
       this.toast.error(error.error.message)
+    })
+  }
+  select(request:any){
+    this.request.owner_id = request.owner.user_id;
+    this.request.driver = request.vehicle.driver_name;;
+    this.request.driver_image = request.vehicle.driver_image;
+    this.request.rating = request.owner.ratings;
+    this.request.owner = request.owner.name +' '+request.owner.surname;
+
+
+  }
+
+  rate(form:FormGroup){
+    this.parent.rate(form.value,this.request.owner_id).subscribe((res:any)=>{
+      this.toast.success(res.message);
+      form.reset();
+    },(error:HttpErrorResponse)=>{
+      console.log(error)
+      form.reset();
+      this.toast.error(error.error.message);
     })
   }
 
