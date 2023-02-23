@@ -13,10 +13,6 @@ export class OwnerService {
   data$ = this.dataSubject.asObservable();
   setData(data: any) {
     this.dataSubject.next(data);
-
-
-
-
   }
   constructor(private http:HttpClient) { }
 
@@ -27,5 +23,11 @@ export class OwnerService {
     return this.http.get<Application>(this.baseUrl + '/viewOwnerRequests/'  + school_id);
   }
 
-  
+  viewOneApplication(id:any)
+  {
+    return this.http.get(this.baseUrl + '/oneApplication/'+ id);
+  }
+
+
+
 }

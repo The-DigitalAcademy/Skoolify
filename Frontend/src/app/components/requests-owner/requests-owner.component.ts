@@ -7,28 +7,43 @@ import { JwtService } from 'src/app/services/jwt.service';
 @Component({
   selector: 'app-requests-owner',
   templateUrl: './requests-owner.component.html',
-  styleUrls: ['./requests-owner.component.scss']
+  styleUrls: ['./requests-owner.component.scss'],
 })
 export class RequestsOwnerComponent implements OnInit {
-parseFloat(arg0: string): string|number {
-throw new Error('Method not implemented.');
-}
-price1:any
-school1:any
-applications:OwnerApplication[] = [];
-schoolName:any;
-  constructor(private services:OwnerService,private jwt: JwtService) { }
-OwnerApplication!:OwnerApplication
+  parseFloat(arg0: string): string | number {
+    throw new Error('Method not implemented.');
+  }
+  price1: any;
+  school1: any;
+  applications: any[] = [];
+  schoolName: any;
+  constructor(private services: OwnerService, private jwt: JwtService) {}
+  OwnerApplication!: OwnerApplication;
 
   ngOnInit(): void {
-
-this.services.viewOwnerRequests(this.jwt.getData(sessionStorage.getItem('key'))?.user_id).subscribe((applications1:any)=>{
-  this.applications=applications1;
-
-},(error:HttpErrorResponse)=>{
-  //failed to view vehicle
-  console.log(error)
-});
+    this.getAll();
   }
 
+  getAll(){
+    this.applications = []
+    this.services
+      .viewOwnerRequests(
+        this.jwt.getData(sessionStorage.getItem('key'))?.user_id
+      )
+      .subscribe(
+        (applications1: any) => {
+          applications1.forEach((application: any) => {
+            this.services
+              .viewOneApplication(application.application_id)
+              .subscribe((full: any) => {
+                this.applications.push(full);
+              });
+          });
+        },
+        (error: HttpErrorResponse) => {
+          //failed to view vehicle
+          console.log(error);
+        }
+      );
+  }
 }

@@ -3,44 +3,54 @@ import { JwtService } from 'src/app/services/jwt.service';
 import { FormGroup,FormControl,Validators,}   from '@angular/forms';
 import { AuthusersService } from 'src/app/services/authusers.service';
 import { Router } from '@angular/router';
+import { OwnerService } from 'src/app/services/owner/owner.service';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit,OnChanges {
+export class NavComponent implements OnInit {
   accountType : any = '';
   dashboardRoute: string ='';
   isLoggedIn: boolean = false;
+  interval:any
+  pending = 0;
 
-  constructor(private router : Router,private auth1: AuthusersService,private renderer: Renderer2, public jwt : JwtService) { }
+  constructor(private owner:OwnerService, private router : Router,private auth1: AuthusersService,private renderer: Renderer2, public jwt : JwtService) { }
 
   ngOnInit(): void {
 
+    //console.log(this.accountType)
 
+    this.interval = setInterval(()=>{
+      this.accountType = this.jwt.getData(sessionStorage.getItem('key'))?.account
+      this.checkAcc()
+      this.owner.viewRequests(this.jwt.getData(sessionStorage.getItem('key'))?.user_id).subscribe((requests:any)=>{
+        requests.forEach((request:any) => {
+          if(request.status == "PENDING")
+          {
+            this.pending++;
+          }
 
+        });
+      })
+    },500)
 
-    this.accountType = this.jwt.getData(sessionStorage.getItem('key'))?.account
-    console.log(this.accountType)
+  }
 
+  checkAcc()
+  {
     if(this.accountType)
     {
       this.isLoggedIn = true
-      console.log('isLoggedIn = '+this.isLoggedIn)
-
+      //console.log('isLoggedIn = '+this.isLoggedIn)
     }else{
       this.isLoggedIn = false
-      console.log('isLoggedIn = '+this.isLoggedIn)
+      //console.log('isLoggedIn = '+this.isLoggedIn)
     }
-
-
-    console.log(this.router.routerState)
-
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
 
-  }
 
    public showNav():boolean{
     if(sessionStorage.getItem('state') =='No go...')
@@ -95,7 +105,6 @@ export class NavComponent implements OnInit,OnChanges {
   }
 
   signOut(){
-
     sessionStorage.clear()
     this.router.navigateByUrl('/login');
   }
