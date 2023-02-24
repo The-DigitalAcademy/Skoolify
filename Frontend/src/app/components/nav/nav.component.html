@@ -42,11 +42,21 @@
       >
     </li>
 
+
+
     <li *ngIf="accountType == 'OWNER' && isLoggedIn">
       <a
         class="text-sm text-gray-400 hover:text-gray-500"
         routerLink="/owner-vehicles"
         >Vehicles</a
+      >
+    </li>
+
+    <li *ngIf="accountType == 'OWNER' && isLoggedIn">
+      <a
+        class="text-sm text-gray-400 hover:text-gray-500"
+        routerLink="/owner-requests"
+        >Requests</a
       >
     </li>
 
@@ -178,15 +188,18 @@
 
             ><i class="fi fi-rr-time-check"></i>Requests</a
           >
+
         </li>
 
-        <li class="mb-1" *ngIf="accountType == 'OWNER' && isLoggedIn">
+        <li class="mb-1 flex justify-between place-items-center" *ngIf="accountType == 'OWNER' && isLoggedIn">
           <a
             class="navbar-close flex gap-2 p-4 font-semibold  text-white hover:text-gray-500"
             routerLink="/owner-requests"
 
             ><i class="fi fi-rr-time-check"></i>Requests</a
           >
+          <span><div class="badge badge-accent badge-sm" *ngIf="pending != 0">{{pending}} New</div>
+          </span>
         </li>
         <li class="mb-1" *ngIf="isLoggedIn && accountType != 'ADMIN'" >
           <a

@@ -9,8 +9,10 @@ router.post('/price',price);
 router.get('/requests/:owner_id/:request_id',owner.viewRequest);
 router.get('/requests/:owner_id',owner.viewRequests);
 router.get('/myrequests/:owner_id',owner.viewMyRequests);
+router.get('/oneApplication/:application_id',owner.getOneApplication);
 router.patch('/requests/decline/:request_id',owner.decline);
 router.patch('/requests/accept/:request_id',owner.accept);
+
 
 
 

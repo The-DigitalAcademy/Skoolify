@@ -3,6 +3,8 @@
       <button class="btn px-0 btn-ghost capitalize gap-2" (click)="back()">
         <i class="fi fi-br-angle-left"></i>
         Back
+       
+       
       </button>
       <span></span>
     </div>
@@ -49,8 +51,10 @@
 
     <div class="flex lg:px-14 flex-col gap-2">
       <div
-        class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"    style="background-color: var(--secondary-color)"
+
+        class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"  style="background-color: var(--secondary-color)"
         *ngFor="let vehicle of vehichleData" (click) = "viewVehicle(vehicle.vehicle_id)">
+
 
         <img
           class="w-20 h-20 object-cover rounded-xl my-auto"
@@ -63,11 +67,11 @@
             {{vehicle.brand}} {{vehicle.model}}
           </p>
           <p style="color: var(--green-200)" class="text-sm ">
-            {{vehicle.color}}
+            Color : {{vehicle.color}}
           </p>
 
           <p class="tes text-sm justify-end absolute right-2 bottom-1 rounded-xl text-white">
-             {{ratings1}}
+             {{ratings1 | number: '1.1-1'}}
           </p>
 
         </div>
@@ -76,6 +80,8 @@
       </div>
     </div>
 
+
+ 
 
 
 

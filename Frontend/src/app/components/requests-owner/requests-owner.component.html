@@ -1,51 +1,47 @@
-
-
 <div class="pt-14">
-
-  <div class="requests" >
+  <div class="requests">
     <span id="heading "><h3>Applications</h3></span>
 
-
-    <div class="hero" *ngIf="applications.length ==0">
+    <div class="hero" *ngIf="applications.length == 0">
       <div class="hero-content text-center">
         <div class="max-w-md">
           <h1 class="text-5xl font-bold">Oops!</h1>
           <p class="py-6">You have not sent any applications so far</p>
-          <button class="btn btn-info text-white rounded-2xl capitalize font-normal" routerLink="/owner-home">Find Schools</button>
+          <button
+            class="btn btn-info text-white rounded-2xl capitalize font-normal"
+            routerLink="/owner-home"
+          >
+            Find Schools
+          </button>
         </div>
       </div>
     </div>
 
-    <div class="request bg-accent" *ngFor="let request of applications  " >
-
-      <div id="flex" class="flex flex-col"  >
-        <div class="name font-medium">{{request.school_name}}</div>
+    <div class="request bg-accent" *ngFor="let request of applications">
+      <div id="flex" class="flex flex-col">
+        <div class="name font-medium">{{ request.school.school_name }}</div>
         <p style="color: var(--grey-light)" class="text-sm">
-        {{request.school_location}}
+          {{ request.school.school_location }}
         </p>
-        <p style="color: var(--grey-light)" class="text-xs">
-
-        </p>
+        <p style="color: var(--grey-light)" class="text-xs"></p>
       </div>
 
-      <div [ngClass]="request.status =='APPROVED'? 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-info':'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral'"
+      <div
+        [ngClass]="
+          request.status == 'APPROVED'
+            ? 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-info'
+            : 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral'
+        "
       >
-        <span class="text-white my-auto">{{request.status}}</span>
-
-          </div>
-          <div
-          class="flex h-5 w-fit px-3 absolute top-20 right-0 text-xs rounded-bl-xl  "
+        <span class="text-white my-auto">{{ request.application.status }}</span>
+      </div>
+      <div
+        class="flex h-5 w-fit px-3 absolute bottom-1 right-0 text-xs rounded-bl-xl"
+      >
+        <span id="price" class="font-semibold text-base">
+          {{ request.application.price.replace("$", "R") }}</span
         >
-<span id="price"> {{request.price.replace('$','R')}}</span>
+      </div>
     </div>
-
-
-
-
-
-
-
-
   </div>
-
 </div>

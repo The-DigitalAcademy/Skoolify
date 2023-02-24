@@ -188,6 +188,7 @@ exports.getVehicleUser = async (req, res) => {
   }
 };
 
+
 exports.priceOfTransport = async (req, res) => {
   const { owner_id, school_id } = req.body;
   try {
@@ -331,36 +332,43 @@ exports.getSchoolVehicle = async (req, res) => {
   }
 };
 
-//add requests
 
-// exports.addRequests = async (req, res) => {
-//   const {parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status} = req.body;
-//   try {
+//rating transport owner
+exports.rateOwner = async (req, res) => {
+  const owner_id = req.params.owner_id;
+  const rating = Number(req.body.rating)
 
-//         const data = await client.query(
-//           `INSERT INTO requests (parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status);`,
-//           [parent_id,owner_id,school_id,message,pickUp_address,num_kids,desc,status],
-//           (err) => {
-//             if (err) {
+  const votes = "SELECT * FROM users WHERE user_id = $1"
+  const sql = "UPDATE users SET ratings = $1, votes = $2 WHERE user_id = $3"
 
-//               console.error(err);
-//               return res.status(500).json({
-//                 error: "Database error",
-//               });
-//             } else {
-//               res
-//                 .status(200)
-//                 .send({ message: `Post for user ${parent_id} have been added to the database`});
-//             }
-//           }
-//         );
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({
-//       error: "Database error while creating post!",
-//     });
-//   }
-// };
+  client.query(votes,[owner_id],(err,votesRes)=>{
+    if (err) {
+      res.status(400).json({message:'Error fetching votes'})
+    }else{
+      //rating calculation on average
+      let counter = votesRes.rows[0].votes;
+      let currentRate = votesRes.rows[0].ratings;
+      let newRate = ((currentRate * counter) + rating)/(counter+1);
+      newRate = Math.round( newRate * 10 ) / 10;
+
+      //update rating in the database
+      client.query(sql,[newRate,(counter+1),owner_id],(err,votesRes)=>{
+        if(err) {
+          res.status(402).json({message:'Error rating owner'})
+        }else{
+          console.log(newRate)
+          res.status(200).json({message:'Owner rated'})
+        }
+      })
+    }
+
+  })
+
+
+
+
+
+}
 
 //get requests
 exports.getRequests = async (req, res) => {
@@ -471,4 +479,58 @@ exports.getAppPrice = async (req, res) => {
       error: "Database error while creating post!", //Database connection error
     });
   }
+};
+exports.ViewoneVehicle = (req, res) => {
+  const vehicle_id = req.params.vehicle_id;
+
+
+  console.log(vehicle_id)
+
+  const  vehicle = "SELECT * FROM vehicle WHERE vehicle_id = $1 " ;
+  console.log(vehicle_id)
+  const owner = "SELECT * FROM users WHERE user_id = $1";
+
+  client.query( vehicle,[vehicle_id], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ message: "Error fetching request" });
+    } 
+    else {
+      client.query(owner, [results.rows[0].owner_id], (err, ownerRes) => {
+        if (err) {
+          res.status(400).json({ message: "Error fetching vehivle" });
+        } 
+        else {
+          client.query('SELECT * FROM vehicle_owner WHERE vehicle_id = $1',[vehicle_id],(err,priceRes)=>{
+            if (err) {
+                    res.status(400).json({ message: "Error fetching price" });
+                  } else {
+
+                    res
+                    .status(200)
+                    .json({
+                      vehicle: results.rows[0],
+                      request: priceRes.rows[0],
+                      owner: ownerRes.rows[0],
+                    });
+
+
+                  }
+
+
+          })
+          //   owner,
+          //   [results.rows[0].user_id],
+          //   (err, ownerRes) => {
+          //     if (err) {
+          //       res.status(400).json({ message: "Error fetching school" });
+          //     } else {
+               
+
+              }
+        
+        
+      }); //parent call
+    }
+  }); //request call
 };
