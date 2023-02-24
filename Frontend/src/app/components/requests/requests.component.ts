@@ -74,6 +74,7 @@ console.log(this.details,'xoz')
 
 
 this.driverName=this.vehicle[0].driver_name;
+console.log('sipho',this.driverName)
 this.vehicleName=this.vehicle[0].brand;
 this.vehicleModel=this.vehicle[0].model;
  this.price1=this.vehicle[0].price;
