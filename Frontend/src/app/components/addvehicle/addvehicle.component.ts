@@ -20,7 +20,7 @@ export class AddvehicleComponent implements OnInit {
   tsReg = new RegExp("^[ A-Za-z0-9 ]{2,}$");
   tsColor = new RegExp("^[ a-zA-Z ]{2,}$");
   step : number = 1;
- 
+
   user_id :any
   image_link: string = '';
   FormBuilder: any;
@@ -105,14 +105,14 @@ export class AddvehicleComponent implements OnInit {
   constructor(private service: AddvehicleService,private router: Router,private http: HttpClient, private jwt : JwtService, private toast : HotToastService) {}
 
 
-  
+
   ngOnInit(): void {
 
     this.user_id = this.jwt.getData(sessionStorage.getItem('key'))?.user_id
     this.name = this.jwt.getData(sessionStorage.getItem('key'))?.name
 
     this.viewVehicles()
-   
+
   }
 
 
@@ -143,9 +143,9 @@ export class AddvehicleComponent implements OnInit {
     sessionStorage.setItem('selected_vehicle',rec)
     this.router.navigateByUrl('editvehicle')
 
-   
 
-    
+
+
   }
 
 
@@ -161,7 +161,7 @@ removeVehicle(vehicle : number){
     console.log(error);
 
     this.toast.error(error.error.message)
-    
+
   })
 }
 
@@ -183,7 +183,7 @@ removeVehicle(vehicle : number){
       console.log(res.url);
     },(error:HttpErrorResponse)=>{
       console.log(error);
-      
+
     })
     }
   }
@@ -201,7 +201,7 @@ removeVehicle(vehicle : number){
       console.log(res.url);
     },(error:HttpErrorResponse)=>{
       console.log(error);
-      
+
     })
     }
   }
@@ -220,7 +220,7 @@ removeVehicle(vehicle : number){
       console.log(res.url);
     },(error:HttpErrorResponse)=>{
       console.log(error);
-      
+
     })
     }
   }
@@ -256,16 +256,17 @@ removeVehicle(vehicle : number){
     console.log(this.vehiDetails);
 
     this.service.addvehicle(this.vehiDetails).subscribe((next: any) => {
-      console.log('Vehicle has been added successfully!');
+      //console.log('Vehicle has been added successfully!');
       this.toast.success(next.message)
+      form.reset()
       this.viewVehicles();
       this.submitted = false;
     },(error: HttpErrorResponse)=>{
       console.log(error)
       this.toast.error(error.error.message)
-      
+
     });
   }
 
-  
+
 }

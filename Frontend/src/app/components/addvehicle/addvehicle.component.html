@@ -103,7 +103,7 @@
         </div>
 
 
-        <div class="step-2 flex flex-col gap-2" *ngIf="step===2">
+        <div class="step-2 flex flex-col gap-3" *ngIf="step===2">
 
           <h3 class="font-semibold">Assign a driver</h3>
 
@@ -141,7 +141,7 @@
               class="text-sm">Driver's image</label>
 
             <input
-            class="file-input file-input-sm bg-accent file-input-info border-0"
+            class="file-input bg-accent file-input-info border-0"
             type="file"
             accept=".png, .jpg, .jpeg"
             formControlName="driver_img"
@@ -154,7 +154,7 @@
               class="text-sm">Vehicle image</label>
 
             <input
-            class="file-input file-input-sm bg-accent file-input-info border-0"
+            class="file-input bg-accent file-input-info border-0"
             type="file"
             accept=".png, .jpg, .jpeg"
             formControlName="vehicle_img"
@@ -169,7 +169,7 @@
               class="text-xs w-full text-gray-500 mb-2">Please ensure that the document consists of your ID Copy, Ownership Certificate, PDP and Proof of residence</label>
 
             <input
-            class="file-input file-input-sm bg-accent file-input-info border-0"
+            class="file-input bg-accent file-input-info border-0"
             type="file"
             accept=".pdf"
             formControlName="documents"
