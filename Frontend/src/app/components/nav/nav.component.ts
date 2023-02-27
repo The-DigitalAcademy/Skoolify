@@ -21,19 +21,20 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
 
     //console.log(this.accountType)
+    this.owner.viewRequests(this.jwt.getData(sessionStorage.getItem('key'))?.user_id).subscribe((requests:any)=>{
+      requests.forEach((request:any) => {
+        if(request.status == "PENDING")
+        {
+          this.pending++;
+        }
+
+      });
+    })
 
     this.interval = setInterval(()=>{
       this.accountType = this.jwt.getData(sessionStorage.getItem('key'))?.account
       this.checkAcc()
-      this.owner.viewRequests(this.jwt.getData(sessionStorage.getItem('key'))?.user_id).subscribe((requests:any)=>{
-        requests.forEach((request:any) => {
-          if(request.status == "PENDING")
-          {
-            this.pending++;
-          }
 
-        });
-      })
     },500)
 
   }
@@ -59,6 +60,9 @@ export class NavComponent implements OnInit {
     }else{
       return true
     }
+  }
+  view(){
+    this.pending = 0;
   }
 
 

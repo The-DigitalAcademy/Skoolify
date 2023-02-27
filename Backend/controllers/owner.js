@@ -336,12 +336,7 @@ exports.accept = (req, res) => {
                         ownerResults.rows[0].surname +
                         ". We are glad to notify you that your application was accepted. Your name and email address will now be sent to the transport owner for further communication\n\nThe SGB";
                       emailDetails.subject = "Request Response";
-
-                      transporter.sendMail(emailDetails, (emailErr) => {
-                        if (emailErr) {
-                          console.log(emailErr);
-                        } else {
-                          let sql_3 =
+                      let sql_3 =
                             "UPDATE requests SET status = 'ACCEPTED' WHERE request_id = $1";
                           client.query(
                             sql_3,
@@ -363,13 +358,7 @@ exports.accept = (req, res) => {
                                   ". For further communication, here details the details of the parent.\nFull name: "+parentResults.rows[0].name +" "+parentResults.rows[0].surname+"\nEmail address: "+parentResults.rows[0].email+"\nPick up address: "+results.rows[0].pickUp_address+"\n\nWe wish you all the best on this opportunity.\n\nThe SGB";
                                 emailDetails.subject = "Request Response";
 
-                                transporter.sendMail(
-                                  emailDetails,
-                                  (emailErr) => {
-                                    if (emailErr) {
-                                      console.log(emailErr);
-                                    } else {
-                                      let sql_3 =
+                                let sql_3 =
                                         "UPDATE requests SET status = 'ACCEPTED' WHERE request_id = $1";
                                       client.query(
                                         sql_3,
@@ -386,15 +375,29 @@ exports.accept = (req, res) => {
                                           }
                                         }
                                       ); //update status
-                                    }
-                                  }
-                                );
+
+                                // transporter.sendMail(
+                                //   emailDetails,
+                                //   (emailErr) => {
+                                //     if (emailErr) {
+                                //       console.log(emailErr);
+                                //     } else {
+                                //       //update goes here
+                                //     }
+                                //   }
+                                // );
                                 //send the email to parent
                               }
                             }
                           ); //update status
-                        }
-                      });
+
+                      // transporter.sendMail(emailDetails, (emailErr) => {
+                      //   if (emailErr) {
+                      //     console.log(emailErr);
+                      //   } else {
+                      //     //owner email here
+                      //   }
+                      // });
                       //send the email to parent
                     }
                   }

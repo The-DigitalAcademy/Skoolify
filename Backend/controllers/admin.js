@@ -197,11 +197,8 @@ exports.declineApplication = (req, res) => {
             feedback +
             "\n\nThe SGB";
           emailDetails.subject = "Application Response";
-          transporter.sendMail(emailDetails, (emailErr) => {
-            if (emailErr) {
-              console.log(emailErr);
-            } else {
-              let sql_3 =
+
+          let sql_3 =
                 "UPDATE application SET status = 'DECLINED' WHERE application_id = $1";
               client.query(sql_3, [application_id], (err, declinedResults) => {
                 if (err) {
@@ -210,8 +207,15 @@ exports.declineApplication = (req, res) => {
                   res.status(200).json({ message: "Application declined" });
                 }
               });
-            }
-          });
+
+
+          // transporter.sendMail(emailDetails, (emailErr) => {
+          //   if (emailErr) {
+          //     console.log(emailErr);
+          //   } else {
+              
+          //   }
+          // });
         }
       });
     }
@@ -249,11 +253,8 @@ exports.approve = (req, res) => {
                   ownerResults.rows[0].name +
                   "\n\nThank you for taking your time and sending an application to get verified. Upon reviewing your application, we are happy to notify you that your application was successful. \nYou will now recieve requests to transport children. All the best.\n\nThe SGB";
                 emailDetails.subject = "Application Response";
-                transporter.sendMail(emailDetails, (emailErr) => {
-                  if (emailErr) {
-                    console.log(emailErr);
-                  } else {
-                    let sql_3 =
+
+                let sql_3 =
                       "UPDATE application SET status = 'APPROVED' WHERE application_id = $1";
                     client.query(
                       sql_3,
@@ -268,8 +269,13 @@ exports.approve = (req, res) => {
                         }
                       }
                     );
-                  }
-                });
+                // transporter.sendMail(emailDetails, (emailErr) => {
+                //   if (emailErr) {
+                //     console.log(emailErr);
+                //   } else {
+                    
+                //   }
+                // });
               }
             });
           }

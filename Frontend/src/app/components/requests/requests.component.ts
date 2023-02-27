@@ -92,11 +92,8 @@ this.details = JSON.parse(this.all)
 
 
 this.driverName=this.vehicle[0].driver_name;
-<<<<<<< HEAD
 console.log('sipho',this.driverName)
-=======
 console.log(this.driverName,'charity');
->>>>>>> 10ab76abacad28b4a01b9adce827b91a2a78ebf8
 this.vehicleName=this.vehicle[0].brand;
 this.vehicleModel=this.vehicle[0].model;
  this.price1=this.vehicle[0].price;
