@@ -19,10 +19,12 @@ exports.viewRequest = (req, res) => {
   const request_id = req.params.request_id;
   const parent_id = req.params.parent_id;
 
-  const request = "SELECT * FROM requests WHERE request_id = $1 AND parent_id = $2";
+  const request =
+    "SELECT * FROM requests WHERE request_id = $1 AND parent_id = $2";
   const school = "SELECT * FROM school WHERE school_id = $1";
   const owner = "SELECT * FROM users WHERE user_id = $1";
-  const vehicle_id = "SELECT * FROM vehicle_owner WHERE school_id = $1 AND owner_id = $2";
+  const vehicle_id =
+    "SELECT * FROM vehicle_owner WHERE school_id = $1 AND owner_id = $2";
 
   client.query(request, [request_id, parent_id], (err, results) => {
     if (err) {
@@ -42,32 +44,34 @@ exports.viewRequest = (req, res) => {
               } else {
                 client.query(
                   vehicle_id,
-                  [results.rows[0].school_id,results.rows[0].owner_id],
+                  [results.rows[0].school_id, results.rows[0].owner_id],
                   (err, vehicleId) => {
                     if (err) {
-                      res.status(400).json({ message: "Error fetching vehicle id" });
+                      res
+                        .status(400)
+                        .json({ message: "Error fetching vehicle id" });
                     } else {
                       client.query(
                         "SELECT * FROM vehicle WHERE vehicle_id = $1",
                         [vehicleId.rows[0].vehicle_id],
                         (err, vehicleRes) => {
                           if (err) {
-                            res.status(400).json({ message: "Error fetching vehicle" });
+                            res
+                              .status(400)
+                              .json({ message: "Error fetching vehicle" });
                           } else {
                             res.status(200).json({
                               request: results.rows[0],
                               owner: ownerRes.rows[0],
                               school: schoolRes.rows[0],
-                              vehicle : vehicleRes.rows[0]
+                              vehicle: vehicleRes.rows[0],
                             });
-                            
                           }
                         }
-                      )
-                      
+                      );
                     }
                   }
-                )
+                );
               }
             }
           ); //school call
@@ -78,7 +82,6 @@ exports.viewRequest = (req, res) => {
 };
 
 //get schools query
-
 
 exports.getSchool = async (req, res) => {
   try {
@@ -161,8 +164,8 @@ exports.getVehicle = async (req, res) => {
 };
 
 exports.getVehicleUser = async (req, res) => {
-  const user_id = req.params.id
-  console.log(user_id)
+  const user_id = req.params.id;
+  console.log(user_id);
   try {
     //get all post form the database
     const data = await client.query(
@@ -187,7 +190,6 @@ exports.getVehicleUser = async (req, res) => {
     });
   }
 };
-
 
 exports.priceOfTransport = async (req, res) => {
   const { owner_id, school_id } = req.body;
@@ -332,43 +334,36 @@ exports.getSchoolVehicle = async (req, res) => {
   }
 };
 
-
 //rating transport owner
 exports.rateOwner = async (req, res) => {
   const owner_id = req.params.owner_id;
-  const rating = Number(req.body.rating)
+  const rating = Number(req.body.rating);
 
-  const votes = "SELECT * FROM users WHERE user_id = $1"
-  const sql = "UPDATE users SET ratings = $1, votes = $2 WHERE user_id = $3"
+  const votes = "SELECT * FROM users WHERE user_id = $1";
+  const sql = "UPDATE users SET ratings = $1, votes = $2 WHERE user_id = $3";
 
-  client.query(votes,[owner_id],(err,votesRes)=>{
+  client.query(votes, [owner_id], (err, votesRes) => {
     if (err) {
-      res.status(400).json({message:'Error fetching votes'})
-    }else{
+      res.status(400).json({ message: "Error fetching votes" });
+    } else {
       //rating calculation on average
       let counter = votesRes.rows[0].votes;
       let currentRate = votesRes.rows[0].ratings;
-      let newRate = ((currentRate * counter) + rating)/(counter+1);
-      newRate = Math.round( newRate * 10 ) / 10;
+      let newRate = (currentRate * counter + rating) / (counter + 1);
+      newRate = Math.round(newRate * 10) / 10;
 
       //update rating in the database
-      client.query(sql,[newRate,(counter+1),owner_id],(err,votesRes)=>{
-        if(err) {
-          res.status(402).json({message:'Error rating owner'})
-        }else{
-          console.log(newRate)
-          res.status(200).json({message:'Owner rated'})
+      client.query(sql, [newRate, counter + 1, owner_id], (err, votesRes) => {
+        if (err) {
+          res.status(402).json({ message: "Error rating owner" });
+        } else {
+          console.log(newRate);
+          res.status(200).json({ message: "Owner rated" });
         }
-      })
+      });
     }
-
-  })
-
-
-
-
-
-}
+  });
+};
 
 //get requests
 exports.getRequests = async (req, res) => {
@@ -410,48 +405,57 @@ exports.addRequests = (req, res) => {
     num_kids,
     description,
   } = req.body;
-  const sql =
-    "INSERT INTO requests (parent_id,owner_id,school_id,message,address,num_kids,description,status) values($1,$2,$3,$4,$5,$6,$7,$8)";
 
-  console.log(address);
+  const vehicle_id = req.params.vehicle_id;
+  console.log(vehicle_id)
+
   client.query(
-    sql,
-    [
-      parent_id,
-      owner_id,
-      school_id,
-      message,
-      address,
-      num_kids,
-      description,
-      "PENDING",
-    ],
-    (err, results) => {
+    "SELECT * FROM vehicle WHERE vehicle_id = $1",
+    [vehicle_id],
+    (err, vehicles) => {
       if (err) {
-        console.log(err);
-
-        res.status(401).json({ message: "Error inserting request" });
+        res.status(400).json({ message: "Error getting vehicle" });
       } else {
-        res.status(201).json({ message: "Request successfully added" });
+        console.log(vehicles.rows ,' and ', num_kids)
+        if (parseInt(vehicles.rows[0].avail_seats) >= parseInt(num_kids)) {
+          const sql =
+            "INSERT INTO requests (parent_id,owner_id,school_id,message,address,num_kids,description,status,vehicle_id) values($1,$2,$3,$4,$5,$6,$7,$8,$9)";
+          client.query(
+            sql,
+            [
+              parent_id,
+              owner_id,
+              school_id,
+              message,
+              address,
+              num_kids,
+              description,
+              "PENDING",
+              vehicle_id
+            ],
+            (err, results) => {
+              if (err) {
+                console.log(err);
+  
+                res.status(401).json({ message: "Error inserting request" });
+              } else {
+                res.status(201).json({ message: "Request successfully sent" });
+              }
+            }
+          );
+        } else {
+          res
+            .status(400)
+            .json({
+              message: "No seats available for " + num_kids + " children",
+            });
+        }
+
       }
+      
     }
   );
 };
-
-//get price from application
-// exports.getAppPrice = (req, res) => {
-//   const application_id = req.params.application_id;
-//   const sql = "SELECT * FROM application WHERE application_id  = $1";
-
-//   client.query(sql, [application_id], (err, results) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(400).json({ message: "Error fetching application" });
-//     } else {
-//       res.status(200).json(results.rows[0]);
-//     }
-//   });
-// };
 
 exports.getAppPrice = async (req, res) => {
   const vehicle_id = parseInt(req.params.id);
@@ -483,53 +487,43 @@ exports.getAppPrice = async (req, res) => {
 exports.ViewoneVehicle = (req, res) => {
   const vehicle_id = req.params.vehicle_id;
 
+  console.log(vehicle_id);
 
-  console.log(vehicle_id)
-
-  const  vehicle = "SELECT * FROM vehicle WHERE vehicle_id = $1 " ;
-  console.log(vehicle_id)
+  const vehicle = "SELECT * FROM vehicle WHERE vehicle_id = $1 ";
+  console.log(vehicle_id);
   const owner = "SELECT * FROM users WHERE user_id = $1";
 
-  client.query( vehicle,[vehicle_id], (err, results) => {
+  client.query(vehicle, [vehicle_id], (err, results) => {
     if (err) {
       console.log(err);
       res.status(400).json({ message: "Error fetching request" });
-    } 
-    else {
+    } else {
       client.query(owner, [results.rows[0].owner_id], (err, ownerRes) => {
         if (err) {
           res.status(400).json({ message: "Error fetching vehivle" });
-        } 
-        else {
-          client.query('SELECT * FROM vehicle_owner WHERE vehicle_id = $1',[vehicle_id],(err,priceRes)=>{
-            if (err) {
-                    res.status(400).json({ message: "Error fetching price" });
-                  } else {
-
-                    res
-                    .status(200)
-                    .json({
-                      vehicle: results.rows[0],
-                      request: priceRes.rows[0],
-                      owner: ownerRes.rows[0],
-                    });
-
-
-                  }
-
-
-          })
+        } else {
+          client.query(
+            "SELECT * FROM vehicle_owner WHERE vehicle_id = $1",
+            [vehicle_id],
+            (err, priceRes) => {
+              if (err) {
+                res.status(400).json({ message: "Error fetching price" });
+              } else {
+                res.status(200).json({
+                  vehicle: results.rows[0],
+                  request: priceRes.rows[0],
+                  owner: ownerRes.rows[0],
+                });
+              }
+            }
+          );
           //   owner,
           //   [results.rows[0].user_id],
           //   (err, ownerRes) => {
           //     if (err) {
           //       res.status(400).json({ message: "Error fetching school" });
           //     } else {
-               
-
-              }
-        
-        
+        }
       }); //parent call
     }
   }); //request call

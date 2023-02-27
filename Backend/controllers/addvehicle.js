@@ -3,13 +3,12 @@ const client=require('../config/db_config')
 
 
 exports.addvehicle = async (req, res)=>{
-    const {owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image} = req.body;
-  console.log({owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image});
+    const {owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image,avail_seats} = req.body;
   try {
         //Inserting data into the database
         const data = await client.query(
-          `INSERT INTO vehicle (owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image,is_deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);`,
-          [owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image,false],
+          `INSERT INTO vehicle (owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image,is_deleted, avail_seats) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12);`,
+          [owner_id,vehicle_reg,model,brand,driver_name,driver_cellphone,driver_image,document,color,vehicle_image,false,avail_seats],
           (err) => {
             if (err) {
            //If post is not inserted is not inserted to database
