@@ -47,6 +47,7 @@ export class AddvehicleComponent implements OnInit {
     document: '',
     color: '',
     vehicle_image: '',
+    avail_seats: 0
   };
 
   image = {
@@ -99,6 +100,7 @@ export class AddvehicleComponent implements OnInit {
       Validators.required,
       Validators.pattern('^[a-zA-Z ]*$'),
     ]),
+    avail_seats : new FormControl(''),
   });
   name:any
 

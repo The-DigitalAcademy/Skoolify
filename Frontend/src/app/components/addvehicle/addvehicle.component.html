@@ -92,6 +92,38 @@
               class="input bg-accent text-sm"/>
           </div>
 
+          <div class="form-control">
+            <label
+              for="model"
+              class="text-sm"
+              >Available seats</label
+            >
+            <div class="flex">
+              <button class="btn btn-sm btn-info" onclick="decrease()">-</button>
+              <input
+              type="text"
+              id="avail_seats"
+              formControlName="avail_seats"
+              required
+              placeholder="0"
+              value=0
+              class="input bg-accent input-sm text-sm"/>
+              <button class="btn btn-sm btn-info" onclick="increase()">+</button>
+            </div>
+            <script>
+              // Script in here
+              function increase() {
+                document.getElementById('avail_seats').value++
+              }
+
+              function decrease() {
+                document.getElementById('avail_seats').value--
+
+              }
+
+            </script>
+          </div>
+
 
           <button
             class="btn w-52 mx-auto mt-4 rounded-2xl btn-info capitalize text-white gap-2"
