@@ -3,8 +3,8 @@
       <button class="btn px-0 btn-ghost capitalize gap-2" (click)="back()">
         <i class="fi fi-br-angle-left"></i>
         Back
-       
-       
+
+
       </button>
       <span></span>
     </div>
@@ -52,15 +52,17 @@
     <div class="flex lg:px-14 flex-col gap-2">
       <div
 
-        class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"  style="background-color: var(--secondary-color)"
-        *ngFor="let vehicle of vehichleData" (click) = "viewVehicle(vehicle.vehicle_id)">
+        class="flex gap-3 px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"  style="background-color: var(--secondary-color)"
+        *ngFor="let vehicle of vehichleData" (click) = "viewVehicle(vehicle.vehicle_id)" >
 
+      <div *ngIf="vehicle.avail_seats>0" class="badge badge-ghost border-none badge-sm text-primary absolute top-0 right-0" style="background-color: var(--tertiary-color);">{{vehicle.avail_seats}} seats</div>
+      <div *ngIf="vehicle.avail_seats <= 0" class="badge badge-ghost border-none badge-sm text-primary absolute top-0 right-0" style="background-color: var(--tertiary-color);">Fully loaded</div>
 
         <img
           class="w-20 h-20 object-cover rounded-xl my-auto"
           [src]="vehicle.driver_image"
           alt="" />
-        <div class="flex flex-col pt-4 pl-4 relative w-full">
+        <div class="flex flex-col pt-4">
 
           <div class="name font-medium">{{vehicle.driver_name}}</div>
           <p style="color: var(--primary-color)" class="text-sm">
@@ -81,7 +83,7 @@
     </div>
 
 
- 
+
 
 
 

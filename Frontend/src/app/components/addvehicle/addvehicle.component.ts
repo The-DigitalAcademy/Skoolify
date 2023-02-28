@@ -35,6 +35,8 @@ export class AddvehicleComponent implements OnInit {
   data: any= 0;
   vehiclesDetails!:any;
 
+  initial_seats: number = 0;
+
 
   vehiDetails = {
     owner_id: 0,
@@ -115,6 +117,18 @@ export class AddvehicleComponent implements OnInit {
 
     this.viewVehicles()
 
+  }
+
+  increase(){
+    this.initial_seats++;
+  }
+
+  decrease(){
+    if(this.initial_seats > 0){
+      this.initial_seats--;
+    }else{
+      this.initial_seats = 0;
+    }
   }
 
 
@@ -248,13 +262,10 @@ removeVehicle(vehicle : number){
     this.vehiDetails.brand = form.value.brand;
     this.vehiDetails.model = form.value.model;
     this.vehiDetails.color = form.value.color;
+    this.vehiDetails.avail_seats = this.initial_seats;
     this.vehiDetails.vehicle_reg = form.value.vehicle_reg;
     this.vehiDetails.driver_name = form.value.driver_name;
     this.vehiDetails.driver_cellphone = form.value.driver_cellphone;
-
-
-
-
     console.log(this.vehiDetails);
 
     this.service.addvehicle(this.vehiDetails).subscribe((next: any) => {

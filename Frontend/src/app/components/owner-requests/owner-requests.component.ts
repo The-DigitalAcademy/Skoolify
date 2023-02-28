@@ -61,13 +61,14 @@ export class OwnerRequestsComponent implements OnInit {
   }
 
   accept(request_id: number){
-    this.toast.loading('Processing ...',{duration:10000})
+    this.toast.loading('Processing ...',{duration:1000})
     this.owner.accept(request_id).subscribe(async(result:any)=>{
       this.toast.success(await result.message);
       this.requestsView = []
       this.viewRequests()
       // this.requestsView = this.requestsView.splice(this.index,1)
     },(error:HttpErrorResponse)=>{
+      this.toast.error(error.error.message);
       console.log(error)
     })
   }

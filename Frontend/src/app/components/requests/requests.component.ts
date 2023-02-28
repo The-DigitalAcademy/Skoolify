@@ -18,7 +18,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class RequestsComponent implements OnInit {
   data:any;
-  
+
   owner1:any
   all:any;
   details:any;
@@ -64,6 +64,8 @@ export class RequestsComponent implements OnInit {
   formBuilder: any;
 
 
+
+
   constructor(private toast: HotToastService,private jwt : JwtService, private service:ParentService,private location:Location,private router:Router) { }
 
 
@@ -74,7 +76,7 @@ ngOnInit(): void {
   console.log(' Id parent')
 
   console.log(sessionStorage.getItem('selected_vehicle'))
-  
+
   this.service.ViewoneVehicle(Number(sessionStorage.getItem('selected_vehicle'))).subscribe(async(vehicle:any)=>{
     console.log(Object.keys(vehicle).length)
     this.vehicles = vehicle;
@@ -108,7 +110,7 @@ this.votes=this.details[0].votes
     //owner fetching error
     console.log(error);
   })
-  
+
   this.registerForm1 = this.formBuilder.group({ address: new FormControl(''),
        message: new FormControl(''),
        description: new FormControl(''),
@@ -134,7 +136,7 @@ this.votes=this.details[0].votes
 
   onSubmit(form:FormGroup)
   {
-    
+
     console.log(form);
 
     if(this.jwt.isAuthenticated() && this.jwt.getData(sessionStorage.getItem('key'))?.account == 'PARENT'){
@@ -154,7 +156,7 @@ this.votes=this.details[0].votes
       console.log("add",dataValues)
       this.toast.loading('Requesting ...',{duration:3000})
 
-      this.service.addRequests(dataValues).subscribe((result:any) => {
+      this.service.addRequests(dataValues,this.vehicles.vehicle.vehicle_id).subscribe((result:any) => {
 
         setTimeout(() => {
           form.reset()
@@ -167,7 +169,7 @@ this.votes=this.details[0].votes
         }, 4000);
       },(error:HttpErrorResponse)=>{
         //failed to save school
-        this.toast.error('Failed to send request')
+        this.toast.error(error.error.message)
 
         console.log(error)
 
@@ -188,9 +190,9 @@ this.votes=this.details[0].votes
   onRegister(form: FormGroup) {
 
     console.log('i ran')
-    
+
         let dataValues = {
-    
+
           address: form.value.address,
           message: form.value.message,
           num_kids:form.value.num_kids,
@@ -199,24 +201,24 @@ this.votes=this.details[0].votes
           parent_id:this.parentID,
           owner_id:this.vehicle[0].owner_id,
         }
-      
-        this.service.addRequests(dataValues).subscribe((result:any) => {
+
+        this.service.addRequests(dataValues,this.vehicles.vehicle.vehicle_id).subscribe((result:any) => {
 
           setTimeout(() => {
             form.reset()
             this.toast.success('Request sent')
-  
+
           }, 2000);
-  
+
           setTimeout(() => {
             this.messages = "Save";
           }, 4000);
         },(error:HttpErrorResponse)=>{
           //failed to save school
           this.toast.error('Failed to send request')
-  
+
           console.log(error)
-  
+
         })
         // console.log('i ran 2')
         console.log('data here',dataValues)

@@ -98,30 +98,17 @@
               class="text-sm"
               >Available seats</label
             >
-            <div class="flex">
-              <button class="btn btn-sm btn-info" onclick="decrease()">-</button>
+            <div class="flex justify-start place-items-center gap-2">
+              <div class="btn btn-sm btn-info rounded-xl text-white" (click)="decrease()">-</div>
               <input
               type="text"
               id="avail_seats"
               formControlName="avail_seats"
               required
-              placeholder="0"
-              value=0
-              class="input bg-accent input-sm text-sm"/>
-              <button class="btn btn-sm btn-info" onclick="increase()">+</button>
+              [value]="initial_seats"
+              class="input bg-accent input-sm text-sm w-12 text-center"/>
+              <div class="btn btn-sm btn-info rounded-xl text-white" (click)="increase()">+</div>
             </div>
-            <script>
-              // Script in here
-              function increase() {
-                document.getElementById('avail_seats').value++
-              }
-
-              function decrease() {
-                document.getElementById('avail_seats').value--
-
-              }
-
-            </script>
           </div>
 
 
@@ -239,12 +226,15 @@
 
   <div class="vehicles flex flex-col gap-2">
     <div
-      class="flex pl-4 pr-2 py-2 justify-between h-24 w-full bg-accent place-items-center mx-auto rounded-xl"
+      class="flex pl-4 pr-2 py-2 justify-between h-24 w-full bg-accent place-items-center mx-auto rounded-xl relative"
       *ngFor="let record of data; let x = index"
     >
+    <div *ngIf="record.avail_seats>0" class="badge badge-info border-none badge-sm text-white absolute top-0 right-0" >{{record.avail_seats}} seats</div>
+      <div *ngIf="record.avail_seats <= 0" class="badge badge-info  border-none badge-sm text-white absolute top-0 right-0">Fully loaded</div>
+
       <div class="flex flex-col justify-start details">
         <div class="car flex w-48 md:w-fit">
-          <h2 class="car-name font-medium text-ellipsis overflow-auto">
+          <h2 class="car-name font-semibold text-ellipsis overflow-auto">
             {{ record.brand }} {{ record.model }}
           </h2>
         </div>
@@ -259,7 +249,7 @@
             alt=""
           />
           <div class="driver flex flex-col gap-0">
-            <span class="text-sm" >{{
+            <span class="text-sm font-semibold" >{{
               record.driver_name
             }}</span>
             <span class="text-xs" style="color: #9e9e9e">{{

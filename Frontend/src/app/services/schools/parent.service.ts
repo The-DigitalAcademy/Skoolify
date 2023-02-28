@@ -73,8 +73,8 @@ export class ParentService {
     );
   }
 
-  addRequests(data: any) {
-    return this.http.post(this.baseUrl + '/addRequests', data);
+  addRequests(data: any,id:any) {
+    return this.http.post(this.baseUrl + '/addRequests/'+id, data);
   }
 
   priceOfTransport(data: any) {

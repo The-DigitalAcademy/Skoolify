@@ -50,13 +50,13 @@ count=0;
 
      this.service.viewVehicle(Number(sessionStorage.getItem('selected_school'))).subscribe((vehicle:Vehicle[])=>{
 
-      console.log(Object.keys(vehicle).length)
+      //console.log(Object.keys(vehicle).length)
       this.vehichleData = vehicle;
       this.lenght=Object.keys(vehicle).length
 
-  console.log(vehicle[0].ratings,"gg")
+  //console.log(vehicle[0].ratings,"gg")
   this.ratings1=vehicle[0].ratings
-  console.log(vehicle)
+  //console.log(vehicle)
   localStorage.setItem('allInfo',JSON.stringify(vehicle))
   this.all= localStorage.getItem('allInfo')
   this.details = JSON.parse(this.all)

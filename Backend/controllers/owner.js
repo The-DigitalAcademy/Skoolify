@@ -287,8 +287,6 @@ exports.accept = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      //console.log(results.rows);
-
       //getting vehicle information first
       client.query(
         "SELECT * FROM vehicle WHERE vehicle_id = $1",
@@ -302,7 +300,7 @@ exports.accept = (req, res) => {
 
             console.log('initial seats - ',availSeats,'\nnum kids - ',results.rows[0].num_kids)
 
-            if (availSeats == 0 && results.rows[0].num_kids > availSeats) {
+            if (availSeats == 0 || parseInt(results.rows[0].num_kids) > availSeats) {
               res.status(400).json({ message:"No available seats left"});
             } else {
               availSeats -= parseInt(results.rows[0].num_kids);
@@ -381,16 +379,15 @@ exports.accept = (req, res) => {
                                           console.log(err);
                                         } else {
                                           client.query(
-                                            "UPDATE vehicle SET avail_seats = $1",
-                                            [availSeats],
+                                            "UPDATE vehicle SET avail_seats = $1 WHERE vehicle_id = $2",
+                                            [availSeats,results.rows[0].vehicle_id],
                                             (err, update) => {
                                               if (err) {
                                                 console.log(err);
                                               } else {
                                                 res.status(200).json({
                                                   message:
-                                                    "Request accepted new seats available " +
-                                                    availSeats,
+                                                    "Request accepted"
                                                 });
                                               }
                                             }
