@@ -229,7 +229,7 @@
       class="flex pl-4 pr-2 py-2 justify-between h-24 w-full bg-accent place-items-center mx-auto rounded-xl relative"
       *ngFor="let record of data; let x = index"
     >
-    <div *ngIf="record.avail_seats>0" class="badge badge-info border-none badge-sm text-white absolute top-0 right-0" >{{record.avail_seats}} seats</div>
+    <div *ngIf="record.avail_seats>0" class="badge badge-info border-none badge-sm text-white absolute top-0 right-0" >{{record.avail_seats}} seat(s)</div>
       <div *ngIf="record.avail_seats <= 0" class="badge badge-info  border-none badge-sm text-white absolute top-0 right-0">Fully loaded</div>
 
       <div class="flex flex-col justify-start details">
