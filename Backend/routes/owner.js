@@ -13,8 +13,7 @@ router.get('/oneApplication/:application_id',owner.getOneApplication);
 router.patch('/requests/decline/:request_id',owner.decline);
 router.patch('/requests/accept/:request_id',owner.accept);
 
-
-
+router.get('/vehicle/clients/:vehicle_id',owner.getVehicleClients)
 
 
 

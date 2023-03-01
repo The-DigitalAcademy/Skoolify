@@ -21,13 +21,12 @@ export class AddvehicleService  {
   addvehicle(myFormData: any) {
     return this.http.post(this.baseUrl+'/addVehicle',myFormData)
   }
-  
 
+  getVehicleClients(vehicle_id:number)
+  {
+    return this.http.get('http://localhost:8080/owner/vehicle/clients/'+ vehicle_id)
+  }
 
-  // createVehicle(data: any) {
-  //   return this.http.post(this.baseUrl+'/addVehicle/'+sessionStorage.getItem('vehicle_id'),data);
-  // }  
-   
   getVehicles(): Observable<any> {
     return this.http.get(this.baseUrl+'/getVehicles');
   }
@@ -35,7 +34,6 @@ export class AddvehicleService  {
   viewvehicle(owner_id:number){
 
     return this.http.get("http://localhost:8080/vehicle/viewvehicle/"+owner_id)
-     //return this.http.get(`${this.baseUrl}/viewvehicle/${ownerID}`)
   }
 
 
@@ -45,13 +43,13 @@ export class AddvehicleService  {
     return this.http.patch(this.baseUrl + '/removevehicle/' + vehicle_id, null);
 
   }
-  
+
   updateVehicle(vehicleId:any ,form:any)
   {
     return this.http.patch(this.baseUrl+'/updateVehicle/'+vehicleId,form);
 
   }
-  
+
   getvehicle(id:number): Observable<Vehicle> {
     return this.http.get<Vehicle>(this.baseUrl+'/getvehicle/'+id);
   }

@@ -8,6 +8,7 @@ import { response } from 'express';
 import { HotToastService } from '@ngneat/hot-toast';
 
 import { JwtService } from 'src/app/services/jwt.service';
+import { OwnerService } from 'src/app/services/owner/owner.service';
 @Component({
   selector: 'app-addvehicle',
   templateUrl: './addvehicle.component.html',
@@ -35,6 +36,8 @@ export class AddvehicleComponent implements OnInit {
   data: any= 0;
   vehiclesDetails!:any;
 
+  initial_seats: number = 0;
+
 
   vehiDetails = {
     owner_id: 0,
@@ -47,6 +50,7 @@ export class AddvehicleComponent implements OnInit {
     document: '',
     color: '',
     vehicle_image: '',
+    avail_seats: 0
   };
 
   image = {
@@ -99,29 +103,49 @@ export class AddvehicleComponent implements OnInit {
       Validators.required,
       Validators.pattern('^[a-zA-Z ]*$'),
     ]),
+    avail_seats : new FormControl(''),
   });
   name:any
+  clientsNumber: any[] = [];
+  clientsView : any[] = [];
 
-  constructor(private service: AddvehicleService,private router: Router,private http: HttpClient, private jwt : JwtService, private toast : HotToastService) {}
-
-
+  constructor(private reqService : OwnerService,private service: AddvehicleService,private router: Router,private http: HttpClient, private jwt : JwtService, private toast : HotToastService) {}
 
   ngOnInit(): void {
 
-    this.user_id = this.jwt.getData(sessionStorage.getItem('key'))?.user_id
-    this.name = this.jwt.getData(sessionStorage.getItem('key'))?.name
-
+    this.user_id = this.jwt.getData(sessionStorage.getItem('key'))?.user_id;
+    this.name = this.jwt.getData(sessionStorage.getItem('key'))?.name;
     this.viewVehicles()
 
+
+  }
+
+  increase(){
+    this.initial_seats++;
+  }
+
+  decrease(){
+    if(this.initial_seats > 0){
+      this.initial_seats--;
+    }else{
+      this.initial_seats = 0;
+    }
   }
 
 
   viewVehicles()
   {
-    this.service.viewvehicle(this.user_id).subscribe((view) => {
+    this.clientsNumber = []
+    this.service.viewvehicle(this.user_id).subscribe((view:any) => {
       console.log(view);
 
       this.data = view;
+      view.forEach((vehicle:any) => {
+        this.service.getVehicleClients(vehicle.vehicle_id).subscribe((clients:any)=>{
+          this.clientsNumber.push(clients.length);
+          console.log('Heyy',clients.length);
+        })
+      });
       console.log('selected vehicle', view);
       this.image_link = JSON.stringify(sessionStorage.getItem('image_link'));
 
@@ -134,6 +158,20 @@ export class AddvehicleComponent implements OnInit {
         driver_cellphone: this.addVehicleForm.value.drivercellphone,
       };
     });
+  }
+
+  clients(vehicle_id:any){
+    this.clientsView = []
+    this.service.getVehicleClients(vehicle_id).subscribe((clients:any)=>{
+      clients.forEach((request:any) => {
+        this.reqService.viewOneRequest(request.request_id,this.user_id).subscribe((full_req:any)=>{
+          this.clientsView.push(full_req);
+        })
+      });
+
+
+      console.log(this.clientsView)
+    })
   }
 
   editDriver(rec: any) {
@@ -246,13 +284,10 @@ removeVehicle(vehicle : number){
     this.vehiDetails.brand = form.value.brand;
     this.vehiDetails.model = form.value.model;
     this.vehiDetails.color = form.value.color;
+    this.vehiDetails.avail_seats = this.initial_seats;
     this.vehiDetails.vehicle_reg = form.value.vehicle_reg;
     this.vehiDetails.driver_name = form.value.driver_name;
     this.vehiDetails.driver_cellphone = form.value.driver_cellphone;
-
-
-
-
     console.log(this.vehiDetails);
 
     this.service.addvehicle(this.vehiDetails).subscribe((next: any) => {

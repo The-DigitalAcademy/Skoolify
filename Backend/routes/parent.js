@@ -34,7 +34,7 @@ router.get('/getVehicleUser/:id',getVehicleUser)
 router.get('/getSchoolVehicle/:id',getSchoolVehicle)
 router.get('/getOneOwner/:user_id',viewOwner)
 router.get('/getOneVehicle/:id',ViewVehicle)
-router.post('/addRequests',addRequests)
+router.post('/addRequests/:vehicle_id',addRequests)
 router.get('/getRequests',getRequests)
 router.get('/getAppPrice/:id',getAppPrice)
 

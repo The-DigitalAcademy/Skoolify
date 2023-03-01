@@ -56,7 +56,7 @@
           {{ vehicles.request.price.replace("$", "R") }}
         </h3>
         <span class="text-xs text-gray-700"
-          >Vehicle owner by
+          >Vehicle owned by
           <span class="font-semibold"
             >{{ vehicles.owner.name }} {{ vehicles.owner.surname }}</span
           ></span
@@ -95,7 +95,8 @@
     />
     </div>
 
-    <div class="form-control gap-1 my-1">
+    <div class="form-control gap-1 my-1 relative">
+      <span class="badge badge-sm badge-primary text-white font-medium absolute right-0">{{vehicles.vehicle.avail_seats}} available seats</span>
       <label for="first-name" class="block text-sm font-medium text-gray-700"
       >Number of kids</label
     >
@@ -109,7 +110,7 @@
       placeholder="Enter number of kids"
     />
     </div>
-    
+
     <div class="form-control gap-1 my-1">
       <label for="last-name" class="block text-sm font-medium text-gray-700"
       >Description</label
@@ -123,7 +124,7 @@
       placeholder="Describe the children"
     />
     </div>
-    
+
     <div class="flex w-full justify-center"><button
       type="submit"
       class="btn btn-primary my-3 mx-auto px-10 md:px-16 text-white capitalize font-normal rounded-2xl"

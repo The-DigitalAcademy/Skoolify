@@ -3,6 +3,7 @@ export interface Vehicle {
   brand: string;
   model: string;
   color: string;
+  avail_seats: number;
   vehicle_reg: string;
   vehicle_image: string;
   driver_name: string;
