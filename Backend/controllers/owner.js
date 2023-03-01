@@ -147,6 +147,7 @@ exports.getOneApplication = async (req, res) => {
 };
 
 exports.viewMyRequests = (req, res) => {
+  
   const owner_id = req.params.owner_id;
   const sql =
     "SELECT * FROM requests WHERE owner_id = $1 AND (status = 'PENDING' OR status = 'ACCEPTED')";
@@ -161,6 +162,7 @@ exports.viewMyRequests = (req, res) => {
 };
 
 exports.viewRequest = (req, res) => {
+  
   const request_id = req.params.request_id;
   const owner_id = req.params.owner_id;
 
@@ -278,6 +280,20 @@ exports.decline = (req, res) => {
     }
   });
 };
+
+exports.getVehicleClients = (req, res) => {
+  //console.log('first')
+  const vehicle_id = req.params.vehicle_id;
+  console.log(vehicle_id)
+  const reqSQL = "SELECT * FROM requests WHERE vehicle_id = $1 AND status = 'ACCEPTED'";
+  client.query(reqSQL,[vehicle_id], (err,requests)=>{
+    if(err) {
+      res.status(400).json({message:"Failed to retrieve requests"})
+    }else{
+      res.status(200).json(requests.rows)
+    }
+  })//requests sql
+}
 
 exports.accept = (req, res) => {
   const request_id = req.params.request_id;

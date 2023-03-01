@@ -36,7 +36,7 @@ app.use('/parent',parent)
 app.use('/owner',owner)
 app.use("/register", register);
 app.use("/login", login);
-app.use("/owner",owner);
+//app.use("/owner",owner);
 app.use("/forgotpassword", forgotpassword);
 
 

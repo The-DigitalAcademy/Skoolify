@@ -225,9 +225,10 @@
   </div>
 
   <div class="vehicles flex flex-col gap-2">
+
     <div
       class="flex pl-4 pr-2 py-2 justify-between h-24 w-full bg-accent place-items-center mx-auto rounded-xl relative"
-      *ngFor="let record of data; let x = index"
+      *ngFor="let record of data; index as x"
     >
     <div *ngIf="record.avail_seats>0" class="badge badge-info border-none badge-sm text-white absolute top-0 right-0" >{{record.avail_seats}} seat(s)</div>
       <div *ngIf="record.avail_seats <= 0" class="badge badge-info  border-none badge-sm text-white absolute top-0 right-0">Fully loaded</div>
@@ -267,6 +268,19 @@
           tabindex="0"
           class="menu menu-compact dropdown-content mt-1 p-2 shadow bg-gray-600 bg-opacity-90 text-white rounded-box w-fit"
         >
+        <li>
+
+            <label for="my-modal-4" (click)="clients(record.vehicle_id)"
+            class="flex active:bg-info active:text-white justify-between"
+            > <div class="text flex gap-1 place-items-center">Clients
+
+
+            </div><i class="fi fi-rr-users"></i
+          ></label>
+
+
+
+        </li>
           <li>
             <a
               class="flex active:bg-info active:text-white justify-between"
@@ -284,5 +298,27 @@
         </ul>
       </div>
     </div>
+    <input type="checkbox" id="my-modal-4" class="modal-toggle" />
+    <label for="my-modal-4" class="modal cursor-pointer">
+      <label class="modal-box relative" for="">
+        <h3 class="font-semibold">Clients for this vehicle</h3>
+        <div class="flex flex-col gap-2 w-full">
+          <div class="flex gap-2 justify-start w-full bg-accent h-14 rounded-xl py-1 px-1" *ngFor="let req of clientsView">
+            <img [src]="req.parent.image" alt="" class="w-12 h-12 object-cover rounded-xl">
+            <div class="flex flex-col">
+              <span class="font-semibold text-sm">{{req.parent.name}} {{req.parent.surname}}</span>
+              <span class="text-xs">{{req.request.address}}</span>
+            </div>
+          </div>
+        </div>
+
+      </label>
+    </label>
+
+
+
+
+
+
   </div>
 </main>
