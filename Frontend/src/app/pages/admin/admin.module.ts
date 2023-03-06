@@ -14,6 +14,8 @@ import { AdminViewOneApplicationComponent } from 'src/app/components/admin-view-
 import { AdminViewApplicationsComponent } from 'src/app/components/admin-view-applications/admin-view-applications.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AdminGuard } from 'src/app/guards/admin/admin.guard';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 
 @NgModule({
@@ -28,8 +30,9 @@ import { AdminGuard } from 'src/app/guards/admin/admin.guard';
     AdminViewApplicationsComponent
 
   ],
-  imports: [Ng2SearchPipeModule,CommonModule ,AdminRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [Ng2SearchPipeModule,CommonModule,PdfViewerModule,AdminRoutingModule, FormsModule, ReactiveFormsModule],
 
   providers:[AdminGuard]
 })
 export class AdminModule {}
+platformBrowserDynamic().bootstrapModule(AdminModule);

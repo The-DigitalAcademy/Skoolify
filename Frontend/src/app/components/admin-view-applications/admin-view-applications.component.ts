@@ -86,10 +86,10 @@ export class AdminViewApplicationsComponent implements OnInit {
   }
 
 
-  viewDocument(vehicle : any){
+  viewDocument(document : any){
     //this.load = true;
     this.toast.loading('Downloading...',{duration:1000})
-    this.http.get(vehicle.document, { responseType: 'blob' }).subscribe(response => {
+    this.http.get(document, { responseType: 'blob' }).subscribe(response => {
       saveAs(response, '.pdf');
       this.toast.success('File downloaded')
     },(error:HttpErrorResponse)=>{
@@ -119,6 +119,12 @@ export class AdminViewApplicationsComponent implements OnInit {
 
 
 
+  }
+  pdfView = '';
+
+  setPdf(pdf: any)
+  {
+    this.pdfView = pdf.document
   }
 
   declineApplication(id:number){

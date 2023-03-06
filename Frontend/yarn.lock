@@ -2887,6 +2887,11 @@
   dependencies:
     "domelementtype" "^2.2.0"
 
+"dommatrix@^1.0.1":
+  "integrity" "sha512-l32Xp/TLgWb8ReqbVJAFIvXmY7go4nTxxlWiAFyhoQw9RKEOHBZNnyGvJWqDVSPmq3Y9HlM4npqF/T6VMOXhww=="
+  "resolved" "https://registry.npmjs.org/dommatrix/-/dommatrix-1.0.3.tgz"
+  "version" "1.0.3"
+
 "domutils@^2.8.0":
   "integrity" "sha512-w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A=="
   "resolved" "https://registry.npmjs.org/domutils/-/domutils-2.8.0.tgz"
@@ -4598,6 +4603,14 @@
   "resolved" "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   "version" "2.6.2"
 
+"ng2-pdf-viewer@^9.1.4":
+  "integrity" "sha512-NnjrSW7iRF8c/FJM9Va8cXbw7gdbahlP0nxYKsdOASdLtgYHQloOHCd2szZwHM++/RQjtLnZ2kTZb4OxvgrZHg=="
+  "resolved" "https://registry.npmjs.org/ng2-pdf-viewer/-/ng2-pdf-viewer-9.1.4.tgz"
+  "version" "9.1.4"
+  dependencies:
+    "pdfjs-dist" "~2.14.305"
+    "tslib" "^2.3.1"
+
 "ng2-search-filter@^0.5.1":
   "integrity" "sha512-noN8R+Gyxo5ZuboEOvq+u0zKio6pEf1IVYQTCZfAfXm6ONmzWu/M2xK0di9oVUprDbPBQXCGUuvD5i2GD+35HA=="
   "resolved" "https://registry.npmjs.org/ng2-search-filter/-/ng2-search-filter-0.5.1.tgz"
@@ -4990,6 +5003,14 @@
   "integrity" "sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw=="
   "resolved" "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
   "version" "4.0.0"
+
+"pdfjs-dist@~2.14.305":
+  "integrity" "sha512-5f7i25J1dKIBczhgfxEgNxfYNIxXEdxqo6Qb4ehY7Ja+p6AI4uUmk/OcVGXfRGm2ys5iaJJhJUwBFwv6Jl/Qww=="
+  "resolved" "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-2.14.305.tgz"
+  "version" "2.14.305"
+  dependencies:
+    "dommatrix" "^1.0.1"
+    "web-streams-polyfill" "^3.2.1"
 
 "picocolors@^1.0.0":
   "integrity" "sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ=="
@@ -6326,7 +6347,7 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.0.0", "tslib@^2.1.0", "tslib@^2.3.0":
+"tslib@^2.0.0", "tslib@^2.1.0", "tslib@^2.3.0", "tslib@^2.3.1":
   "integrity" "sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.4.1.tgz"
   "version" "2.4.1"
@@ -6493,6 +6514,11 @@
   "version" "1.0.1"
   dependencies:
     "defaults" "^1.0.3"
+
+"web-streams-polyfill@^3.2.1":
+  "integrity" "sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q=="
+  "resolved" "https://registry.npmjs.org/web-streams-polyfill/-/web-streams-polyfill-3.2.1.tgz"
+  "version" "3.2.1"
 
 "webpack-dev-middleware@^5.3.0", "webpack-dev-middleware@5.3.0":
   "integrity" "sha512-MouJz+rXAm9B1OTOYaJnn6rtD/lWZPy2ufQCH3BPs8Rloh/Du6Jze4p7AeLYHkVi0giJnYLaSGDC7S+GM9arhg=="

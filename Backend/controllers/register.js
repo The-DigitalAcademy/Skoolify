@@ -10,7 +10,7 @@ exports.register = async (req, res) => {
   const { name, email, surname, password, gender, account } = req.body;
 
   const image = "https://res.cloudinary.com/dkvrb3pye/image/upload/v1675240135/vecteezy_profile-user-icon-isolated-on-white-background-vector-eps10__a4gxpc.jpg";
-  const ratings = 5.2;
+  const ratings = 6.0;
   const votes = 0;
   const is_suspended = false;
 

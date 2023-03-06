@@ -138,7 +138,7 @@ exports.forgotPassword = (req, res) => {
 
 exports.resetPassword = (req, res) => {
   const { email, password } = req.body;
-  const sql = "SELECT *  FROM users WHERE email = $1";
+  const sql = "SELECT * FROM users WHERE email = $1";
 
   client.query(sql, [email], (error, result) => {
     if (error) {
@@ -148,11 +148,11 @@ exports.resetPassword = (req, res) => {
       if (result.rowCount == 0) {
         res.status(400).json({ message: "User does not exist" });
       } else {
-        const sql1 = "UPDATE users SET password = $1";
+        const sql1 = "UPDATE users SET password = $1 WHERE email = $2";
         bcrypt.hash(password, 10, (err, hash) => {
           if (err) res.status(err).json({ message: "Encryption error" });
 
-          client.query(sql1, [hash], (err2, result) => {
+          client.query(sql1, [hash,email], (err2, result) => {
             if (err2) {
               console.log(err2);
               res.status(400).json({ message: "Error updating password" });
