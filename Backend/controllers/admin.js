@@ -147,15 +147,12 @@ exports.viewApplication = (req, res) => {
                         .status(400)
                         .json({ message: "Error fetching application" });
                     } else {
-                      
-                      res
-                        .status(200)
-                        .json({
-                          application: applications.rows[0],
-                          owner: owner.rows[0],
-                          vehicle: vehicle.rows[0],
-                          school: school.rows[0],
-                        });
+                      res.status(200).json({
+                        application: applications.rows[0],
+                        owner: owner.rows[0],
+                        vehicle: vehicle.rows[0],
+                        school: school.rows[0],
+                      });
                     }
                   }
                 );
@@ -199,21 +196,20 @@ exports.declineApplication = (req, res) => {
           emailDetails.subject = "Application Response";
 
           let sql_3 =
-                "UPDATE application SET status = 'DECLINED' WHERE application_id = $1";
-              client.query(sql_3, [application_id], (err, declinedResults) => {
-                if (err) {
-                  console.log(err);
-                } else {
-                  res.status(200).json({ message: "Application declined" });
-                }
-              });
-
+            "UPDATE application SET status = 'DECLINED' WHERE application_id = $1";
+          client.query(sql_3, [application_id], (err, declinedResults) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.status(200).json({ message: "Application declined" });
+            }
+          });
 
           // transporter.sendMail(emailDetails, (emailErr) => {
           //   if (emailErr) {
           //     console.log(emailErr);
           //   } else {
-              
+
           //   }
           // });
         }
@@ -255,27 +251,20 @@ exports.approve = (req, res) => {
                 emailDetails.subject = "Application Response";
 
                 let sql_3 =
-                      "UPDATE application SET status = 'APPROVED' WHERE application_id = $1";
-                    client.query(
-                      sql_3,
-                      [application_id],
-                      (err, acceptResult) => {
-                        if (err) {
-                          console.log(err);
-                        } else {
-                          res
-                            .status(200)
-                            .json({ message: "Application accepted" });
-                        }
+                  "UPDATE application SET status = 'APPROVED' WHERE application_id = $1";
+                client.query(sql_3, [application_id], (err, acceptResult) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    transporter.sendMail(emailDetails, (emailErr) => {
+                      if (emailErr) {
+                        res.status(400).json({ message: "Error sending email to owner" });
+                      } else {
+                        res.status(200).json({ message: "Application accepted" });
                       }
-                    );
-                // transporter.sendMail(emailDetails, (emailErr) => {
-                //   if (emailErr) {
-                //     console.log(emailErr);
-                //   } else {
-                    
-                //   }
-                // });
+                    });
+                  }
+                });
               }
             });
           }

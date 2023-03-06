@@ -74,7 +74,7 @@ export class OwnerRequestsComponent implements OnInit {
   }
 
   decline(form:FormGroup){
-    this.load = true;
+    //this.load = true;
     this.message = 'Declining...'
     this.toast.loading('Processing ...',{duration:10000})
     this.owner.decline(this.selected,form.value).subscribe(async(result:any)=>{
@@ -87,7 +87,8 @@ export class OwnerRequestsComponent implements OnInit {
       this.viewRequests()
       //this.requestsView = this.requestsView.splice(this.index,1)
     },(error:HttpErrorResponse)=>{
-      this.load = true;
+      this.load = false;
+      console.log(error)
       this.message = 'Decline'
 
       console.log(error)

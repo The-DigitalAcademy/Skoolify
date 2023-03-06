@@ -2,7 +2,14 @@ const client = require("../config/db_config");
 const transporter = require("../config/email_config");
 const sender = require("../config/email_config");
 
-emailDetails = {
+emailDetails1 = {
+  from: "", //where the email is from
+  to: "", //where the email is to
+  subject: "", //email subject
+  text: "", //email
+};
+
+emailDetails2 = {
   from: "", //where the email is from
   to: "", //where the email is to
   subject: "", //email subject
@@ -147,7 +154,6 @@ exports.getOneApplication = async (req, res) => {
 };
 
 exports.viewMyRequests = (req, res) => {
-  
   const owner_id = req.params.owner_id;
   const sql =
     "SELECT * FROM requests WHERE owner_id = $1 AND (status = 'PENDING' OR status = 'ACCEPTED')";
@@ -162,7 +168,6 @@ exports.viewMyRequests = (req, res) => {
 };
 
 exports.viewRequest = (req, res) => {
-  
   const request_id = req.params.request_id;
   const owner_id = req.params.owner_id;
 
@@ -284,16 +289,17 @@ exports.decline = (req, res) => {
 exports.getVehicleClients = (req, res) => {
   //console.log('first')
   const vehicle_id = req.params.vehicle_id;
-  console.log(vehicle_id)
-  const reqSQL = "SELECT * FROM requests WHERE vehicle_id = $1 AND status = 'ACCEPTED'";
-  client.query(reqSQL,[vehicle_id], (err,requests)=>{
-    if(err) {
-      res.status(400).json({message:"Failed to retrieve requests"})
-    }else{
-      res.status(200).json(requests.rows)
+  console.log(vehicle_id);
+  const reqSQL =
+    "SELECT * FROM requests WHERE vehicle_id = $1 AND status = 'ACCEPTED'";
+  client.query(reqSQL, [vehicle_id], (err, requests) => {
+    if (err) {
+      res.status(400).json({ message: "Failed to retrieve requests" });
+    } else {
+      res.status(200).json(requests.rows);
     }
-  })//requests sql
-}
+  }); //requests sql
+};
 
 exports.accept = (req, res) => {
   const request_id = req.params.request_id;
@@ -314,10 +320,18 @@ exports.accept = (req, res) => {
             //all other code goes in here...
             let availSeats = parseInt(vehicle.rows[0].avail_seats);
 
-            console.log('initial seats - ',availSeats,'\nnum kids - ',results.rows[0].num_kids)
+            console.log(
+              "initial seats - ",
+              availSeats,
+              "\nnum kids - ",
+              results.rows[0].num_kids
+            );
 
-            if (availSeats == 0 || parseInt(results.rows[0].num_kids) > availSeats) {
-              res.status(400).json({ message:"No available seats left"});
+            if (
+              availSeats == 0 ||
+              parseInt(results.rows[0].num_kids) > availSeats
+            ) {
+              res.status(400).json({ message: "No available seats left" });
             } else {
               availSeats -= parseInt(results.rows[0].num_kids);
 
@@ -343,9 +357,9 @@ exports.accept = (req, res) => {
                             if (err) {
                               console.log(err);
                             } else {
-                              emailDetails.from = sender;
-                              emailDetails.to = parentResults.rows[0].email;
-                              emailDetails.text =
+                              emailDetails1.from = sender;
+                              emailDetails1.to = parentResults.rows[0].email;
+                              emailDetails1.text =
                                 "Good Day " +
                                 parentResults.rows[0].name +
                                 "\n\nThank you for taking your time and sending an request to " +
@@ -353,7 +367,7 @@ exports.accept = (req, res) => {
                                 " " +
                                 ownerResults.rows[0].surname +
                                 ". We are glad to notify you that your request was accepted. Your name and email address will now be sent to the transport owner for further communication\n\nThe SGB";
-                              emailDetails.subject = "Request Response";
+                              emailDetails1.subject = "Request Response";
                               let sql_3 =
                                 "UPDATE requests SET status = 'ACCEPTED' WHERE request_id = $1";
                               client.query(
@@ -364,10 +378,10 @@ exports.accept = (req, res) => {
                                     console.log(err);
                                   } else {
                                     //email to owner
-                                    emailDetails.from = sender;
-                                    emailDetails.to =
+                                    emailDetails2.from = sender;
+                                    emailDetails2.to =
                                       ownerResults.rows[0].email;
-                                    emailDetails.text =
+                                    emailDetails2.text =
                                       "Good Day " +
                                       ownerResults.rows[0].name +
                                       "\n\nYou have accepted the request from " +
@@ -383,7 +397,7 @@ exports.accept = (req, res) => {
                                       "\nPick up address: " +
                                       results.rows[0].pickUp_address +
                                       "\n\nWe wish you all the best on this opportunity.\n\nThe SGB";
-                                    emailDetails.subject = "Request Response";
+                                    emailDetails2.subject = "Request Response";
 
                                     let sql_3 =
                                       "UPDATE requests SET status = 'ACCEPTED' WHERE request_id = $1";
@@ -396,45 +410,49 @@ exports.accept = (req, res) => {
                                         } else {
                                           client.query(
                                             "UPDATE vehicle SET avail_seats = $1 WHERE vehicle_id = $2",
-                                            [availSeats,results.rows[0].vehicle_id],
+                                            [
+                                              availSeats,
+                                              results.rows[0].vehicle_id,
+                                            ],
                                             (err, update) => {
                                               if (err) {
                                                 console.log(err);
                                               } else {
-                                                res.status(200).json({
-                                                  message:
-                                                    "Request accepted"
-                                                });
+                                                transporter.sendMail(
+                                                  emailDetails1,
+                                                  (emailErr) => {
+                                                    if (emailErr) {
+                                                      console.log(emailErr);
+                                                    } else {
+                                                      transporter.sendMail(
+                                                        emailDetails2,
+                                                        (emailErr) => {
+                                                          if (emailErr) {
+                                                            console.log(
+                                                              emailErr
+                                                            );
+                                                          } else {
+                                                            res
+                                                              .status(200)
+                                                              .json({
+                                                                message:
+                                                                  "Request accepted",
+                                                              });
+                                                          }
+                                                        }
+                                                      );
+                                                    }
+                                                  }
+                                                );
                                               }
                                             }
                                           );
                                         }
                                       }
                                     ); //update status
-
-                                    // transporter.sendMail(
-                                    //   emailDetails,
-                                    //   (emailErr) => {
-                                    //     if (emailErr) {
-                                    //       console.log(emailErr);
-                                    //     } else {
-                                    //       //update goes here
-                                    //     }
-                                    //   }
-                                    // );
-                                    //send the email to parent
                                   }
                                 }
-                              ); //update status
-
-                              // transporter.sendMail(emailDetails, (emailErr) => {
-                              //   if (emailErr) {
-                              //     console.log(emailErr);
-                              //   } else {
-                              //     //owner email here
-                              //   }
-                              // });
-                              //send the email to parent
+                              );
                             }
                           }
                         ); //get the owner

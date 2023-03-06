@@ -16,11 +16,8 @@ export class JwtService {
   getData(token:any):User|null{
 
     if(this.helper.isTokenExpired(token)){
-      console.log('expired')
       return null
     }else{
-      console.log('active')
-
       this.user = JSON.parse(JSON.stringify(this.helper.decodeToken(token)))
     return this.user;
     }
