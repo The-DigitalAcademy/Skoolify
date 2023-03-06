@@ -18,7 +18,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class RequestsComponent implements OnInit {
   data:any;
-
+  seats = 0
   owner1:any
   all:any;
   details:any;
@@ -118,8 +118,26 @@ this.votes=this.details[0].votes
        num_kids: new FormControl(''),   })
 }
 
+showAdd = true
+increase()
+{
+    this.seats++
+    if(this.vehicles.vehicle.avail_seats == this.seats)
+    {
+      this.showAdd = false
+    }
+}
 
-
+decrease()
+{
+  if(this.seats > 0){
+    if(this.vehicles.vehicle.avail_seats >= this.seats)
+  {
+    this.showAdd = true
+    this.seats--
+  }
+  }
+}
   back()
   {
     this.location.back()
@@ -138,16 +156,16 @@ this.votes=this.details[0].votes
   onSubmit(form:FormGroup)
   {
 
-    console.log(form);
-
     if(this.jwt.isAuthenticated() && this.jwt.getData(sessionStorage.getItem('key'))?.account == 'PARENT'){
+     if (this.seats != 0) {
+
       this.messages = "Saving...";
       this.load = true;
 
       let dataValues = {
         address: form.value.address,
         message: form.value.message,
-        num_kids:form.value.num_kids,
+        num_kids:this.seats,
         description:form.value.description,
         school_id:this.schoolID,
         parent_id:this.parentID,
@@ -175,7 +193,9 @@ this.votes=this.details[0].votes
         console.log(error)
 
       })
-
+     }else{
+      this.toast.warning('Please enter number of kids')
+     }
     }
     else{
       sessionStorage.setItem('guestState','schoolSelected')
@@ -190,7 +210,6 @@ this.votes=this.details[0].votes
 
   onRegister(form: FormGroup) {
 
-    console.log('i ran')
 
         let dataValues = {
 
@@ -208,7 +227,6 @@ this.votes=this.details[0].votes
           setTimeout(() => {
             form.reset()
             this.toast.success('Request sent')
-
           }, 2000);
 
           setTimeout(() => {
@@ -222,7 +240,6 @@ this.votes=this.details[0].votes
 
         })
         // console.log('i ran 2')
-        console.log('data here',dataValues)
       }
 
 

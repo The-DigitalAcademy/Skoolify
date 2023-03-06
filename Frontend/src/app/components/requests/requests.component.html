@@ -7,12 +7,24 @@
     <span></span>
   </div>
 
-  <div class="profile flex justify-items-start gap-3 w-full h-36">
+  <div class="profile flex justify-items-start gap-3 w-full h-36 image-side">
+    <div class="relative image-side h-fit">
     <img
-      class="w-32 h-32 md:w-40 md:h-40 object-cover rounded-xl my-auto"
+      class="w-32 h-32 md:w-40 md:h-40 object-cover rounded-2xl my-auto"
       [src]="vehicles.vehicle.driver_image"
       alt=""
     />
+
+<label for="my-modal-4" class="btn-ghost h-6 md:h-7 shadow rounded-b-2xl absolute bottom-0 w-full text-xs text-center capitalize font-normal text-white " style="background-color:var(--grey-dark);">View vehicle</label>
+
+</div>
+
+<input type="checkbox" id="my-modal-4" class="modal-toggle" />
+<label for="my-modal-4" class="modal cursor-pointer px-2">
+  <label class="modal-box relative w-full h-96" for="" style="background-image:linear-gradient(to bottom, rgba(245, 246, 252, 0),rgba(245, 246, 252, 0),rgba(245, 246, 252, 0), rgb(0, 0, 0)),url({{vehicles.vehicle.vehicle_image}}) ; background-repeat: no-repeat; background-size: cover; background-position: center;">
+   <h1 class="absolute bottom-0 text-sm text-white opacity-60 font-medium">{{ vehicles.vehicle.brand }} {{ vehicles.vehicle.model }} <span class="text-xs font-light">owned by {{ vehicles.owner.name }} {{ vehicles.owner.surname }}</span></h1>
+  </label>
+</label>
 
     <div class="details flex flex-col justify-between">
       <div class="contacts flex flex-col">
@@ -71,17 +83,15 @@
       <label for="first-name" class="block text-sm font-medium text-gray-700"
       >Message(optional)</label
     >
-    <input
-      minlength="3"
+    <textarea
       formControlName="message"
       id="name"
       required="true"
-      class="input w-full h-20 text-black bg-accent bg-opacity-50 placeholder:text-accent-focus"
-      placeholder="Type message here"
-    />
+      class="input w-full h-24 py-2 text-black bg-accent bg-opacity-50 placeholder:text-accent-focus"
+      placeholder="Type message here"></textarea>
     </div>
 
-    <div class="form-control gap-1 my-1">
+    <div class="form-control gap-1 my-">
       <label for="last-name" class="block text-sm font-medium text-gray-700"
       >Pick up address</label
     >
@@ -100,30 +110,35 @@
       <label for="first-name" class="block text-sm font-medium text-gray-700"
       >Number of kids</label
     >
+   <div class="flex gap-2 justify-start place-items-center">
+    <div class="btn btn-sm btn-primary rounded-xl text-white" (click)="decrease()">-</div>
+
     <input
-      minlength="2"
-      formControlName="num_kids"
-      id="name"
-      required="true"
-      type="number"
-      class="input w-full h-10 text-black bg-accent bg-opacity-50 placeholder:text-accent-focus"
-      placeholder="Enter number of kids"
-    />
+
+    formControlName="num_kids"
+    id="num_kids"
+    required
+    type="text"
+    [value]="seats"
+    class="input text-black bg-accent bg-opacity-50 text-sm w-12 text-center  placeholder:text-accent-focus"
+  />
+  <div *ngIf="showAdd" class="btn btn-sm btn-primary rounded-xl text-white" (click)="increase()">+</div>
+
+   </div>
     </div>
 
     <div class="form-control gap-1 my-1">
       <label for="last-name" class="block text-sm font-medium text-gray-700"
       >Description</label
     >
-    <input
-      minlength="2"
-      formControlName="description"
-      id="name"
-      required="true"
-      class="input w-full h-20 text-black bg-accent bg-opacity-50 placeholder:text-accent-focus"
-      placeholder="Describe the children"
-    />
-    </div>
+
+    <textarea
+    formControlName="description"
+    id="name"
+    required="true"
+    class="input w-full h-24 py-2 text-black bg-accent bg-opacity-50 placeholder:text-accent-focus"
+    placeholder="Type message here"></textarea>
+  </div>
 
     <div class="flex w-full justify-center"><button
       type="submit"

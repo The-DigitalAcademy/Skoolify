@@ -47,19 +47,19 @@ export class AdminViewApplicationsComponent implements OnInit {
   getApplications()
   {
     this.viewApps = []
-    this.toast.loading('Loading applications...',{duration:5000})
+    this.toast.loading('Loading applications...',{duration:1000})
     this.adminService.viewAllApplications().subscribe( (applications:OwnerApplication[])=>{
       applications.forEach(app => {
         this.adminService.viewApplication(app.application_id).subscribe(async(appView:any)=>{
           console.log(appView)
           this.viewApps.push(await appView);
         },(error:HttpErrorResponse)=>{
-          console.log(error)
+          this.toast.error(error.error.message)
         })
       });
     },(error: HttpErrorResponse)=>{
       //failed to get applications
-      console.log(error)
+      this.toast.error(error.error.message)
     })
   }
 
@@ -88,14 +88,14 @@ export class AdminViewApplicationsComponent implements OnInit {
 
   viewDocument(vehicle : any){
     //this.load = true;
-    this.toast.loading('Downloading...',{duration:2000})
+    this.toast.loading('Downloading...',{duration:1000})
     this.http.get(vehicle.document, { responseType: 'blob' }).subscribe(response => {
       saveAs(response, '.pdf');
       this.toast.success('File downloaded')
     },(error:HttpErrorResponse)=>{
       //failed to retrieve pdf file
       this.toast.error('Error downloading')
-      console.log(error);
+      this.toast.error(error.error.message);
 
     });
 
@@ -108,14 +108,13 @@ export class AdminViewApplicationsComponent implements OnInit {
 
 
   approveApplication(application: OwnerApplication){
-    this.toast.loading('Processing ...',{duration:5000})
+    this.toast.loading('Processing ...',{duration:2000})
     this.adminService.approveApplication(application).subscribe((result:any) => {
       this.getApplications()
       this.toast.success('Application approved')
     },(error:HttpErrorResponse)=>{
       //failed to approve application
       this.toast.error('Error approving application')
-      console.log(error)
     })
 
 
@@ -130,19 +129,15 @@ export class AdminViewApplicationsComponent implements OnInit {
   onDecline(form:FormGroup)
   {
 
-    this.toast.loading('Processing ...',{duration:5000})
+    this.toast.loading('Processing ...',{duration:1000})
     this.adminService.declineApplication(this.selected_application,form.value).subscribe((result:any) => {
       this.getApplications();
       //
 
     },(error:HttpErrorResponse)=>{
       //failed to approve application
-      console.log(error)
+      this.toast.error(error.error.message)
     })
-
-    setTimeout(() => {
-
-    }, 2000);
 
   }
 
