@@ -72,4 +72,10 @@ export class AdminViewOneOwnerComponent implements OnInit {
     })
   }
 
+  pdfView = '';
+
+  setPdf(pdf: any)
+  {
+    this.pdfView = pdf
+  }
 }

@@ -36,7 +36,7 @@
             </div>
           </td>
           <td>
-            {{owner.ratings}}
+            {{owner.ratings | number : "1.1-1"}}
             <br/>
             <span *ngIf="owner.ratings < 7.0" class="badge badge-error badge-sm">Below Average</span>
             <span *ngIf="owner.ratings>= 7.0 && owner.ratings < 8.5" class="badge badge-ghost badge-sm">Average</span>

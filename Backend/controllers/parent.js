@@ -141,7 +141,7 @@ exports.getVehicle = async (req, res) => {
   try {
     //get all post form the database
     const data = await client.query(
-      `SELECT * FROM vehicle_owner o , vehicle v  ,users u WHERE u.user_id = o.owner_id  and o.vehicle_id = v.vehicle_id and school_id = $1`,
+      `SELECT * FROM vehicle_owner o , vehicle v  ,users u WHERE u.user_id = o.owner_id and u.is_suspended = false and o.vehicle_id = v.vehicle_id and school_id = $1`,
       [owner_id],
       (err, result) => {
         if (err) {

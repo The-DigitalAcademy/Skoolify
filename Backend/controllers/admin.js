@@ -322,12 +322,15 @@ exports.ViewVehicle = (req, res) => {
 exports.suspendOwner = (req, res) => {
   const user_id = req.params.user_id;
   const sql = "UPDATE users SET is_suspended = $1 WHERE user_id = $2";
+const sqlRemode = "DELETE FROM vehicle_owner WHERE owner_id = $1";
 
   client.query(sql, [true, user_id], (err, results) => {
     if (err) {
       console.log(err);
       res.status(401).json({ message: "Error suspending account" });
     } else {
+
+      
       res.status(201).json({ message: "Successfully suspended" });
     }
   });
