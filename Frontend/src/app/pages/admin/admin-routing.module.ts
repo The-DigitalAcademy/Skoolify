@@ -10,14 +10,13 @@ import { AdminGuard } from 'src/app/guards/admin/admin.guard';
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
-  { path: '', component: AdminSchoolsComponent,canActivate: [AdminGuard]},
+  { path:'', component: AdminComponent,canActivate: [AdminGuard]},
   {path:'view-owners',component:ViewOwnersComponent,canActivate: [AdminGuard]},
   {path:'view-owner',component: AdminViewOneOwnerComponent,canActivate: [AdminGuard]},
   {path:'schools',component: AdminSchoolsComponent,canActivate: [AdminGuard]},
   {path:'view-school',component: AdminViewOneSchoolComponent,canActivate: [AdminGuard]},
   {path:'view-applications',component:AdminViewApplicationsComponent,canActivate: [AdminGuard]},
   {path:'view-application',component:AdminViewOneApplicationComponent,canActivate: [AdminGuard]}
-
 ]
 @NgModule({
   imports: [RouterModule.forChild(routes)],

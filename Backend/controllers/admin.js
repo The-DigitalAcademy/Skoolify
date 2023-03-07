@@ -100,6 +100,20 @@ exports.viewAllOwners = (req, res) => {
     }
   });
 };
+
+exports.viewTopRated = (req, res) => {
+  const sql = "SELECT * FROM users WHERE account = 'OWNER' AND is_suspended = false ORDER BY ratings DESC LIMIT 4 ";
+
+  client.query(sql, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ message: "Error fetching owners" });
+    } else {
+      res.status(200).json(results.rows);
+    }
+  });
+};
+
 exports.viewAllApplications = (req, res) => {
   const sql = "SELECT * FROM application WHERE status = 'PENDING'";
 
