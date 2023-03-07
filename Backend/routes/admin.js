@@ -12,9 +12,11 @@ router.patch("/removeSchool/:school_id", admin.removeSchool);
 router.get("/schoolTransporters/:school_id", admin.viewSchoolTransporters);
 
 
+
 //Owner management routes
 router.get("/owners", admin.viewAllOwners);
 router.get("/owners/top-rated", admin.viewTopRated);
+router.get("/viewVerified", admin.verifiedOwners);
 router.get("/owners/:user_id", admin.viewOwner);
 router.get("/owners/vehicles/:user_id", admin.ownerVehicles);
 router.get("/owners/vehicle/:vehicle_id", admin.ViewVehicle);

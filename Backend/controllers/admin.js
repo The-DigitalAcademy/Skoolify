@@ -60,6 +60,19 @@ exports.viewSchoolTransporters = (req, res) => {
   });
 };
 
+exports.verifiedOwners = (req, res) => {
+  const sql = "SELECT * FROM vehicle_owner v, users u WHERE v.owner_id = u.user_id AND u.is_suspended = false";
+  client.query(sql, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ message: "Error fetching school" });
+    } else {
+      res.status(200).json(results.rows);
+    }
+  });
+
+}
+
 exports.addSchool = (req, res) => {
   const { school_name, school_location } = req.body;
   const sql =

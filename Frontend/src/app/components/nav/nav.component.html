@@ -84,10 +84,19 @@
     <li *ngIf="accountType == 'ADMIN' && isLoggedIn">
       <a
         class="text-sm text-gray-400 hover:text-gray-500"
-        routerLink="/admin/schools"
-        >Home</a
+        routerLink="/admin/"
+        >Dashboard</a
       >
     </li>
+
+    <li *ngIf="accountType == 'ADMIN' && isLoggedIn">
+      <a
+        class="text-sm text-gray-400 hover:text-gray-500"
+        routerLink="/admin/schools"
+        >Schools</a
+      >
+    </li>
+
     <li *ngIf="accountType == 'ADMIN' && isLoggedIn">
       <a
         class="text-sm text-gray-400 hover:text-gray-500"

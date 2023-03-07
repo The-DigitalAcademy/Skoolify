@@ -72,7 +72,7 @@ exports.register = async (req, res) => {
                   algorithm: "HS256",
                   expiresIn: '24h'
                 });
-              console.log(results.rows)
+              
               res.status(201).json({message:'You are now registered',token:token});
 
 
@@ -80,15 +80,7 @@ exports.register = async (req, res) => {
             }
           }
         );
-        // if (flag) {
-        //   const token = jwt.sign(
-        //     //Signing a jwt token
-        //     {
-        //       email: user.email,
-        //     },
-        //     process.env.SECRET_KEY
-        //   );
-        // }
+       
       });
     }
   } catch (err) {

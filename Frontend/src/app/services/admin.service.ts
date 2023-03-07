@@ -23,6 +23,14 @@ export class AdminService {
   viewSchool(school_id: number): Observable<School> {
     return this.http.get<School>(this.baseUrl + '/viewSchools/' + school_id);
   }
+  viewTransporters():Observable<any[]>{
+    return this.http.get<any[]>(this.baseUrl + '/viewVerified').pipe();
+  }
+
+  topRated():Observable<Owner[]>{
+    return this.http.get<Owner[]>(this.baseUrl + '/owners/top-rated').pipe();
+  }
+
 
   addSchool(data: any) {
     return this.http.post(this.baseUrl + '/addSchool', data);
