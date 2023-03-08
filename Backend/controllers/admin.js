@@ -46,6 +46,22 @@ exports.viewSchool = (req, res) => {
   });
 };
 
+exports.schoolMostOwners = (req, res) => {
+  const sql = "SELECT school_id, COUNT(school_id) AS value_occurrence FROM vehicle_owner GROUP BY school_id ORDER BY value_occurrence DESC LIMIT 1;"
+  client.query(sql,(err,result)=>{
+    if (err) {
+      res.status(400).json({message:"Error fetching school with the most transporters"})
+    }else{
+
+      client.query(`SELECT * FROM school WHERE school_id = ${result.rows[0].school_id}`,(err,result1)=>{
+        res.status(200).json(result1.rows[0]);
+      })
+      
+    }
+  })
+}
+
+
 exports.viewSchoolTransporters = (req, res) => {
   const school_id = req.params.school_id;
   const sql = "SELECT * FROM vehicle_owner WHERE school_id = $1";

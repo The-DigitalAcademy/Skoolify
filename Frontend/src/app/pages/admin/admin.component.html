@@ -1,28 +1,28 @@
 <div class="px-2 pt-32 md:px-10 lg:px-14">
-  <div class="grid cards grid-cols-4 place-items-center mb-11">
+  <div class="flex justify-center -space-x-7 cards place-items-center mb-11">
 
-    <div routerLink="/admin/schools" class="flex justify-center text-center schools w-72 h-40  rounded-3xl transition-all duration-300 hover:scale-105 cursor-pointer hover:shadow-sm">
+    <div routerLink="/admin/schools" class="flex justify-center text-center schools w-72 h-40  rounded-3xl transition-all duration-300 hover:scale-105 cursor-pointer hover:shadow-xl">
       <div class="flex flex-col justify-center place-items-center">
         <span class="m-0 p-0 text-2xl"><i class="fi fi-rr-school"></i></span>
         <p class="details"><span class="font-bold text-5xl">{{schools}}</span><br><span class="text-2xl font-medium">Schools</span><br><span class="text-neutral text-sm">added on the system</span></p>
       </div>
     </div>
 
-    <div routerLink="/admin/view-owners" class="flex justify-center text-center schools w-72 h-40  rounded-3xl transition-all duration-300 hover:scale-105 cursor-pointer hover:shadow-sm">
+    <div routerLink="/admin/view-owners" class="flex justify-center text-center schools w-72 h-40  rounded-3xl transition-all duration-300 hover:scale-105 cursor-pointer hover:shadow-xl">
       <div class="flex flex-col justify-center place-items-center">
         <span class="m-0 p-0 text-2xl"><i class="fi fi-rr-users"></i></span>
         <p class="details"><span class="font-bold text-5xl">{{owners}}</span><br><span class="text-2xl font-medium">Vehicle Owners</span><br><span class="text-neutral text-sm">registered on the system</span></p>
       </div>
     </div>
 
-    <div routerLink="/admin/view-owners" class="flex justify-center text-center schools w-72 h-40  rounded-3xl transition-all duration-300 hover:scale-105 cursor-pointer hover:shadow-sm">
+    <div routerLink="/admin/view-owners" class="flex justify-center text-center schools w-72 h-40  rounded-3xl transition-all duration-300 hover:scale-105 cursor-pointer hover:shadow-xl">
       <div class="flex flex-col justify-center place-items-center">
         <span class="m-0 p-0 text-2xl"><i class="fi fi-rr-badge-check"></i></span>
         <p class="details"><span class="font-bold text-5xl">{{verified}}</span><br><span class="text-2xl font-medium">Verified</span><br><span class="text-neutral text-sm">school transporters</span></p>
       </div>
     </div>
 
-    <div routerLink="/admin/view-applications" class="flex justify-center text-center schools w-72 h-40  rounded-3xl transition-all duration-300 hover:scale-105 cursor-pointer hover:shadow-sm">
+    <div routerLink="/admin/view-applications" class="flex justify-center text-center schools w-72 h-40  rounded-3xl transition-all duration-300 hover:scale-105 cursor-pointer hover:shadow-xl">
       <div class="flex flex-col justify-center place-items-center">
         <span class="m-0 p-0 text-2xl"><i class="fi fi-rr-search-alt"></i></span>
         <p class="details"><span class="font-bold text-5xl">{{applications}}</span><br><span class="text-2xl font-medium">Applications</span><br><span class="text-neutral text-sm">pending</span></p>
@@ -32,11 +32,11 @@
 
   <div class="w-11/12 h-0.5 rounded-full bg-accent mx-auto mb-8"></div>
 
-  <h1 class="pl-4 font-medium text-base mb-4">Top Rated Vehicle Owners</h1>
+  <h1 class="pl-4 flex justify-center place-items-center font-medium text-base mb-4"><img src="../../../assets/969266_awards_medal_achievement_award_best_icon.png" alt="" class="w-10 h-10"> Top Rated Vehicle Owners</h1>
 
-  <div class="grid grid-cols-4 place-items-center">
+  <div class="flex justify-center -space-x-7 place-items-center mb-6">
 
-    <div *ngFor="let owner of topRated" (click)="selectOwner(owner.user_id)" class="flex top-rated w-72 gap-2 h-24 bg-accent rounded-3xl p-2 transition-all duration-300 hover:scale-105 cursor-pointer">
+    <div *ngFor="let owner of topRated" (click)="selectOwner(owner.user_id)" class="flex owners top-rated w-72 gap-2 h-24 rounded-3xl p-2 transition-all duration-300 hover:scale-105 cursor-pointer hover:shadow-xl">
       <img
         [src]="owner.image"
         alt=""
@@ -55,6 +55,18 @@
       </div>
     </div>
 
+  </div>
+
+
+  <h1 class="pl-4 font-medium flex justify-center place-items-center  text-lg mb-2"><img src="../../../assets/969266_awards_medal_achievement_award_best_icon.png" alt="" class="w-10 h-10">School with the most transporters</h1>
+
+  <div class="">
+    <div (click)="schoolClicked(topSchool.school_id)" class="flex flex-col mx-auto w-96 h-24 text-2xl  place-items-center rounded-3xl transition-all duration-300 hover:scale-105 cursor-pointer">
+      <div class="flex flex-col">
+        <span class="font-semibold text-lg text-center">{{topSchool.school_name}}</span>
+        <span class="font-light text-sm text-neutral text-center">{{topSchool.school_location}}</span>
+      </div>
+    </div>
   </div>
 </div>
 

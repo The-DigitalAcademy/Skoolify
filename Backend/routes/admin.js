@@ -6,6 +6,7 @@ const router = express.Router();
 //routes here.
 //School management routes
 router.get('/viewSchools', admin.viewSchools)
+router.get('/viewSchoolMostTransporters', admin.schoolMostOwners)
 router.get('/viewSchools/:school_id', admin.viewSchool)
 router.post("/addSchool", admin.addSchool);
 router.patch("/removeSchool/:school_id", admin.removeSchool);

@@ -32,6 +32,10 @@ export class AdminService {
   }
 
 
+  topSchool():Observable<School>{
+    return this.http.get<School>(this.baseUrl + '/viewSchoolMostTransporters')
+  }
+
   addSchool(data: any) {
     return this.http.post(this.baseUrl + '/addSchool', data);
   }

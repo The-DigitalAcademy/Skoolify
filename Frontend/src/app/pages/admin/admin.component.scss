@@ -12,4 +12,14 @@
   @apply bg-secondary
 }
 
+.owners{
+  @apply bg-accent
+}
+
+.owners:nth-child(2n){
+  @apply bg-secondary
+}
+
+
+
 

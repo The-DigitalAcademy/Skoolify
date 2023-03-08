@@ -25,7 +25,7 @@ export class OwnerGuard implements CanActivate {
 
         }else if(role === "ADMIN")
         {
-          this.router.navigateByUrl('/admin/');
+          this.router.navigateByUrl('/admin');
         }else {
           this.router.navigateByUrl('/login');
         }

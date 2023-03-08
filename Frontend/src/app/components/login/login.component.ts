@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
       } else if (this.user?.account == 'OWNER') {
         this.router.navigateByUrl('/owner-home');
       } else if (this.user?.account == 'ADMIN') {
-        this.router.navigateByUrl('/admin/schools');
+        this.router.navigateByUrl('/admin');
       }
     }
 
@@ -122,7 +122,7 @@ export class LoginComponent implements OnInit {
           if (this.role == 'OWNER') {
             this.router.navigateByUrl('/owner-home');
           } else if (this.role == 'ADMIN') {
-            this.router.navigateByUrl('/admin/schools');
+            this.router.navigateByUrl('/admin');
           } else if (sessionStorage.getItem('guestState') == 'schoolSelected') {
             this.router.navigateByUrl('/request');
           } else if (this.role == 'PARENT') {

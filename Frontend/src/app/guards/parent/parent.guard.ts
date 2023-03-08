@@ -21,7 +21,7 @@ export class ParentGuard implements CanActivate {
         this.toast.warning('You have no privileges to this page');
         if(role === "ADMIN")
         {
-          this.router.navigateByUrl('/admin/')
+          this.router.navigateByUrl('/admin')
 
         }else if(role === "OWNER")
         {

@@ -19,6 +19,12 @@ export class AdminComponent implements OnInit {
   schools: number = 0;
   verified: number = 0;
   topRated : Owner[] = [];
+  topSchool : School = {
+    is_deleted : false,
+    school_id : 0,
+    school_name : '',
+    school_location : ''
+  }
 
   constructor(private admin :AdminService, private toast : HotToastService,private router : Router) { }
 
@@ -53,6 +59,14 @@ export class AdminComponent implements OnInit {
       this.toast.error(error.error.message)
     })
 
+    this.admin.topSchool().subscribe((school: School)=>{
+      this.topSchool = school;
+    },(error: HttpErrorResponse)=>{
+      this.toast.error(error.error.message)
+    })
+
+
+
 
 
 
@@ -63,6 +77,11 @@ export class AdminComponent implements OnInit {
   selectOwner(id:any){
     sessionStorage.setItem('selected_owner',id);
     this.router.navigateByUrl('/admin/view-owner')
+  }
+
+  schoolClicked(school: any){
+    sessionStorage.setItem('selected_school',school)
+    this.router.navigateByUrl('/admin/view-school')
   }
 
 }
