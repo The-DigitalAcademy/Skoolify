@@ -9,6 +9,8 @@ import { HotToastService } from '@ngneat/hot-toast';
 
 import { JwtService } from 'src/app/services/jwt.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
+import { catchError } from 'rxjs';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-addvehicle',
   templateUrl: './addvehicle.component.html',
@@ -137,18 +139,13 @@ export class AddvehicleComponent implements OnInit {
   {
     this.clientsNumber = []
     this.service.viewvehicle(this.user_id).subscribe((view:any) => {
-      console.log(view);
-
       this.data = view;
       view.forEach((vehicle:any) => {
         this.service.getVehicleClients(vehicle.vehicle_id).subscribe((clients:any)=>{
           this.clientsNumber.push(clients.length);
-          console.log('Heyy',clients.length);
         })
       });
-      console.log('selected vehicle', view);
       this.image_link = JSON.stringify(sessionStorage.getItem('image_link'));
-
       let vehicleDetails = {
         model: this.addVehicleForm.value.vehicleModel,
         brand: this.addVehicleForm.value.vehiclebrand,
@@ -169,14 +166,10 @@ export class AddvehicleComponent implements OnInit {
         })
       });
 
-
-      console.log(this.clientsView)
     })
   }
 
   editDriver(rec: any) {
-    console.log('vehicles', rec);
-
 
     sessionStorage.setItem('selected_vehicle',rec)
     this.router.navigateByUrl('editvehicle')
@@ -189,17 +182,17 @@ export class AddvehicleComponent implements OnInit {
 
 removeVehicle(vehicle : number){
   //console.log('vehicles',vehicle);
-  this.service.RemoveVehicle(vehicle).subscribe((result:any)=>{
+  this.service.RemoveVehicle(vehicle).pipe(
+    this.toast.observe({
+      loading: 'Removing...',
+      success:(s:any) => 'Done!',
+      error: (e) =>  e.error.message,
+   }),catchError((error) => of(error))
+  ).subscribe((result:any)=>{
     //console.log("removed");
-    this.toast.success('Vehicle removed')
     this.viewVehicles();
-
-
   },(error:HttpErrorResponse)=>{
     console.log(error);
-
-    this.toast.error(error.error.message)
-
   })
 }
 
@@ -276,10 +269,6 @@ removeVehicle(vehicle : number){
 
   onSubmit(form: FormGroup) {
 
-    this.toast.loading('Adding vehicle ...',{duration:1000});
-
-    console.log(form.value)
-
     this.vehiDetails.owner_id = this.user_id
     this.vehiDetails.brand = form.value.brand;
     this.vehiDetails.model = form.value.model;
@@ -290,15 +279,19 @@ removeVehicle(vehicle : number){
     this.vehiDetails.driver_cellphone = form.value.driver_cellphone;
     console.log(this.vehiDetails);
 
-    this.service.addvehicle(this.vehiDetails).subscribe((next: any) => {
+    this.service.addvehicle(this.vehiDetails).pipe(
+      this.toast.observe({
+        loading: 'Saving...',
+        success:(s:any) => 'Vehicle added!',
+        error: (e) =>  e.error.message,
+     }),catchError((error) => of(error))
+    ).subscribe((next: any) => {
       //console.log('Vehicle has been added successfully!');
-      this.toast.success(next.message)
       form.reset()
       this.viewVehicles();
       this.submitted = false;
     },(error: HttpErrorResponse)=>{
       console.log(error)
-      this.toast.error(error.error.message)
 
     });
   }

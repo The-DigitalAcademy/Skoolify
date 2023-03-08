@@ -4,6 +4,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import * as saveAs from 'file-saver';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs';
 import { OwnerApplication } from 'src/app/interfaces/applications';
 import { Owner } from 'src/app/interfaces/owner';
 import { School } from 'src/app/interfaces/school';
@@ -47,19 +49,22 @@ export class AdminViewApplicationsComponent implements OnInit {
   getApplications()
   {
     this.viewApps = []
-    this.toast.loading('Loading applications...',{duration:1000})
-    this.adminService.viewAllApplications().subscribe( (applications:OwnerApplication[])=>{
+    this.adminService.viewAllApplications().pipe(
+    //   this.toast.observe({
+    //     loading: 'Fetching applications...',
+    //     success:(s:any) => 'Done!',
+    //     error: (e) =>  'Error fetching applications',
+    //  }),catchError((error) => of(error))
+    ).subscribe( (applications:OwnerApplication[])=>{
       applications.forEach(app => {
-        this.adminService.viewApplication(app.application_id).subscribe(async(appView:any)=>{
+        this.adminService.viewApplication(app.application_id).subscribe((appView:any)=>{
           console.log(appView)
-          this.viewApps.push(await appView);
+          this.viewApps.push(appView);
         },(error:HttpErrorResponse)=>{
-          this.toast.error(error.error.message)
         })
       });
     },(error: HttpErrorResponse)=>{
       //failed to get applications
-      this.toast.error(error.error.message)
     })
   }
 
@@ -88,15 +93,15 @@ export class AdminViewApplicationsComponent implements OnInit {
 
   viewDocument(document : any){
     //this.load = true;
-    this.toast.loading('Downloading...',{duration:1000})
-    this.http.get(document, { responseType: 'blob' }).subscribe(response => {
+    this.http.get(document, { responseType: 'blob' }).pipe(
+      this.toast.observe({
+        loading: 'Downloading...',
+        success:(s:any) => 'Downloaded!',
+        error: (e) =>  'Error downloading'
+     }),catchError((error) => of(error))
+    ).subscribe(response => {
       saveAs(response, '.pdf');
-      this.toast.success('File downloaded')
     },(error:HttpErrorResponse)=>{
-      //failed to retrieve pdf file
-      this.toast.error('Error downloading')
-      this.toast.error(error.error.message);
-
     });
 
     setTimeout(() => {
@@ -104,21 +109,17 @@ export class AdminViewApplicationsComponent implements OnInit {
     }, 2000);
   }
 
-
-
-
   approveApplication(application: OwnerApplication){
-    this.toast.loading('Processing ...',{duration:2000})
-    this.adminService.approveApplication(application).subscribe((result:any) => {
+    this.adminService.approveApplication(application).pipe(
+      this.toast.observe({
+      loading: 'Approving...',
+      success:(s:any) => s.message,
+      error: (e) =>  e.error.message,
+   }),catchError((error) => of(error))).subscribe((result:any) => {
       this.getApplications()
-      this.toast.success('Application approved')
     },(error:HttpErrorResponse)=>{
       //failed to approve application
-      this.toast.error('Error approving application')
     })
-
-
-
   }
   pdfView = '';
 
@@ -135,14 +136,16 @@ export class AdminViewApplicationsComponent implements OnInit {
   onDecline(form:FormGroup)
   {
 
-    this.toast.loading('Processing ...',{duration:1000})
-    this.adminService.declineApplication(this.selected_application,form.value).subscribe((result:any) => {
+    this.adminService.declineApplication(this.selected_application,form.value).pipe(
+      this.toast.observe({
+        loading: 'Declining...',
+        success:(s:any) => s.message,
+        error: (e) =>  e.error.message,
+     }),catchError((error) => of(error))
+    ).subscribe((result:any) => {
       this.getApplications();
-      //
-
     },(error:HttpErrorResponse)=>{
       //failed to approve application
-      this.toast.error(error.error.message)
     })
 
   }

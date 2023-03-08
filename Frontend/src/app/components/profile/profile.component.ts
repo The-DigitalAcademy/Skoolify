@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { Vehicle } from 'src/app/interfaces/vehicle';
 import { AdminService } from 'src/app/services/admin.service';
@@ -77,21 +79,24 @@ export class ProfileComponent implements OnInit {
   }
 
   onSumbitImage(form: FormGroup){
-    this.message = 'Saving ...'
-    this.load = true;
+    //this.message = 'Saving ...'
+    //this.load = true;
 
     const formData = new FormData();
     formData.append("file",this.file)
     formData.append("upload_preset",this.preset);
     this.http.post(this.cloudinaryUrl,formData).subscribe((res:any)=>{
       this.data.image = res.url;
-      console.log(res.url)
-      this.profile.updateImage(this.user_id,this.data).subscribe((res:any)=>{
+
+      this.profile.updateImage(this.user_id,this.data).pipe(
+        this.toast.observe({
+          loading: 'Saving...',
+          success:(s:any) => s.message,
+          error: (e) =>  e.error.message,
+       }),catchError((error) => of(error))
+      ).subscribe((res:any)=>{
         this.getUser();
         this.message = 'Saved';
-        this.toast.success(res.message)
-
-
         setTimeout(() => {
           this.load = false;
           form.reset()
@@ -99,9 +104,6 @@ export class ProfileComponent implements OnInit {
         }, 2000);
 
       },(error:HttpErrorResponse)=>{
-        console.log(error);
-        this.toast.error(error.error.message)
-
         setTimeout(() => {
           this.load = false;
           form.reset()
@@ -110,7 +112,7 @@ export class ProfileComponent implements OnInit {
       })
     },(error:HttpErrorResponse)=>{
       //upload error
-      this.toast.error(error.error.message)
+      this.toast.error('Image upload failed')
 
       console.log(error)
       setTimeout(() => {
@@ -159,12 +161,15 @@ export class ProfileComponent implements OnInit {
 
     if(form.value.newPassword === form.value.confirmPassword){
 
-      this.profile.updatePassword(this.user_id,form.value).subscribe((res:any)=>{
+      this.profile.updatePassword(this.user_id,form.value).pipe(this.toast.observe({
+        loading: 'Saving...',
+        success:(s:any) => s.message,
+        error: (e) =>  e.error.message,
+     }),catchError((error) => of(error))).subscribe((res:any)=>{
 
         form.reset();
         this.getUser();
         this.message = 'Saved'
-        this.toast.success(res.message)
         setTimeout(() => {
           this.load = false;
           form.reset()
@@ -172,8 +177,6 @@ export class ProfileComponent implements OnInit {
         }, 2000);
       },(error:HttpErrorResponse)=>{
         //error toast here
-        this.toast.error(error.error.message)
-        console.log(error)
         setTimeout(() => {
           this.load = false;
           form.reset()

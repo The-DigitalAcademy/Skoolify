@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 
 @Component({
@@ -37,7 +39,7 @@ export class ForgotpasswordComponent implements OnInit {
       confirmpassword: ['', [Validators.required]],
     })
 
-  
+
   }
 
   onResetPassword(form:FormGroup){
@@ -46,24 +48,18 @@ export class ForgotpasswordComponent implements OnInit {
     {
       if(form.value.password == form.value.confirmpassword)
       {
-        this.toast.loading('Processing ...',{duration:2000});
-        this.service.resetPassword(form.value).subscribe((res:any)=>{
-          this.toast.success(res.message)
-          this.router.navigateByUrl('/login');
-        },(error: HttpErrorResponse)=>{
-          console.log(error)
-          this.toast.error(error.error.message)
+        this.service.resetPassword(form.value).pipe(
+          this.toast.observe({
+          loading: 'Saving...',
+          success:(s:any) => s.message,
+          error: (e) =>  e.error.message,
+       }),catchError((error) => of(error))).subscribe((res:any)=>{
+          //this.router.navigateByUrl('/login');
         })
-
       }else{
         this.toast.warning('Passwords do no match')
       }
     }
-
-
-
-    console.log(form.value)
-
   }
 
   get formValidation(): { [key: string]: AbstractControl } {

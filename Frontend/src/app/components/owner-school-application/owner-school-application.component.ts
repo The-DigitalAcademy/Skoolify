@@ -13,6 +13,8 @@ import { FormControl, Validators, AbstractControl } from '@angular/forms';
 import { JwtService } from 'src/app/services/jwt.service';
 import { stringify } from '@angular/compiler/src/util';
 import { HotToastService } from '@ngneat/hot-toast';
+import { catchError } from 'rxjs';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-owner-school-application',
   templateUrl: './owner-school-application.component.html',
@@ -124,15 +126,16 @@ this.schoolLocation=this.school.school_location;
       owner_id: this.ownerID,
       vehicle_id: form.value.vehicle_id,
     };
-    this.services.price(applicationData).subscribe(
+    this.services.price(applicationData).pipe(
+      this.toast.observe({
+        loading: 'Applying...',
+        success:(s:any) => 'Application sent',
+        error: (e) =>  e.error.message,
+     }),catchError((error) => of(error))
+    ).subscribe(
       (result: any) => {
-        this.toast.success('Application sent');
         this.router.navigateByUrl('/owner-home');
         form.reset();
-      },
-      (error: HttpErrorResponse) => {
-        this.toast.error(error.error.message);
-        console.log(error);
       }
     );
   }

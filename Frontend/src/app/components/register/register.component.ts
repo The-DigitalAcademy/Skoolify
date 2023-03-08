@@ -7,6 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { JwtService } from 'src/app/services/jwt.service';
 import { User } from 'src/app/interfaces/user';
 import { HotToastService } from '@ngneat/hot-toast';
+import { catchError } from 'rxjs';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -122,18 +124,19 @@ export class RegisterComponent implements OnInit {
     console.log(form.valid)
 
     if(form.valid){
-      console.log('first step')
-      this.toast.loading('Signing you up ...',{duration:200})
       console.log(form.value)
       if(form.value.password === form.value.confirmPassword){
 
-        this.auth.postData(form.value).subscribe(
+        this.auth.postData(form.value).pipe(this.toast.observe({
+          loading: 'Signing you up...',
+          success: (s:any) => 'Welcome to Skooliy!',
+          error: (e) =>  e.error.message,
+       }),catchError((error) => of(error))).subscribe(
           (results: any) => {
             this.auth.saveToken(results.token);
             this.user = this.jwt.getData(results.token);
             if (this.user != null) {
               this.role = this.user.account;
-              this.toast.success('Welcome to Skoolify')
               sessionStorage.setItem('state','logged in');
 
             }
@@ -147,10 +150,6 @@ export class RegisterComponent implements OnInit {
             } else if (this.role == 'PARENT') {
               this.router.navigateByUrl('/parent-home');
             }
-          },
-
-          (error: HttpErrorResponse) => {
-            this.toast.error(error.error.message)
           }
         );
 

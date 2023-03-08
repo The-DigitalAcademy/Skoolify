@@ -12,6 +12,8 @@ import { JwtService } from 'src/app/services/jwt.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/interfaces/user';
 import { HotToastService } from '@ngneat/hot-toast';
+import { catchError } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -87,16 +89,18 @@ export class LoginComponent implements OnInit {
 
   onforgotPassword(form: FormGroup) {
     this.submitted = true;
-    this.toast.loading('Processing ...', { duration: 10000 });
+    //this.toast.loading('Processing ...', { duration: 10000 });
     if (form.valid) {
-      this.auth1.forgotPassword(form.value).subscribe(
+      this.auth1.forgotPassword(form.value).pipe(
+        this.toast.observe({
+          loading: 'Processing...',
+          success: (s:any) => s.message,
+          error: (e) =>  e.error.message,
+       }),catchError((error) => of(error))
+      ).subscribe(
         (res: any) => {
           form.reset();
           this.submitted = false;
-          this.toast.success(res.message);
-        },
-        (error: HttpErrorResponse) => {
-          this.toast.error(error.error.message);
         }
       );
     }
@@ -106,16 +110,18 @@ export class LoginComponent implements OnInit {
     //Sign in the User to the to the app
     this.submitted = true;
     if (form.valid) {
-      this.toast.loading('Signing you in ...', { duration: 1000 });
-      this.auth1.loginData(form.value).subscribe(
+      this.auth1.loginData(form.value).pipe(
+        this.toast.observe({
+          loading: 'Signing you in...',
+          success: (s:any) => s.message,
+          error: (e) =>  e.error.message,
+       }),catchError((error) => of(error))
+      ).subscribe(
         (results: any) => {
           this.auth1.saveToken(results.token);
           this.user = this.jwt.getData(results.token);
-
           if (this.user != null) {
             this.role = this.user.account;
-            this.toast.success(results.message, { duration: 3000 });
-
             sessionStorage.setItem('state', 'logged in');
           }
 
@@ -128,9 +134,6 @@ export class LoginComponent implements OnInit {
           } else if (this.role == 'PARENT') {
             this.router.navigateByUrl('/parent-home');
           }
-        },
-        (error: HttpErrorResponse) => {
-          this.toast.error(error.error.message, { duration: 4000 });
         }
       );
     }

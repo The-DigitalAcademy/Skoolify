@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { RequestInterface } from 'src/app/interfaces/request';
 import { JwtService } from 'src/app/services/jwt.service';
 import { OwnerService } from 'src/app/services/owner/owner.service';
@@ -46,7 +48,11 @@ export class OwnerRequestsComponent implements OnInit {
 
 
   viewRequests(){
-    this.owner.viewRequests(this.user_id).subscribe((requests: RequestInterface[])=>{
+    this.owner.viewRequests(this.user_id).pipe(this.toast.observe({
+      loading: 'Fetching your requests...',
+      success:(s:any) => 'Done!',
+      error: (e) =>  e.error.message,
+   }),catchError((error) => of(error))).subscribe((requests: RequestInterface[])=>{
       console.log(requests);
       requests.forEach(request => {
         this.owner.viewOneRequest(request.request_id,request.owner_id).subscribe(async(requestView:any)=>{
@@ -61,8 +67,13 @@ export class OwnerRequestsComponent implements OnInit {
   }
 
   accept(request_id: number){
-    this.toast.loading('Processing ...',{duration:1000})
-    this.owner.accept(request_id).subscribe(async(result:any)=>{
+    this.owner.accept(request_id).pipe(
+      this.toast.observe({
+        loading: 'Processing...',
+        success:(s:any) => s.message,
+        error: (e) =>  e.error.message,
+     }),catchError((error) => of(error))
+    ).subscribe(async(result:any)=>{
       this.toast.success(await result.message);
       this.requestsView = []
       this.viewRequests()
@@ -76,13 +87,13 @@ export class OwnerRequestsComponent implements OnInit {
   decline(form:FormGroup){
     //this.load = true;
     this.message = 'Declining...'
-    this.toast.loading('Processing ...',{duration:10000})
-    this.owner.decline(this.selected,form.value).subscribe(async(result:any)=>{
+    this.owner.decline(this.selected,form.value).pipe(this.toast.observe({
+      loading: 'Processing...',
+      success:(s:any) => s.message,
+      error: (e) =>  e.error.message,
+   }),catchError((error) => of(error))).subscribe(async(result:any)=>{
       this.load = false;
       this.message = 'Decline'
-
-
-      this.toast.success(await result.message);
       this.requestsView = []
       this.viewRequests()
       //this.requestsView = this.requestsView.splice(this.index,1)
@@ -90,8 +101,6 @@ export class OwnerRequestsComponent implements OnInit {
       this.load = false;
       console.log(error)
       this.message = 'Decline'
-
-      console.log(error)
     })
   }
 

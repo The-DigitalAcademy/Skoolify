@@ -2,6 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs';
 import { JwtService } from 'src/app/services/jwt.service';
 import { ParentService } from 'src/app/services/schools/parent.service';
 
@@ -35,22 +37,21 @@ export class ParentsRequestComponent implements OnInit {
   }
 
   getRequests(){
-    this.toast.loading('Loading requests ...',{duration:3000})
     this.requestsView = []
-    this.parent.getAllRequests(this.parent_id).subscribe((requests:any)=>{
+    this.parent.getAllRequests(this.parent_id).pipe(this.toast.observe({
+      loading: 'Fetching your requests...',
+      success:(s:any) => 'Done!',
+      error: (e) =>  e.error.message,
+   }),catchError((error) => of(error))).subscribe((requests:any)=>{
 
       requests.forEach((request:any) => {
         this.parent.getRequest(this.parent_id,request.request_id).subscribe((fullRequest:any)=>{
           this.requestsView.push(fullRequest);
         })
-
       });
-
-      console.log(this.requestsView)
 
     },(error:HttpErrorResponse)=>{
       console.log(error)
-      this.toast.error(error.error.message)
     })
   }
   select(request:any){

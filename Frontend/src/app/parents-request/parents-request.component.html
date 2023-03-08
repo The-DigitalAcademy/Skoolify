@@ -1,7 +1,7 @@
 <div class="pt-14">
   <span class="pl-5">Requests</span>
 
-  <div class="hero" *ngIf="requestsView.length == 0">
+  <!-- <div class="hero" *ngIf="requestsView.length == 0">
     <div class="hero-content text-center">
       <div class="max-w-md">
         <h1 class="text-5xl font-bold">Oops!</h1>
@@ -14,7 +14,7 @@
         </button>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="requests px-3 md:px-12">
     <div class="request bg-accent" *ngFor="let request of requestsView">
@@ -51,7 +51,7 @@
       <div
         [ngClass]="
           request.request.status == 'ACCEPTED'
-            ? 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-info'
+            ? 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-primary'
             : 'flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral'
         "
       >

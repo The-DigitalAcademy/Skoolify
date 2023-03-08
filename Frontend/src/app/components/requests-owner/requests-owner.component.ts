@@ -4,6 +4,9 @@ import { OwnerApplication } from 'src/app/interfaces/applications';
 import { application, Application } from 'express';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { JwtService } from 'src/app/services/jwt.service';
+import { HotToastService } from '@ngneat/hot-toast';
+import { catchError } from 'rxjs';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-requests-owner',
   templateUrl: './requests-owner.component.html',
@@ -17,7 +20,7 @@ export class RequestsOwnerComponent implements OnInit {
   school1: any;
   applications: any[] = [];
   schoolName: any;
-  constructor(private services: OwnerService, private jwt: JwtService) {}
+  constructor(private services: OwnerService, private jwt: JwtService,private toast : HotToastService) {}
   OwnerApplication!: OwnerApplication;
 
   ngOnInit(): void {
@@ -30,7 +33,13 @@ export class RequestsOwnerComponent implements OnInit {
       .viewOwnerRequests(
         this.jwt.getData(sessionStorage.getItem('key'))?.user_id
       )
-      .subscribe(
+      .pipe(
+        this.toast.observe({
+        loading: 'Fetching your applications...',
+        success:(s:any) => 'Done!',
+        error: (e) =>  'Error fetching applications',
+     }),catchError((error) => of(error))
+      ).subscribe(
         (applications1: any) => {
           applications1.forEach((application: any) => {
             this.services
@@ -42,7 +51,6 @@ export class RequestsOwnerComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           //failed to view vehicle
-          console.log(error);
         }
       );
   }

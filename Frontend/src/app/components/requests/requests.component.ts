@@ -10,6 +10,8 @@ import { RequestInterface } from 'src/app/interfaces/request';
 import { School } from 'src/app/interfaces/school';
 import { JwtService } from 'src/app/services/jwt.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { catchError } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-requests',
@@ -173,25 +175,21 @@ decrease()
       }
 
       console.log("add",dataValues)
-      this.toast.loading('Requesting ...',{duration:3000})
-
-      this.service.addRequests(dataValues,this.vehicles.vehicle.vehicle_id).subscribe((result:any) => {
+      this.service.addRequests(dataValues,this.vehicles.vehicle.vehicle_id).pipe(
+        this.toast.observe({
+          loading: 'Requesting...',
+          success:(s:any) => "Request sent!",
+          error: (e) =>  e.error.message,
+       }),catchError((error) => of(error))
+      ).subscribe((result:any) => {
 
         setTimeout(() => {
           form.reset()
-          this.toast.success('Request sent')
-
         }, 2000);
 
         setTimeout(() => {
           this.messages = "Save";
         }, 4000);
-      },(error:HttpErrorResponse)=>{
-        //failed to save school
-        this.toast.error(error.error.message)
-
-        console.log(error)
-
       })
      }else{
       this.toast.warning('Please enter number of kids')

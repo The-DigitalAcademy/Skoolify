@@ -7,6 +7,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Vehicle } from 'src/app/interfaces/vehicle';
 import { Location } from '@angular/common';
 import { HotToastService } from '@ngneat/hot-toast';
+import { catchError } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-edit-vehicle',
@@ -118,26 +120,24 @@ export class EditVehicleComponent implements OnInit {
         Number(sessionStorage.getItem('selected_vehicle')),
         this.vehiDetails
       )
-      .subscribe(
+      .pipe(
+        this.toast.observe({
+          loading:'Saving...',
+          success:(s:any)=> s.message,
+          error:(e)=> e.error.message,
+        }),catchError((error) => of(error))
+      ).subscribe(
         (res: any) => {
-          setTimeout(() => {
-            this.message = 'Save';
+          this.message = 'Save';
             this.load = false;
-            this.toast.success(res.message);
-
             this.location.back();
-          }, 2000);
         },
         (error: HttpErrorResponse) => {
           console.log(error);
-          
-          this.toast.error(error.error.message);
           this.message = 'Save';
             this.load = false;
         }
       );
-
-    console.log(this.vehiDetails);
   }
 
   back() {
